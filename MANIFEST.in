@@ -1,0 +1,11 @@
+include dash_express_components/dash_express_components.min.js
+include dash_express_components/dash_express_components.min.js.map
+include dash_express_components/async-*.js
+include dash_express_components/async-*.js.map
+include dash_express_components/*-shared.js
+include dash_express_components/*-shared.js.map
+include dash_express_components/metadata.json
+include dash_express_components/package-info.json
+include README.md
+include LICENSE
+include package.json

@@ -1,0 +1,241 @@
+{
+  "src/lib/components/Base.react.js": {
+    "description": "",
+    "displayName": "Base",
+    "methods": [
+      {
+        "name": "update_meta_out",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "new_meta_out",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "update_config",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "new_config",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "get_columns",
+        "docblock": "A helper to compute the column dropdown options based on the column metadata\r\nWe also filter continous and categorical variables, since some options only\r\nwork with one of them.\r\n@param meta \r\n@returns",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "meta",
+            "description": null,
+            "type": null,
+            "optional": false
+          }
+        ],
+        "returns": null,
+        "description": "A helper to compute the column dropdown options based on the column metadata\r\nWe also filter continous and categorical variables, since some options only\r\nwork with one of them."
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "meta": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "The metadata this section is based on."
+      },
+      "meta_out": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The metadata section will create as output."
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/Configurator.react.js": {
+    "description": "Configurator component",
+    "displayName": "Configurator",
+    "methods": [
+      {
+        "name": "update_config",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "new_config",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "meta": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "The metadata the plotter selection is based on."
+      },
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "Prop The resulting configuration of the plot."
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/Filter.react.js": {
+    "description": "",
+    "displayName": "Filter",
+    "methods": [
+      {
+        "name": "handleClose",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleShow",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "update_config",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "new_config",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "filter_to_string",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "get_filter_blocks",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "get_modal_blocks",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "meta": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "The metadata this section is based on."
+      },
+      "meta_out": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The metadata section will create as output."
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  }
+}
