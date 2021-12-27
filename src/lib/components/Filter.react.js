@@ -1,4 +1,4 @@
-import { isNil, pluck } from 'ramda';
+import { filter, isNil, pluck } from 'ramda';
 import React from 'react';
 import Base from './Base.react';
 
@@ -6,6 +6,10 @@ import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
+
+
 
 import VirtualizedSelect from 'react-virtualized-select';
 import Accordion from 'react-bootstrap/Accordion';
@@ -34,7 +38,8 @@ export default class Filter extends Base {
 
             selectedDateTime: new Date(),
 
-            filterType: ""
+            filterType: "",
+            filterNumber: 0
 
 
         };
@@ -56,18 +61,28 @@ export default class Filter extends Base {
 
         new_config.forEach(el => {
             if (el.col in new_meta) {
-                if (el.type in ["gt", "gte"]) {
-                    new_meta[el.col].min = el.value
+                if (el["type"] === "gt" || el["type"] === "gte") {
+
+                    new_meta[el.col].min = el.value;
+                    new_meta[el.col].max = Math.max(new_meta[el.col].max, el.value);
+                    new_meta[el.col].median = Math.max(new_meta[el.col].median, el.value);
                 }
-                if (el.type in ["lt", "lte"]) {
-                    new_meta[el.col].max = el.value
+                if (el["type"] === "lt" || el["type"] === "lte") {
+                    new_meta[el.col].max = el.value;
+                    new_meta[el.col].min = Math.max(new_meta[el.col].min, el.value);
+                    new_meta[el.col].median = Math.max(new_meta[el.col].median, el.value);
                 }
-                if (el.type === "isin") {
+                if (el["type"] === "eq") {
+                    new_meta[el.col].max = el.value;
+                    new_meta[el.col].min = el.value;
+                    new_meta[el.col].median = el.value;
+                }
+                if (el["type"] === "isin") {
                     new_meta[el.col].cat = new_meta[el.col].cat.filter(
                         ael => el.value.indexOf(ael) !== -1
                     )
                 }
-                if (el.type === "isnotin") {
+                if (el["type"] === "isnotin") {
                     new_meta[el.col].cat = new_meta[el.col].cat.filter(
                         ael => el.value.indexOf(ael) === -1
                     )
@@ -81,8 +96,6 @@ export default class Filter extends Base {
 
     filter_to_string(el) {
 
-        console.log(el);
-
         let translate = {
             isin: "∈",
             isnotin: "∉",
@@ -92,6 +105,13 @@ export default class Filter extends Base {
             lte: "≤",
             eq: "=",
             neq: "≠",
+            istrue: "= True",
+            isfalse: "= False",
+
+            after: "after",
+            before: "before",
+            lastn: "last days: ",
+            
         }
 
         if (el["type"] === "isin" || el["type"] === "isnotin") {
@@ -132,6 +152,7 @@ export default class Filter extends Base {
             categoryOptions, selectedCategories,
             selectedDateTime,
             filterType,
+            filterNumber,
             config, meta } = this.state;
 
         return (<Modal backdrop="static"
@@ -143,9 +164,10 @@ export default class Filter extends Base {
             </Modal.Header>
             <Modal.Body><div style={{ minHeight: "15em" }} className="mb-3">
 
-                Please specify the column you want to filter.
+                Specify the column you want to filter.
 
                 <VirtualizedSelect
+                    className="mb-3"
 
                     options={allColOptions}
 
@@ -185,7 +207,42 @@ export default class Filter extends Base {
 
                 {
                     selectedType == "numerical" &&
-                    <div>numerical</div>
+                    <div>
+
+                        Select the numerical filtering you want to apply:
+
+
+                        <InputGroup className="mb-3">
+                            <InputGroup.Text id="basic-addon1">Type</InputGroup.Text>
+                            <Form.Select
+
+
+                                value={filterType}
+                                onChange={e => { this.setState({ filterType: e.target.value }); }}
+
+                            >
+                                <option value=""></option>
+                                <option value="gt">&gt;</option>
+                                <option value="gte">≥</option>
+                                <option value="lt">&lt;</option>
+                                <option value="lte">≤</option>
+                                <option value="eq">=</option>
+                                <option value="neq">≠</option>
+                            </Form.Select>
+
+                        </InputGroup>
+
+
+                        <InputGroup className="mb-3">
+                            <InputGroup.Text id="basic-addon1">Value</InputGroup.Text>
+                            <FormControl type="number" value={filterNumber} onChange={e => { this.setState({ filterNumber: e.target.value }); }} />
+                        </InputGroup>
+
+
+
+
+
+                    </div>
                 }
 
                 {
@@ -194,16 +251,17 @@ export default class Filter extends Base {
 
                         Select which categories you want to filter:
 
-                        <Form.Select
-
-                            value={filterType}
-                            onChange={e => { this.setState({ filterType: e.target.value }); }}
-
-                        >
-                            <option value=""></option>
-                            <option value="isin">∈</option>
-                            <option value="isnotin">∉</option>
-                        </Form.Select>
+                        <InputGroup className="mb-3">
+                            <InputGroup.Text id="basic-addon1">Type</InputGroup.Text>
+                            <Form.Select
+                                value={filterType}
+                                onChange={e => { this.setState({ filterType: e.target.value }); }}
+                            >
+                                <option value=""></option>
+                                <option value="isin">∈</option>
+                                <option value="isnotin">∉</option>
+                            </Form.Select>
+                        </InputGroup>
 
                         <VirtualizedSelect
                             options={categoryOptions} multi
@@ -230,21 +288,61 @@ export default class Filter extends Base {
                     selectedType == "temporal" &&
                     <div>
 
-                        <DateTimePicker
-                            className="w-100 border rounded"
-                            value={selectedDateTime}
-                            onChange={newDateTime => {
-                                this.setState({
-                                    selectedDateTime: newDateTime
-                                })
-                            }}
-                        />
+
+                        <InputGroup className="mb-3">
+                            <InputGroup.Text id="basic-addon1">Type</InputGroup.Text>
+                            <Form.Select
+                                value={filterType}
+                                onChange={e => { this.setState({ filterType: e.target.value }); }}
+                            >
+                                <option value=""></option>
+                                <option value="after">after</option>
+                                <option value="before">before</option>
+                                <option value="lastn">last days</option>
+                            </Form.Select>
+
+                        </InputGroup>
+                        {filterType !== "lastn" &&
+                            <DateTimePicker
+                                className="w-100 border rounded"
+                                value={selectedDateTime}
+                                onChange={newDateTime => {
+                                    this.setState({
+                                        selectedDateTime: newDateTime
+                                    })
+                                }}
+                            />}
+
+                        {filterType === "lastn" &&
+                            <InputGroup className="mb-3">
+                                <InputGroup.Text id="basic-addon1">Value</InputGroup.Text>
+                                <FormControl type="number" value={filterNumber} onChange={e => { this.setState({ filterNumber: e.target.value }); }} />
+                            </InputGroup>
+                        }
 
                     </div>
                 }
                 {
                     selectedType == "bool" &&
-                    <div>bool</div>
+                    <div>
+
+
+                        Select which flag you want to keep:
+
+                        <InputGroup className="mb-3">
+                            <InputGroup.Text id="basic-addon1">Type</InputGroup.Text>
+                            <Form.Select
+                                value={filterType}
+                                onChange={e => { this.setState({ filterType: e.target.value }); }}
+                            >
+                                <option value=""></option>
+                                <option value="istrue">True</option>
+                                <option value="iffalse">False</option>
+                            </Form.Select>
+                        </InputGroup>
+
+
+                    </div>
                 }
 
             </div>
@@ -257,6 +355,8 @@ export default class Filter extends Base {
 
                     let new_filter = { col: selectedColumn, "type": "test", "value": "test" };
 
+                    console.log(selectedType);
+
                     if (selectedType === "categorical") {
                         new_filter = {
                             col: selectedColumn,
@@ -266,9 +366,43 @@ export default class Filter extends Base {
                             return;
                         }
                     }
+                    if (selectedType === "numerical") {
+                        new_filter = {
+                            col: selectedColumn, "type": filterType, "value": parseFloat(filterNumber)
+                        };
+                        if (filterType === "") {
+                            return;
+                        }
+                    }
+
+                    if (selectedType === "bool") {
+                        new_filter = {
+                            col: selectedColumn, "type": filterType,
+                        };
+                        if (filterType === "") {
+                            return;
+                        }
+                    }
+
+                    if (selectedType === "temporal") {
+
+                        if (filterType !== "lastn") {
+                            new_filter = {
+                                col: selectedColumn, "type": filterType, "value": selectedDateTime.toISOString()
+                            };
+                        } else {
+                            new_filter = {
+                                col: selectedColumn, "type": filterType, "value": parseFloat(filterNumber)
+                            };
+                        }
+                        if (filterType === "") {
+                            return;
+                        }
+                    }
+
                     let new_config = [
-                        new_filter,
-                        ...config
+                        ...config,
+                        new_filter
                     ];
 
                     this.update_config(new_config);
@@ -293,7 +427,7 @@ export default class Filter extends Base {
                     {this.get_filter_blocks()}
 
                     <Button className='w-100' onClick={() => this.handleShow()}>
-                        Add Filter
+                        Add filter
                     </Button>
 
                     {this.get_modal_blocks()}

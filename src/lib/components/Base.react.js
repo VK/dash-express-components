@@ -7,7 +7,7 @@ export default class Base extends Component {
         this.state = {
             config: props.config,
             meta: props.meta,
-            meta_out: null,
+            meta_out: props.meta,
             ...this.get_columns(props.meta)
         };
     }

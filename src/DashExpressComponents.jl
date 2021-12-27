@@ -8,6 +8,7 @@ const version = "0.0.1"
 include("jl/''_base.jl")
 include("jl/''_configurator.jl")
 include("jl/''_filter.jl")
+include("jl/''_transform.jl")
 
 function __init__()
     DashBase.register_package(

@@ -3,4 +3,5 @@
 export(''Base)
 export(''Configurator)
 export(''Filter)
+export(''Transform)
 export(DashExpressComponents)

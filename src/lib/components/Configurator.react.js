@@ -3,6 +3,7 @@ import { Component } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 
 import Filter from './Filter.react';
+import Transform from './Transform.react';
 
 
 /**
@@ -15,7 +16,8 @@ export default class Configurator extends Component {
         this.state = {
             config: props.config,
             meta: props.meta,
-            filter_meta_out: null
+            filter_meta_out: { ...props.meta },
+            transform_meta_out: { ...props.meta }
         };
 
     }
@@ -52,7 +54,7 @@ export default class Configurator extends Component {
 
     render() {
         const { id } = this.props;
-        const { meta, config } = this.state;
+        const { meta, config, filter_meta_out  } = this.state;
 
 
         return (
@@ -71,12 +73,29 @@ export default class Configurator extends Component {
                                 this.update_config(new_config);
                             }
 
-                            if("meta_out" in out) {
-                                this.setState({filter_meta_out: out.meta_out});
+                            if ("meta_out" in out) {
+                                this.setState({ filter_meta_out: out.meta_out });
                             }
                         }}
                 />
 
+
+                <Transform
+                    meta={filter_meta_out}
+                    config={config.transform}
+                    setProps={
+                        out => {
+                            if ("config" in out) {
+                                let new_config = { ...config };
+                                new_config["transform"] = out.config;
+                                this.update_config(new_config);
+                            }
+
+                            if ("meta_out" in out) {
+                                this.setState({ transform_meta_out: out.meta_out });
+                            }
+                        }}
+                />
 
             </Accordion >
 
