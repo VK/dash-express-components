@@ -1,6 +1,6 @@
 import { filter, isNil, pluck } from 'ramda';
 import React from 'react';
-import Base from './Base.react';
+import Base from './sub/Base.react';
 
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';

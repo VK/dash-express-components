@@ -5,9 +5,13 @@ using Dash
 const resources_path = realpath(joinpath( @__DIR__, "..", "deps"))
 const version = "0.0.1"
 
-include("jl/''_base.jl")
 include("jl/''_configurator.jl")
 include("jl/''_filter.jl")
+include("jl/''_base.jl")
+include("jl/''_combinecattransform.jl")
+include("jl/''_evaltransform.jl")
+include("jl/''_melttransform.jl")
+include("jl/''_subcomponentbase.jl")
 include("jl/''_transform.jl")
 
 function __init__()

@@ -54,7 +54,7 @@ export default class Configurator extends Component {
 
     render() {
         const { id } = this.props;
-        const { meta, config, filter_meta_out  } = this.state;
+        const { meta, config, filter_meta_out } = this.state;
 
 
         return (
@@ -63,6 +63,7 @@ export default class Configurator extends Component {
 
 
                 < Filter
+                    key="filter"
                     meta={meta}
                     config={config.filter}
                     setProps={
@@ -81,6 +82,7 @@ export default class Configurator extends Component {
 
 
                 <Transform
+                    key="transform"
                     meta={filter_meta_out}
                     config={config.transform}
                     setProps={

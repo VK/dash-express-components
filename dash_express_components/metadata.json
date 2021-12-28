@@ -1,91 +1,4 @@
 {
-  "src/lib/components/Base.react.js": {
-    "description": "",
-    "displayName": "Base",
-    "methods": [
-      {
-        "name": "update_meta_out",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "new_meta_out",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "update_config",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "new_config",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "get_columns",
-        "docblock": "A helper to compute the column dropdown options based on the column metadata\r\nWe also filter continous and categorical variables, since some options only\r\nwork with one of them.\r\n@param meta \r\n@returns",
-        "modifiers": [],
-        "params": [
-          {
-            "name": "meta",
-            "description": null,
-            "type": null,
-            "optional": false
-          }
-        ],
-        "returns": null,
-        "description": "A helper to compute the column dropdown options based on the column metadata\r\nWe also filter continous and categorical variables, since some options only\r\nwork with one of them."
-      }
-    ],
-    "props": {
-      "id": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.string"
-        },
-        "required": false,
-        "description": "The ID used to identify this component in Dash callbacks."
-      },
-      "config": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.any"
-        },
-        "required": false,
-        "description": "The config the user sets in this component."
-      },
-      "meta": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.any.isRequired"
-        },
-        "required": false,
-        "description": "The metadata this section is based on."
-      },
-      "meta_out": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.any"
-        },
-        "required": false,
-        "description": "The metadata section will create as output."
-      },
-      "setProps": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.func"
-        },
-        "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
-      }
-    }
-  },
   "src/lib/components/Configurator.react.js": {
     "description": "Configurator component",
     "displayName": "Configurator",
@@ -238,6 +151,521 @@
       }
     }
   },
+  "src/lib/components/sub/Base.react.js": {
+    "description": "",
+    "displayName": "Base",
+    "methods": [
+      {
+        "name": "update_meta_out",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "new_meta_out",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "update_config",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "new_config",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "get_columns",
+        "docblock": "A helper to compute the column dropdown options based on the column metadata\r\nWe also filter continous and categorical variables, since some options only\r\nwork with one of them.\r\n@param meta \r\n@returns",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "meta",
+            "description": null,
+            "type": null,
+            "optional": false
+          }
+        ],
+        "returns": null,
+        "description": "A helper to compute the column dropdown options based on the column metadata\r\nWe also filter continous and categorical variables, since some options only\r\nwork with one of them."
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "meta": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "The metadata this section is based on."
+      },
+      "meta_out": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The metadata section will create as output."
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/sub/CombinecatTransform.react.js": {
+    "description": "",
+    "displayName": "CombinecatTransform",
+    "methods": [
+      {
+        "name": "config_to_string",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "eval",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "meta": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "The metadata this section is based on."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/sub/EvalTransform.react.js": {
+    "description": "",
+    "displayName": "EvalTransform",
+    "methods": [
+      {
+        "name": "config_to_string",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "eval",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "meta": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "The metadata this section is based on."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/sub/MeltTransform.react.js": {
+    "description": "",
+    "displayName": "MeltTransform",
+    "methods": [
+      {
+        "name": "config_to_string",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "eval",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "meta": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "The metadata this section is based on."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/sub/SubComponentBase.js": {
+    "description": "",
+    "displayName": "SubComponentBase",
+    "methods": [
+      {
+        "name": "setStateConfig",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "config_to_string",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "eval",
+        "docblock": "use the config to compute a new transformed meta\r\n@param {} input \r\n@returns",
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "input"
+          }
+        ],
+        "returns": null,
+        "description": "use the config to compute a new transformed meta"
+      },
+      {
+        "name": "get_dummy_meta_entry",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "type",
+            "type": null
+          },
+          {
+            "name": "value",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "get_col_or_median",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "meta": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "The metadata this section is based on."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
   "src/lib/components/Transform.react.js": {
     "description": "",
     "displayName": "Transform",
@@ -269,74 +697,10 @@
         "returns": null
       },
       {
-        "name": "transform_to_string",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "el",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
         "name": "get_transform_blocks",
         "docblock": null,
         "modifiers": [],
         "params": [],
-        "returns": null
-      },
-      {
-        "name": "compute_router",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "step_definition",
-            "type": null
-          },
-          {
-            "name": "current_meta",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "eval_combinecat",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "input",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "eval_melt",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "input",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "eval_compute",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "input",
-            "type": null
-          }
-        ],
         "returns": null
       },
       {

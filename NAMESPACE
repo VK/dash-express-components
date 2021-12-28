@@ -1,7 +1,11 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-export(''Base)
 export(''Configurator)
 export(''Filter)
+export(''Base)
+export(''CombinecatTransform)
+export(''EvalTransform)
+export(''MeltTransform)
+export(''SubComponentBase)
 export(''Transform)
 export(DashExpressComponents)
