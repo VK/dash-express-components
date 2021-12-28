@@ -278,3 +278,7 @@ GitHub.sublime-settings
 # Julia manifest file names
 Manifest.toml
 JuliaManifest.toml
+
+
+# generated python R and julia
+dash_express_components

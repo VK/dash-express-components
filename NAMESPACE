@@ -2,6 +2,10 @@
 
 export(''Configurator)
 export(''Filter)
+export(''MetaCheck)
+export(''PlotterBase)
+export(''Scatter)
+export(''Plotter)
 export(''Base)
 export(''CombinecatTransform)
 export(''EvalTransform)

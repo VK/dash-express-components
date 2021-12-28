@@ -1,5 +1,119 @@
 import { Component } from 'react';
+import chroma from 'chroma-js';
 
+
+const dot = (color = 'transparent') => ({
+    alignItems: 'center',
+    display: 'flex',
+
+    ':before': {
+        backgroundColor: color,
+        borderRadius: 10,
+        content: '" "',
+        display: 'block',
+        marginRight: 8,
+        height: 10,
+        width: 10,
+    },
+});
+
+export const singleColorStyle = {
+    control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+        const color = chroma(data.color);
+        return {
+            ...styles,
+            backgroundColor: isDisabled
+                ? undefined
+                : isSelected
+                    ? data.color
+                    : isFocused
+                        ? color.alpha(0.1).css()
+                        : color.alpha(0.025).css(),
+            color: isDisabled
+                ? '#ccc'
+                : isSelected
+                    ? chroma.contrast(color, 'white') > 2
+                        ? 'white'
+                        : 'black'
+                    : color.darken(2).css(),
+            cursor: isDisabled ? 'not-allowed' : 'default',
+
+            ':active': {
+                ...styles[':active'],
+                backgroundColor: !isDisabled
+                    ? isSelected
+                        ? data.color
+                        : color.alpha(0.3).css()
+                    : undefined,
+            },
+        };
+    },
+    input: (styles) => ({ ...styles, ...dot() }),
+    placeholder: (styles) => ({ ...styles, ...dot('#ccc') }),
+    singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
+};
+
+
+export const multiColorStyle = {
+    control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+        const color = chroma(data.color);
+        return {
+            ...styles,
+            backgroundColor: isDisabled
+                ? undefined
+                : isSelected
+                    ? data.color
+                    : isFocused
+                        ? color.alpha(0.1).css()
+                        : color.alpha(0.025).css(),
+            color: isDisabled
+                ? '#ccc'
+                : isSelected
+                    ? chroma.contrast(color, 'white') > 2
+                        ? 'white'
+                        : 'black'
+                    : color.darken(2).css(),
+            cursor: isDisabled ? 'not-allowed' : 'default',
+
+            ':active': {
+                ...styles[':active'],
+                backgroundColor: !isDisabled
+                    ? isSelected
+                        ? data.color
+                        : color.alpha(0.3).css()
+                    : undefined,
+            },
+        };
+    },
+    multiValue: (styles, { data }) => {
+        const color = chroma(data.color);
+        return {
+            ...styles,
+            backgroundColor: color.alpha(0.1).css(),
+        };
+    },
+    multiValueLabel: (styles, { data }) => ({
+        ...styles,
+        color: chroma(data.color).darken(2).desaturate(1).css(),
+    }),
+    multiValueRemove: (styles, { data }) => ({
+        ...styles,
+        color: data.color,
+        ':hover': {
+            backgroundColor: data.color,
+            color: 'white',
+        },
+    }),
+};
+
+export const type_colors = {
+    numerical: "#ffbf00",
+    temporal: "#ff0019",
+    categorical: "#00ddff",
+    bool: "#00ff3c"
+};
 
 export default class Base extends Component {
     constructor(props) {
@@ -11,6 +125,8 @@ export default class Base extends Component {
             ...this.get_columns(props.meta)
         };
     }
+
+
 
 
     update_meta_out(new_meta_out) {
@@ -65,14 +181,17 @@ export default class Base extends Component {
             allColOptions: Object.keys(meta).map(option => ({
                 label: String(option),
                 value: option,
+                color: type_colors[meta[option].type]
             })),
             numColOptions: Object.keys(numCols).map(option => ({
                 label: String(option),
                 value: option,
+                color: type_colors[meta[option].type]
             })),
             catColOptions: Object.keys(catCols).map(option => ({
                 label: String(option),
                 value: option,
+                color: type_colors[meta[option].type]
             })),
 
 

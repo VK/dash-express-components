@@ -1,4 +1,3 @@
-import { filter, isNil, pluck } from 'ramda';
 import React from 'react';
 import Base from './sub/Base.react';
 
@@ -22,7 +21,6 @@ let known_trafos = [
 
 
 
-
 export default class Transform extends Base {
     constructor(props) {
         super(props);
@@ -36,21 +34,8 @@ export default class Transform extends Base {
             /* state of the modal to add new filters */
             showAddModal: false,
 
-
             transformType: "",
-            // newColName: "",
-            // newColNameTwo: "",
-            // newColFormula: "",
-
-            // newColComputeResult: null,
-
-            // new_transform: {},
-            // selectedCols: [],
-            // selectedColsTwo: [],
-
             sub_config: {}
-
-
         };
 
     }

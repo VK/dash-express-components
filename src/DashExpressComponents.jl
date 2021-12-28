@@ -7,6 +7,10 @@ const version = "0.0.1"
 
 include("jl/''_configurator.jl")
 include("jl/''_filter.jl")
+include("jl/''_metacheck.jl")
+include("jl/''_plotterbase.jl")
+include("jl/''_scatter.jl")
+include("jl/''_plotter.jl")
 include("jl/''_base.jl")
 include("jl/''_combinecattransform.jl")
 include("jl/''_evaltransform.jl")

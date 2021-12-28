@@ -1,8 +1,8 @@
 import SubComponentBase from "./SubComponentBase";
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import VirtualizedSelect from 'react-virtualized-select';
-import { isNil, pluck } from 'ramda';
+import Select from 'react-select';
+import { multiColorStyle } from "./Base.react";
 
 export default class MeltTransform extends SubComponentBase {
     constructor(props) {
@@ -85,7 +85,7 @@ export default class MeltTransform extends SubComponentBase {
                         }
                     );
                 }} />
-                <InputGroup.Text id="basic-addon1">Type</InputGroup.Text>
+                <InputGroup.Text id="basic-addon2">Type</InputGroup.Text>
                 <FormControl value={newColNameTwo} onChange={e => {
                     this.setStateConfig(
                         {
@@ -100,20 +100,15 @@ export default class MeltTransform extends SubComponentBase {
             Select the columns that should be combined:
 
 
-            <VirtualizedSelect
+            <Select
                 className="mb-3"
-                multi
+                isMulti
 
                 options={allColOptions}
 
-                value={selectedCols}
+                value={allColOptions.filter(o => selectedCols.includes(o.value))}
                 onChange={selectedOption => {
-                    let value;
-                    if (isNil(selectedOption)) {
-                        value = [];
-                    } else {
-                        value = pluck('value', selectedOption);
-                    }
+                    let value = selectedOption.map(el => el.value);
 
                     this.setStateConfig({
                         newColName: newColName,
@@ -121,7 +116,7 @@ export default class MeltTransform extends SubComponentBase {
                         selectedCols: value
                     });
                 }}
-
+                styles={multiColorStyle}
 
             />
 

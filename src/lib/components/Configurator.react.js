@@ -4,6 +4,8 @@ import Accordion from 'react-bootstrap/Accordion';
 
 import Filter from './Filter.react';
 import Transform from './Transform.react';
+import MetaCheck from './MetaCheck.react';
+import Plotter from './Plotter.react';
 
 
 /**
@@ -54,12 +56,12 @@ export default class Configurator extends Component {
 
     render() {
         const { id } = this.props;
-        const { meta, config, filter_meta_out } = this.state;
+        const { meta, config, filter_meta_out, transform_meta_out } = this.state;
 
 
         return (
 
-            <Accordion id={id}>
+            <Accordion id={id} defaultActiveKey="plotter">
 
 
                 < Filter
@@ -95,6 +97,28 @@ export default class Configurator extends Component {
 
                             if ("meta_out" in out) {
                                 this.setState({ transform_meta_out: out.meta_out });
+                            }
+                        }}
+                />
+
+
+                <MetaCheck
+                    key="metacheck"
+                    meta={transform_meta_out}
+                    setProps={out => { }}
+                />
+
+
+                <Plotter
+                    key="plotter"
+                    meta={transform_meta_out}
+                    config={config.plot}
+                    setProps={
+                        out => {
+                            if ("config" in out) {
+                                let new_config = { ...config };
+                                new_config["plot"] = out.config;
+                                this.update_config(new_config);
                             }
                         }}
                 />

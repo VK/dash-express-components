@@ -1,8 +1,8 @@
 import SubComponentBase from "./SubComponentBase";
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import VirtualizedSelect from 'react-virtualized-select';
-import { isNil, pluck } from 'ramda';
+import Select from 'react-select';
+import { multiColorStyle } from "./Base.react";
 
 
 export default class CombinecatTransform extends SubComponentBase {
@@ -76,29 +76,23 @@ export default class CombinecatTransform extends SubComponentBase {
             Select the columns that should be grouped into a new cateogy.
 
 
-            <VirtualizedSelect
+            <Select
                 className="mb-3"
-                multi
+                isMulti
                 key="selectCols"
 
                 options={allColOptions}
 
-                value={selectedCols}
+                value={allColOptions.filter(o => selectedCols.includes(o.value))}
                 onChange={selectedOption => {
-                    let value;
-                    if (isNil(selectedOption)) {
-                        value = [];
-                    } else {
-                        value = pluck('value', selectedOption);
-                    }
+                    let value = selectedOption.map(el => el.value);
 
                     this.setStateConfig({
                         newColName: newColName,
                         selectedCols: value
                     });
                 }}
-
-
+                styles={multiColorStyle}
             />
 
 

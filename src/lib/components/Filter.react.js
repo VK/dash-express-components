@@ -1,6 +1,6 @@
 import { filter, isNil, pluck } from 'ramda';
 import React from 'react';
-import Base from './sub/Base.react';
+import Base, { singleColorStyle } from './sub/Base.react';
 
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
@@ -11,7 +11,7 @@ import FormControl from 'react-bootstrap/FormControl';
 
 
 
-import VirtualizedSelect from 'react-virtualized-select';
+import Select from 'react-select';
 import Accordion from 'react-bootstrap/Accordion';
 import DateTimePicker from 'react-datetime-picker';
 
@@ -111,7 +111,7 @@ export default class Filter extends Base {
             after: "after",
             before: "before",
             lastn: "last days: ",
-            
+
         }
 
         if (el["type"] === "isin" || el["type"] === "isnotin") {
@@ -166,23 +166,17 @@ export default class Filter extends Base {
 
                 Specify the column you want to filter.
 
-                <VirtualizedSelect
+                <Select
                     className="mb-3"
 
                     options={allColOptions}
 
-                    value={selectedColumn}
+                    value={allColOptions.filter(o => o.value === selectedColumn)[0]}
                     onChange={selectedOption => {
 
-                        let value;
-                        let type;
-                        if (isNil(selectedOption)) {
-                            value = null;
-                            type = null;
-                        } else {
-                            value = selectedOption.value;
-                            type = meta[value].type;
-                        }
+                        let value = selectedOption.value;
+                        let type = meta[value].type;
+
 
                         if (type == "categorical") {
                             this.setState({
@@ -198,11 +192,8 @@ export default class Filter extends Base {
                             selectedType: type
                         });
 
-
-
                     }}
-
-
+                    styles={singleColorStyle}
                 />
 
                 {
@@ -238,10 +229,6 @@ export default class Filter extends Base {
                             <FormControl type="number" value={filterNumber} onChange={e => { this.setState({ filterNumber: e.target.value }); }} />
                         </InputGroup>
 
-
-
-
-
                     </div>
                 }
 
@@ -263,22 +250,20 @@ export default class Filter extends Base {
                             </Form.Select>
                         </InputGroup>
 
-                        <VirtualizedSelect
-                            options={categoryOptions} multi
+                        <Select
+                            options={categoryOptions} isMulti
 
-                            value={selectedCategories}
+                            value={categoryOptions.filter(o => selectedCategories.includes(o.value))}
                             onChange={selectedOption => {
-                                let value;
-                                if (isNil(selectedOption)) {
-                                    value = [];
-                                } else {
-                                    value = pluck('value', selectedOption);
-                                }
+
+                                let value = selectedOption.map(el => el.value);
+
                                 this.setState({
                                     selectedCategories:
                                         value
                                 });
                             }}
+
                         />
 
                     </div>
