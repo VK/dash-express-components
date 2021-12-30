@@ -1,6 +1,8 @@
 from .Configurator import Configurator
 from .Filter import Filter
+from .Localstore import Localstore
 from .MetaCheck import MetaCheck
+from .Parametrize import Parametrize
 from .PlotterBase import PlotterBase
 from .Scatter import Scatter
 from .Plotter import Plotter
@@ -14,7 +16,9 @@ from .Transform import Transform
 __all__ = [
     "Configurator",
     "Filter",
+    "Localstore",
     "MetaCheck",
+    "Parametrize",
     "PlotterBase",
     "Scatter",
     "Plotter",

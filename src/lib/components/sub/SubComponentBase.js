@@ -114,7 +114,7 @@ export default class SubComponentBase extends Component {
                 type: "categorical"
             }
         }
-        return { type: type };
+        return { type: "undefined" };
     }
 
     static get_col_or_median(el) {

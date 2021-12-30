@@ -1,11 +1,49 @@
 import { Component } from 'react';
 
 import Accordion from 'react-bootstrap/Accordion';
+import classNames from 'classnames';
+
 
 import Filter from './Filter.react';
 import Transform from './Transform.react';
 import MetaCheck from './MetaCheck.react';
 import Plotter from './Plotter.react';
+import Parametrize from './Parametrize.react';
+import Localstore from './Localstore.react';
+
+
+class CustomAccordionItem extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isOpen: ("defaultOpen" in props)
+        }
+    }
+
+    render() {
+        const { isOpen } = this.state;
+
+        return (
+            <div className='accordion-item'>
+                <h2 className='accordion-header'>
+                    <button
+                        type="button"
+                        className={classNames('accordion-button', !isOpen && 'collapsed')}
+                        onClick={e => { this.setState({ isOpen: !isOpen }); }}
+                    >
+                        {this.props.title}
+                    </button>
+                </h2>
+                <div className={classNames('accordion-collapse', !isOpen && 'collapse')}>
+                    <div className='accordion-body'>
+                        {this.props.children}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
 
 
 /**
@@ -25,6 +63,9 @@ export default class Configurator extends Component {
     }
 
     update_config(new_config) {
+
+        console.log("update_config");
+        console.log(new_config);
         this.setState({
             config: new_config
         });
@@ -54,6 +95,8 @@ export default class Configurator extends Component {
     }
 
 
+
+
     render() {
         const { id } = this.props;
         const { meta, config, filter_meta_out, transform_meta_out } = this.state;
@@ -64,64 +107,101 @@ export default class Configurator extends Component {
             <Accordion id={id} defaultActiveKey="plotter">
 
 
-                < Filter
-                    key="filter"
-                    meta={meta}
-                    config={config.filter}
-                    setProps={
-                        out => {
+                <CustomAccordionItem title="Filter">
+                    < Filter
+                        meta={meta}
+                        config={config.filter}
+                        setProps={
+                            out => {
+                                if ("config" in out) {
+                                    let new_config = { ...config };
+                                    new_config["filter"] = out.config;
+                                    this.update_config(new_config);
+                                }
+
+                                if ("meta_out" in out) {
+                                    this.setState({ filter_meta_out: out.meta_out });
+                                }
+                            }}
+                    />
+                </CustomAccordionItem>
+
+
+                <CustomAccordionItem title="Transform">
+                    <Transform
+                        key="transform"
+                        meta={filter_meta_out}
+                        config={config.transform}
+                        setProps={
+                            out => {
+                                if ("config" in out) {
+                                    let new_config = { ...config };
+                                    new_config["transform"] = out.config;
+                                    this.update_config(new_config);
+                                }
+
+                                if ("meta_out" in out) {
+                                    this.setState({ transform_meta_out: out.meta_out });
+                                }
+                            }}
+                    />
+                </CustomAccordionItem>
+
+
+
+
+
+                <CustomAccordionItem title="Plotter" defaultOpen>
+                    <Plotter
+                        key="plotter"
+                        meta={transform_meta_out}
+                        config={config.plot}
+                        setProps={
+                            out => {
+                                if ("config" in out) {
+                                    let new_config = { ...config };
+                                    new_config["plot"] = out.config;
+                                    this.update_config(new_config);
+                                }
+                            }}
+                    />
+                </CustomAccordionItem>
+
+                <CustomAccordionItem title="Data Columns">
+                    <MetaCheck
+                        key="metacheck"
+                        meta={transform_meta_out}
+                        setProps={out => { }}
+                    />
+                </CustomAccordionItem>
+
+                <CustomAccordionItem title="Parametrize">
+                    <Parametrize
+                        key="parametrize"
+                        meta={transform_meta_out}
+                        config={config}
+                        setProps={out => {
                             if ("config" in out) {
-                                let new_config = { ...config };
-                                new_config["filter"] = out.config;
+                                let new_config = { ...out.config }
                                 this.update_config(new_config);
                             }
-
-                            if ("meta_out" in out) {
-                                this.setState({ filter_meta_out: out.meta_out });
-                            }
                         }}
-                />
+                    />
+                </CustomAccordionItem>
 
-
-                <Transform
-                    key="transform"
-                    meta={filter_meta_out}
-                    config={config.transform}
-                    setProps={
-                        out => {
+                <CustomAccordionItem title="Store">
+                    <Localstore
+                        key="store"
+                        meta={transform_meta_out}
+                        config={config}
+                        setProps={out => {
                             if ("config" in out) {
-                                let new_config = { ...config };
-                                new_config["transform"] = out.config;
-                                this.update_config(new_config);
-                            }
-
-                            if ("meta_out" in out) {
-                                this.setState({ transform_meta_out: out.meta_out });
-                            }
-                        }}
-                />
-
-
-                <MetaCheck
-                    key="metacheck"
-                    meta={transform_meta_out}
-                    setProps={out => { }}
-                />
-
-
-                <Plotter
-                    key="plotter"
-                    meta={transform_meta_out}
-                    config={config.plot}
-                    setProps={
-                        out => {
-                            if ("config" in out) {
-                                let new_config = { ...config };
-                                new_config["plot"] = out.config;
+                                let new_config = { ...out.config }
                                 this.update_config(new_config);
                             }
                         }}
-                />
+                    />
+                </CustomAccordionItem>
 
             </Accordion >
 
@@ -156,3 +236,4 @@ Configurator.propTypes = {
      */
     setProps: PropTypes.func
 }
+

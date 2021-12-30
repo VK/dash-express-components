@@ -21,6 +21,7 @@
     "ramda": "^0.26.1",
     "react-bootstrap": "^2.0.4",
     "react-datetime-picker": "^3.4.3",
+    "react-list-editable": "^0.1.0",
     "react-select": "^5.2.1"
   },
   "devDependencies": {

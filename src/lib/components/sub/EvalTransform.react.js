@@ -135,11 +135,11 @@ export default class EvalTransform extends SubComponentBase {
             value: res, error: error, message: message, type: type
         };
 
-        if (!error) {
-            let new_meta = { ...current_meta };
-            new_meta[col] = SubComponentBase.get_dummy_meta_entry(type, res);
-            output["new_meta"] = new_meta;
-        }
+
+        let new_meta = { ...current_meta };
+        new_meta[col] = SubComponentBase.get_dummy_meta_entry(type, res);
+        output["new_meta"] = new_meta;
+
 
         return output;
     }

@@ -47,8 +47,8 @@ def get_meta(df):
 
 
 
-def get_plot(inputDataFrame, config):
-    print(config)
+def get_plot(inputDataFrame, config, apply_parameterization=True):
+    
     errorResult = "Empty plot"
 
     try:

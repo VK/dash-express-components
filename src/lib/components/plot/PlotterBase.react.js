@@ -64,11 +64,16 @@ export default class PlotterBase extends Component {
      */
     UNSAFE_componentWillReceiveProps(newProps) {
 
-        if (newProps.config !== this.props.config) {
-            this.setState(
-                { config: newProps.config }
-            )
+
+        this.setState(
+            { config: newProps.config }
+        )
+        if ("params" in newProps.config) {
+            this.setState({
+                ...newProps.config.params
+            })
         }
+
 
         if (newProps.allColOptions !== this.props.allColOptions) {
             this.setState(
@@ -122,7 +127,7 @@ export default class PlotterBase extends Component {
             <div style={{ "flexGrow": 10000 }}>
                 <Select
                     options={options}
-                    value={(v) ? options.filter(el => v.includes(el.value)) : undefined}
+                    value={(v) ? options.filter(el => v === el.value) : undefined}
                     onChange={selectedOption => {
                         if (selectedOption) {
                             this.setStateConfig({ [varname]: selectedOption.value });

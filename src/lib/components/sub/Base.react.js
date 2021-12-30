@@ -112,7 +112,8 @@ export const type_colors = {
     numerical: "#ffbf00",
     temporal: "#ff0019",
     categorical: "#00ddff",
-    bool: "#00ff3c"
+    bool: "#00ff3c",
+    undefined: "#555555"
 };
 
 export default class Base extends Component {
@@ -156,9 +157,12 @@ export default class Base extends Component {
      */
     get_columns(meta) {
 
+
+        console.log(meta);
+
         const numCols = Object.keys(meta)
             .filter((key) => {
-                return meta[key].type === "numerical" || meta[key].type === "temporal";
+                return meta[key].type === "numerical" || meta[key].type === "temporal"| meta[key].type === "undefined";
             })
             .reduce((obj, key) => {
                 obj[key] = meta[key];
@@ -167,7 +171,7 @@ export default class Base extends Component {
 
         const catCols = Object.keys(meta)
             .filter((key) => {
-                return meta[key].type === "categorical" | meta[key].type === "bool";
+                return meta[key].type === "categorical" | meta[key].type === "bool" | meta[key].type === "undefined";
             })
             .reduce((obj, key) => {
                 obj[key] = meta[key];

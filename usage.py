@@ -1,6 +1,7 @@
 import numpy as _np
 from numpy import dtype
 from numpy.lib.function_base import insert
+from plotly.data import tips
 import dash_express_components as dec
 import dash
 from dash.dependencies import Input, Output
@@ -14,10 +15,10 @@ from datetime import datetime
 
 
 tips_df = px.data.tips()
-iris_df = px.data.iris()
-gapminder_df = px.data.gapminder()
+#iris_df = px.data.iris()
+#gapminder_df = px.data.gapminder()
 
-df = gapminder_df
+df = tips_df
 
 # external CSS stylesheets
 app = dash.Dash(
@@ -25,33 +26,30 @@ app = dash.Dash(
         dbc.themes.BOOTSTRAP,
         "https://raw.githubusercontent.com/bvaughn/react-virtualized-select/master/styles.css",
         "https://gist.githubusercontent.com/aprimadi/a08e2e7e717e6f9bf13821c039befbf9/raw/7c00278a83a30983cc513e1a6a81ba1496ef3a7e/react-select.css"
-        ]
+    ]
 )
-
-# app = dash.Dash(__name__,
-#                 external_stylesheets=[
-
-#                     "https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/united/bootstrap.min.css"
-#                 ])
 
 app.layout = html.Div([
 
-    dec.Configurator(
-        id="plotConfig",
-        config={
-            "filter": [{'col': 'time', 'type': 'lastn', 'value': 12}],
-            "transform": [{'type': 'eval', 'col': 'test', 'formula': '1'}],
-            "plot": []
-        },
-        meta=dec.get_meta(df)
-    ),
+    html.Div([
+        dec.Configurator(
+            id="plotConfig",
+            config={
+                "filter": [],
+                "transform": [],
+                "plot": []
+            },
+            meta=dec.get_meta(df)
+        ),
 
+        html.Div(id='output'),
+    ], style={"width": "500px", "float": "left"}),
 
-    html.Div(id='output'),
+    html.Div(
+        [dcc.Graph(id="fig")], style={"width": "calc(100% - 500px)", "height": "100%", "float": "left"}
+    )
 
-    dcc.Graph(id="fig")
-
-], className="p-4", style={"width": "500px"})
+], className="p-4")
 
 
 @app.callback([Output('output', 'children'),
@@ -60,7 +58,7 @@ app.layout = html.Div([
                ], [Input('plotConfig', 'config')])
 def display_output(config):
 
-    fig = dec.get_plot(df, config)
+    fig = dec.get_plot(df, config, apply_parameterization=False)
     return ('Your configuration {}'.format(config),
             fig
             )

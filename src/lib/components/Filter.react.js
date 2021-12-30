@@ -39,7 +39,7 @@ export default class Filter extends Base {
             selectedDateTime: new Date(),
 
             filterType: "",
-            filterNumber: 0
+            filterNumber: 0,
 
 
         };
@@ -114,9 +114,11 @@ export default class Filter extends Base {
 
         }
 
-        if (el["type"] === "isin" || el["type"] === "isnotin") {
-            return <span><b>{el.col}</b> {translate[el["type"]]} [{el.value.join(', ')}]</span>;
-        }
+        try {
+            if (el["type"] === "isin" || el["type"] === "isnotin") {
+                return <span><b>{el.col}</b> {translate[el["type"]]} [{el.value.join(', ')}]</span>;
+            }
+        } catch { }
 
 
         return <span><b>{el.col}</b> {translate[el["type"]]} {el.value}</span>;
@@ -245,12 +247,13 @@ export default class Filter extends Base {
                                 onChange={e => { this.setState({ filterType: e.target.value }); }}
                             >
                                 <option value=""></option>
+                                <option value="eq">=</option>
                                 <option value="isin">∈</option>
                                 <option value="isnotin">∉</option>
                             </Form.Select>
                         </InputGroup>
 
-                        <Select
+                        {["isnotin", "isin"].includes(filterType) && <Select
                             options={categoryOptions} isMulti
 
                             value={categoryOptions.filter(o => selectedCategories.includes(o.value))}
@@ -263,8 +266,23 @@ export default class Filter extends Base {
                                         value
                                 });
                             }}
+                        />}
 
-                        />
+                        {["eq"].includes(filterType) && <Select
+                            options={categoryOptions}
+                            isClearable
+
+                            value={(selectedCategories) ? categoryOptions.filter(o => selectedCategories === o.value) : undefined}
+                            onChange={selectedOption => {
+
+                                if (selectedOption) {
+                                    this.setState({ selectedCategories: selectedOption.value });
+                                } else {
+                                    this.setState({ selectedCategories: undefined });
+                                }
+
+                            }}
+                        />}
 
                     </div>
                 }
@@ -340,7 +358,6 @@ export default class Filter extends Base {
 
                     let new_filter = { col: selectedColumn, "type": "test", "value": "test" };
 
-                    console.log(selectedType);
 
                     if (selectedType === "categorical") {
                         new_filter = {
@@ -404,21 +421,18 @@ export default class Filter extends Base {
     }
 
     render() {
+        const { id } = this.props;
 
         return (
-            <Accordion.Item eventKey="filter">
-                <Accordion.Header>Filter</Accordion.Header>
-                <Accordion.Body>
-                    {this.get_filter_blocks()}
+            <div id={id}>
+                {this.get_filter_blocks()}
 
-                    <Button className='w-100' onClick={() => this.handleShow()}>
-                        Add filter
-                    </Button>
+                <Button className='w-100' onClick={() => this.handleShow()}>
+                    Add filter
+                </Button>
 
-                    {this.get_modal_blocks()}
-                </Accordion.Body>
-
-            </Accordion.Item>
+                {this.get_modal_blocks()}
+            </div>
         )
 
     }

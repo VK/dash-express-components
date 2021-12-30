@@ -47,6 +47,16 @@ export default class Transform extends Base {
         this.setState({ showAddModal: true });
     }
 
+    UNSAFE_componentWillReceiveProps(newProps) {
+        const update_config_needed = (newProps.config !== this.props.config);
+        super.UNSAFE_componentWillReceiveProps(newProps);
+
+        if (update_config_needed && "config" in newProps) {
+            this.update_config(newProps.config);
+        }
+
+    }
+
 
     update_config(new_config) {
         super.update_config(new_config);
@@ -62,8 +72,11 @@ export default class Transform extends Base {
                     meta: new_meta
                 }
             );
+            if (res["new_meta"] != undefined) {
+                new_meta = res["new_meta"];
+            }
 
-            new_meta = res["new_meta"];
+
         });
 
         super.update_meta_out(new_meta);
@@ -217,19 +230,15 @@ export default class Transform extends Base {
     render() {
 
         return (
-            <Accordion.Item eventKey="transform">
-                <Accordion.Header>Transform</Accordion.Header>
-                <Accordion.Body>
-                    {this.get_transform_blocks()}
+            <div>
+                {this.get_transform_blocks()}
 
-                    <Button className='w-100' onClick={() => this.handleShow()}>
-                        Add transformation
-                    </Button>
+                <Button className='w-100' onClick={() => this.handleShow()}>
+                    Add transformation
+                </Button>
 
-                    {this.get_modal_blocks()}
-                </Accordion.Body>
-
-            </Accordion.Item>
+                {this.get_modal_blocks()}
+            </div>
         )
 
     }

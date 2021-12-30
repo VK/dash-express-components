@@ -1,7 +1,5 @@
 import React from 'react';
 import Base from './sub/Base.react';
-import Accordion from 'react-bootstrap/Accordion';
-
 
 
 export default class MetaCheck extends Base {
@@ -9,68 +7,65 @@ export default class MetaCheck extends Base {
         super(props);
     }
 
-
-
     render() {
 
         let { meta } = this.state;
 
-
         return (
-            <Accordion.Item eventKey="metacheck">
-                <Accordion.Header>Table Structure</Accordion.Header>
-                <Accordion.Body className="p-1" style={{
-                    maxHeight: "200px",
-                    overflowY: "auto"
-                }}>
 
-                    <table className="table">
-
-                        <thead>
-                            <tr>
-                                <th scope="col">Column</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Example</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                Object.keys(meta).map(col => {
-
-                                    let type = meta[col].type;
+            <div className="p-3" style={{
+                margin: "-1rem -1.25rem",
+                maxHeight: "200px",
+                overflowY: "auto"
+            }}>
 
 
-                                    let className = {
-                                        categorical: "table-info",
-                                        bool: "table-success",
-                                        temporal: "table-danger",
-                                        numerical: "table-warning",
-                                    }[type];
+                <table className="table">
 
-                                    let t = {
-                                        categorical: "C",
-                                        bool: "B",
-                                        temporal: "T",
-                                        numerical: "N",
-                                    }[type];
+                    <thead>
+                        <tr>
+                            <th scope="col">Column</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            Object.keys(meta).map(col => {
 
-                                    let e = {
-                                        categorical: (("cat" in meta[col]) ? meta[col].cat[0] : ''),
-                                        bool: "true",
-                                        temporal: meta[col].median,
-                                        numerical: meta[col].median,
-                                    }[type];
+                                let type = meta[col].type;
 
 
-                                    return <tr className={className} key={"tab-" + col}><th>{col}</th><td>{t}</td><td>{e}</td></tr>
-                                })
-                            }
-                        </tbody>
-                    </table>
+                                let className = {
+                                    categorical: "table-info",
+                                    bool: "table-success",
+                                    temporal: "table-danger",
+                                    numerical: "table-warning",
+                                }[type];
 
-                </Accordion.Body>
+                                let t = {
+                                    categorical: "C",
+                                    bool: "B",
+                                    temporal: "T",
+                                    numerical: "N",
+                                    undefined: "?"
+                                }[type];
 
-            </Accordion.Item>
+                                let e = {
+                                    categorical: (("cat" in meta[col]) ? meta[col].cat[0] : ''),
+                                    bool: "true",
+                                    temporal: meta[col].median,
+                                    numerical: meta[col].median,
+                                }[type];
+
+
+                                return <tr className={className} key={"tab-" + col}><th>{col}</th><td>{t}</td><td>{e}</td></tr>
+                            })
+                        }
+                    </tbody>
+                </table>
+
+            </div>
         )
 
     }

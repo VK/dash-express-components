@@ -9,7 +9,7 @@ import Modal from 'react-bootstrap/Modal';
 import PlotterBase from './plot/PlotterBase.react';
 import Scatter from './plot/Scatter.react';
 let known_plots = [PlotterBase, Scatter].map(el => {
-    return {type: el.type, class: el, label: el.label, icon: el.icon}
+    return { type: el.type, class: el, label: el.label, icon: el.icon }
 });
 let plots_dict = Object.assign({}, ...known_plots.map((x) => ({ [x.type]: x })));
 
@@ -25,10 +25,9 @@ export default class Plotter extends Base {
 
             /* state of the modal to add new filters */
             showModal: false,
-            plotType: "base",
+            plotType: (this.state.config.type) ? this.state.config.type : "base",
 
         };
-
     }
 
     handleClose() {
@@ -36,6 +35,17 @@ export default class Plotter extends Base {
     }
     handleShow() {
         this.setState({ showModal: true });
+    }
+
+    UNSAFE_componentWillReceiveProps(newProps) {
+        super.UNSAFE_componentWillReceiveProps(newProps);
+        if ("config" in newProps || "type" in newProps.config) {
+            this.setState({ plotType: newProps.config.type });
+        }
+
+
+
+
     }
 
 
@@ -72,9 +82,9 @@ export default class Plotter extends Base {
                             }}
 
                         >
-                            <div style={{ width: "60px", height: "60px" }}>{pt.icon}</div>
+                            <div style={{ width: "60px", height: "60px" }}>{(pt && "icon" in pt) ? pt.icon : ""}</div>
                             <div className="flex-grow-1 mt-2 h3">
-                                {pt.label}
+                                {(pt && "label" in pt) ? pt.label : ""}
                             </div>
                         </Button>
                     );
@@ -94,6 +104,7 @@ export default class Plotter extends Base {
     render() {
         const {
             plotType,
+            config,
             allColOptions,
             catColOptions,
             numColOptions
@@ -102,47 +113,44 @@ export default class Plotter extends Base {
         const pt = plots_dict[plotType];
 
         return (
-            <Accordion.Item eventKey="plotter">
-                <Accordion.Header>Plotter</Accordion.Header>
-                <Accordion.Body>
+            <div>
 
-                    <Button
-                        key="plot-open-button"
-                        variant="outline-secondary"
-                        className="d-flex align-items-center w-100 mb-2"
-                        onClick={() => this.handleShow()}>
-                        <div style={{ width: "60px", height: "60px" }}>{pt.icon}</div>
-                        <div className="flex-grow-1 mt-2 h3">
-                            {pt.label}
-                        </div>
-                    </Button>
+                <Button
+                    key="plot-open-button"
+                    variant="outline-secondary"
+                    className="d-flex align-items-center w-100 mb-2"
+                    onClick={() => this.handleShow()}>
+                    <div style={{ width: "60px", height: "60px" }}>{(pt && "icon" in pt) ? pt.icon : ""}</div>
+                    <div className="flex-grow-1 mt-2 h3">
+                        {(pt && "label" in pt) ? pt.label : ""}
+                    </div>
+                </Button>
 
 
-                    {
-                        known_plots.map(plt => {
+                {
+                    known_plots.map(plt => {
 
-                            return (
-                                plotType === plt["type"] &&
-                                <plt.class
-                                    key={"pltconfig-" + plt["type"]}
-                                    allColOptions={allColOptions}
-                                    catColOptions={catColOptions}
-                                    numColOptions={numColOptions}
-                                    setProps={e => {
-                                        if ("config" in e) {
-                                            super.update_config(e["config"]);
-                                        }
-                                    }}
-                                />
-                            )
-                        })
-                    }
+                        return (
+                            plotType === plt["type"] &&
+                            <plt.class
+                                key={"pltconfig-" + plt["type"]}
+                                allColOptions={allColOptions}
+                                catColOptions={catColOptions}
+                                numColOptions={numColOptions}
+                                config={config}
+                                setProps={e => {
+                                    if ("config" in e) {
+                                        super.update_config(e["config"]);
+                                    }
+                                }}
+                            />
+                        )
+                    })
+                }
 
-                    {this.get_modal()}
+                {this.get_modal()}
 
-                </Accordion.Body>
-
-            </Accordion.Item>
+            </div>
         )
 
     }
