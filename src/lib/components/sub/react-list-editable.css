@@ -60,3 +60,14 @@
 .ab-param-name {
 	font-weight: bold;
 }
+
+
+
+.btn-check:checked + .btn,
+.btn-check:focus + .btn,
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.active, label:hover, label:active, input:hover+label, input:active+label, input:focus, input:checked {
+    z-index: unset !important;
+}

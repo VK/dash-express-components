@@ -93,7 +93,7 @@ export default class EvalTransform extends SubComponentBase {
             };
 
 
-            const code = compileCode('return ' + formula.replace("\@", "at_"));
+            const code = compileCode('return ' + formula.replaceAll("\@", "at_").replaceAll("&", "&&"));
             res = code(variables);
 
         }

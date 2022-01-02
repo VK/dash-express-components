@@ -5,7 +5,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 
 
-export default class Scatter extends PlotterBase {
+export default class ScatterMatrix extends PlotterBase {
 
     constructor(props) {
         super(props);
@@ -14,28 +14,23 @@ export default class Scatter extends PlotterBase {
             ...this.state,
 
             optionsbar: [
-                this.option_dict.error,
-                this.option_dict.marginal,
-                this.option_dict.facet,
-                this.option_dict.axis,
                 this.option_dict.labels
             ]
 
         }
 
-        this.copy_params("scatter");
+        this.copy_params("scatter_matrix");
         this.init_check_options(true);
     }
 
 
     static icon = (<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" viewBox="0 0 46 46"><path fill="none" d="M0 0h46v46H0z"></path><circle cx="13" cy="32" r="3" fill="#1d9bfb"></circle><circle cx="21" cy="27" r="3" fill="#25fdfc"></circle><circle cx="23" cy="18" r="3" fill="#1d9bfb"></circle><circle cx="32" cy="24" r="3" fill="#25fdfc"></circle><circle cx="32" cy="11" r="3" fill="#25fdfc"></circle></svg>)
-    static label = "Scatter Plot";
-    static type = "scatter";
+    static label = "Scatter Matrix Plot";
+    static type = "scatter_matrix";
 
     config_from_state(input) {
         let params = {
             ...this.base_config_from_state(),
-            render_mode: "webgl",
             ...input
         };
 
@@ -46,7 +41,7 @@ export default class Scatter extends PlotterBase {
         }
 
         return {
-            type: "scatter",
+            type: "scatter_matrix",
             params: params
         }
     }
@@ -61,8 +56,7 @@ export default class Scatter extends PlotterBase {
 
         return (
             <div>
-                {this.multiSelect("X", "x", allColOptions)}
-                {this.multiSelect("Y", "y", allColOptions)}
+                {this.multiSelect("Dim", "dimensions", allColOptions)}
                 {this.singleSelect("Color", "color", allColOptions)}
                 {this.singleSelect("Symb.", "symbol", catColOptions)}
                 {this.singleSelect("Size", "size", numColOptions)}
@@ -78,9 +72,9 @@ export default class Scatter extends PlotterBase {
 
 
 
-Scatter.defaultProps = {};
+ScatterMatrix.defaultProps = {};
 
-Scatter.propTypes = {
+ScatterMatrix.propTypes = {
 
     /**
     * The config the user sets in this component.

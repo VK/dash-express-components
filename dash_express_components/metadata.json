@@ -305,20 +305,6 @@
         "returns": null
       },
       {
-        "name": "handleLoadClose",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleLoadShow",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
         "name": "saveParams",
         "docblock": null,
         "modifiers": [],
@@ -468,10 +454,281 @@
       }
     }
   },
+  "src/lib/components/plot/BarCount.react.js": {
+    "description": "",
+    "displayName": "BarCount",
+    "methods": [
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/plot/Box.react.js": {
+    "description": "",
+    "displayName": "Box",
+    "methods": [
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/plot/HistogramLine.react.js": {
+    "description": "",
+    "displayName": "HistogramLine",
+    "methods": [
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/plot/Imshow.react.js": {
+    "description": "",
+    "displayName": "Imshow",
+    "methods": [
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
   "src/lib/components/plot/PlotterBase.react.js": {
     "description": "",
     "displayName": "PlotterBase",
     "methods": [
+      {
+        "name": "copy_params",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "typename",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "init_check_options",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "constructor",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "base_config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
       {
         "name": "preferSimple",
         "docblock": null,
@@ -514,6 +771,10 @@
         "modifiers": [],
         "params": [
           {
+            "name": "name",
+            "type": null
+          },
+          {
             "name": "varname",
             "type": null
           },
@@ -530,11 +791,189 @@
         "modifiers": [],
         "params": [
           {
+            "name": "name",
+            "type": null
+          },
+          {
             "name": "varname",
             "type": null
           },
           {
             "name": "options",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "singleSelect_ExtraOption",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          },
+          {
+            "name": "varname",
+            "type": null
+          },
+          {
+            "name": "options",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "range_ManualInputArray",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          },
+          {
+            "name": "varname",
+            "type": null
+          },
+          {
+            "name": "option_varnames",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "range_ManualString",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          },
+          {
+            "name": "varname",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "toggleSelect",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          },
+          {
+            "name": "varname",
+            "type": null
+          },
+          {
+            "name": "options",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "toggle_single",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "bar_option",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "toggle_optionsbar",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "id",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "optionsBar",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "commonOptionBarControlls",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/plot/Probability.react.js": {
+    "description": "",
+    "displayName": "Probability",
+    "methods": [
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
             "type": null
           }
         ],
@@ -587,6 +1026,186 @@
   "src/lib/components/plot/Scatter.react.js": {
     "description": "",
     "displayName": "Scatter",
+    "methods": [
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/plot/ScatterMatrix.react.js": {
+    "description": "",
+    "displayName": "ScatterMatrix",
+    "methods": [
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/plot/Table.react.js": {
+    "description": "",
+    "displayName": "Table",
+    "methods": [
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/plot/Violin.react.js": {
+    "description": "",
+    "displayName": "Violin",
     "methods": [
       {
         "name": "config_from_state",
@@ -725,6 +1344,10 @@
           {
             "name": "new_meta_out",
             "type": null
+          },
+          {
+            "name": "constructor",
+            "type": null
           }
         ],
         "returns": null
@@ -736,6 +1359,10 @@
         "params": [
           {
             "name": "new_config",
+            "type": null
+          },
+          {
+            "name": "constructor",
             "type": null
           }
         ],
@@ -1253,6 +1880,10 @@
         "params": [
           {
             "name": "new_config",
+            "type": null
+          },
+          {
+            "name": "constructor",
             "type": null
           }
         ],

@@ -43,11 +43,13 @@ export default class Parametrize extends Base {
         };
 
         if ("parameterization" in this.state.config) {
+
+            const { parameters, computeAll, computeMatrix } = this.state.config.parameterization;
             this.state = {
                 ...this.state,
-                parameters: this.state.config.parameterization.parameters,
-                computeAll: this.state.config.parameterization.computeAll,
-                computeMatrix: this.state.config.parameterization.computeMatrix
+                parameters: (parameters) ? parameters : [],
+                computeAll: (computeAll) ? computeAll : false,
+                computeMatrix: (computeMatrix) ? computeMatrix : []
             };
         } else {
             this.state = {
@@ -57,8 +59,6 @@ export default class Parametrize extends Base {
                 computeMatrix: []
             };
         }
-
-
 
     }
 
@@ -83,32 +83,25 @@ export default class Parametrize extends Base {
     }
 
 
-    handleLoadClose() {
-        this.setState({ showLoadModal: false });
-    }
-    handleLoadShow() {
-        this.setState({ showLoadModal: true });
-    }
-
     saveParams(new_parameters) {
         const {
             config,
         } = this.state;
 
-        let new_config = JSON.parse(JSON.stringify(config));
+        let new_config = { ...config };
 
-        if (new_parameters.length == 0) {
-            delete new_config["parameterization"]
-        } else {
-            new_config["parameterization"] = {
-                parameters: new_parameters,
-                computeAll: false,
-                computeMatrix: []
-            }
-        }
+        new_config["parameterization"] = {
+            parameters: new_parameters,
+            computeAll: false,
+            computeMatrix: []
+        };
 
-        console.log(new_config);
+        //new_config = JSON.parse(JSON.stringify(new_config));
+
         this.props.setProps({
+            config: new_config
+        });
+        this.setState({
             config: new_config
         });
 
@@ -130,10 +123,10 @@ export default class Parametrize extends Base {
             newOptionList,
             newSelectedCol,
             newSelectedCols,
-            newSelectedSubset,
-            parameters
+            newSelectedSubset
         } = this.state;
 
+        let parameters = (this.state.parameters) ? this.state.parameters : [];
 
 
 
@@ -189,7 +182,7 @@ export default class Parametrize extends Base {
                             this.setState({ newPath: dummy });
                         }}>{el}</Button>
                 )
-            } catch { 
+            } catch {
                 new_path_options = false;
             }
         }
@@ -222,7 +215,6 @@ export default class Parametrize extends Base {
                                 key={"backto-" + el}
                                 onClick={() => {
                                     let dummy = newPath.slice(0, idx + 1);
-                                    console.log(dummy);
                                     this.setState({ newPath: dummy });
                                 }}>{el}</Button>)
                     }
@@ -382,11 +374,12 @@ export default class Parametrize extends Base {
                         ...parameters,
                         new_parameter
                     ];
-                    this.setState({ parameters: new_parameters });
 
-                    this.saveParams(new_parameters);
-
-                    this.handleAddClose();
+                    this.setState({ parameters: new_parameters },
+                        () => {
+                            this.saveParams(new_parameters);
+                            this.handleAddClose();
+                        });
 
 
                 }}>
@@ -400,9 +393,16 @@ export default class Parametrize extends Base {
 
 
     update_config(path, value) {
-        const { config } = this.state;
+        const { config, parameters } = this.state;
 
-        let new_config = JSON.parse(JSON.stringify(config));
+        let new_config = { ...config };
+        new_config["parameterization"] = {
+            parameters: parameters,
+            computeAll: false,
+            computeMatrix: []
+        };
+
+        new_config = JSON.parse(JSON.stringify(new_config));
         let path_string = "";
         path.forEach(el => {
             if (!isNaN(parseFloat(el))) {

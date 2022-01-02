@@ -16,8 +16,6 @@ export default class Localstore extends Base {
     constructor(props) {
         super(props);
 
-
-
         this.state = {
             ...this.state,
             store: this.getStore(),
@@ -30,10 +28,14 @@ export default class Localstore extends Base {
 
         };
 
-
-
         this.state.selectedName = (this.state.store.length > 0) ? this.state.store[0].name : "";
 
+    }
+
+
+
+    UNSAFE_componentWillReceiveProps(newProps) {
+        super.UNSAFE_componentWillReceiveProps(newProps);
     }
 
     getStore() {

@@ -60,18 +60,19 @@ export default class Configurator extends Component {
             transform_meta_out: { ...props.meta }
         };
 
+
     }
 
     update_config(new_config) {
 
-        console.log("update_config");
-        console.log(new_config);
-        this.setState({
-            config: new_config
-        });
-        this.props.setProps({
-            config: new_config
-        });
+        this.setState(
+            { config: new_config },
+            () => {
+
+                this.props.setProps({
+                    config: new_config
+                })
+            });
     }
 
 
@@ -99,13 +100,12 @@ export default class Configurator extends Component {
 
     render() {
         const { id } = this.props;
-        const { meta, config, filter_meta_out, transform_meta_out } = this.state;
-
+        const { meta, filter_meta_out, transform_meta_out } = this.state;
+        let { config } = this.state;
 
         return (
 
             <Accordion id={id} defaultActiveKey="plotter">
-
 
                 <CustomAccordionItem title="Filter">
                     < Filter
@@ -175,14 +175,16 @@ export default class Configurator extends Component {
                     />
                 </CustomAccordionItem>
 
-                <CustomAccordionItem title="Parametrize">
+                <CustomAccordionItem title="Parameterize" defaultOpen>
                     <Parametrize
                         key="parametrize"
                         meta={transform_meta_out}
-                        config={config}
+                        config={ {...config} }
                         setProps={out => {
                             if ("config" in out) {
-                                let new_config = { ...out.config }
+                                let new_config = { ...out.config };
+                                new_config = JSON.parse(JSON.stringify(new_config));
+                                config = new_config;
                                 this.update_config(new_config);
                             }
                         }}

@@ -6,9 +6,20 @@ import Modal from 'react-bootstrap/Modal';
 
 
 
-import PlotterBase from './plot/PlotterBase.react';
 import Scatter from './plot/Scatter.react';
-let known_plots = [PlotterBase, Scatter].map(el => {
+import Box from './plot/Box.react';
+import Violin from './plot/Violin.react';
+
+import Imshow from './plot/Imshow.react';
+
+import BarCount from './plot/BarCount.react';
+import ScatterMatrix from './plot/ScatterMatrix.react';
+
+import HistogramLine from './plot/HistogramLine.react';
+import Probability from './plot/Probability.react';
+
+import Table from './plot/Table.react';
+let known_plots = [Scatter, Box, Violin, Imshow, BarCount, ScatterMatrix, HistogramLine, Probability, Table].map(el => {
     return { type: el.type, class: el, label: el.label, icon: el.icon }
 });
 let plots_dict = Object.assign({}, ...known_plots.map((x) => ({ [x.type]: x })));
@@ -58,11 +69,12 @@ export default class Plotter extends Base {
         return (<Modal backdrop="static"
             show={showModal}
             onHide={() => this.handleClose()}
+            key="plot-type-modal"
         >
             <Modal.Header closeButton>
                 <Modal.Title>Plot Types</Modal.Title>
             </Modal.Header>
-            <Modal.Body><div style={{ minHeight: "15em" }} className="mb-3">
+            <Modal.Body><div className="mt-2">
 
                 {known_plots.map(pt => {
 
@@ -71,7 +83,7 @@ export default class Plotter extends Base {
                         <Button
                             key={"set-plot-" + pt.type}
                             variant="outline-secondary"
-                            className="d-flex align-items-center w-100"
+                            className="d-flex align-items-center w-100 mb-2"
 
                             onClick={(e) => {
 
@@ -120,20 +132,21 @@ export default class Plotter extends Base {
                     variant="outline-secondary"
                     className="d-flex align-items-center w-100 mb-2"
                     onClick={() => this.handleShow()}>
-                    <div style={{ width: "60px", height: "60px" }}>{(pt && "icon" in pt) ? pt.icon : ""}</div>
-                    <div className="flex-grow-1 mt-2 h3">
-                        {(pt && "label" in pt) ? pt.label : ""}
-                    </div>
+
+                    {(pt && "icon" in pt) && <div style={{ width: "60px", height: "60px" }}>{pt.icon}</div>}
+                    {(pt && "icon" in pt) && <div className="flex-grow-1 mt-2 h3">{pt.label}</div>}
+                    {!(pt && "icon" in pt) && <div className="flex-grow-1 mt-2 h3" >Choose a plot type</div>}
+
                 </Button>
 
 
                 {
-                    known_plots.map(plt => {
+                    known_plots.map((plt, idx) => {
 
                         return (
                             plotType === plt["type"] &&
                             <plt.class
-                                key={"pltconfig-" + plt["type"]}
+                                key={"plottype-"+idx}
                                 allColOptions={allColOptions}
                                 catColOptions={catColOptions}
                                 numColOptions={numColOptions}

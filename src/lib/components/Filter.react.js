@@ -57,7 +57,8 @@ export default class Filter extends Base {
     update_config(new_config) {
         super.update_config(new_config);
 
-        let new_meta = JSON.parse(JSON.stringify(this.state.meta))
+        //let new_meta = JSON.parse(JSON.stringify(this.state.meta))
+        let new_meta = {...this.state.meta};
 
         new_config.forEach(el => {
             if (el.col in new_meta) {
@@ -90,7 +91,6 @@ export default class Filter extends Base {
             }
         });
 
-        console.log(new_meta);
         super.update_meta_out(new_meta);
     }
 

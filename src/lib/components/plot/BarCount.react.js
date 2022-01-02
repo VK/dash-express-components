@@ -5,7 +5,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 
 
-export default class Scatter extends PlotterBase {
+export default class BarCount extends PlotterBase {
 
     constructor(props) {
         super(props);
@@ -14,28 +14,22 @@ export default class Scatter extends PlotterBase {
             ...this.state,
 
             optionsbar: [
-                this.option_dict.error,
-                this.option_dict.marginal,
-                this.option_dict.facet,
-                this.option_dict.axis,
-                this.option_dict.labels
             ]
 
         }
 
-        this.copy_params("scatter");
+
         this.init_check_options(true);
     }
 
 
-    static icon = (<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" viewBox="0 0 46 46"><path fill="none" d="M0 0h46v46H0z"></path><circle cx="13" cy="32" r="3" fill="#1d9bfb"></circle><circle cx="21" cy="27" r="3" fill="#25fdfc"></circle><circle cx="23" cy="18" r="3" fill="#1d9bfb"></circle><circle cx="32" cy="24" r="3" fill="#25fdfc"></circle><circle cx="32" cy="11" r="3" fill="#25fdfc"></circle></svg>)
-    static label = "Scatter Plot";
-    static type = "scatter";
+    static icon = (<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" viewBox="0 0 46 46"><path fill="none" d="M0 0h46v46H0z"></path><path fill="#25fdfc" d="M7 28h6v12H7z"></path><path fill="#1d9bfb" d="M32 28h6v12h-6zM15 10h6v30h-6z"></path><path fill="#25fdfc" d="M24 20h6v20h-6z"></path></svg>)
+    static label = "Bar Count Plot";
+    type = "bar_count";
 
     config_from_state(input) {
         let params = {
             ...this.base_config_from_state(),
-            render_mode: "webgl",
             ...input
         };
 
@@ -46,7 +40,7 @@ export default class Scatter extends PlotterBase {
         }
 
         return {
-            type: "scatter",
+            type: "bar_count",
             params: params
         }
     }
@@ -55,20 +49,14 @@ export default class Scatter extends PlotterBase {
     render() {
         const {
             allColOptions,
-            catColOptions,
-            numColOptions
+            catColOptions
         } = this.state;
 
         return (
             <div>
-                {this.multiSelect("X", "x", allColOptions)}
-                {this.multiSelect("Y", "y", allColOptions)}
+                {this.multiSelect("X", "x", catColOptions)}
                 {this.singleSelect("Color", "color", allColOptions)}
-                {this.singleSelect("Symb.", "symbol", catColOptions)}
-                {this.singleSelect("Size", "size", numColOptions)}
 
-                {this.optionsBar()}
-                {this.commonOptionBarControlls()}
 
             </div>
         );
@@ -78,9 +66,9 @@ export default class Scatter extends PlotterBase {
 
 
 
-Scatter.defaultProps = {};
+BarCount.defaultProps = {};
 
-Scatter.propTypes = {
+BarCount.propTypes = {
 
     /**
     * The config the user sets in this component.
@@ -108,3 +96,4 @@ Scatter.propTypes = {
      */
     setProps: PropTypes.func
 };
+

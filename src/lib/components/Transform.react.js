@@ -38,6 +38,7 @@ export default class Transform extends Base {
             sub_config: {}
         };
 
+        this.update_config(this.state.config, true);
     }
 
     handleClose() {
@@ -49,6 +50,7 @@ export default class Transform extends Base {
 
     UNSAFE_componentWillReceiveProps(newProps) {
         const update_config_needed = (newProps.config !== this.props.config);
+
         super.UNSAFE_componentWillReceiveProps(newProps);
 
         if (update_config_needed && "config" in newProps) {
@@ -58,10 +60,11 @@ export default class Transform extends Base {
     }
 
 
-    update_config(new_config) {
-        super.update_config(new_config);
+    update_config(new_config, constructor=false) {
+        super.update_config(new_config, constructor);
 
-        let new_meta = JSON.parse(JSON.stringify(this.state.meta))
+        //let new_meta = JSON.parse(JSON.stringify(this.state.meta))
+        let new_meta = {...this.state.meta};
 
         new_config.forEach(el => {
 
@@ -79,8 +82,17 @@ export default class Transform extends Base {
 
         });
 
-        super.update_meta_out(new_meta);
-        this.setState(this.get_columns(new_meta));
+        super.update_meta_out(new_meta, constructor);
+
+        if(constructor)
+        {
+            this.state = {
+                ...this.state,
+                ...this.get_columns(new_meta)
+            }
+        } else {
+            this.setState(this.get_columns(new_meta));
+        }
     }
 
     get_transform_blocks() {
@@ -195,9 +207,7 @@ export default class Transform extends Base {
                     if ("type" in sub_config) {
 
 
-                        console.log(known_trafos.filter(el => el["type"] === sub_config["type"]));
                         let transform_class = known_trafos.filter(el => el["type"] === sub_config["type"])[0]["class"];
-
                         let res = transform_class.eval(
                             {
                                 ...sub_config,

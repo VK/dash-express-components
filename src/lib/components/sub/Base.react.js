@@ -130,19 +130,33 @@ export default class Base extends Component {
 
 
 
-    update_meta_out(new_meta_out) {
-        this.setState({
-            meta_out: new_meta_out
-        });
+    update_meta_out(new_meta_out, constructor = false) {
+        if (constructor) {
+            this.state = {
+                ...this.state,
+                meta_out: new_meta_out
+            }
+        } else {
+            this.setState({
+                meta_out: new_meta_out
+            });
+        }
         this.props.setProps({
             meta_out: new_meta_out
         });
     }
 
-    update_config(new_config) {
-        this.setState({
-            config: new_config
-        });
+    update_config(new_config, constructor = false) {
+        if (constructor) {
+            this.state = {
+                ...this.state,
+                config: new_config
+            }
+        } else {
+            this.setState({
+                config: new_config
+            });
+        }
         this.props.setProps({
             config: new_config
         });
@@ -157,12 +171,9 @@ export default class Base extends Component {
      */
     get_columns(meta) {
 
-
-        console.log(meta);
-
         const numCols = Object.keys(meta)
             .filter((key) => {
-                return meta[key].type === "numerical" || meta[key].type === "temporal"| meta[key].type === "undefined";
+                return meta[key].type === "numerical" || meta[key].type === "temporal" | meta[key].type === "undefined";
             })
             .reduce((obj, key) => {
                 obj[key] = meta[key];

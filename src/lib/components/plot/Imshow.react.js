@@ -1,11 +1,9 @@
-import { isNil, pluck } from 'ramda';
 import PlotterBase from "./PlotterBase.react";
-import Select from 'react-select';
-import InputGroup from 'react-bootstrap/InputGroup';
 
 
 
-export default class Scatter extends PlotterBase {
+
+export default class Imshow extends PlotterBase {
 
     constructor(props) {
         super(props);
@@ -14,28 +12,23 @@ export default class Scatter extends PlotterBase {
             ...this.state,
 
             optionsbar: [
-                this.option_dict.error,
-                this.option_dict.marginal,
-                this.option_dict.facet,
-                this.option_dict.axis,
-                this.option_dict.labels
+                this.option_dict.facet
             ]
 
         }
 
-        this.copy_params("scatter");
+        this.copy_params("imshow");
         this.init_check_options(true);
     }
 
 
-    static icon = (<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" viewBox="0 0 46 46"><path fill="none" d="M0 0h46v46H0z"></path><circle cx="13" cy="32" r="3" fill="#1d9bfb"></circle><circle cx="21" cy="27" r="3" fill="#25fdfc"></circle><circle cx="23" cy="18" r="3" fill="#1d9bfb"></circle><circle cx="32" cy="24" r="3" fill="#25fdfc"></circle><circle cx="32" cy="11" r="3" fill="#25fdfc"></circle></svg>)
-    static label = "Scatter Plot";
-    static type = "scatter";
+    static icon = (<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" viewBox="0 0 46 46"><path fill="none" d="M0 0h46v46H0z"></path><path fill="#1d9bfb" d="M32 20h6v6h-6zm-12-6h6v6h-6zm-6 6h6v6h-6zm0 12h6v6h-6zm6 0h6v6h-6zm12 0h6v6h-6zm-6-12h6v6h-6z"></path><path fill="#25fdfc" d="M26 14h6v6h-6zm6 0h6v6h-6zm-12 6h6v6h-6zM8 20h6v6H8z"></path><path fill="#1d9bfb" d="M14 14h6v6h-6z"></path><path fill="#25fdfc" d="M8 14h6v6H8z"></path><path fill="#1d9bfb" d="M26 26h6v6h-6zM8 26h6v6H8z"></path><path fill="#25fdfc" d="M20 26h6v6h-6zm12 0h6v6h-6zm-18 0h6v6h-6zM26 8h6v6h-6z"></path><path fill="#1d9bfb" d="M8 8h6v6H8zm12 0h6v6h-6zm12 0h6v6h-6z"></path><path fill="#25fdfc" d="M14 8h6v6h-6zM8 32h6v6H8zm18 0h6v6h-6z"></path></svg>)
+    static label = "2D Image";
+    static type = "imshow";
 
     config_from_state(input) {
         let params = {
             ...this.base_config_from_state(),
-            render_mode: "webgl",
             ...input
         };
 
@@ -46,7 +39,7 @@ export default class Scatter extends PlotterBase {
         }
 
         return {
-            type: "scatter",
+            type: "imshow",
             params: params
         }
     }
@@ -55,17 +48,15 @@ export default class Scatter extends PlotterBase {
     render() {
         const {
             allColOptions,
-            catColOptions,
             numColOptions
         } = this.state;
 
         return (
-            <div>
-                {this.multiSelect("X", "x", allColOptions)}
-                {this.multiSelect("Y", "y", allColOptions)}
-                {this.singleSelect("Color", "color", allColOptions)}
-                {this.singleSelect("Symb.", "symbol", catColOptions)}
-                {this.singleSelect("Size", "size", numColOptions)}
+
+            <div key={"div-" + this.props.id}>
+                {this.singleSelect("X", "x", numColOptions)}
+                {this.singleSelect("Y", "y", numColOptions)}
+                {this.multiSelect("Dim", "dimensions", allColOptions)}
 
                 {this.optionsBar()}
                 {this.commonOptionBarControlls()}
@@ -78,9 +69,9 @@ export default class Scatter extends PlotterBase {
 
 
 
-Scatter.defaultProps = {};
+Imshow.defaultProps = {};
 
-Scatter.propTypes = {
+Imshow.propTypes = {
 
     /**
     * The config the user sets in this component.

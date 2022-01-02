@@ -82,7 +82,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                 return _px.scatter(_dummyData, title=errorResult)    
 
 
-            print("hello")
+
 
             # apply filters if required
             if "filter" in configData:

@@ -1,3 +1,6 @@
+import numpy as np
+from skimage import data as imgdata
+from dash.exceptions import PreventUpdate
 import numpy as _np
 from numpy import dtype
 from numpy.lib.function_base import insert
@@ -16,9 +19,29 @@ from datetime import datetime
 
 tips_df = px.data.tips()
 #iris_df = px.data.iris()
-#gapminder_df = px.data.gapminder()
+gapminder_df = px.data.gapminder()
 
-df = tips_df
+
+def _img_to_df(data, name):
+
+    if len(data.shape) == 3:
+        br_data = np.average(data, axis=2)
+    sub_df = pd.DataFrame(br_data).stack().reset_index(level=[0, 1])
+    sub_df.columns = ["Y", "X", "Br"]
+    sub_df["Name"] = name
+    if len(data.shape) == 3:
+        sub_df["R"] = data[:, :, 0].flatten()
+        sub_df["G"] = data[:, :, 1].flatten()
+        sub_df["B"] = data[:, :, 2].flatten()
+    return sub_df
+
+
+image_df = pd.DataFrame()
+image_df = image_df.append(_img_to_df(imgdata.cat(), "cat"))
+image_df = image_df.append(_img_to_df(imgdata.astronaut(), "astronaut"))
+image_df = image_df.append(_img_to_df(imgdata.coffee(), "coffee"))
+
+df = image_df
 
 # external CSS stylesheets
 app = dash.Dash(
@@ -29,16 +52,15 @@ app = dash.Dash(
     ]
 )
 
+initial_config = {'filter': [{'col': 'Name', 'type': 'eq', 'value': 'cat'}], 'transform': [{'type': 'eval', 'col': 'catfilter', 'formula': '(Br > 20) & (Br < 220)'}], 'plot': {'type': 'imshow', 'params': {'x': 'X', 'y': 'Y', 'dimensions': ['Br', 'R']}}, 'parameterization': {
+    'parameters': [{'name': 'adsf', 'type': 'o', 'path': ['filter', '0', 'value'], 'value': 'cat', 'col': 'Name'}, {'name': 'data', 'type': 'usa', 'path': ['plot', 'params', 'dimensions'], 'value': ['R', 'G']}], 'computeAll': False, 'computeMatrix': []}}
+
 app.layout = html.Div([
 
     html.Div([
         dec.Configurator(
             id="plotConfig",
-            config={
-                "filter": [],
-                "transform": [],
-                "plot": []
-            },
+            config=initial_config,
             meta=dec.get_meta(df)
         ),
 
@@ -46,7 +68,7 @@ app.layout = html.Div([
     ], style={"width": "500px", "float": "left"}),
 
     html.Div(
-        [dcc.Graph(id="fig")], style={"width": "calc(100% - 500px)", "height": "100%", "float": "left"}
+        [dcc.Graph(id="fig", figure={})], style={"width": "calc(100% - 500px)", "height": "100%", "float": "left"}
     )
 
 ], className="p-4")
@@ -59,9 +81,13 @@ app.layout = html.Div([
 def display_output(config):
 
     fig = dec.get_plot(df, config, apply_parameterization=False)
-    return ('Your configuration {}'.format(config),
-            fig
-            )
+    if fig:
+        return ('Your configuration {}'.format(config),
+                fig
+                )
+    else:
+        print("Schade")
+        raise PreventUpdate
 
 
 if __name__ == '__main__':
