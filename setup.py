@@ -1,6 +1,7 @@
 import json
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
+
 
 
 with open('package.json') as f:
@@ -12,7 +13,7 @@ setup(
     name=package_name,
     version=package["version"],
     author=package['author'],
-    packages=[package_name],
+    packages=[p for p in find_packages() if p.startswith(package_name)],
     include_package_data=True,
     license=package['license'],
     description=package.get('description', package_name),
