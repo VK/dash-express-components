@@ -1,6 +1,6 @@
 {
   "name": "dash_express_components",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Simple widgets to add plotly express style plotting to dash",
   "main": "build/index.js",
   "scripts": {
@@ -18,10 +18,13 @@
   "dependencies": {
     "@nx-js/compiler-util": "^2.0.0",
     "chroma-js": "^2.1.2",
+    "plotly.js": "^1.58.4",
+    "plotly.js-dist": "^2.8.3",
     "ramda": "^0.26.1",
     "react-bootstrap": "^2.0.4",
     "react-datetime-picker": "^3.4.3",
     "react-list-editable": "^0.1.0",
+    "react-resize-detector": "^6.7.7",
     "react-select": "^5.2.1"
   },
   "devDependencies": {

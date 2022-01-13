@@ -57,7 +57,8 @@ module.exports = (env, argv) => {
         devtool,
         externals,
         module: {
-            rules: [
+            noParse: /node_modules[\\\/]plotly.js/,
+                 rules: [
                 {
                     test: /\.jsx?$/,
                     exclude: /node_modules/,
@@ -65,6 +66,9 @@ module.exports = (env, argv) => {
                         loader: 'babel-loader',
                     },
                 },
+
+
+                
                 {
                     test: /\.css$/,
                     use: [
@@ -81,6 +85,11 @@ module.exports = (env, argv) => {
                 },
             ],
         },
+        resolve: {
+            alias: {
+                'plotly.js': 'plotly.js/dist/plotly.min.js'
+            }
+        },        
         optimization: {
             minimizer: [
                 new TerserPlugin({

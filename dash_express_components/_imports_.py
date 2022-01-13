@@ -1,5 +1,6 @@
 from .Configurator import Configurator
 from .Filter import Filter
+from .Graph import Graph
 from .Localstore import Localstore
 from .MetaCheck import MetaCheck
 from .Parametrize import Parametrize
@@ -24,6 +25,7 @@ from .Transform import Transform
 __all__ = [
     "Configurator",
     "Filter",
+    "Graph",
     "Localstore",
     "MetaCheck",
     "Parametrize",

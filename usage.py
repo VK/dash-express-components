@@ -5,7 +5,7 @@ import numpy as _np
 from numpy import dtype
 from numpy.lib.function_base import insert
 from plotly.data import tips
-import dash_express_components as dec
+import dash_express_components as dxc
 import dash
 from dash.dependencies import Input, Output
 from dash import html
@@ -47,8 +47,8 @@ df = image_df
 app = dash.Dash(
     external_stylesheets=[
         dbc.themes.BOOTSTRAP,
-        "https://raw.githubusercontent.com/bvaughn/react-virtualized-select/master/styles.css",
-        "https://gist.githubusercontent.com/aprimadi/a08e2e7e717e6f9bf13821c039befbf9/raw/7c00278a83a30983cc513e1a6a81ba1496ef3a7e/react-select.css"
+        #"https://raw.githubusercontent.com/bvaughn/react-virtualized-select/master/styles.css",
+        #"https://gist.githubusercontent.com/aprimadi/a08e2e7e717e6f9bf13821c039befbf9/raw/7c00278a83a30983cc513e1a6a81ba1496ef3a7e/react-select.css"
     ]
 )
 
@@ -58,32 +58,34 @@ initial_config = {'filter': [{'col': 'Name', 'type': 'eq', 'value': 'cat'}], 'tr
 app.layout = html.Div([
 
     html.Div([
-        dec.Configurator(
+        dxc.Configurator(
             id="plotConfig",
             config=initial_config,
-            meta=dec.get_meta(df)
+            meta=dxc.get_meta(df)
         ),
 
         html.Div(id='output'),
     ], style={"width": "500px", "float": "left"}),
 
     html.Div(
-        [dcc.Graph(id="fig", figure={})], style={"width": "calc(100% - 500px)", "height": "100%", "float": "left"}
+        [dxc.Graph(id="fig", figure={})], style={"width": "calc(100% - 500px)", "height": "100vh", "float": "left"}
     )
 
 ], className="p-4")
 
 
 @app.callback([Output('output', 'children'),
-               Output('fig', 'figure')
+               Output('fig', 'figure'),
+               Output('fig', 'defParams')
 
                ], [Input('plotConfig', 'config')])
 def display_output(config):
 
-    fig = dec.get_plot(df, config, apply_parameterization=False)
+    fig = dxc.get_plot(df, config, apply_parameterization=False)
     if fig:
         return ('Your configuration {}'.format(config),
-                fig
+                fig,
+                config
                 )
     else:
         print("Schade")

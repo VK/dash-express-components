@@ -1,4 +1,5 @@
 from __future__ import print_function as _
+from .utils import *
 
 import os as _os
 import sys as _sys
@@ -28,7 +29,9 @@ _current_path = _os.path.dirname(_os.path.abspath(__file__))
 
 _this_module = _sys.modules[__name__]
 
-async_resources = []
+async_resources = [
+    'graph'
+]
 
 _js_dist = []
 
@@ -67,13 +70,13 @@ _js_dist.extend(
     [
         {
             'relative_package_path': 'dash_express_components.min.js',
-    'external_url': 'https://unpkg.com/{0}@{2}/{1}/{1}.min.js'.format(
+            'external_url': 'https://unpkg.com/{0}@{2}/{1}/{1}.min.js'.format(
                 package_name, __name__, __version__),
             'namespace': package_name
         },
         {
             'relative_package_path': 'dash_express_components.min.js.map',
-    'external_url': 'https://unpkg.com/{0}@{2}/{1}/{1}.min.js.map'.format(
+            'external_url': 'https://unpkg.com/{0}@{2}/{1}/{1}.min.js.map'.format(
                 package_name, __name__, __version__),
             'namespace': package_name,
             'dynamic': True
@@ -81,11 +84,43 @@ _js_dist.extend(
     ]
 )
 
+
+_js_dist.extend(
+    [
+    {
+        'relative_package_path': 'plotly.min.js',
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/plotly.min.js'
+        ).format(__version__),
+        'namespace': 'dash_core_components',
+        'async': 'eager'
+    },
+    {
+        'relative_package_path': 'async-plotlyjs.js',
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/async-plotlyjs.js'
+        ).format(__version__),
+        'namespace': 'dash_core_components',
+        'async': 'lazy'
+    },
+    {
+        'relative_package_path': 'async-plotlyjs.js.map',
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/async-plotlyjs.js.map'
+        ).format(__version__),
+        'namespace': 'dash_core_components',
+        'dynamic': True
+    }
+    ]
+)
+
+
 _css_dist = []
 
 
 for _component in __all__:
     setattr(locals()[_component], '_js_dist', _js_dist)
     setattr(locals()[_component], '_css_dist', _css_dist)
-
-from .utils import *

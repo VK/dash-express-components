@@ -1,0 +1,14 @@
+.saveClickContainer{
+    height: 0px; 
+    text-align:right;
+}
+
+.saveClickButton{
+    position: relative;
+    top: -2.3em;
+    color: #fd9652 !important;
+}
+
+.saveClickButton:hover{
+    color: #ff6600 !important;
+}

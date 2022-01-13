@@ -19,6 +19,8 @@ class CustomAccordionItem extends Component {
         this.state = {
             isOpen: ("defaultOpen" in props)
         }
+
+
     }
 
     render() {
@@ -54,12 +56,35 @@ export default class Configurator extends Component {
         super(props);
 
         this.state = {
-            config: props.config,
+            id: this.props.id,
+            config: props.config || {
+                filter: [],
+                transform: [],
+                plot: {},
+                parameterization: {}
+            },
             meta: props.meta,
             filter_meta_out: { ...props.meta },
             transform_meta_out: { ...props.meta }
         };
 
+        if (!("filter") in this.state.config) {
+            this.state.config["filter"] = [];
+        }
+        if (!("transform") in this.state.config) {
+            this.state.config["transform"] = [];
+        }
+        if (!("plot") in this.state.config) {
+            this.state.config["plot"] = {};
+        }
+        if (!("parameterization") in this.state.config) {
+            this.state.config["parameterization"] = {};
+        }
+
+
+        window.addEventListener("message", (event) => {
+            console.log(event);
+        }, false);
 
     }
 
@@ -179,7 +204,7 @@ export default class Configurator extends Component {
                     <Parametrize
                         key="parametrize"
                         meta={transform_meta_out}
-                        config={ {...config} }
+                        config={{ ...config }}
                         setProps={out => {
                             if ("config" in out) {
                                 let new_config = { ...out.config };

@@ -2,6 +2,7 @@
 
 export(''Configurator)
 export(''Filter)
+export(''Graph)
 export(''Localstore)
 export(''MetaCheck)
 export(''Parametrize)

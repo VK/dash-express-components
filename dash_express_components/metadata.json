@@ -151,6 +151,596 @@
       }
     }
   },
+  "src/lib/components/Graph.react.js": {
+    "description": "Graph can be used to render any plotly.js-powered data visualization.\r\n\nYou can define callbacks based on user interaction with Graphs such as\r\nhovering, clicking or selecting",
+    "displayName": "PlotlyGraph",
+    "methods": [
+      {
+        "name": "sendSavedData",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "image",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "saveClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "clearState",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "dataKey",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID of this component, used to identify dash components\r\nin callbacks. The ID needs to be unique across all of the\r\ncomponents in an app."
+      },
+      "responsive": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "true",
+              "computed": false
+            },
+            {
+              "value": "false",
+              "computed": false
+            },
+            {
+              "value": "'auto'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "If True, the Plotly.js plot will be fully responsive to window resize\r\nand parent element resize event. This is achieved by overriding\r\n`config.responsive` to True, `figure.layout.autosize` to True and unsetting\r\n`figure.layout.height` and `figure.layout.width`.\r\nIf False, the Plotly.js plot not be responsive to window resize and\r\nparent element resize event. This is achieved by overriding `config.responsive`\r\nto False and `figure.layout.autosize` to False.\r\nIf 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully\r\nresponsive (True) or not (False) based on the values in `config.responsive`,\r\n`figure.layout.autosize`, `figure.layout.height`, `figure.layout.width`.\r\nThis is the legacy behavior of the Graph component.\r\n\nNeeds to be combined with appropriate dimension / styling through the `style` prop\r\nto fully take effect.",
+        "defaultValue": {
+          "value": "'auto'",
+          "computed": false
+        }
+      },
+      "defParams": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Metadata to describe the plot features"
+      },
+      "clickData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Data from latest click event. Read-only.",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "clickAnnotationData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Data from latest click annotation event. Read-only.",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "hoverData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Data from latest hover event. Read-only.",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "clear_on_unhover": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If True, `clear_on_unhover` will clear the `hoverData` property\r\nwhen the user \"unhovers\" from a point.\r\nIf False, then the `hoverData` property will be equal to the\r\ndata from the last point that was hovered over.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "selectedData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Data from latest select event. Read-only.",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "relayoutData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Data from latest relayout event which occurs\r\nwhen the user zooms or pans on the plot or other\r\nlayout-level edits. Has the form `{<attr string>: <value>}`\r\ndescribing the changes made. Read-only.",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "extendData": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "array"
+            },
+            {
+              "name": "object"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Data that should be appended to existing traces. Has the form\r\n`[updateData, traceIndices, maxPoints]`, where `updateData` is an object\r\ncontaining the data to extend, `traceIndices` (optional) is an array of\r\ntrace indices that should be extended, and `maxPoints` (optional) is\r\neither an integer defining the maximum number of points allowed or an\r\nobject with key:value pairs matching `updateData`\r\nReference the Plotly.extendTraces API for full usage:\r\nhttps://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "prependData": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "array"
+            },
+            {
+              "name": "object"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Data that should be prepended to existing traces. Has the form\r\n`[updateData, traceIndices, maxPoints]`, where `updateData` is an object\r\ncontaining the data to prepend, `traceIndices` (optional) is an array of\r\ntrace indices that should be prepended, and `maxPoints` (optional) is\r\neither an integer defining the maximum number of points allowed or an\r\nobject with key:value pairs matching `updateData`\r\nReference the Plotly.prependTraces API for full usage:\r\nhttps://plotly.com/javascript/plotlyjs-function-reference/#plotlyprependtraces",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "restyleData": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "Data from latest restyle event which occurs\r\nwhen the user toggles a legend item, changes\r\nparcoords selections, or other trace-level edits.\r\nHas the form `[edits, indices]`, where `edits` is an object\r\n`{<attr string>: <value>}` describing the changes made,\r\nand `indices` is an array of trace indices that were edited.\r\nRead-only.",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "figure": {
+        "type": {
+          "name": "exact",
+          "value": {
+            "data": {
+              "name": "arrayOf",
+              "value": {
+                "name": "object"
+              },
+              "required": false
+            },
+            "layout": {
+              "name": "object",
+              "required": false
+            },
+            "frames": {
+              "name": "arrayOf",
+              "value": {
+                "name": "object"
+              },
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Plotly `figure` object. See schema:\r\nhttps://plotly.com/javascript/reference\r\n\n`config` is set separately by the `config` property",
+        "defaultValue": {
+          "value": "{\r\n    data: [],\r\n    layout: {},\r\n    frames: [],\r\n}",
+          "computed": false
+        }
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Generic style overrides on the plot div"
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "className of the parent div"
+      },
+      "animate": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Beta: If true, animate between updates using\r\nplotly.js's `animate` function",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "animation_options": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Beta: Object containing animation settings.\r\nOnly applies if `animate` is `true`",
+        "defaultValue": {
+          "value": "{\r\n    frame: {\r\n        redraw: false,\r\n    },\r\n    transition: {\r\n        duration: 750,\r\n        ease: 'cubic-in-out',\r\n    },\r\n}",
+          "computed": false
+        }
+      },
+      "config": {
+        "type": {
+          "name": "exact",
+          "value": {
+            "staticPlot": {
+              "name": "bool",
+              "description": "No interactivity, for export or image generation",
+              "required": false
+            },
+            "plotlyServerURL": {
+              "name": "string",
+              "description": "Base URL for a Plotly cloud instance, if `showSendToCloud` is enabled",
+              "required": false
+            },
+            "editable": {
+              "name": "bool",
+              "description": "We can edit titles, move annotations, etc - sets all pieces of `edits`\r\nunless a separate `edits` config item overrides individual parts",
+              "required": false
+            },
+            "edits": {
+              "name": "exact",
+              "value": {
+                "annotationPosition": {
+                  "name": "bool",
+                  "description": "The main anchor of the annotation, which is the\r\ntext (if no arrow) or the arrow (which drags the whole thing leaving\r\nthe arrow length & direction unchanged)",
+                  "required": false
+                },
+                "annotationTail": {
+                  "name": "bool",
+                  "description": "Just for annotations with arrows, change the length and direction of the arrow",
+                  "required": false
+                },
+                "annotationText": {
+                  "name": "bool",
+                  "required": false
+                },
+                "axisTitleText": {
+                  "name": "bool",
+                  "required": false
+                },
+                "colorbarPosition": {
+                  "name": "bool",
+                  "required": false
+                },
+                "colorbarTitleText": {
+                  "name": "bool",
+                  "required": false
+                },
+                "legendPosition": {
+                  "name": "bool",
+                  "required": false
+                },
+                "legendText": {
+                  "name": "bool",
+                  "description": "Edit the trace name fields from the legend",
+                  "required": false
+                },
+                "shapePosition": {
+                  "name": "bool",
+                  "required": false
+                },
+                "titleText": {
+                  "name": "bool",
+                  "description": "The global `layout.title`",
+                  "required": false
+                }
+              },
+              "description": "A set of editable properties",
+              "required": false
+            },
+            "autosizable": {
+              "name": "bool",
+              "description": "DO autosize once regardless of layout.autosize\r\n(use default width or height values otherwise)",
+              "required": false
+            },
+            "responsive": {
+              "name": "bool",
+              "description": "Whether to change layout size when the window size changes",
+              "required": false
+            },
+            "queueLength": {
+              "name": "number",
+              "description": "Set the length of the undo/redo queue",
+              "required": false
+            },
+            "fillFrame": {
+              "name": "bool",
+              "description": "If we DO autosize, do we fill the container or the screen?",
+              "required": false
+            },
+            "frameMargins": {
+              "name": "number",
+              "description": "If we DO autosize, set the frame margins in percents of plot size",
+              "required": false
+            },
+            "scrollZoom": {
+              "name": "bool",
+              "description": "Mousewheel or two-finger scroll zooms the plot",
+              "required": false
+            },
+            "doubleClick": {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "false",
+                  "computed": false
+                },
+                {
+                  "value": "'reset'",
+                  "computed": false
+                },
+                {
+                  "value": "'autosize'",
+                  "computed": false
+                },
+                {
+                  "value": "'reset+autosize'",
+                  "computed": false
+                }
+              ],
+              "description": "Double click interaction (false, 'reset', 'autosize' or 'reset+autosize')",
+              "required": false
+            },
+            "doubleClickDelay": {
+              "name": "number",
+              "description": "Delay for registering a double-click event in ms. The\r\nminimum value is 100 and the maximum value is 1000. By\r\ndefault this is 300.",
+              "required": false
+            },
+            "showTips": {
+              "name": "bool",
+              "description": "New users see some hints about interactivity",
+              "required": false
+            },
+            "showAxisDragHandles": {
+              "name": "bool",
+              "description": "Enable axis pan/zoom drag handles",
+              "required": false
+            },
+            "showAxisRangeEntryBoxes": {
+              "name": "bool",
+              "description": "Enable direct range entry at the pan/zoom drag points\r\n(drag handles must be enabled above)",
+              "required": false
+            },
+            "showLink": {
+              "name": "bool",
+              "description": "Link to open this plot in plotly",
+              "required": false
+            },
+            "sendData": {
+              "name": "bool",
+              "description": "If we show a link, does it contain data or just link to a plotly file?",
+              "required": false
+            },
+            "linkText": {
+              "name": "string",
+              "description": "Text appearing in the sendData link",
+              "required": false
+            },
+            "displayModeBar": {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "true",
+                  "computed": false
+                },
+                {
+                  "value": "false",
+                  "computed": false
+                },
+                {
+                  "value": "'hover'",
+                  "computed": false
+                }
+              ],
+              "description": "Display the mode bar (true, false, or 'hover')",
+              "required": false
+            },
+            "showSendToCloud": {
+              "name": "bool",
+              "description": "Should we include a modebar button to send this data to a\r\nPlotly Cloud instance, linked by `plotlyServerURL`.\r\nBy default this is false.",
+              "required": false
+            },
+            "showEditInChartStudio": {
+              "name": "bool",
+              "description": "Should we show a modebar button to send this data to a\r\nPlotly Chart Studio plot. If both this and showSendToCloud\r\nare selected, only showEditInChartStudio will be\r\nhonored. By default this is false.",
+              "required": false
+            },
+            "modeBarButtonsToRemove": {
+              "name": "array",
+              "description": "Remove mode bar button by name.\r\nAll modebar button names at https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js\r\nCommon names include:\r\nsendDataToCloud;\r\n(2D) zoom2d, pan2d, select2d, lasso2d, zoomIn2d, zoomOut2d, autoScale2d, resetScale2d;\r\n(Cartesian) hoverClosestCartesian, hoverCompareCartesian;\r\n(3D) zoom3d, pan3d, orbitRotation, tableRotation, handleDrag3d, resetCameraDefault3d, resetCameraLastSave3d, hoverClosest3d;\r\n(Geo) zoomInGeo, zoomOutGeo, resetGeo, hoverClosestGeo;\r\nhoverClosestGl2d, hoverClosestPie, toggleHover, resetViews.",
+              "required": false
+            },
+            "modeBarButtonsToAdd": {
+              "name": "array",
+              "description": "Add mode bar button using config objects",
+              "required": false
+            },
+            "modeBarButtons": {
+              "name": "any",
+              "description": "Fully custom mode bar buttons as nested array,\r\nwhere the outer arrays represents button groups, and\r\nthe inner arrays have buttons config objects or names of default buttons",
+              "required": false
+            },
+            "toImageButtonOptions": {
+              "name": "exact",
+              "value": {
+                "format": {
+                  "name": "enum",
+                  "value": [
+                    {
+                      "value": "'jpeg'",
+                      "computed": false
+                    },
+                    {
+                      "value": "'png'",
+                      "computed": false
+                    },
+                    {
+                      "value": "'webp'",
+                      "computed": false
+                    },
+                    {
+                      "value": "'svg'",
+                      "computed": false
+                    }
+                  ],
+                  "description": "The file format to create",
+                  "required": false
+                },
+                "filename": {
+                  "name": "string",
+                  "description": "The name given to the downloaded file",
+                  "required": false
+                },
+                "width": {
+                  "name": "number",
+                  "description": "Width of the downloaded file, in px",
+                  "required": false
+                },
+                "height": {
+                  "name": "number",
+                  "description": "Height of the downloaded file, in px",
+                  "required": false
+                },
+                "scale": {
+                  "name": "number",
+                  "description": "Extra resolution to give the file after\r\nrendering it with the given width and height",
+                  "required": false
+                }
+              },
+              "description": "Modifications to how the toImage modebar button works",
+              "required": false
+            },
+            "displaylogo": {
+              "name": "bool",
+              "description": "Add the plotly logo on the end of the mode bar",
+              "required": false
+            },
+            "watermark": {
+              "name": "bool",
+              "description": "Add the plotly logo even with no modebar",
+              "required": false
+            },
+            "plotGlPixelRatio": {
+              "name": "number",
+              "description": "Increase the pixel ratio for Gl plot images",
+              "required": false
+            },
+            "topojsonURL": {
+              "name": "string",
+              "description": "URL to topojson files used in geo charts",
+              "required": false
+            },
+            "mapboxAccessToken": {
+              "name": "any",
+              "description": "Mapbox access token (required to plot mapbox trace types)\r\nIf using an Mapbox Atlas server, set this option to '',\r\nso that plotly.js won't attempt to authenticate to the public Mapbox server.",
+              "required": false
+            },
+            "locale": {
+              "name": "string",
+              "description": "The locale to use. Locales may be provided with the plot\r\n(`locales` below) or by loading them on the page, see:\r\nhttps://github.com/plotly/plotly.js/blob/master/dist/README.md#to-include-localization",
+              "required": false
+            },
+            "locales": {
+              "name": "object",
+              "description": "Localization definitions, if you choose to provide them with the\r\nplot rather than registering them globally.",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Plotly.js config options.\r\nSee https://plotly.com/javascript/configuration-options/\r\nfor more info.",
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Function that updates the state tree."
+      },
+      "loading_state": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "is_loading": {
+              "name": "bool",
+              "description": "Determines if the component is loading or not",
+              "required": false
+            },
+            "prop_name": {
+              "name": "string",
+              "description": "Holds which property is loading",
+              "required": false
+            },
+            "component_name": {
+              "name": "string",
+              "description": "Holds the name of the component that is loading",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Object that holds the loading state object coming from dash-renderer"
+      }
+    },
+    "composes": [
+      "../fragments/Graph.privateprops"
+    ]
+  },
   "src/lib/components/Localstore.react.js": {
     "description": "",
     "displayName": "Localstore",
