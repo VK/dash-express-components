@@ -3,3 +3,5 @@ dash[dev]>=1.15.0
 pandas
 scipy
 scikit-image
+dash-bootstrap-components
+numexpr

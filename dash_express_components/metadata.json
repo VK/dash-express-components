@@ -4,6 +4,18 @@
     "displayName": "Configurator",
     "methods": [
       {
+        "name": "fix_config",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "new_config",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
         "name": "update_config",
         "docblock": null,
         "modifiers": [],
@@ -13,6 +25,13 @@
             "type": null
           }
         ],
+        "returns": null
+      },
+      {
+        "name": "handleClose",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
         "returns": null
       }
     ],
@@ -175,6 +194,25 @@
         "returns": null
       },
       {
+        "name": "sendEditData",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "image",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "editClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
         "name": "clearState",
         "docblock": null,
         "modifiers": [],
@@ -226,6 +264,13 @@
         },
         "required": false,
         "description": "Metadata to describe the plot features"
+      },
+      "configuratorId": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "id of the plotter  if a reload of the connfig should be allowed"
       },
       "clickData": {
         "type": {

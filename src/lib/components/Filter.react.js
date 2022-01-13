@@ -58,38 +58,39 @@ export default class Filter extends Base {
         super.update_config(new_config);
 
         //let new_meta = JSON.parse(JSON.stringify(this.state.meta))
-        let new_meta = {...this.state.meta};
+        let new_meta = { ...this.state.meta };
 
-        new_config.forEach(el => {
-            if (el.col in new_meta) {
-                if (el["type"] === "gt" || el["type"] === "gte") {
+        if (new_config)
+            new_config.forEach(el => {
+                if (el.col in new_meta) {
+                    if (el["type"] === "gt" || el["type"] === "gte") {
 
-                    new_meta[el.col].min = el.value;
-                    new_meta[el.col].max = Math.max(new_meta[el.col].max, el.value);
-                    new_meta[el.col].median = Math.max(new_meta[el.col].median, el.value);
+                        new_meta[el.col].min = el.value;
+                        new_meta[el.col].max = Math.max(new_meta[el.col].max, el.value);
+                        new_meta[el.col].median = Math.max(new_meta[el.col].median, el.value);
+                    }
+                    if (el["type"] === "lt" || el["type"] === "lte") {
+                        new_meta[el.col].max = el.value;
+                        new_meta[el.col].min = Math.max(new_meta[el.col].min, el.value);
+                        new_meta[el.col].median = Math.max(new_meta[el.col].median, el.value);
+                    }
+                    if (el["type"] === "eq") {
+                        new_meta[el.col].max = el.value;
+                        new_meta[el.col].min = el.value;
+                        new_meta[el.col].median = el.value;
+                    }
+                    if (el["type"] === "isin") {
+                        new_meta[el.col].cat = new_meta[el.col].cat.filter(
+                            ael => el.value.indexOf(ael) !== -1
+                        )
+                    }
+                    if (el["type"] === "isnotin") {
+                        new_meta[el.col].cat = new_meta[el.col].cat.filter(
+                            ael => el.value.indexOf(ael) === -1
+                        )
+                    }
                 }
-                if (el["type"] === "lt" || el["type"] === "lte") {
-                    new_meta[el.col].max = el.value;
-                    new_meta[el.col].min = Math.max(new_meta[el.col].min, el.value);
-                    new_meta[el.col].median = Math.max(new_meta[el.col].median, el.value);
-                }
-                if (el["type"] === "eq") {
-                    new_meta[el.col].max = el.value;
-                    new_meta[el.col].min = el.value;
-                    new_meta[el.col].median = el.value;
-                }
-                if (el["type"] === "isin") {
-                    new_meta[el.col].cat = new_meta[el.col].cat.filter(
-                        ael => el.value.indexOf(ael) !== -1
-                    )
-                }
-                if (el["type"] === "isnotin") {
-                    new_meta[el.col].cat = new_meta[el.col].cat.filter(
-                        ael => el.value.indexOf(ael) === -1
-                    )
-                }
-            }
-        });
+            });
 
         super.update_meta_out(new_meta);
     }

@@ -60,32 +60,32 @@ export default class Transform extends Base {
     }
 
 
-    update_config(new_config, constructor=false) {
+    update_config(new_config, constructor = false) {
         super.update_config(new_config, constructor);
 
         //let new_meta = JSON.parse(JSON.stringify(this.state.meta))
-        let new_meta = {...this.state.meta};
+        let new_meta = { ...this.state.meta };
 
-        new_config.forEach(el => {
+        if (new_config)
+            new_config.forEach(el => {
 
-            let transform_class = known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
-            let res = transform_class.eval(
-                {
-                    ...el,
-                    meta: new_meta
+                let transform_class = known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
+                let res = transform_class.eval(
+                    {
+                        ...el,
+                        meta: new_meta
+                    }
+                );
+                if (res["new_meta"] != undefined) {
+                    new_meta = res["new_meta"];
                 }
-            );
-            if (res["new_meta"] != undefined) {
-                new_meta = res["new_meta"];
-            }
 
 
-        });
+            });
 
         super.update_meta_out(new_meta, constructor);
 
-        if(constructor)
-        {
+        if (constructor) {
             this.state = {
                 ...this.state,
                 ...this.get_columns(new_meta)

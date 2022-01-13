@@ -1,6 +1,8 @@
 import { Component } from 'react';
 
 import Accordion from 'react-bootstrap/Accordion';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import classNames from 'classnames';
 
 
@@ -10,6 +12,7 @@ import MetaCheck from './MetaCheck.react';
 import Plotter from './Plotter.react';
 import Parametrize from './Parametrize.react';
 import Localstore from './Localstore.react';
+import { none } from 'ramda';
 
 
 class CustomAccordionItem extends Component {
@@ -57,39 +60,64 @@ export default class Configurator extends Component {
 
         this.state = {
             id: this.props.id,
-            config: props.config || {
-                filter: [],
-                transform: [],
-                plot: {},
-                parameterization: {}
-            },
+            config: {},
             meta: props.meta,
             filter_meta_out: { ...props.meta },
-            transform_meta_out: { ...props.meta }
+            transform_meta_out: { ...props.meta },
+
+            /* state of the modal to ask if edit should be opened */
+            showEditModal: false,
+            eventConfig: {},
+            eventThumbnail: "",
+            eventGraphId: ""
+
         };
 
-        if (!("filter") in this.state.config) {
-            this.state.config["filter"] = [];
-        }
-        if (!("transform") in this.state.config) {
-            this.state.config["transform"] = [];
-        }
-        if (!("plot") in this.state.config) {
-            this.state.config["plot"] = {};
-        }
-        if (!("parameterization") in this.state.config) {
-            this.state.config["parameterization"] = {};
-        }
-
+        this.state.config = this.fix_config(this.state.config);
 
         window.addEventListener("message", (event) => {
-            console.log(event);
+
+            if ("data" in event && "configuratorId" in event.data && event.data.configuratorId == this.props.id) {
+                console.log(event);
+
+                this.setState({
+                    showEditModal: true,
+                    eventConfig: this.fix_config(event.data.defs),
+                    eventThumbnail: event.data.thumbnail,
+                    eventGraphId: event.data.graphId
+                });
+
+            }
+
         }, false);
 
     }
 
+
+    fix_config(new_config) {
+        if (!("filter") in new_config) {
+            new_config["filter"] = [];
+        }
+        if (!("transform") in new_config) {
+            new_config["transform"] = [];
+        }
+        if (!("plot") in new_config) {
+            new_config["plot"] = {};
+        }
+        if (!("parameterization") in new_config) {
+            new_config["parameterization"] = {
+                parameters: [],
+                computeAll: false,
+                computeMatrix: []
+            };
+        }
+        return new_config;
+    }
+
+
     update_config(new_config) {
 
+        new_config = this.fix_config(new_config);
         this.setState(
             { config: new_config },
             () => {
@@ -109,7 +137,7 @@ export default class Configurator extends Component {
 
         if (newProps.config !== this.props.config) {
             this.setState(
-                { config: newProps.config }
+                { config: this.fix_config(newProps.config) }
             )
         }
 
@@ -121,11 +149,14 @@ export default class Configurator extends Component {
     }
 
 
+    handleClose() {
+        this.setState({ showEditModal: false });
+    }
 
 
     render() {
         const { id } = this.props;
-        const { meta, filter_meta_out, transform_meta_out } = this.state;
+        const { meta, filter_meta_out, transform_meta_out, showEditModal } = this.state;
         let { config } = this.state;
 
         return (
@@ -230,7 +261,43 @@ export default class Configurator extends Component {
                     />
                 </CustomAccordionItem>
 
+
+                <Modal backdrop="static" show={showEditModal} onHide={() => this.handleClose()}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Load Plot Config</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body><div style={{ minHeight: "15em" }} className="mb-3">
+
+                        Do you want the load the plot configuration for this plot:
+                        <img src={this.state.eventThumbnail} alt="Plot Image" className='w-100' />
+
+                        <b>Note!</b> It will replace the current plot configuration.
+                    </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => this.handleClose()}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={(e) => {
+
+                            this.update_config(
+                                this.state.eventConfig
+                            );
+                            //perhaps we want to do something with the eventGraphId
+                            //to update the plot just for the right id?
+
+                            this.handleClose();
+                        }}>
+                            Load
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
+
             </Accordion >
+
+
+
 
 
 

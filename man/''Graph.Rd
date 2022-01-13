@@ -13,10 +13,10 @@ Graph can be used to render any plotly.js-powered data visualization.  You can 
 ''Graph(id=NULL, animate=NULL, animation_options=NULL,
 className=NULL, clear_on_unhover=NULL,
 clickAnnotationData=NULL, clickData=NULL, config=NULL,
-defParams=NULL, extendData=NULL, figure=NULL,
-hoverData=NULL, loading_state=NULL, prependData=NULL,
-relayoutData=NULL, responsive=NULL, restyleData=NULL,
-selectedData=NULL, style=NULL)
+configuratorId=NULL, defParams=NULL, extendData=NULL,
+figure=NULL, hoverData=NULL, loading_state=NULL,
+prependData=NULL, relayoutData=NULL, responsive=NULL,
+restyleData=NULL, selectedData=NULL, style=NULL)
 }
 
 \arguments{
@@ -122,6 +122,8 @@ https://github.com/plotly/plotly.js/blob/master/dist/readme.md#to-include-locali
 plot rather than registering them globally.. Plotly.js config options.
 See https://plotly.com/javascript/configuration-options/
 for more info.}
+
+\item{configuratorId}{Character. id of the plotter  if a reload of the connfig should be allowed}
 
 \item{defParams}{Named list. Metadata to describe the plot features}
 

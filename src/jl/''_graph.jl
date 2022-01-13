@@ -106,6 +106,7 @@ so that plotly.js won't attempt to authenticate to the public Mapbox server.
 https://github.com/plotly/plotly.js/blob/master/dist/README.md#to-include-localization
   - `locales` (Dict; optional): Localization definitions, if you choose to provide them with the
 plot rather than registering them globally.
+- `configuratorId` (String; optional): id of the plotter  if a reload of the connfig should be allowed
 - `defParams` (Dict; optional): Metadata to describe the plot features
 - `extendData` (Array | Dict; optional): Data that should be appended to existing traces. Has the form
 `[updateData, traceIndices, maxPoints]`, where `updateData` is an object
@@ -166,7 +167,7 @@ Read-only.
 - `style` (Dict; optional): Generic style overrides on the plot div
 """
 function ''_graph(; kwargs...)
-        available_props = Symbol[:id, :animate, :animation_options, :className, :clear_on_unhover, :clickAnnotationData, :clickData, :config, :defParams, :extendData, :figure, :hoverData, :loading_state, :prependData, :relayoutData, :responsive, :restyleData, :selectedData, :style]
+        available_props = Symbol[:id, :animate, :animation_options, :className, :clear_on_unhover, :clickAnnotationData, :clickData, :config, :configuratorId, :defParams, :extendData, :figure, :hoverData, :loading_state, :prependData, :relayoutData, :responsive, :restyleData, :selectedData, :style]
         wild_props = Symbol[]
         return Component("''_graph", "Graph", "dash_express_components", available_props, wild_props; kwargs...)
 end

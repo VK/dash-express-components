@@ -36,7 +36,7 @@ export default class Plotter extends Base {
 
             /* state of the modal to add new filters */
             showModal: false,
-            plotType: (this.state.config.type) ? this.state.config.type : "base",
+            plotType: (this.state.config && this.state.config.type) ? this.state.config.type : "base",
 
         };
     }
@@ -50,9 +50,14 @@ export default class Plotter extends Base {
 
     UNSAFE_componentWillReceiveProps(newProps) {
         super.UNSAFE_componentWillReceiveProps(newProps);
-        if ("config" in newProps || "type" in newProps.config) {
-            this.setState({ plotType: newProps.config.type });
-        }
+        try {
+            if (("config" in newProps) && ("type" in newProps.config)) {
+                this.setState({
+                    plotType:
+                        newProps.config.type
+                });
+            }
+        } catch { };
 
 
 
@@ -146,7 +151,7 @@ export default class Plotter extends Base {
                         return (
                             plotType === plt["type"] &&
                             <plt.class
-                                key={"plottype-"+idx}
+                                key={"plottype-" + idx}
                                 allColOptions={allColOptions}
                                 catColOptions={catColOptions}
                                 numColOptions={numColOptions}

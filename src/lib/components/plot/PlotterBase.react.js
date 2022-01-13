@@ -79,7 +79,7 @@ export default class PlotterBase extends Component {
 
     copy_params(typename) {
         this.typename = typename;
-        
+
         if ("params" in this.props.config && typename === this.props.config.type) {
             this.state = {
                 ...this.state,
@@ -249,33 +249,34 @@ export default class PlotterBase extends Component {
      */
     UNSAFE_componentWillReceiveProps(newProps) {
 
+        try {
+            if (newProps.config !== this.props.config
+                ||
+                newProps.config.params !== this.props.config.params
 
-        if (newProps.config !== this.props.config
-            ||
-            newProps.config.params !== this.props.config.params
+            ) {
 
-        ) {
+                // only make something if the plot type matches
+                if (this.typename === newProps.config.type) {
+                    //first copy the new config
+                    this.setState(
+                        { config: newProps.config },
+                        () => {
 
-            // only make something if the plot type matches
-            if (this.typename === newProps.config.type) {
-                //first copy the new config
-                this.setState(
-                    { config: newProps.config },
-                    () => {
+                            // then make a local copy of the parameters
+                            if ("params" in newProps.config) {
+                                this.setState({
+                                    ...newProps.config.params
+                                }, () => {
+                                    // then compute the visibility of the options
+                                    this.init_check_options();
+                                })
+                            }
+                        });
+                }
 
-                        // then make a local copy of the parameters
-                        if ("params" in newProps.config) {
-                            this.setState({
-                                ...newProps.config.params
-                            }, () => {
-                                // then compute the visibility of the options
-                                this.init_check_options();
-                            })
-                        }
-                    });
             }
-
-        }
+        } catch { };
 
 
         if (newProps.allColOptions !== this.props.allColOptions) {

@@ -7,7 +7,7 @@ from numpy.lib.function_base import insert
 from plotly.data import tips
 import dash_express_components as dxc
 import dash
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State, MATCH, ALL
 from dash import html
 from dash import dcc
 import dash_bootstrap_components as dbc
@@ -47,8 +47,8 @@ df = image_df
 app = dash.Dash(
     external_stylesheets=[
         dbc.themes.BOOTSTRAP,
-        #"https://raw.githubusercontent.com/bvaughn/react-virtualized-select/master/styles.css",
-        #"https://gist.githubusercontent.com/aprimadi/a08e2e7e717e6f9bf13821c039befbf9/raw/7c00278a83a30983cc513e1a6a81ba1496ef3a7e/react-select.css"
+        # "https://raw.githubusercontent.com/bvaughn/react-virtualized-select/master/styles.css",
+        # "https://gist.githubusercontent.com/aprimadi/a08e2e7e717e6f9bf13821c039befbf9/raw/7c00278a83a30983cc513e1a6a81ba1496ef3a7e/react-select.css"
     ]
 )
 
@@ -60,7 +60,7 @@ app.layout = html.Div([
     html.Div([
         dxc.Configurator(
             id="plotConfig",
-            config=initial_config,
+            config={},
             meta=dxc.get_meta(df)
         ),
 
@@ -68,27 +68,47 @@ app.layout = html.Div([
     ], style={"width": "500px", "float": "left"}),
 
     html.Div(
-        [dxc.Graph(id="fig", figure={})], style={"width": "calc(100% - 500px)", "height": "100vh", "float": "left"}
+        [
+            dxc.Graph(id={'type': 'fig', 'index': idx},
+                      defParams=initial_config, configuratorId="plotConfig")
+            for idx in range(3)
+        ],
+        style={"width": "calc(100% - 500px)",
+               "height": "30vh", "float": "left"}
     )
 
 ], className="p-4")
 
 
-@app.callback([Output('output', 'children'),
-               Output('fig', 'figure'),
-               Output('fig', 'defParams')
+@app.callback([
+    Output({'type': 'fig', 'index': MATCH}, 'defParams'),
+], [Input('plotConfig', 'config')], [
+    State({'type': 'fig', 'index': MATCH}, 'defParams'),
+])
+def update_plot_config(newConfig, defParams):
 
-               ], [Input('plotConfig', 'config')])
-def display_output(config):
+    if defParams is None:
+        raise PreventUpdate
 
-    fig = dxc.get_plot(df, config, apply_parameterization=False)
+    return defParams
+
+
+@app.callback(
+    Output({'type': 'fig', 'index': MATCH}, 'figure'),
+    Input({'type': 'fig', 'index': MATCH}, 'defParams'),
+)
+def update_fig(config):
+    print(config)
+
+    fig = None
+    try:
+        fig = dxc.get_plot(df, config, apply_parameterization=False)
+    except:
+        pass
+
     if fig:
-        return ('Your configuration {}'.format(config),
-                fig,
-                config
-                )
+        return fig
     else:
-        print("Schade")
         raise PreventUpdate
 
 
