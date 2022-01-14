@@ -20,14 +20,32 @@ Keyword arguments:
 
 - setProps (optional):
     Dash-assigned callback that should be called to report property
-    changes  to Dash, to make them available for callbacks."""
+    changes  to Dash, to make them available for callbacks.
+
+- showFilter (default True):
+    Prop to define the visibility of the Filter panel.
+
+- showMetadata (default False):
+    Prop to define the visibility of the Metadata panel.
+
+- showParameterization (default False):
+    Prop to define the visibility of the Parameterization panel.
+
+- showPlotter (default True):
+    Prop to define the visibility of the Plot panel.
+
+- showStore (default False):
+    Prop to define the visibility of the Store panel.
+
+- showTransform (default True):
+    Prop to define the visibility of the Transform panel."""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, meta=Component.UNDEFINED, config=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'config', 'meta', 'setProps']
+    def __init__(self, id=Component.UNDEFINED, meta=Component.UNDEFINED, config=Component.UNDEFINED, showFilter=Component.UNDEFINED, showTransform=Component.UNDEFINED, showPlotter=Component.UNDEFINED, showMetadata=Component.UNDEFINED, showParameterization=Component.UNDEFINED, showStore=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'config', 'meta', 'setProps', 'showFilter', 'showMetadata', 'showParameterization', 'showPlotter', 'showStore', 'showTransform']
         self._type = 'Configurator'
         self._namespace = 'dash_express_components'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'config', 'meta', 'setProps']
+        self.available_properties = ['id', 'config', 'meta', 'setProps', 'showFilter', 'showMetadata', 'showParameterization', 'showPlotter', 'showStore', 'showTransform']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

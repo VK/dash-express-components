@@ -3,6 +3,7 @@ import { Component } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import classNames from 'classnames';
 
 
@@ -51,6 +52,10 @@ class CustomAccordionItem extends Component {
 }
 
 
+
+
+
+
 /**
  * Configurator component
  */
@@ -69,16 +74,20 @@ export default class Configurator extends Component {
             showEditModal: false,
             eventConfig: {},
             eventThumbnail: "",
-            eventGraphId: ""
+            eventGraphId: "",
+            modal_close_timeout: undefined
 
         };
 
         this.state.config = this.fix_config(this.state.config);
 
+        this.state.config_filter = this.state.config.filter;
+        this.state.config_transform = this.state.config.transform;
+        this.state.config_plot = this.state.config.plot;
+
         window.addEventListener("message", (event) => {
 
             if ("data" in event && "configuratorId" in event.data && event.data.configuratorId == this.props.id) {
-                console.log(event);
 
                 this.setState({
                     showEditModal: true,
@@ -86,6 +95,11 @@ export default class Configurator extends Component {
                     eventThumbnail: event.data.thumbnail,
                     eventGraphId: event.data.graphId
                 });
+
+                let that = this;
+                let modal_close_timeout = setTimeout(function () { that.handleClose(); }, 5000);
+
+                this.setState({ modal_close_timeout: modal_close_timeout });
 
             }
 
@@ -95,16 +109,16 @@ export default class Configurator extends Component {
 
 
     fix_config(new_config) {
-        if (!("filter") in new_config) {
+        if (!("filter" in new_config)) {
             new_config["filter"] = [];
         }
-        if (!("transform") in new_config) {
+        if (!("transform" in new_config)) {
             new_config["transform"] = [];
         }
-        if (!("plot") in new_config) {
+        if (!("plot" in new_config)) {
             new_config["plot"] = {};
         }
-        if (!("parameterization") in new_config) {
+        if (!("parameterization" in new_config)) {
             new_config["parameterization"] = {
                 parameters: [],
                 computeAll: false,
@@ -114,18 +128,51 @@ export default class Configurator extends Component {
         return new_config;
     }
 
+    update_sub_config(config_dict) {
+
+        let that = this;
+
+        setTimeout(function () {
+
+            let new_config = { ...that.state.config, ...config_dict };
+
+            ["filter", "transform", "plot"].forEach(el => {
+                if (el in config_dict) {
+                    that.setState({ ['config_' + el]: config_dict[el] },
+                        () => { that.update_config(new_config); }
+                    )
+                }
+            })
+        }, 50);
+    }
+
 
     update_config(new_config) {
 
-        new_config = this.fix_config(new_config);
-        this.setState(
-            { config: new_config },
-            () => {
 
-                this.props.setProps({
-                    config: new_config
-                })
+        new_config = this.fix_config(new_config);
+
+        this.setState({ config_filter: new_config.filter },
+            () => {
+                this.setState({ config_transform: new_config.transform },
+                    () => {
+                        this.setState({ config_plot: new_config.plot },
+                            () => {
+                                this.setState({ config: new_config });
+                            })
+                    }
+                )
             });
+
+    }
+
+    update_props(graphId = null) {
+        let config = this.state.config;
+        config["graphId"] = graphId;
+
+        this.props.setProps({
+            config: config
+        });
     }
 
 
@@ -136,8 +183,9 @@ export default class Configurator extends Component {
     UNSAFE_componentWillReceiveProps(newProps) {
 
         if (newProps.config !== this.props.config) {
+            let config = JSON.parse(JSON.stringify(this.fix_config(newProps.config)));
             this.setState(
-                { config: this.fix_config(newProps.config) }
+                { config: config }
             )
         }
 
@@ -146,33 +194,45 @@ export default class Configurator extends Component {
                 { meta: newProps.meta }
             )
         }
+
+
+
     }
 
 
     handleClose() {
-        this.setState({ showEditModal: false });
+
+        if (this.state.modal_close_timeout != undefined) {
+            clearTimeout(this.state.modal_close_timeout);
+        }
+        this.setState({ showEditModal: false, modal_close_timeout: undefined });
+
     }
 
 
     render() {
         const { id } = this.props;
-        const { meta, filter_meta_out, transform_meta_out, showEditModal } = this.state;
-        let { config } = this.state;
+        const { meta, filter_meta_out, transform_meta_out, showEditModal, eventGraphId } = this.state;
+        let { config,
+            config_filter,
+            config_transform,
+            config_plot
+        } = this.state;
 
         return (
 
             <Accordion id={id} defaultActiveKey="plotter">
 
-                <CustomAccordionItem title="Filter">
+                {this.props.showFilter && <CustomAccordionItem title="Filter">
                     < Filter
                         meta={meta}
-                        config={config.filter}
+                        config={config_filter}
                         setProps={
                             out => {
                                 if ("config" in out) {
-                                    let new_config = { ...config };
-                                    new_config["filter"] = out.config;
-                                    this.update_config(new_config);
+                                    //let new_config = { ...config };
+                                    //new_config["filter"] = out.config;
+                                    this.update_sub_config({ filter: out.config });
                                 }
 
                                 if ("meta_out" in out) {
@@ -180,20 +240,20 @@ export default class Configurator extends Component {
                                 }
                             }}
                     />
-                </CustomAccordionItem>
+                </CustomAccordionItem>}
 
 
-                <CustomAccordionItem title="Transform">
+                {this.props.showTransform && <CustomAccordionItem title="Transform">
                     <Transform
                         key="transform"
                         meta={filter_meta_out}
-                        config={config.transform}
+                        config={config_transform}
                         setProps={
                             out => {
                                 if ("config" in out) {
-                                    let new_config = { ...config };
-                                    new_config["transform"] = out.config;
-                                    this.update_config(new_config);
+                                    //let new_config = { ...config };
+                                    //new_config["transform"] = out.config;
+                                    this.update_sub_config({ transform: out.config });
                                 }
 
                                 if ("meta_out" in out) {
@@ -201,37 +261,51 @@ export default class Configurator extends Component {
                                 }
                             }}
                     />
-                </CustomAccordionItem>
+                </CustomAccordionItem>}
 
-
-
-
-
-                <CustomAccordionItem title="Plotter" defaultOpen>
-                    <Plotter
-                        key="plotter"
-                        meta={transform_meta_out}
-                        config={config.plot}
-                        setProps={
-                            out => {
-                                if ("config" in out) {
-                                    let new_config = { ...config };
-                                    new_config["plot"] = out.config;
-                                    this.update_config(new_config);
-                                }
-                            }}
-                    />
-                </CustomAccordionItem>
-
-                <CustomAccordionItem title="Data Columns">
+                {this.props.showMetadata && <CustomAccordionItem title="Data Columns">
                     <MetaCheck
                         key="metacheck"
                         meta={transform_meta_out}
                         setProps={out => { }}
                     />
-                </CustomAccordionItem>
+                </CustomAccordionItem>}
 
-                <CustomAccordionItem title="Parameterize" defaultOpen>
+                {this.props.showPlotter && <CustomAccordionItem title="Plotter" defaultOpen>
+                    <Plotter
+                        key="plotter"
+                        meta={transform_meta_out}
+                        config={config_plot}
+                        setProps={
+                            out => {
+                                if ("config" in out) {
+                                    //let new_config = { ...config };
+                                    //new_config["plot"] = out.config;
+                                    this.update_sub_config({ plot: out.config });
+                                }
+                            }}
+                    />
+                </CustomAccordionItem>}
+
+
+                <div className='accordion-item'>
+                    <h2 className='accordion-header'>
+                        <ButtonGroup className='w-100 p-3'>
+                            <Button
+                                onClick={e => { this.update_props(); }}
+                                size="lg"
+                                variant="outline-primary"
+                            >New Plot</Button>
+                            {eventGraphId !== "" && <Button
+                                onClick={e => { this.update_props(eventGraphId); }}
+                                size="lg"
+                                variant="outline-primary"
+                            >Update Plot</Button>}
+                        </ButtonGroup>
+                    </h2>
+                </div>
+
+                {this.props.showParameterization && <CustomAccordionItem title="Parameterize" defaultOpen>
                     <Parametrize
                         key="parametrize"
                         meta={transform_meta_out}
@@ -245,9 +319,9 @@ export default class Configurator extends Component {
                             }
                         }}
                     />
-                </CustomAccordionItem>
+                </CustomAccordionItem>}
 
-                <CustomAccordionItem title="Store">
+                {this.props.showStore && <CustomAccordionItem title="Store">
                     <Localstore
                         key="store"
                         meta={transform_meta_out}
@@ -259,7 +333,7 @@ export default class Configurator extends Component {
                             }
                         }}
                     />
-                </CustomAccordionItem>
+                </CustomAccordionItem>}
 
 
                 <Modal backdrop="static" show={showEditModal} onHide={() => this.handleClose()}>
@@ -305,7 +379,14 @@ export default class Configurator extends Component {
     }
 }
 
-Configurator.defaultProps = {};
+Configurator.defaultProps = {
+    showFilter: true,
+    showTransform: true,
+    showPlotter: true,
+    showMetadata: false,
+    showParameterization: false,
+    showStore: false
+};
 
 Configurator.propTypes = {
     /**
@@ -325,9 +406,43 @@ Configurator.propTypes = {
     config: PropTypes.any,
 
     /**
+     * Prop to define the visibility of the Filter panel
+     */
+    showFilter: PropTypes.bool,
+
+    /**
+     * Prop to define the visibility of the Transform panel
+     */
+    showTransform: PropTypes.bool,
+
+    /**
+     * Prop to define the visibility of the Plot panel
+     */
+    showPlotter: PropTypes.bool,
+
+    /**
+     * Prop to define the visibility of the Metadata panel
+     */
+    showMetadata: PropTypes.bool,
+
+    /**
+     * Prop to define the visibility of the Parameterization panel
+     */
+    showParameterization: PropTypes.bool,
+
+    /**
+     * Prop to define the visibility of the Store panel
+     */
+    showStore: PropTypes.bool,
+
+
+    /**
      * Dash-assigned callback that should be called to report property changes
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func
+
+
+
 }
 

@@ -16,12 +16,36 @@
         "returns": null
       },
       {
+        "name": "update_sub_config",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "config_dict",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
         "name": "update_config",
         "docblock": null,
         "modifiers": [],
         "params": [
           {
             "name": "new_config",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "update_props",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "graphId",
             "type": null
           }
         ],
@@ -59,6 +83,78 @@
         },
         "required": false,
         "description": "Prop The resulting configuration of the plot."
+      },
+      "showFilter": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.bool"
+        },
+        "required": false,
+        "description": "Prop to define the visibility of the Filter panel",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "showTransform": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.bool"
+        },
+        "required": false,
+        "description": "Prop to define the visibility of the Transform panel",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "showPlotter": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.bool"
+        },
+        "required": false,
+        "description": "Prop to define the visibility of the Plot panel",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "showMetadata": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.bool"
+        },
+        "required": false,
+        "description": "Prop to define the visibility of the Metadata panel",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "showParameterization": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.bool"
+        },
+        "required": false,
+        "description": "Prop to define the visibility of the Parameterization panel",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "showStore": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.bool"
+        },
+        "required": false,
+        "description": "Prop to define the visibility of the Store panel",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
       },
       "setProps": {
         "type": {

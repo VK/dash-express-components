@@ -15,6 +15,7 @@ import plotly.express as px
 
 import pandas as pd
 from datetime import datetime
+import json
 
 
 tips_df = px.data.tips()
@@ -52,8 +53,11 @@ app = dash.Dash(
     ]
 )
 
-initial_config = {'filter': [{'col': 'Name', 'type': 'eq', 'value': 'cat'}], 'transform': [{'type': 'eval', 'col': 'catfilter', 'formula': '(Br > 20) & (Br < 220)'}], 'plot': {'type': 'imshow', 'params': {'x': 'X', 'y': 'Y', 'dimensions': ['Br', 'R']}}, 'parameterization': {
-    'parameters': [{'name': 'adsf', 'type': 'o', 'path': ['filter', '0', 'value'], 'value': 'cat', 'col': 'Name'}, {'name': 'data', 'type': 'usa', 'path': ['plot', 'params', 'dimensions'], 'value': ['R', 'G']}], 'computeAll': False, 'computeMatrix': []}}
+initial_config = {'filter': [{'col': 'Name', 'type': 'eq', 'value': 'cat'}],
+                  'transform': [{'type': 'eval', 'col': 'catfilter', 'formula': '(Br > 20) & (Br < 220)'}],
+                  'plot': {'type': 'imshow', 'params': {'x': 'X', 'y': 'Y', 'dimensions': ['Br', 'R']}},
+                  'parameterization': {'parameters': [{'name': 'adsf', 'type': 'o', 'path': ['filter', '0', 'value'], 'value': 'cat', 'col': 'Name'}, {'name': 'data', 'type': 'usa', 'path': ['plot', 'params', 'dimensions'], 'value': ['R', 'G']}],
+                                       'computeAll': False, 'computeMatrix': []}}
 
 app.layout = html.Div([
 
@@ -61,7 +65,9 @@ app.layout = html.Div([
         dxc.Configurator(
             id="plotConfig",
             config={},
-            meta=dxc.get_meta(df)
+            meta=dxc.get_meta(df),
+            showParameterization=True,
+            showStore=True
         ),
 
         html.Div(id='output'),
@@ -73,24 +79,46 @@ app.layout = html.Div([
                       defParams=initial_config, configuratorId="plotConfig")
             for idx in range(3)
         ],
-        style={"width": "calc(100% - 500px)",
-               "height": "30vh", "float": "left"}
+        style={
+            "width": "calc(100% - 500px)",
+            "display": "inline-block",
+            "float": "left"
+        }
     )
 
 ], className="p-4")
 
 
 @app.callback([
-    Output({'type': 'fig', 'index': MATCH}, 'defParams'),
-], [Input('plotConfig', 'config')], [
-    State({'type': 'fig', 'index': MATCH}, 'defParams'),
-])
-def update_plot_config(newConfig, defParams):
+    Output({'type': 'fig', 'index': ALL}, 'defParams'),
+], [Input('plotConfig', 'config')],
+    [State({'type': 'fig', 'index': ALL}, 'defParams'),
+     State({'type': 'fig', 'index': ALL}, 'id')],
+)
+def update_plot_config(newConfig, defParams, graphIds):
+
+
+
+
+
 
     if defParams is None:
         raise PreventUpdate
 
-    return defParams
+    if "graphId" in newConfig and newConfig["graphId"]:
+        graphId = json.loads(newConfig["graphId"])
+
+        print(graphId)
+        print(graphIds)
+
+        if graphId in graphIds:
+            idx = graphIds.index(graphId)
+            del newConfig["graphId"]
+            defParams[idx] = newConfig
+            print(defParams)
+            return defParams,
+
+    return defParams,
 
 
 @app.callback(
@@ -98,7 +126,6 @@ def update_plot_config(newConfig, defParams):
     Input({'type': 'fig', 'index': MATCH}, 'defParams'),
 )
 def update_fig(config):
-    print(config)
 
     fig = None
     try:

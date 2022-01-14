@@ -55,6 +55,7 @@ export default class Filter extends Base {
 
 
     update_config(new_config) {
+        console.log("super_config");
         super.update_config(new_config);
 
         //let new_meta = JSON.parse(JSON.stringify(this.state.meta))
@@ -92,6 +93,8 @@ export default class Filter extends Base {
                 }
             });
 
+
+        console.log("update_meta_out");
         super.update_meta_out(new_meta);
     }
 
@@ -357,8 +360,9 @@ export default class Filter extends Base {
                 </Button>
                 <Button variant="primary" onClick={(e) => {
 
-                    let new_filter = { col: selectedColumn, "type": "test", "value": "test" };
+                    console.log("add Click");
 
+                    let new_filter = { col: selectedColumn, "type": "test", "value": "test" };
 
                     if (selectedType === "categorical") {
                         new_filter = {
@@ -407,9 +411,12 @@ export default class Filter extends Base {
                         ...config,
                         new_filter
                     ];
+                    console.log(new_config);
 
+                    console.log("update_config");
                     this.update_config(new_config);
 
+                    console.log("handle Close");
                     this.handleClose();
 
 

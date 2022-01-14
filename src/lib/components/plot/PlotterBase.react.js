@@ -80,12 +80,14 @@ export default class PlotterBase extends Component {
     copy_params(typename) {
         this.typename = typename;
 
-        if ("params" in this.props.config && typename === this.props.config.type) {
-            this.state = {
-                ...this.state,
-                ...this.props.config.params
-            };
-        }
+        try {
+            if ("params" in this.props.config && typename === this.props.config.type) {
+                this.state = {
+                    ...this.state,
+                    ...this.props.config.params
+                };
+            }
+        } catch { };
     }
 
 
