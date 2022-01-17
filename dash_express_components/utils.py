@@ -10,6 +10,7 @@ import base64 as _base64
 import json as _json
 
 from . import plottypes
+from . import transformationtypes
 
 
 _dummyData = _pd.DataFrame([None])
@@ -48,6 +49,8 @@ def get_meta(df):
 
 
 def get_plot(inputDataFrame, config, apply_parameterization=True):
+
+    print(config)
     
     errorResult = "Empty plot"
 
@@ -120,19 +123,40 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                         inputDataFrame = inputDataFrame[inputDataFrame[col] > starttime]
 
             # if dask mongodf or pandas:
-            inputDataFrame = inputDataFrame.copy()
+ 
+            # compute usedCols
+            usedCols = [b for a in [
+                        (c if type(c) == list else [c]) for c in [
+                            plotConfigData["params"].get(key) for key in
+                            ["x", "y", "error_x", "error_y", "dimensions",
+                                "color", "facet_col", "facet_row", "hover_name"]
+                        ] if c is not None
+                        ] for b in a]
 
-            # compute usedCols!!!!!!!!!
+            if "hover_data" in plotConfigData["params"]:
+                usedCols.extend(plotConfigData["params"]["hover_data"])
 
-            # if isinstance(inputDataFrame, _dd.DataFrame):
+            # add cols for transformations
+            if "transform" in configData:
+                for el in configData["transform"]:
+                    usedCols.extend(
+                        getattr(transformationtypes, el["type"]).dimensions(el, inputDataFrame)
+                    )
 
-            #     try:
-            #         inputDataFrame = inputDataFrame[usedCols].compute(
-            #             scheduler='single-threaded'
-            #         )
-            #     except Exception as err:
-            #         errorResult = "Error: " + str(err)
-            #         return _px.scatter(dummyData, title=errorResult)
+            usedCols = list(set(usedCols))
+
+            # if we don't get a pandas dataframe it might be dask or mongodf
+            print(usedCols)
+            if not isinstance(inputDataFrame, _pd.DataFrame):
+                try:
+                    inputDataFrame = inputDataFrame[[c for c in usedCols if c in inputDataFrame.columns]].compute(
+                        scheduler='single-threaded'
+                    )
+                except Exception as err:
+                    errorResult = "Error: " + str(err)
+                    return _px.scatter(_dummyData, title=errorResult)
+            else:
+                inputDataFrame = inputDataFrame[[c for c in usedCols if c in inputDataFrame.columns]].copy()
 
 
             # check if some data is left
@@ -143,30 +167,8 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
             # apply data transformaitons if required
             if "transform" in configData:
                 for el in configData["transform"]:
-                    t = el["type"]
-                    if t == "eval":
-                        var_dict = {
-                            "pi": _np.pi,
-                            "e": _np.e,
-                            "hbar": 6.58211951e-16,
-                            "c": 2.99792458e17,
-                            "hbar_c": 197.326979
-                        }
-                        inputDataFrame[el["col"]] = inputDataFrame.eval(
-                            el["formula"], local_dict=var_dict, engine='numexpr')
-
-                    if t == "combinecat":
-                        inputDataFrame[el["col"]] = inputDataFrame[el["cols"]].apply(
-                            lambda row: '_'.join(row.values.astype(str)), axis=1)
-
-                    if t == "melt":
-                        inputDataFrame = _pd.melt(inputDataFrame,
-                                    id_vars=[
-                                        c for c in inputDataFrame.columns if c not in el["cols"]
-                                        ],
-                                    value_vars=el["cols"],
-                                    var_name=el["col2"], value_name=el["col"])
-
+                    inputDataFrame = getattr(transformationtypes, el["type"]).compute(el, inputDataFrame)
+                    
 
 
             # if we want to force an axis as categorical
@@ -204,19 +206,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
             #                                                 ["y"]] = self.category_Dict[plotConfigData["params"]["y"]]
 
             # remove nan values from dataframe
-            usedCols = [b for a in [
-                        (c if type(c) == list else [c]) for c in [
-                            plotConfigData["params"].get(key) for key in
-                            ["x", "y", "error_x", "error_y", "dimensions",
-                                "color", "facet_col", "facet_row",
-                                "hover_name"]
-                        ] if c is not None
-                        ] for b in a]
-
-            if "hover_data" in plotConfigData["params"]:
-                usedCols.extend(plotConfigData["params"]["hover_data"])
-            usedCols = list(set(usedCols))
-            inputDataFrame = inputDataFrame.dropna(subset=usedCols)
+            #inputDataFrame = inputDataFrame.dropna(subset=[c for c in inputDataFrame.columns if c in usedCols])
 
             
 
