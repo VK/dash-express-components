@@ -15,6 +15,7 @@ from . import transformationtypes
 
 _dummyData = _pd.DataFrame([None])
 
+
 def get_meta(df):
     """
     extract the metadata from a dataframe needed to hand over to the Filter
@@ -46,12 +47,62 @@ def get_meta(df):
     }
 
 
+def get_meta_dask(df):
+    from numpy import dtype
+    import dask
+    """
+    extract the metadata from a dask dataframe.
+    """
+
+    def parse(key, val):
+        if val == dtype('O'):
+            return {
+                "type": "categorical",
+                "cat": df[key].unique()
+            }
+        elif val == dtype('bool'):
+            return {
+                "type": "bool"
+            }
+        elif "time" in str(val):
+            return {
+                "type": "temporal",
+                "min": df[key].min(),
+                "max": df[key].max(),
+                "median": df[key].mean()
+            }
+        else:
+            return {
+                "type": "numerical",
+                "min": df[key].min(),
+                "max": df[key].max(),
+                "median": df[key].mean()
+            }
+
+    # create a dictionary of metadata to compute
+    res = {
+        k: parse(k, val)
+        for k, val in df.dtypes.to_dict().items()
+    }
+
+    # compute it
+    res = dask.compute(res, scheduler='single-threaded')[0]
+
+    # transform the variables to simple python (json dump needed)
+    for k, v in res.items():
+        if "cat" in v:
+            v["cat"] = v["cat"].tolist()
+        for ik in ["min", "max", "median"]:
+            if ik in v:
+                v[ik] = float(v[ik])
+
+    return res
 
 
 def get_plot(inputDataFrame, config, apply_parameterization=True):
 
     print(config)
-    
+
     errorResult = "Empty plot"
 
     try:
@@ -82,10 +133,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
 
             # don't try too hard, if there is no plot axis
             if not("x" in plotConfigData["params"] or "y" in plotConfigData["params"] or "dimensions" in plotConfigData["params"]):
-                return _px.scatter(_dummyData, title=errorResult)    
-
-
-
+                return _px.scatter(_dummyData, title=errorResult)
 
             # apply filters if required
             if "filter" in configData:
@@ -93,37 +141,48 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                     col = el["col"]
                     t = el["type"]
                     if t == "isin":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col].isin(el["value"])]
+                        inputDataFrame = inputDataFrame[inputDataFrame[col].isin(
+                            el["value"])]
                     elif t == "isnotin":
-                        inputDataFrame = inputDataFrame[~inputDataFrame[col].isin(el["value"])]
+                        inputDataFrame = inputDataFrame[~inputDataFrame[col].isin(
+                            el["value"])]
                     elif t == "gt":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] > el["value"]]
+                        inputDataFrame = inputDataFrame[inputDataFrame[col]
+                                                        > el["value"]]
                     elif t == "gte":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] >= el["value"]]
+                        inputDataFrame = inputDataFrame[inputDataFrame[col]
+                                                        >= el["value"]]
                     elif t == "lt":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] < el["value"]]
+                        inputDataFrame = inputDataFrame[inputDataFrame[col]
+                                                        < el["value"]]
                     elif t == "lte":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] <= el["value"]]
+                        inputDataFrame = inputDataFrame[inputDataFrame[col]
+                                                        <= el["value"]]
                     elif t == "eq":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] == el["value"]]
+                        inputDataFrame = inputDataFrame[inputDataFrame[col]
+                                                        == el["value"]]
                     elif t == "neq":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] != el["value"]]
+                        inputDataFrame = inputDataFrame[inputDataFrame[col]
+                                                        != el["value"]]
                     elif t == "istrue":
                         inputDataFrame = inputDataFrame[inputDataFrame[col]]
                     elif t == "isfalse":
                         inputDataFrame = inputDataFrame[~inputDataFrame[col]]
                     elif t == "after":
                         #df = df[df[col] > _pd.to_datetime(parser.isoparse(el["value"]))]
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] > _pd.Timestamp(el["value"]).to_datetime64()]
+                        inputDataFrame = inputDataFrame[inputDataFrame[col] > _pd.Timestamp(
+                            el["value"]).to_datetime64()]
                     elif t == "before":
                         #df = df[df[col] < _pd.to_datetime(parser.isoparse(el["value"]))]
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] < _pd.Timestamp(el["value"]).to_datetime64()]
+                        inputDataFrame = inputDataFrame[inputDataFrame[col] < _pd.Timestamp(
+                            el["value"]).to_datetime64()]
                     elif t == "lastn":
-                        starttime = datetime.now() - timedelta(days=abs(el["value"]))
+                        starttime = datetime.now() - \
+                            timedelta(days=abs(el["value"]))
                         inputDataFrame = inputDataFrame[inputDataFrame[col] > starttime]
 
             # if dask mongodf or pandas:
- 
+
             # compute usedCols
             usedCols = [b for a in [
                         (c if type(c) == list else [c]) for c in [
@@ -140,7 +199,8 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
             if "transform" in configData:
                 for el in configData["transform"]:
                     usedCols.extend(
-                        getattr(transformationtypes, el["type"]).dimensions(el, inputDataFrame)
+                        getattr(transformationtypes, el["type"]).dimensions(
+                            el, inputDataFrame)
                     )
 
             usedCols = list(set(usedCols))
@@ -156,20 +216,18 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                     errorResult = "Error: " + str(err)
                     return _px.scatter(_dummyData, title=errorResult)
             else:
-                inputDataFrame = inputDataFrame[[c for c in usedCols if c in inputDataFrame.columns]].copy()
-
+                inputDataFrame = inputDataFrame[[
+                    c for c in usedCols if c in inputDataFrame.columns]].copy()
 
             # check if some data is left
             if len(inputDataFrame) == 0:
-                return _px.scatter(_dummyData, title="No data available.")    
-
+                return _px.scatter(_dummyData, title="No data available.")
 
             # apply data transformaitons if required
             if "transform" in configData:
                 for el in configData["transform"]:
-                    inputDataFrame = getattr(transformationtypes, el["type"]).compute(el, inputDataFrame)
-                    
-
+                    inputDataFrame = getattr(
+                        transformationtypes, el["type"]).compute(el, inputDataFrame)
 
             # if we want to force an axis as categorical
             markCatX = False
@@ -208,12 +266,10 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
             # remove nan values from dataframe
             #inputDataFrame = inputDataFrame.dropna(subset=[c for c in inputDataFrame.columns if c in usedCols])
 
-            
-
             # return the corresponding plot
             if plotConfigData["type"] == "scatter":
                 fig = _px.scatter(inputDataFrame, **
-                                    plotConfigData["params"])
+                                  plotConfigData["params"])
             if plotConfigData["type"] == "scatter_matrix":
                 fig = _px.scatter_matrix(
                     inputDataFrame, **plotConfigData["params"])
@@ -227,11 +283,11 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                 fig = _px.box(inputDataFrame, **plotConfigData["params"])
             if plotConfigData["type"] == "violin":
                 fig = _px.violin(inputDataFrame, **
-                                    plotConfigData["params"])
+                                 plotConfigData["params"])
             if plotConfigData["type"] == "bar":
                 if "x" in plotConfigData["params"] and "y" in plotConfigData["params"]:
                     fig = _px.bar(inputDataFrame, **
-                                    plotConfigData["params"])
+                                  plotConfigData["params"])
             if plotConfigData["type"] == "histogram":
                 if "x" in plotConfigData["params"]:
                     fig = _px.histogram(
@@ -321,4 +377,3 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
         errorResult = "Error: " + str(inst)
 
     return _px.scatter(_dummyData, title=errorResult)
-
