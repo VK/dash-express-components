@@ -14,18 +14,19 @@ export default class BarCount extends PlotterBase {
             ...this.state,
 
             optionsbar: [
+                this.option_dict.facet,
             ]
 
         }
 
-
+        this.copy_params("bar_count");
         this.init_check_options(true);
     }
 
 
     static icon = (<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" viewBox="0 0 46 46"><path fill="none" d="M0 0h46v46H0z"></path><path fill="#25fdfc" d="M7 28h6v12H7z"></path><path fill="#1d9bfb" d="M32 28h6v12h-6zM15 10h6v30h-6z"></path><path fill="#25fdfc" d="M24 20h6v20h-6z"></path></svg>)
     static label = "Bar Count Plot";
-    type = "bar_count";
+    static type = "bar_count";
 
     config_from_state(input) {
         let params = {
@@ -57,6 +58,8 @@ export default class BarCount extends PlotterBase {
                 {this.multiSelect("X", "x", catColOptions)}
                 {this.singleSelect("Color", "color", allColOptions)}
 
+                {this.optionsBar()}
+                {this.commonOptionBarControlls()}
 
             </div>
         );

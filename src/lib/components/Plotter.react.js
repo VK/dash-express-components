@@ -36,7 +36,7 @@ export default class Plotter extends Base {
 
             /* state of the modal to add new filters */
             showModal: false,
-            plotType: (this.state.config && this.state.config.type) ? this.state.config.type : "base",
+            plotType: (this.state.config && this.state.config.type) ? this.state.config.type : "scatter",
 
         };
     }
