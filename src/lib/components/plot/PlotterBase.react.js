@@ -4,7 +4,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Select from 'react-select';
-import { singleColorStyle, multiColorStyle } from '../sub/Base.react';
+import { singleColorStyle, multiColorStyle, hideGroupComponents } from '../sub/Base.react';
 
 
 export default class PlotterBase extends Component {
@@ -15,6 +15,7 @@ export default class PlotterBase extends Component {
             allColOptions: props.allColOptions,
             numColOptions: props.numColOptions,
             catColOptions: props.catColOptions,
+            allOptions: props.allOptions
 
         };
 
@@ -320,10 +321,12 @@ export default class PlotterBase extends Component {
             <div style={{ "flexGrow": 10000 }}>
                 <Select
                     options={options}
-                    value={options.filter(el => v.includes(el.value))}
+                    value={this.props.allOptions.filter(el => v.includes(el.value))}
                     onChange={selectedOption => { this.setStateConfig({ [varname]: selectedOption.map(el => el.value) }); }}
                     isMulti
+                    closeMenuOnSelect={false}
                     styles={multiColorStyle}
+                    components={hideGroupComponents}
                 /></div>
         </InputGroup>)
     }
@@ -337,7 +340,7 @@ export default class PlotterBase extends Component {
             <div style={{ "flexGrow": 10000 }}>
                 <Select
                     options={options}
-                    value={(v) ? options.filter(el => v === el.value) : undefined}
+                    value={(v) ? this.props.allOptions.filter(el => v === el.value) : undefined}
                     onChange={selectedOption => {
                         if (selectedOption) {
                             this.setStateConfig({ [varname]: selectedOption.value });
@@ -347,6 +350,7 @@ export default class PlotterBase extends Component {
                     }}
                     isClearable
                     styles={singleColorStyle}
+                    components={hideGroupComponents}
                 /></div>
         </InputGroup>)
     }
@@ -609,6 +613,11 @@ PlotterBase.propTypes = {
     * Currently available numerical options
     */
     numColOptions: PropTypes.any.isRequired,
+
+    /**
+    * Currently available options without grouping
+    */
+    numOptions: PropTypes.any.isRequired,
 
     /**
      * Dash-assigned callback that should be called to report property changes

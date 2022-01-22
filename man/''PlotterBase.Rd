@@ -11,7 +11,7 @@
 
 \usage{
 ''PlotterBase(allColOptions=NULL, catColOptions=NULL, config=NULL,
-numColOptions=NULL)
+numColOptions=NULL, numOptions=NULL)
 }
 
 \arguments{
@@ -22,6 +22,8 @@ numColOptions=NULL)
 \item{config}{The config the user sets in this component.}
 
 \item{numColOptions}{Currently available numerical options}
+
+\item{numOptions}{Currently available options without grouping}
 }
 
 \value{named list of JSON elements corresponding to React.js properties and their values}

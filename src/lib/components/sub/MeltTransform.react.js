@@ -2,7 +2,7 @@ import SubComponentBase from "./SubComponentBase";
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Select from 'react-select';
-import { multiColorStyle } from "./Base.react";
+import { multiColorStyle, hideGroupComponents } from '../sub/Base.react';
 
 export default class MeltTransform extends SubComponentBase {
     constructor(props) {
@@ -68,7 +68,8 @@ export default class MeltTransform extends SubComponentBase {
             newColName,
             newColNameTwo,
             selectedCols,
-            allColOptions
+            allColOptions,
+            allOptions
         } = this.state;
 
         return <div>
@@ -103,10 +104,10 @@ export default class MeltTransform extends SubComponentBase {
             <Select
                 className="mb-3"
                 isMulti
-
+                closeMenuOnSelect={false}
                 options={allColOptions}
 
-                value={allColOptions.filter(o => selectedCols.includes(o.value))}
+                value={allOptions.filter(o => selectedCols.includes(o.value))}
                 onChange={selectedOption => {
                     let value = selectedOption.map(el => el.value);
 
@@ -117,7 +118,7 @@ export default class MeltTransform extends SubComponentBase {
                     });
                 }}
                 styles={multiColorStyle}
-
+                components={hideGroupComponents}
             />
 
 

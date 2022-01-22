@@ -9,7 +9,8 @@ export default class SubComponentBase extends Component {
             meta: props.meta,
             allColOptions: props.allColOptions,
             numColOptions: props.numColOptions,
-            catColOptions: props.catColOptions
+            catColOptions: props.catColOptions,
+            allOptions: props.allOptions
         };
     }
 
@@ -163,6 +164,11 @@ SubComponentBase.propTypes = {
     * Currently available numerical options
     */
     numColOptions: PropTypes.any.isRequired,
+
+    /**
+    * Currently available numerical options
+    */
+    allColOptions: PropTypes.any.isRequired,    
 
     /**
      * Dash-assigned callback that should be called to report property changes

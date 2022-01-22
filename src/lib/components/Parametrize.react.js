@@ -11,7 +11,7 @@ import './sub/react-list-editable.css';
 import Alert from 'react-bootstrap/Alert';
 
 import Select from 'react-select';
-import { singleColorStyle, multiColorStyle } from './sub/Base.react';
+import { singleColorStyle, multiColorStyle, hideGroupComponents } from './sub/Base.react';
 
 
 
@@ -114,6 +114,7 @@ export default class Parametrize extends Base {
         const {
             allColOptions,
             catColOptions,
+            allOptions,
             meta,
             showAddModal,
             config,
@@ -286,6 +287,7 @@ export default class Parametrize extends Base {
                             }}
                             isClearable
                             styles={singleColorStyle}
+                            components={hideGroupComponents}
                         />
 
                     </div>
@@ -313,10 +315,12 @@ export default class Parametrize extends Base {
                         Select the unique options as input value:
                         <Select
                             options={allColOptions}
-                            value={allColOptions.filter(el => newSelectedCols.includes(el.value))}
+                            value={allOptions.filter(el => newSelectedCols.includes(el.value))}
                             onChange={o => { this.setState({ newSelectedCols: o.map(el => el.value) }); }}
                             isMulti
+                            closeMenuOnSelect={false}
                             styles={multiColorStyle}
+                            components={hideGroupComponents}
                         />
 
                     </div>

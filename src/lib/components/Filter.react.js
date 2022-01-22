@@ -1,6 +1,6 @@
 import { filter, isNil, pluck } from 'ramda';
 import React from 'react';
-import Base, { singleColorStyle } from './sub/Base.react';
+import Base, { singleColorStyle, hideGroupComponents } from './sub/Base.react';
 
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
@@ -200,6 +200,7 @@ export default class Filter extends Base {
 
                     }}
                     styles={singleColorStyle}
+                    components={hideGroupComponents}
                 />
 
                 {
@@ -258,8 +259,9 @@ export default class Filter extends Base {
                         </InputGroup>
 
                         {["isnotin", "isin"].includes(filterType) && <Select
-                            options={categoryOptions} isMulti
-
+                            options={categoryOptions} 
+                            isMulti
+                            closeMenuOnSelect={false}
                             value={categoryOptions.filter(o => selectedCategories.includes(o.value))}
                             onChange={selectedOption => {
 

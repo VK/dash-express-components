@@ -124,7 +124,8 @@ export default class Plotter extends Base {
             config,
             allColOptions,
             catColOptions,
-            numColOptions
+            numColOptions,
+            allOptions
         } = this.state;
 
         const pt = plots_dict[plotType];
@@ -155,6 +156,7 @@ export default class Plotter extends Base {
                                 allColOptions={allColOptions}
                                 catColOptions={catColOptions}
                                 numColOptions={numColOptions}
+                                allOptions={allOptions}
                                 config={config}
                                 setProps={e => {
                                     if ("config" in e) {

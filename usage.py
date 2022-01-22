@@ -44,6 +44,9 @@ image_df = image_df.append(_img_to_df(imgdata.coffee(), "coffee"))
 
 df = image_df
 
+df = df.rename(columns={"R": "Colour»R", "G": "Colour»G", "B": "Colour»B"})
+#df["Test»B"] = _np.nan
+
 # external CSS stylesheets
 app = dash.Dash(
     external_stylesheets=[
@@ -55,7 +58,7 @@ app = dash.Dash(
 
 initial_config = {'filter': [{'col': 'Name', 'type': 'eq', 'value': 'cat'}],
                   'transform': [{'type': 'eval', 'col': 'catfilter', 'formula': '(Br > 20) & (Br < 220)'}],
-                  'plot': {'type': 'imshow', 'params': {'x': 'X', 'y': 'Y', 'dimensions': ['Br', 'R']}},
+                  'plot': {'type': 'imshow', 'params': {'x': 'X', 'y': 'Y', 'dimensions': ['Br', 'Colour»R']}},
                   'parameterization': {'parameters': [{'name': 'adsf', 'type': 'o', 'path': ['filter', '0', 'value'], 'value': 'cat', 'col': 'Name'}, {'name': 'data', 'type': 'usa', 'path': ['plot', 'params', 'dimensions'], 'value': ['R', 'G']}],
                                        'computeAll': False, 'computeMatrix': []}}
 

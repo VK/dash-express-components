@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import chroma from 'chroma-js';
+import { components } from "react-select";
 
 
 const dot = (color = 'transparent') => ({
@@ -17,8 +18,50 @@ const dot = (color = 'transparent') => ({
     },
 });
 
+
+
+
+
+const HideGroupHeading = (props) => {
+    return (
+        <div
+            className="collapse-group-heading"
+            onClick={() => {
+                document
+                    .querySelector(`#${props.id}`)
+                    .parentElement.parentElement.classList.toggle("collapsed-group");
+            }}
+        >
+            <components.GroupHeading {...props} />
+        </div>
+    );
+};
+
+const HideGroupMenuList = (props) => {
+    let new_props = {
+        ...props,
+        children: Array.isArray(props.children)
+            ? props.children.map((c, idx) =>
+                idx === 0
+                    ? c
+                    : { ...c, props: { ...c.props, className: "collapsed-group" } }
+            )
+            : props.children
+    };
+
+    return <components.MenuList {...new_props} />;
+};
+
+export const hideGroupComponents = {
+    GroupHeading: HideGroupHeading,
+    MenuList: HideGroupMenuList
+};
+
+
+
 export const singleColorStyle = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+    groupHeading: (styles) => ({ ...styles, backgroundColor: "#e9ecef", margin: 0, paddingTop: "5px", paddingBottom: "5px", color: "black", fontWeight: 500, fontSize: "1rem", flex: 1 }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
         const color = chroma(data.color);
         return {
@@ -57,6 +100,7 @@ export const singleColorStyle = {
 
 export const multiColorStyle = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+    groupHeading: (styles) => ({ ...styles, backgroundColor: "#e9ecef", margin: 0, paddingTop: "5px", paddingBottom: "5px", color: "black", fontWeight: 500, fontSize: "1rem", flex: 1 }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
         const color = chroma(data.color);
         return {
@@ -162,6 +206,52 @@ export default class Base extends Component {
         });
     }
 
+
+
+    _get_grColOpts(meta, options, grouping) {
+        if (grouping) {
+
+            let general_options = Object.keys(options).filter((key) => { return !key.includes("»"); }).sort()
+                .reduce((obj, key) => {
+                    obj[key] = meta[key];
+                    return obj;
+                }, {});
+
+            let group_options = Object.keys(options).filter((key) => { return key.includes("»"); })
+                .reduce((obj, key) => {
+
+                    const sub_key = key.split('»')[0];
+
+                    if (!(sub_key in obj)) {
+                        obj[sub_key] = {}
+                    }
+                    obj[sub_key][key] = meta[key];
+                    return obj;
+                }, {});
+
+            return [
+                {
+                    label: "General",
+                    options: this._get_grColOpts(meta, general_options, false)
+                },
+                ...Object.keys(group_options).sort().map((key) => {
+                    return {
+                        label: key,
+                        options: this._get_grColOpts(meta, group_options[key], false)
+                    };
+                })
+            ]
+
+        } else {
+            return Object.keys(options).map(option => ({
+                label: String(option),
+                value: option,
+                color: type_colors[meta[option].type]
+            }))
+        }
+    }
+
+
     /**
      * A helper to compute the column dropdown options based on the column metadata
      * We also filter continous and categorical variables, since some options only
@@ -170,6 +260,9 @@ export default class Base extends Component {
      * @returns 
      */
     get_columns(meta) {
+
+
+        let has_grouping = Object.keys(meta).map((key) => key.includes("»")).some(e => e);
 
         const numCols = Object.keys(meta)
             .filter((key) => {
@@ -193,22 +286,10 @@ export default class Base extends Component {
             numCols: numCols,
             catCols: catCols,
 
-            allColOptions: Object.keys(meta).map(option => ({
-                label: String(option),
-                value: option,
-                color: type_colors[meta[option].type]
-            })),
-            numColOptions: Object.keys(numCols).map(option => ({
-                label: String(option),
-                value: option,
-                color: type_colors[meta[option].type]
-            })),
-            catColOptions: Object.keys(catCols).map(option => ({
-                label: String(option),
-                value: option,
-                color: type_colors[meta[option].type]
-            })),
-
+            allColOptions: this._get_grColOpts(meta, meta, has_grouping),
+            numColOptions: this._get_grColOpts(meta, numCols, has_grouping),
+            catColOptions: this._get_grColOpts(meta, catCols, has_grouping),
+            allOptions: this._get_grColOpts(meta, meta, false)
 
         }
     }

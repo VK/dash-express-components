@@ -130,6 +130,7 @@ export default class Transform extends Base {
             allColOptions,
             catColOptions,
             numColOptions,
+            allOptions,
             meta_out,
 
 
@@ -189,6 +190,7 @@ export default class Transform extends Base {
                                 allColOptions={allColOptions}
                                 catColOptions={catColOptions}
                                 numColOptions={numColOptions}
+                                allOptions={allOptions}
                                 setProps={e => { if ("config" in e) { this.setState({ sub_config: e.config }) } }}
                             />
                         )

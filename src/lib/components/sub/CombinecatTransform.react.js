@@ -2,7 +2,7 @@ import SubComponentBase from "./SubComponentBase";
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Select from 'react-select';
-import { multiColorStyle } from "./Base.react";
+import { multiColorStyle, hideGroupComponents } from "./Base.react";
 
 
 export default class CombinecatTransform extends SubComponentBase {
@@ -55,7 +55,8 @@ export default class CombinecatTransform extends SubComponentBase {
         const {
             newColName,
             selectedCols,
-            allColOptions
+            allColOptions,
+            allOptions
         } = this.state;
 
         return <div>
@@ -79,11 +80,12 @@ export default class CombinecatTransform extends SubComponentBase {
             <Select
                 className="mb-3"
                 isMulti
+                closeMenuOnSelect={false}
                 key="selectCols"
 
                 options={allColOptions}
 
-                value={allColOptions.filter(o => selectedCols.includes(o.value))}
+                value={allOptions.filter(o => selectedCols.includes(o.value))}
                 onChange={selectedOption => {
                     let value = selectedOption.map(el => el.value);
 
@@ -93,6 +95,7 @@ export default class CombinecatTransform extends SubComponentBase {
                     });
                 }}
                 styles={multiColorStyle}
+                components={hideGroupComponents}
             />
 
 
