@@ -59,6 +59,51 @@ export const hideGroupComponents = {
 
 
 
+export const multiCallbacks = (obj, setState, varname, options) => {
+    let v = (varname in obj.state) ? obj.state[varname] : [];
+    if (!Array.isArray(v)) {
+        v = [v];
+    }
+
+    let select_value = (options && options !== undefined && v !== undefined) ? options.filter((el) => v.includes(el.value)) : [];
+
+
+    const callback = (inputValue, { action, prevInputValue }) => {
+        if (action === "input-change" && inputValue && inputValue !== undefined) {
+            let s = inputValue.split(/[ ,;\n\t]+/).map((e) => e.toUpperCase());
+            s = options
+                .filter((el) => s.includes(el.label.toUpperCase()))
+                .map((el) => el.value)
+                .filter((el) => !v.includes(el));
+
+            if (s.length > 0) {
+                setState({ [varname]: [...v, ...s] });
+                return "";
+            }
+        }
+    };
+
+    const onChange = (selectedOption) => {
+        if (
+            selectedOption &&
+            selectedOption !== undefined &&
+            Array.isArray(selectedOption)
+        ) {
+            setState({ [varname]: selectedOption.map((el) => el.value) });
+        }
+    };
+
+    return {
+        value: select_value,
+        onChange: onChange,
+        onInputChange: callback,
+        isMulti: true,
+        closeMenuOnSelect: false
+    };
+};
+
+
+
 export const singleColorStyle = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
     groupHeading: (styles) => ({ ...styles, backgroundColor: "#e9ecef", margin: 0, paddingTop: "5px", paddingBottom: "5px", color: "black", fontWeight: 500, fontSize: "1rem", flex: 1 }),

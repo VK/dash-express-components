@@ -11,7 +11,7 @@ import './sub/react-list-editable.css';
 import Alert from 'react-bootstrap/Alert';
 
 import Select from 'react-select';
-import { singleColorStyle, multiColorStyle, hideGroupComponents } from './sub/Base.react';
+import { singleColorStyle, multiColorStyle, hideGroupComponents, multiCallbacks } from './sub/Base.react';
 
 
 
@@ -277,7 +277,7 @@ export default class Parametrize extends Base {
 
                         <Select
                             options={catColOptions}
-                            value={(newSelectedCol) ? catColOptions.filter(el => newSelectedCol === el.value) : undefined}
+                            value={(newSelectedCol) ? allOptions.filter(el => newSelectedCol === el.value) : undefined}
                             onChange={o => {
                                 if (o) {
                                     this.setState({ newSelectedCol: o.value });
@@ -299,10 +299,12 @@ export default class Parametrize extends Base {
                         Select a column name is input value:
                         <Select
                             options={newSelectedSubsetOptions}
-                            value={newSelectedSubsetOptions.filter(el => newSelectedSubset.includes(el.value))}
-                            onChange={o => { this.setState({ newSelectedSubset: o.map(el => el.value) }); }}
-                            isMulti
-
+                            {...multiCallbacks(
+                                this,
+                                (s) => this.setState(s),
+                                "newSelectedSubset",
+                                newSelectedSubsetOptions
+                            )}
                         />
 
                     </div>
@@ -315,12 +317,15 @@ export default class Parametrize extends Base {
                         Select the unique options as input value:
                         <Select
                             options={allColOptions}
-                            value={allOptions.filter(el => newSelectedCols.includes(el.value))}
-                            onChange={o => { this.setState({ newSelectedCols: o.map(el => el.value) }); }}
-                            isMulti
-                            closeMenuOnSelect={false}
                             styles={multiColorStyle}
                             components={hideGroupComponents}
+                            {...multiCallbacks(
+                                this,
+                                (s) => this.setState(s),
+                                "newSelectedCols",
+                                allOptions
+                            )}
+
                         />
 
                     </div>

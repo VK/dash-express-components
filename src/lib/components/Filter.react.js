@@ -1,6 +1,6 @@
 import { filter, isNil, pluck } from 'ramda';
 import React from 'react';
-import Base, { singleColorStyle, hideGroupComponents } from './sub/Base.react';
+import Base, { singleColorStyle, hideGroupComponents, multiCallbacks } from './sub/Base.react';
 
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
@@ -260,18 +260,12 @@ export default class Filter extends Base {
 
                         {["isnotin", "isin"].includes(filterType) && <Select
                             options={categoryOptions} 
-                            isMulti
-                            closeMenuOnSelect={false}
-                            value={categoryOptions.filter(o => selectedCategories.includes(o.value))}
-                            onChange={selectedOption => {
-
-                                let value = selectedOption.map(el => el.value);
-
-                                this.setState({
-                                    selectedCategories:
-                                        value
-                                });
-                            }}
+                            {...multiCallbacks(
+                                this,
+                                (s) => this.setState(s),
+                                "selectedCategories",
+                                categoryOptions
+                            )}                            
                         />}
 
                         {["eq"].includes(filterType) && <Select

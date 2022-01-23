@@ -4,7 +4,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Select from 'react-select';
-import { singleColorStyle, multiColorStyle, hideGroupComponents } from '../sub/Base.react';
+import { singleColorStyle, multiColorStyle, hideGroupComponents, multiCallbacks } from '../sub/Base.react';
 
 
 export default class PlotterBase extends Component {
@@ -311,22 +311,24 @@ export default class PlotterBase extends Component {
 
     multiSelect(name, varname, options) {
 
-        let v = (varname in this.state) ? this.state[varname] : [];
-        if (!Array.isArray(v)) {
-            v = [v];
-        }
+        // let v = (varname in this.state) ? this.state[varname] : [];
+        // if (!Array.isArray(v)) {
+        //     v = [v];
+        // }
 
         return (<InputGroup className="mb-1 w-100">
             <InputGroup.Text className="d-flex flex-grow-1" style={{ "minWidth": 75 }}>{name}</InputGroup.Text>
             <div style={{ "flexGrow": 10000 }}>
                 <Select
                     options={options}
-                    value={this.props.allOptions.filter(el => v.includes(el.value))}
-                    onChange={selectedOption => { this.setStateConfig({ [varname]: selectedOption.map(el => el.value) }); }}
-                    isMulti
-                    closeMenuOnSelect={false}
                     styles={multiColorStyle}
                     components={hideGroupComponents}
+                    {...multiCallbacks(
+                        this,
+                        (s) => this.setStateConfig(s),
+                        varname,
+                        this.props.allOptions
+                    )}
                 /></div>
         </InputGroup>)
     }

@@ -69,6 +69,10 @@ app.layout = html.Div([
             id="plotConfig",
             config={},
             meta=dxc.get_meta(df),
+
+            showParameterization=True,
+            showStore=True
+            
         ),
 
         html.Div(id='output'),
