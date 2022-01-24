@@ -1,4 +1,7 @@
-import {DashTable} from "dash-table";
+import React, { Component, Suspense } from 'react';
+import PropTypes from 'prop-types';
+
+
 
 /**
  * Dash DataTable is an interactive table component designed for
@@ -11,8 +14,11 @@ import {DashTable} from "dash-table";
  */
 export default class DataTable extends Component {
     render() {
+        const DT = window.dash_table.DataTable;
         return (
-            <DashTable {...this.props}/>
+            <Suspense fallback={null}>
+                <DT {...this.props} />
+            </Suspense>
         );
     }
 }

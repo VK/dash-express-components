@@ -26,7 +26,7 @@ Keyword arguments:
 
 - setProps (optional):
     Dash-assigned callback that should be called to report property
-    changes to Dash, to make them available for callbacks."""
+    changes  to Dash, to make them available for callbacks."""
     @_explicitize_args
     def __init__(self, config=Component.UNDEFINED, meta=Component.UNDEFINED, allColOptions=Component.UNDEFINED, catColOptions=Component.UNDEFINED, numColOptions=Component.UNDEFINED, **kwargs):
         self._prop_names = ['allColOptions', 'catColOptions', 'config', 'meta', 'numColOptions', 'setProps']

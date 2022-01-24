@@ -6,6 +6,7 @@ import sys as _sys
 import json
 
 import dash as _dash
+from dash import dash_table
 
 # noinspection PyUnresolvedReferences
 from ._imports_ import *
