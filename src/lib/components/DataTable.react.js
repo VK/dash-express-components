@@ -15,9 +15,26 @@ import PropTypes from 'prop-types';
 export default class DataTable extends Component {
     render() {
         const DT = window.dash_table.DataTable;
+
+        let props = { ...this.props };
+        console.log(props.data);
+
+        const keys = Object.keys(props.data);
+        const index_key = keys[0];
+        props.data = props.data[index_key].map((el, idx) => {
+
+            let res = {};
+            keys.forEach.map(k => res[k] = props.data[idx]);
+
+            return res;
+
+        })
+
+        console.log(props.data);
+
         return (
             <Suspense fallback={null}>
-                <DT {...this.props} />
+                <DT {...props} />
             </Suspense>
         );
     }
