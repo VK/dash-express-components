@@ -250,18 +250,24 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                 del plotConfigData["params"]["indep_y"]
 
             # add a sort command for categorical x columns
-            # if "x" in plotConfigData["params"] and plotConfigData["params"]["x"] in self.categorical_Cols and markCatX:
-            #     if not "category_orders" in plotConfigData["params"]:
-            #         plotConfigData["params"]["category_orders"] = {}
-            #     plotConfigData["params"]["category_orders"][plotConfigData["params"]
-            #                                                 ["x"]] = self.category_Dict[plotConfigData["params"]["x"]]
+            if markCatX and "x" in plotConfigData["params"]:
+                if not "category_orders" in plotConfigData["params"]:
+                    plotConfigData["params"]["category_orders"] = {}
+                val_name = plotConfigData["params"]["x"]
+                cat_values = inputDataFrame[val_name].unique()
+                cat_values.sort()
+                plotConfigData["params"]["category_orders"][val_name] = cat_values.tolist(
+                )
 
-            # # add a sort command for categorical y columns
-            # if "y" in plotConfigData["params"] and plotConfigData["params"]["y"] in self.categorical_Cols and markCatY:
-            #     if not "category_orders" in plotConfigData["params"]:
-            #         plotConfigData["params"]["category_orders"] = {}
-            #     plotConfigData["params"]["category_orders"][plotConfigData["params"]
-            #                                                 ["y"]] = self.category_Dict[plotConfigData["params"]["y"]]
+            # add a sort command for categorical x columns
+            if markCatY and "y" in plotConfigData["params"]:
+                if not "category_orders" in plotConfigData["params"]:
+                    plotConfigData["params"]["category_orders"] = {}
+                val_name = plotConfigData["params"]["y"]
+                cat_values = inputDataFrame[val_name].unique()
+                cat_values.sort()
+                plotConfigData["params"]["category_orders"][val_name] = cat_values.tolist(
+                )
 
             # remove nan values from dataframe
             #inputDataFrame = inputDataFrame.dropna(subset=[c for c in inputDataFrame.columns if c in usedCols])
@@ -299,10 +305,10 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                     inputDataFrame, plotConfigData)
 
             # if we want to force an axis as categorical
-            # if "x" in plotConfigData["params"] and plotConfigData["params"]["x"] in self.categorical_Cols and markCatX:
-            #     fig.update_xaxes(type='category')
-            # if "y" in plotConfigData["params"] and plotConfigData["params"]["y"] in self.categorical_Cols and markCatY:
-            #     fig.update_yaxes(type='category')
+            if "x" in plotConfigData["params"] and markCatX:
+                fig.update_xaxes(type='category')
+            if "y" in plotConfigData["params"] and markCatY:
+                fig.update_yaxes(type='category')
 
             if "title" in plotConfigData and plotConfigData["title"] is not None and plotConfigData["title"] != "":
                 fig.update_layout(title=plotConfigData["title"])

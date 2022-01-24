@@ -59,25 +59,49 @@ export const hideGroupComponents = {
 
 
 
+
 export const multiCallbacks = (obj, setState, varname, options) => {
     let v = (varname in obj.state) ? obj.state[varname] : [];
     if (!Array.isArray(v)) {
         v = [v];
     }
 
-    let select_value = (options && options !== undefined && v !== undefined) ? options.filter((el) => v.includes(el.value)) : [];
 
+    // make entries unique
+    v = [...new Set(v)];
+
+    // find the right option and make a gray fallback
+    const get_el = (el) => {
+        let search = options.filter((o) => o.value === el);
+        if (search.length === 1) {
+            return search[0];
+        } else {
+            return { label: el, value: el, color: '#555555' }
+        }
+    }
+
+    let select_value = (options && options !== undefined && v !== undefined) ? v.map((e) => get_el(e)) : [];
 
     const callback = (inputValue, { action, prevInputValue }) => {
+        
         if (action === "input-change" && inputValue && inputValue !== undefined) {
-            let s = inputValue.split(/[ ,;\n\t]+/).map((e) => e.toUpperCase());
-            s = options
-                .filter((el) => s.includes(el.label.toUpperCase()))
-                .map((el) => el.value)
-                .filter((el) => !v.includes(el));
 
-            if (s.length > 0) {
-                setState({ [varname]: [...v, ...s] });
+            let s = inputValue.split(/[ ,;\n\t]+/).map((e) => e.toUpperCase());
+
+            let nv = [];
+            s.forEach((nel) => {
+                let no = options
+                    .filter((el) => nel === el.label.toUpperCase())
+                    .map((el) => el.value)
+                    .filter((el) => !v.includes(el));
+
+                if (no.length == 1) {
+                    nv.push(no[0]);
+                }
+            });
+
+            if (nv.length > 0) {
+                setState({ [varname]: [...v, ...nv] });
                 return "";
             }
         }
@@ -106,7 +130,19 @@ export const multiCallbacks = (obj, setState, varname, options) => {
 
 export const singleColorStyle = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
-    groupHeading: (styles) => ({ ...styles, backgroundColor: "#e9ecef", margin: 0, paddingTop: "5px", paddingBottom: "5px", color: "black", fontWeight: 500, fontSize: "1rem", flex: 1 }),
+    menuList: (styles) => ({ ...styles, boxShadow: "0px 3px 5px 2px rgba(0,0,0,0.2)" }),
+    groupHeading: (styles) => ({
+        ...styles,
+        backgroundColor: "#e9ecef",
+        margin: 0,
+        paddingTop: "5px",
+        paddingBottom: "5px",
+        color: "black",
+        fontWeight: 500,
+        fontSize: "1rem",
+        flex: 1,
+        borderBottom: "2px solid #555"
+    }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
         const color = chroma(data.color);
         return {
@@ -145,7 +181,19 @@ export const singleColorStyle = {
 
 export const multiColorStyle = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
-    groupHeading: (styles) => ({ ...styles, backgroundColor: "#e9ecef", margin: 0, paddingTop: "5px", paddingBottom: "5px", color: "black", fontWeight: 500, fontSize: "1rem", flex: 1 }),
+    menuList: (styles) => ({ ...styles, boxShadow: "0px 3px 5px 2px rgba(0,0,0,0.2)" }),
+    groupHeading: (styles) => ({
+        ...styles,
+        backgroundColor: "#e9ecef",
+        margin: 0,
+        paddingTop: "5px",
+        paddingBottom: "5px",
+        color: "black",
+        fontWeight: 500,
+        fontSize: "1rem",
+        flex: 1,
+        borderBottom: "2px solid #555"
+    }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
         const color = chroma(data.color);
         return {

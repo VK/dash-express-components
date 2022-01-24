@@ -46,7 +46,8 @@ export default class Probability extends PlotterBase {
     render() {
         const {
             catColOptions,
-            numColOptions
+            numColOptions,
+            optionsbar
         } = this.state;
 
         return (
@@ -58,7 +59,7 @@ export default class Probability extends PlotterBase {
                 </ButtonGroup>
 
 
-                {this.optionsBar()}
+                {this.optionsBar(optionsbar)}
                 {this.commonOptionBarControlls()}
 
 

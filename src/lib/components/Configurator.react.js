@@ -296,7 +296,8 @@ export default class Configurator extends Component {
                                 size="lg"
                                 variant="outline-primary"
                             >New Plot</Button>
-                            {eventGraphId !== "" && <Button
+                            {/* enable update plot button only if available */}
+                            {eventGraphId !== "" && false && <Button
                                 onClick={e => { this.update_props(eventGraphId); }}
                                 size="lg"
                                 variant="outline-primary"

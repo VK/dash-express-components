@@ -72,7 +72,7 @@ export default class Violin extends PlotterBase {
                 {this.multiSelect("Y", "y", allColOptions)}
                 {this.singleSelect("Color", "color", allColOptions)}
 
-                {this.optionsBar()}
+                {this.optionsBar(optionsbar)}
                 {this.commonOptionBarControlls()}
 
                 {optionsbar.filter(el => el.visible).map(el => {

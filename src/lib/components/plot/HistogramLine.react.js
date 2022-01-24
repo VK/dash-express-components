@@ -52,7 +52,8 @@ export default class HistogramLine extends PlotterBase {
     render() {
         const {
             catColOptions,
-            numColOptions
+            numColOptions,
+            optionsbar
         } = this.state;
 
         if (!("nbins" in this.state) || isNaN(this.state.nbins) || this.state.nbins == null || this.state.nbins == undefined) {
@@ -71,7 +72,7 @@ export default class HistogramLine extends PlotterBase {
 
 
 
-                {this.optionsBar()}
+                {this.optionsBar(optionsbar)}
                 {this.commonOptionBarControlls()}
 
 

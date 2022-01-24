@@ -15,6 +15,7 @@ export default class BarCount extends PlotterBase {
 
             optionsbar: [
                 this.option_dict.facet,
+                this.option_dict.axis
             ]
 
         }
@@ -50,7 +51,8 @@ export default class BarCount extends PlotterBase {
     render() {
         const {
             allColOptions,
-            catColOptions
+            catColOptions,
+            optionsbar
         } = this.state;
 
         return (
@@ -58,7 +60,7 @@ export default class BarCount extends PlotterBase {
                 {this.multiSelect("X", "x", catColOptions)}
                 {this.singleSelect("Color", "color", allColOptions)}
 
-                {this.optionsBar()}
+                {this.optionsBar(optionsbar)}
                 {this.commonOptionBarControlls()}
 
             </div>

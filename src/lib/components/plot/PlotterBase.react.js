@@ -464,16 +464,15 @@ export default class PlotterBase extends Component {
         return { ...bar_option, visible: !bar_option.visible }
     }
 
-    toggle_optionsbar(id) {
-        const { optionsbar } = this.state;
+    toggle_optionsbar(id, optionsbar) {
         let new_state = optionsbar.map(el => (el.id == id) ? this.toggle_single(el) : el);
+
+        console.log(new_state);
         this.setState({ optionsbar: new_state });
     }
 
 
-    optionsBar() {
-        const { optionsbar } = this.state;
-
+    optionsBar(optionsbar) {
         return <ButtonGroup aria-label="options-bar" id="options-bar" className="w-100 mt-3 mb-2">
             {
                 optionsbar.map(el => {
@@ -482,7 +481,7 @@ export default class PlotterBase extends Component {
                         type="checkbox"
                         variant="outline-primary"
                         checked={el.visible}
-                        onChange={(e) => this.toggle_optionsbar(el.id)}
+                        onChange={(e) => this.toggle_optionsbar(el.id, optionsbar)}
                         size='sm'
                     >{el.label}</ToggleButton>
                 })
@@ -501,6 +500,8 @@ export default class PlotterBase extends Component {
 
         return <div>
             {
+
+
                 optionsbar.filter(el => el.visible).map(el => {
 
                     if (el.id === "error") {

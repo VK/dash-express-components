@@ -51,7 +51,8 @@ export default class ScatterMatrix extends PlotterBase {
         const {
             allColOptions,
             catColOptions,
-            numColOptions
+            numColOptions,
+            optionsbar
         } = this.state;
 
         return (
@@ -61,7 +62,7 @@ export default class ScatterMatrix extends PlotterBase {
                 {this.singleSelect("Symb.", "symbol", catColOptions)}
                 {this.singleSelect("Size", "size", numColOptions)}
 
-                {this.optionsBar()}
+                {this.optionsBar(optionsbar)}
                 {this.commonOptionBarControlls()}
 
             </div>

@@ -48,7 +48,8 @@ export default class Imshow extends PlotterBase {
     render() {
         const {
             allColOptions,
-            numColOptions
+            numColOptions,
+            optionsbar
         } = this.state;
 
         return (
@@ -58,7 +59,7 @@ export default class Imshow extends PlotterBase {
                 {this.singleSelect("Y", "y", numColOptions)}
                 {this.multiSelect("Dim", "dimensions", allColOptions)}
 
-                {this.optionsBar()}
+                {this.optionsBar(optionsbar)}
                 {this.commonOptionBarControlls()}
 
             </div>
