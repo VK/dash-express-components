@@ -1,6 +1,7 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 export(Configurator)
+export(DataTable)
 export(Filter)
 export(Graph)
 export(Localstore)
@@ -54,6 +55,7 @@ export(base)
 export(box)
 export(combinecatTransform)
 export(configurator)
+export(dataTable)
 export(evalTransform)
 export(filter)
 export(graph)

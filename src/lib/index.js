@@ -5,7 +5,8 @@ import Transform from './components/Transform.react';
 import Plotter from './components/Plotter.react';
 import Parameterize from './components/Parametrize.react';
 import Graph from './components/Graph.react';
+import DataTable from './components/DataTable.react';
 
 export {
-    Configurator, Filter, Transform, Plotter, Parameterize, Graph
+    Configurator, Filter, Transform, Plotter, Parameterize, Graph, DataTable
 };

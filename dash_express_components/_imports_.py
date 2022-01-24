@@ -1,4 +1,5 @@
 from .Configurator import Configurator
+from .DataTable import DataTable
 from .Filter import Filter
 from .Graph import Graph
 from .Localstore import Localstore
@@ -24,6 +25,7 @@ from .SubComponentBase import SubComponentBase
 
 __all__ = [
     "Configurator",
+    "DataTable",
     "Filter",
     "Graph",
     "Localstore",
