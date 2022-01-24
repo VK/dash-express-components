@@ -136,11 +136,7 @@ object with key:value pairs matching `updateData`
 Reference the Plotly.extendTraces API for full usage:
 https://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces}
 
-\item{figure}{Lists containing elements 'data', 'layout', 'frames'.
-those elements have the following types:
-  - data (list of named lists; optional)
-  - layout (named list; optional)
-  - frames (list of named lists; optional). Plotly `figure` object. See schema:
+\item{figure}{Logical | numeric | character | named list | unnamed list. Plotly `figure` object. See schema:
 https://plotly.com/javascript/reference
 
 `config` is set separately by the `config` property}

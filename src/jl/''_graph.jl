@@ -116,14 +116,10 @@ either an integer defining the maximum number of points allowed or an
 object with key:value pairs matching `updateData`
 Reference the Plotly.extendTraces API for full usage:
 https://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces
-- `figure` (optional): Plotly `figure` object. See schema:
+- `figure` (Bool | Real | String | Dict | Array; optional): Plotly `figure` object. See schema:
 https://plotly.com/javascript/reference
 
-`config` is set separately by the `config` property. figure has the following type: lists containing elements 'data', 'layout', 'frames'.
-Those elements have the following types:
-  - `data` (Array of Dicts; optional)
-  - `layout` (Dict; optional)
-  - `frames` (Array of Dicts; optional)
+`config` is set separately by the `config` property
 - `hoverData` (Dict; optional): Data from latest hover event. Read-only.
 - `loading_state` (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: lists containing elements 'is_loading', 'prop_name', 'component_name'.
 Those elements have the following types:

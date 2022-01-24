@@ -42,7 +42,7 @@ image_df = image_df.append(_img_to_df(imgdata.cat(), "cat"))
 image_df = image_df.append(_img_to_df(imgdata.astronaut(), "astronaut"))
 image_df = image_df.append(_img_to_df(imgdata.coffee(), "coffee"))
 
-df = image_df
+df = tips_df
 
 df = df.rename(columns={"R": "Colour»R", "G": "Colour»G", "B": "Colour»B"})
 #df["Test»B"] = _np.nan
@@ -61,6 +61,8 @@ initial_config = {'filter': [{'col': 'Name', 'type': 'eq', 'value': 'cat'}],
                   'plot': {'type': 'imshow', 'params': {'x': 'X', 'y': 'Y', 'dimensions': ['Br', 'Colour»R']}},
                   'parameterization': {'parameters': [{'name': 'adsf', 'type': 'o', 'path': ['filter', '0', 'value'], 'value': 'cat', 'col': 'Name'}, {'name': 'data', 'type': 'usa', 'path': ['plot', 'params', 'dimensions'], 'value': ['R', 'G']}],
                                        'computeAll': False, 'computeMatrix': []}}
+
+initial_config = {'plot':[]}
 
 app.layout = html.Div([
 
@@ -103,25 +105,22 @@ app.layout = html.Div([
 def update_plot_config(newConfig, defParams, graphIds):
 
 
-
-
-
-
     if defParams is None:
         raise PreventUpdate
 
     if "graphId" in newConfig and newConfig["graphId"]:
         graphId = json.loads(newConfig["graphId"])
+    else:
+        graphId = 0
 
-        print(graphId)
-        print(graphIds)
+    if graphId in graphIds:
+        idx = graphIds.index(graphId)
+        del newConfig["graphId"]
+        defParams[idx] = newConfig
+    else:
+        defParams[0] = newConfig
+            
 
-        if graphId in graphIds:
-            idx = graphIds.index(graphId)
-            del newConfig["graphId"]
-            defParams[idx] = newConfig
-            print(defParams)
-            return defParams,
 
     return defParams,
 

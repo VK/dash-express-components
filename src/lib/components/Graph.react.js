@@ -9,6 +9,7 @@ import {
     privateDefaultProps,
 } from '../fragments/Graph.privateprops';
 import './css/saveClick.css';
+import DataTable from './DataTable.react';
 
 const EMPTY_DATA = [];
 
@@ -27,6 +28,9 @@ class PlotlyGraph extends Component {
         this.state = {
             prependData: [],
             extendData: [],
+            page_current: 0,
+            sort_by: [],
+            filter_query: ""
         };
 
         this.clearState = this.clearState.bind(this);
@@ -172,17 +176,55 @@ class PlotlyGraph extends Component {
         let buttons = <div className="saveClickContainer">{save_button}{edit_button}</div>
         /*End VK addon*/
 
-        return (
-            <div style={{ width: "100%", height: "100%" }}>
-                <ControlledPlotlyGraph
-                    {...this.props}
-                    prependData={this.state.prependData}
-                    extendData={this.state.extendData}
-                    clearState={this.clearState}
-                />
-                {buttons}
-            </div>
-        );
+        if ("data" in this.props.figure) {
+
+            return (
+                <div className='pxc-graph-container'>
+                    <ControlledPlotlyGraph
+                        {...this.props}
+                        prependData={this.state.prependData}
+                        extendData={this.state.extendData}
+                        clearState={this.clearState}
+                    />
+                    {buttons}
+                </div>
+            );
+
+        } else {
+            let props = {
+                data: this.props.figure,
+                columns: Object.keys(this.props.figure).map(k => { return { name: k, id: k } }),
+                page_current: this.state.page_current,
+                sort_by: this.state.sort_by,
+                filter_query: this.state.filter_query
+            }
+            return (
+                <div className='pxc-graph-container' style={{ padding: "5px" }}>
+                    <DataTable {...props} setProps={
+                        el => {
+                            if ("selectedData" in el) {
+                                this.props.setProps(el);
+                            } else {
+                                console.log(el);
+                                if (
+                                    ("page_current" in el && el.page_current !== this.state.page_current) ||
+                                    ("sort_by" in el && el.sort_by !== this.state.sort_by) ||
+                                    ("filter_query" in el && el.filter_query !== this.state.filter_query)
+                                ) {
+                                    this.setState(el);
+                                }
+
+                            }
+                        }
+                    }
+                    />
+                    {buttons}
+                </div>
+            );
+
+        }
+
+
     }
 }
 
@@ -332,11 +374,7 @@ PlotlyGraph.propTypes = {
      *
      * `config` is set separately by the `config` property
      */
-    figure: PropTypes.exact({
-        data: PropTypes.arrayOf(PropTypes.object),
-        layout: PropTypes.object,
-        frames: PropTypes.arrayOf(PropTypes.object),
-    }),
+    figure: PropTypes.any,
 
     /**
      * Generic style overrides on the plot div

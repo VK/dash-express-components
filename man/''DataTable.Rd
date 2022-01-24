@@ -28,24 +28,24 @@ editable=NULL, end_cell=NULL, export_columns=NULL,
 export_format=NULL, export_headers=NULL, fill_width=NULL,
 filter_action=NULL, filter_options=NULL, filter_query=NULL,
 fixed_columns=NULL, fixed_rows=NULL, hidden_columns=NULL,
-include_headers_on_copy_paste=NULL, is_focused=NULL,
-loading_state=NULL, locale_format=NULL,
+include_headers_on_copy_paste=NULL, index=NULL,
+is_focused=NULL, loading_state=NULL, locale_format=NULL,
 markdown_options=NULL, merge_duplicate_headers=NULL,
 page_action=NULL, page_count=NULL, page_current=NULL,
 page_size=NULL, persisted_props=NULL, persistence=NULL,
 persistence_type=NULL, row_deletable=NULL,
-row_selectable=NULL, selected_cells=NULL,
+row_selectable=NULL, selectedData=NULL, selected_cells=NULL,
 selected_columns=NULL, selected_row_ids=NULL,
-selected_rows=NULL, sort_action=NULL, sort_as_null=NULL,
-sort_by=NULL, sort_mode=NULL, start_cell=NULL,
-style_as_list_view=NULL, style_cell=NULL,
-style_cell_conditional=NULL, style_data=NULL,
-style_data_conditional=NULL, style_filter=NULL,
-style_filter_conditional=NULL, style_header=NULL,
-style_header_conditional=NULL, style_table=NULL,
-tooltip=NULL, tooltip_conditional=NULL, tooltip_data=NULL,
-tooltip_delay=NULL, tooltip_duration=NULL,
-tooltip_header=NULL, virtualization=NULL)
+sort_action=NULL, sort_as_null=NULL, sort_by=NULL,
+sort_mode=NULL, start_cell=NULL, style_as_list_view=NULL,
+style_cell=NULL, style_cell_conditional=NULL,
+style_data=NULL, style_data_conditional=NULL,
+style_filter=NULL, style_filter_conditional=NULL,
+style_header=NULL, style_header_conditional=NULL,
+style_table=NULL, tooltip=NULL, tooltip_conditional=NULL,
+tooltip_data=NULL, tooltip_delay=NULL,
+tooltip_duration=NULL, tooltip_header=NULL,
+virtualization=NULL)
 }
 
 \arguments{
@@ -248,7 +248,7 @@ Example:
     {"selector": ".dash-spreadsheet", "rule": 'font-family: "monospace"'}
 ]}
 
-\item{data}{List of list with named elements and values of type character | numeric | logicals. The contents of the table.
+\item{data}{List with named elements and values of type list of character | numeric | logicals. The contents of the table.
 The keys of each item in data should match the column IDs.
 Each item can also have an 'id' key, whose value is its row ID. If there
 is a column with ID='id' this will display the row ID, otherwise it is
@@ -487,6 +487,8 @@ See the associated nested prop `columns.hideable`.}
 tabs and elsewhere. Note that headers are ignored when copying from the table onto itself and
 between two tables within the same tab.}
 
+\item{index}{Character. }
+
 \item{is_focused}{Logical. If True, then the `active_cell` is in a focused state.}
 
 \item{loading_state}{Lists containing elements 'is_loading', 'prop_name', 'component_name'.
@@ -581,6 +583,8 @@ and no additional UI elements will appear.
 When a row is selected, its index will be contained
 in `selected_rows`.}
 
+\item{selectedData}{Logical | numeric | character | named list | unnamed list. `selectedData` contains the selected data, like for a Graph}
+
 \item{selected_cells}{List of lists containing elements 'row', 'column', 'row_id', 'column_id'.
 those elements have the following types:
   - row (numeric; optional)
@@ -597,10 +601,6 @@ are selected via the UI elements that appear when
 `column_selectable` is `'single' or 'multi'`.}
 
 \item{selected_row_ids}{List of character | numerics. `selected_row_ids` contains the ids of rows that
-are selected via the UI elements that appear when
-`row_selectable` is `'single'` or `'multi'`.}
-
-\item{selected_rows}{List of numerics. `selected_rows` contains the indices of rows that
 are selected via the UI elements that appear when
 `row_selectable` is `'single'` or `'multi'`.}
 
