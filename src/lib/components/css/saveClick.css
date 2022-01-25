@@ -1,6 +1,9 @@
 .saveClickContainer{
     height: 0px; 
     text-align:right;
+
+    position: absolute;
+    width: calc(100% - 10px);
 }
 
 .saveClickButton{

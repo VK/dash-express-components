@@ -1,8 +1,8 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-plotterBase <- function(allColOptions=NULL, catColOptions=NULL, config=NULL, numColOptions=NULL, numOptions=NULL) {
+plotterBase <- function(id=NULL, allColOptions=NULL, catColOptions=NULL, config=NULL, numColOptions=NULL, numOptions=NULL) {
     
-    props <- list(allColOptions=allColOptions, catColOptions=catColOptions, config=config, numColOptions=numColOptions, numOptions=numOptions)
+    props <- list(id=id, allColOptions=allColOptions, catColOptions=catColOptions, config=config, numColOptions=numColOptions, numOptions=numOptions)
     if (length(props) > 0) {
         props <- props[!vapply(props, is.null, logical(1))]
     }
@@ -10,7 +10,7 @@ plotterBase <- function(allColOptions=NULL, catColOptions=NULL, config=NULL, num
         props = props,
         type = 'PlotterBase',
         namespace = 'dash_express_components',
-        propNames = c('allColOptions', 'catColOptions', 'config', 'numColOptions', 'numOptions'),
+        propNames = c('id', 'allColOptions', 'catColOptions', 'config', 'numColOptions', 'numOptions'),
         package = 'dashExpressComponents'
         )
 

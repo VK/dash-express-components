@@ -467,17 +467,23 @@ export default class PlotterBase extends Component {
     toggle_optionsbar(id, optionsbar) {
         let new_state = optionsbar.map(el => (el.id == id) ? this.toggle_single(el) : el);
 
-        console.log(new_state);
         this.setState({ optionsbar: new_state });
     }
 
 
     optionsBar(optionsbar) {
+
+        const {
+            id
+        } = this.props;
+
+
         return <ButtonGroup aria-label="options-bar" id="options-bar" className="w-100 mt-3 mb-2">
             {
                 optionsbar.map(el => {
                     return <ToggleButton
-                        id={"toggle-" + el.id}
+                        id={id + "-toggle-" + el.id}
+                        key={id + "-toggle-" + el.id}
                         type="checkbox"
                         variant="outline-primary"
                         checked={el.visible}
@@ -498,7 +504,11 @@ export default class PlotterBase extends Component {
             numColOptions
         } = this.state;
 
-        return <div>
+        const {
+            id
+        } = this.props;
+
+        return <div key={`${id}-optionbar`}>
             {
 
 
@@ -596,6 +606,11 @@ export default class PlotterBase extends Component {
 PlotterBase.defaultProps = {};
 
 PlotterBase.propTypes = {
+
+    /**
+    * The config the user sets in this component.
+    */
+    id: PropTypes.string,
 
     /**
     * The config the user sets in this component.

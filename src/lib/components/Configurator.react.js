@@ -109,6 +109,10 @@ export default class Configurator extends Component {
 
 
     fix_config(new_config) {
+        if (new_config == undefined)
+        {
+            new_config = {};
+        }
         if (!("filter" in new_config)) {
             new_config["filter"] = [];
         }
@@ -221,10 +225,12 @@ export default class Configurator extends Component {
 
         return (
 
-            <Accordion id={id} defaultActiveKey="plotter">
+            <Accordion id={id} key={id} defaultActiveKey="plotter">
 
                 {this.props.showFilter && <CustomAccordionItem title="Filter">
                     < Filter
+                        id={`${id}-filter`}
+                        key={`${id}-filter`}
                         meta={meta}
                         config={config_filter}
                         setProps={
@@ -245,7 +251,8 @@ export default class Configurator extends Component {
 
                 {this.props.showTransform && <CustomAccordionItem title="Transform">
                     <Transform
-                        key="transform"
+                        id={`${id}-transform`}
+                        key={`${id}-transform`}
                         meta={filter_meta_out}
                         config={config_transform}
                         setProps={
@@ -265,7 +272,8 @@ export default class Configurator extends Component {
 
                 {this.props.showMetadata && <CustomAccordionItem title="Data Columns">
                     <MetaCheck
-                        key="metacheck"
+                        id={`${id}-metacheck`}
+                        key={`${id}-metacheck`}
                         meta={transform_meta_out}
                         setProps={out => { }}
                     />
@@ -273,7 +281,8 @@ export default class Configurator extends Component {
 
                 {this.props.showPlotter && <CustomAccordionItem title="Plotter" defaultOpen>
                     <Plotter
-                        key="plotter"
+                        id={`${id}-plotter`}
+                        key={`${id}-plotter`}
                         meta={transform_meta_out}
                         config={config_plot}
                         setProps={
@@ -288,7 +297,7 @@ export default class Configurator extends Component {
                 </CustomAccordionItem>}
 
 
-                <div className='accordion-item'>
+                <div className='accordion-item' key={`${id}-save-btn`}>
                     <h2 className='accordion-header'>
                         <ButtonGroup className='w-100 p-3'>
                             <Button
@@ -308,7 +317,8 @@ export default class Configurator extends Component {
 
                 {this.props.showParameterization && <CustomAccordionItem title="Parameterize" defaultOpen>
                     <Parametrize
-                        key="parametrize"
+                        id={`${id}-parametrize`}
+                        key={`${id}-parametrize`}
                         meta={transform_meta_out}
                         config={{ ...config }}
                         setProps={out => {
@@ -324,7 +334,8 @@ export default class Configurator extends Component {
 
                 {this.props.showStore && <CustomAccordionItem title="Store">
                     <Localstore
-                        key="store"
+                        id={`${id}-store`}
+                        key={`${id}-store`}
                         meta={transform_meta_out}
                         config={config}
                         setProps={out => {

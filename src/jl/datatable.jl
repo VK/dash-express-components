@@ -207,7 +207,7 @@ Example:
 Those elements have the following types:
   - `selector` (String; required)
   - `rule` (String; required)s
-- `data` (Array of Dict with Strings as keys and values of type String | Real | Bools; optional): The contents of the table.
+- `data` (Dict with Strings as keys and values of type Array of String | Real | Bools; optional): The contents of the table.
 The keys of each item in data should match the column IDs.
 Each item can also have an 'id' key, whose value is its row ID. If there
 is a column with ID='id' this will display the row ID, otherwise it is
@@ -415,12 +415,8 @@ See the associated nested prop `columns.hideable`.
 - `include_headers_on_copy_paste` (Bool; optional): If true, headers are included when copying from the table to different
 tabs and elsewhere. Note that headers are ignored when copying from the table onto itself and
 between two tables within the same tab.
+- `index` (String; optional)
 - `is_focused` (Bool; optional): If True, then the `active_cell` is in a focused state.
-- `loading_state` (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: lists containing elements 'is_loading', 'prop_name', 'component_name'.
-Those elements have the following types:
-  - `is_loading` (Bool; optional): Determines if the component is loading or not
-  - `prop_name` (String; optional): Holds which property is loading
-  - `component_name` (String; optional): Holds the name of the component that is loading
 - `locale_format` (optional): The localization specific formatting information applied to all columns in the table.
 This prop is derived from the [d3.formatLocale](https://github.com/d3/d3-format#formatLocale) data structure specification.
 When left unspecified, each individual nested prop will default to a pre-determined value.. locale_format has the following type: lists containing elements 'symbol', 'decimal', 'group', 'grouping', 'numerals', 'percent', 'separate_4digits'.
@@ -495,6 +491,7 @@ If false, then the user will not be able to select rows
 and no additional UI elements will appear.
 When a row is selected, its index will be contained
 in `selected_rows`.
+- `selectedData` (Bool | Real | String | Dict | Array; optional): `selectedData` contains the selected data, like for a Graph
 - `selected_cells` (optional): `selected_cells` represents the set of cells that are selected,
 as an array of objects, each item similar to `active_cell`.
 Multiple cells can be selected by holding down shift and
@@ -509,9 +506,6 @@ Those elements have the following types:
 are selected via the UI elements that appear when
 `column_selectable` is `'single' or 'multi'`.
 - `selected_row_ids` (Array of String | Reals; optional): `selected_row_ids` contains the ids of rows that
-are selected via the UI elements that appear when
-`row_selectable` is `'single'` or `'multi'`.
-- `selected_rows` (Array of Reals; optional): `selected_rows` contains the indices of rows that
 are selected via the UI elements that appear when
 `row_selectable` is `'single'` or `'multi'`.
 - `sort_action` (a value equal to: 'custom', 'native', 'none'; optional): The `sort_action` property enables data to be
@@ -725,7 +719,7 @@ the height of the rows is always the same; and
 runtime styling changes will not affect width and height vs. first rendering
 """
 function datatable(; kwargs...)
-        available_props = Symbol[:id, :active_cell, :cell_selectable, :column_selectable, :columns, :css, :data, :data_previous, :data_timestamp, :derived_filter_query_structure, :derived_viewport_data, :derived_viewport_indices, :derived_viewport_row_ids, :derived_viewport_selected_columns, :derived_viewport_selected_row_ids, :derived_viewport_selected_rows, :derived_virtual_data, :derived_virtual_indices, :derived_virtual_row_ids, :derived_virtual_selected_row_ids, :derived_virtual_selected_rows, :dropdown, :dropdown_conditional, :dropdown_data, :editable, :end_cell, :export_columns, :export_format, :export_headers, :fill_width, :filter_action, :filter_options, :filter_query, :fixed_columns, :fixed_rows, :hidden_columns, :include_headers_on_copy_paste, :is_focused, :loading_state, :locale_format, :markdown_options, :merge_duplicate_headers, :page_action, :page_count, :page_current, :page_size, :persisted_props, :persistence, :persistence_type, :row_deletable, :row_selectable, :selected_cells, :selected_columns, :selected_row_ids, :selected_rows, :sort_action, :sort_as_null, :sort_by, :sort_mode, :start_cell, :style_as_list_view, :style_cell, :style_cell_conditional, :style_data, :style_data_conditional, :style_filter, :style_filter_conditional, :style_header, :style_header_conditional, :style_table, :tooltip, :tooltip_conditional, :tooltip_data, :tooltip_delay, :tooltip_duration, :tooltip_header, :virtualization]
+        available_props = Symbol[:id, :active_cell, :cell_selectable, :column_selectable, :columns, :css, :data, :data_previous, :data_timestamp, :derived_filter_query_structure, :derived_viewport_data, :derived_viewport_indices, :derived_viewport_row_ids, :derived_viewport_selected_columns, :derived_viewport_selected_row_ids, :derived_viewport_selected_rows, :derived_virtual_data, :derived_virtual_indices, :derived_virtual_row_ids, :derived_virtual_selected_row_ids, :derived_virtual_selected_rows, :dropdown, :dropdown_conditional, :dropdown_data, :editable, :end_cell, :export_columns, :export_format, :export_headers, :fill_width, :filter_action, :filter_options, :filter_query, :fixed_columns, :fixed_rows, :hidden_columns, :include_headers_on_copy_paste, :index, :is_focused, :locale_format, :markdown_options, :merge_duplicate_headers, :page_action, :page_count, :page_current, :page_size, :persisted_props, :persistence, :persistence_type, :row_deletable, :row_selectable, :selectedData, :selected_cells, :selected_columns, :selected_row_ids, :sort_action, :sort_as_null, :sort_by, :sort_mode, :start_cell, :style_as_list_view, :style_cell, :style_cell_conditional, :style_data, :style_data_conditional, :style_filter, :style_filter_conditional, :style_header, :style_header_conditional, :style_table, :tooltip, :tooltip_conditional, :tooltip_data, :tooltip_delay, :tooltip_duration, :tooltip_header, :virtualization]
         wild_props = Symbol[]
         return Component("datatable", "DataTable", "dash_express_components", available_props, wild_props; kwargs...)
 end

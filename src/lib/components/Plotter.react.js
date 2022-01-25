@@ -128,6 +128,8 @@ export default class Plotter extends Base {
             allOptions
         } = this.state;
 
+        const { id } = this.props;
+
         const pt = plots_dict[plotType];
 
         return (
@@ -152,7 +154,8 @@ export default class Plotter extends Base {
                         return (
                             plotType === plt["type"] &&
                             <plt.class
-                                key={"plottype-" + idx}
+                                key={id + "plottype-" + plt["type"]}
+                                id={id + "plottype-" + plt["type"]}
                                 allColOptions={allColOptions}
                                 catColOptions={catColOptions}
                                 numColOptions={numColOptions}

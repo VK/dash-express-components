@@ -23,7 +23,7 @@ Keyword arguments:
 
 - setProps (optional):
     Dash-assigned callback that should be called to report property
-    changes  to Dash, to make them available for callbacks."""
+    changes to Dash, to make them available for callbacks."""
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, config=Component.UNDEFINED, meta=Component.UNDEFINED, meta_out=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'config', 'meta', 'meta_out', 'setProps']
