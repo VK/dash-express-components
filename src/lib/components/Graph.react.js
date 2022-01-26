@@ -25,10 +25,13 @@ class PlotlyGraph extends Component {
     constructor(props) {
         super(props);
 
-        if ("data" in props.figure) {
-            plotly();
-            graph();
-        }
+
+        // if ("data" in props.figure) {
+        //     console.log("load");
+        //     plotly();
+        //     graph();
+        // }
+
 
         this.state = {
             prependData: [],
@@ -42,19 +45,27 @@ class PlotlyGraph extends Component {
     }
 
     componentDidMount() {
-        if (this.props.prependData) {
-            this.setState({
-                prependData: [this.props.prependData],
-            });
-        }
-        if (this.props.extendData) {
-            this.setState({
-                extendData: [this.props.extendData],
-            });
+        console.log("Graph componentDidMount");
+
+        if (this.isGraph()) {
+
+
+            if (this.props.prependData) {
+                this.setState({
+                    prependData: [this.props.prependData],
+                });
+            }
+            if (this.props.extendData) {
+                this.setState({
+                    extendData: [this.props.extendData],
+                });
+            }
+
         }
     }
 
     componentWillUnmount() {
+        console.log("Graph componentWillUnmount");
         this.setState({
             prependData: [],
             extendData: [],
@@ -117,6 +128,10 @@ class PlotlyGraph extends Component {
 
 
     UNSAFE_componentWillReceiveProps(nextProps) {
+        console.log("new GraphProps");
+        console.log(nextProps);
+
+
         let prependData = this.state.prependData.slice(0);
 
         if (this.props.figure !== nextProps.figure) {
@@ -161,6 +176,8 @@ class PlotlyGraph extends Component {
     }
 
     clearState(dataKey) {
+        console.log("clearState");
+        console.log(dataKey);
         this.setState(props => {
             var data = props[dataKey];
             const res =
@@ -177,6 +194,7 @@ class PlotlyGraph extends Component {
     render() {
         console.log("render Graph");
         console.log(this.isGraph());
+        console.log(this.props);
 
 
         /*Start VK addon*/
@@ -216,17 +234,41 @@ class PlotlyGraph extends Component {
 
         } else {
             let props = {
+                id: this.props.id,
+                className: this.props.className,
                 data: this.props.figure,
                 columns: Object.keys(this.props.figure).map(k => { return { name: k, id: k } }),
                 page_current: this.state.page_current,
                 sort_by: this.state.sort_by,
                 filter_query: this.state.filter_query
             }
+
+            const { className, id } = this.props;
+
+            const extendedClassName = className
+                ? 'dash-graph ' + className
+                : 'dash-graph';
+
             return (
                 <div className='pxc-graph-container' style={{ padding: "5px" }}>
-                    <DataTable {...props} setProps={
+
+
+                    {/* <Suspense
+                        fallback={
+                            <div
+                                id={id}
+                                key={id}
+                                className={`${extendedClassName} dash-graph--pending`}
+                            />
+                        }
+                    > */}
+
+                    <DataTable {...props} className={extendedClassName} setProps={
                         el => {
-                            if ("selectedData" in el) {
+                            console.log("setProps");
+                            console.log(el);
+
+                            if (("selectedData" in el) || ("prependData" in el) || ("extendData" in el)) {
                                 this.props.setProps(el);
                             } else {
                                 console.log(el);
@@ -242,6 +284,8 @@ class PlotlyGraph extends Component {
                         }
                     }
                     />
+
+                    {/* </Suspense> */}
                     <div className="saveClickContainer" style={{ left: "-15px", bottom: "0px" }}>{save_button}{edit_button}</div>
                 </div>
             );
@@ -284,11 +328,7 @@ const ControlledPlotlyGraph = memo(props => {
 // );
 
 // const ControlledTable = memo(props => {
-//     const { className, id } = props;
 
-//     const extendedClassName = className
-//         ? 'dash-table ' + className
-//         : 'dash-table';
 
 //     return (
 //         <Suspense
@@ -300,7 +340,7 @@ const ControlledPlotlyGraph = memo(props => {
 //                 />
 //             }
 //         >
-//             <RealDataTable {...props} className={extendedClassName} />
+//             <DataTable {...props} className={extendedClassName} />
 //         </Suspense>
 //     );
 // });
@@ -729,7 +769,7 @@ PlotlyGraph.propTypes = {
 };
 
 ControlledPlotlyGraph.propTypes = PlotlyGraph.propTypes;
-// ControlledTable.propTypes = PlotlyGraph.propTypes;
+//ControlledTable.propTypes = PlotlyGraph.propTypes;
 
 PlotlyGraph.defaultProps = {
     ...privateDefaultProps,

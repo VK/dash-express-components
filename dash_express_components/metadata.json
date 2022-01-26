@@ -185,6 +185,13 @@
           }
         ],
         "returns": null
+      },
+      {
+        "name": "clearTableSelect",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
       }
     ],
     "props": {
