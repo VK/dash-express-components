@@ -817,7 +817,7 @@
         "required": false,
         "description": "If `single`, then the user can select a single row\r\nvia a radio button that will appear next to each row.\r\nIf `multi`, then the user can select multiple rows\r\nvia a checkbox that will appear next to each row.\r\nIf false, then the user will not be able to select rows\r\nand no additional UI elements will appear.\r\nWhen a row is selected, its index will be contained\r\nin `selected_rows`.",
         "defaultValue": {
-          "value": "true",
+          "value": "\"multi\"",
           "computed": false
         }
       },

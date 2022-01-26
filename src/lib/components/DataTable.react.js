@@ -1,9 +1,6 @@
 import React, { Component, Suspense, memo } from 'react';
 import PropTypes from 'prop-types';
 import ExcelJS from 'exceljs';
-import { asyncDecorator } from '@plotly/dash-component-plugins';
-import table from '../utils/LazyLoader/table';
-
 
 /**
  * Dash DataTable is an interactive table component designed for
@@ -58,16 +55,18 @@ export default class DataTable extends Component {
 
 
     clearTableSelect() {
-        console.log("clear select table");
-
         this.setState({
             selected_rows: []
         });
 
+        this.props.setProps({
+            selectedData: {
+                points: []
+            }
+        });
     }
 
     componentDidMount() {
-        console.log("Table componentDidMount");
 
         let that = this;
         setTimeout(function () { that.clearTableSelect(); }, 2000);
@@ -91,18 +90,16 @@ export default class DataTable extends Component {
 
 
     render() {
+
+        const DT = window.dash_table.DataTable;
         let props = {
             ...this.props,
             ...this.state
         }
 
-        const { className, id } = props;
-
-        console.log("render DataTable");
-
         return (
             <div style={{ width: "100%", height: "100%", position: "relative" }}>
-                <ControlledTable {...props} setProps={el => {
+                <DT {...props} setProps={el => {
 
                     if ("selected_rows" in el) {
                         this.setState({
@@ -138,20 +135,20 @@ export default class DataTable extends Component {
                 }
 
                 } key={this.props.id + "-edit-button"}>
-                    <svg version="1.1" x="0px" y="0px" viewBox="0 0 2289.75 2130" enable-background="new 0 0 2289.75 2130" width="28px" height="29px">
+                    <svg version="1.1" x="0px" y="0px" viewBox="0 0 2289.75 2130" enableBackground="new 0 0 2289.75 2130" width="28px" height="29px">
                         <metadata>
                             <sfw xmlns="http://ns.adobe.com/SaveForWeb/1.0/">
                                 <slices />
-                                <sliceSourceBounds bottomLeftOrigin="true" height="2130" width="2289.75" x="-1147.5" y="-1041" />
+                                <sliceSourceBounds height="2130" width="2289.75" x="-1147.5" y="-1041" />
                             </sfw>
                         </metadata>
                         <path fill="#185C37" d="M1437.75,1011.75L532.5,852v1180.393c0,53.907,43.7,97.607,97.607,97.607l0,0h1562.036  c53.907,0,97.607-43.7,97.607-97.607l0,0V1597.5L1437.75,1011.75z" />
                         <path fill="#21A366" d="M1437.75,0H630.107C576.2,0,532.5,43.7,532.5,97.607c0,0,0,0,0,0V532.5l905.25,532.5L1917,1224.75  L2289.75,1065V532.5L1437.75,0z" />
                         <path fill="#107C41" d="M532.5,532.5h905.25V1065H532.5V532.5z" />
-                        <path opacity="0.1" enable-background="new    " d="M1180.393,426H532.5v1331.25h647.893c53.834-0.175,97.432-43.773,97.607-97.607  V523.607C1277.825,469.773,1234.227,426.175,1180.393,426z" />
-                        <path opacity="0.2" enable-background="new    " d="M1127.143,479.25H532.5V1810.5h594.643  c53.834-0.175,97.432-43.773,97.607-97.607V576.857C1224.575,523.023,1180.977,479.425,1127.143,479.25z" />
-                        <path opacity="0.2" enable-background="new    " d="M1127.143,479.25H532.5V1704h594.643c53.834-0.175,97.432-43.773,97.607-97.607  V576.857C1224.575,523.023,1180.977,479.425,1127.143,479.25z" />
-                        <path opacity="0.2" enable-background="new    " d="M1073.893,479.25H532.5V1704h541.393c53.834-0.175,97.432-43.773,97.607-97.607  V576.857C1171.325,523.023,1127.727,479.425,1073.893,479.25z" />
+                        <path opacity="0.1"  d="M1180.393,426H532.5v1331.25h647.893c53.834-0.175,97.432-43.773,97.607-97.607  V523.607C1277.825,469.773,1234.227,426.175,1180.393,426z" />
+                        <path opacity="0.2"  d="M1127.143,479.25H532.5V1810.5h594.643  c53.834-0.175,97.432-43.773,97.607-97.607V576.857C1224.575,523.023,1180.977,479.425,1127.143,479.25z" />
+                        <path opacity="0.2" d="M1127.143,479.25H532.5V1704h594.643c53.834-0.175,97.432-43.773,97.607-97.607  V576.857C1224.575,523.023,1180.977,479.425,1127.143,479.25z" />
+                        <path opacity="0.2"  d="M1073.893,479.25H532.5V1704h541.393c53.834-0.175,97.432-43.773,97.607-97.607  V576.857C1171.325,523.023,1127.727,479.425,1073.893,479.25z" />
                         <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="203.5132" y1="1729.0183" x2="967.9868" y2="404.9817" gradientTransform="matrix(1 0 0 -1 0 2132)">
                             <stop offset="0" style={{ stopColor: '#18884F' }} />
                             <stop offset="0.5" style={{ stopColor: '#117E43' }} />
@@ -163,39 +160,41 @@ export default class DataTable extends Component {
                         <path fill="#107C41" d="M1437.75,1065h852v532.5h-852V1065z" />
                     </svg>
                 </a>
+                <a style={{ position: "absolute", top: "32px", left: "4px", cursor: "pointer" }} onClick={event => {
+                    this.clearTableSelect();
+                }
+
+                } key={this.props.id + "-clear-button"}>
+
+
+                    <svg version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" enableBackground="new 0 0 512 512;" width="25px" height="25px" >
+                        <path fill="#3B8BC0" d="M85.134,243.62l-63.395,63.395c-13.567,13.567-13.567,35.564,0,49.131l134.116,134.116
+	c13.567,13.567,35.564,13.567,49.131,0l63.395-63.395L85.134,243.62z"/>
+                        <path fill="#4EB9FF" d="M85.134,243.62c-13.567,13.567-13.567,35.564,0,49.131L219.25,426.867
+	c13.567,13.567,35.564,13.567,49.131,0l110.941-110.941l-75.24-108.006l-108.006-75.24L85.134,243.62z"/>
+                        <path fill="#FF4181" d="M490.262,155.854L356.146,21.738c-13.567-13.567-35.564-13.567-49.131,0L196.075,132.678
+	l183.246,183.246l110.941-110.941C503.829,191.417,503.829,169.422,490.262,155.854z"/>
+                        <path fill="#01121C" d="M498.454,147.662L364.339,13.546c-18.065-18.063-47.452-18.061-65.515,0L187.91,124.46
+	c-0.009,0.009-0.019,0.019-0.027,0.027c-0.008,0.008-0.019,0.019-0.027,0.027L76.969,235.401c-0.009,0.009-0.019,0.019-0.027,0.027
+	c-0.019,0.019-0.035,0.036-0.053,0.054l-63.343,63.342c-18.062,18.062-18.062,47.451,0,65.515l134.116,134.116
+	c9.033,9.031,20.894,13.546,32.757,13.546s23.725-4.516,32.757-13.546l63.342-63.343c0.019-0.019,0.036-0.035,0.054-0.053
+	c0.009-0.009,0.019-0.019,0.027-0.027l110.886-110.886c0.009-0.009,0.019-0.019,0.027-0.027c0.008-0.008,0.019-0.019,0.027-0.027
+	l110.914-110.914C516.515,195.115,516.515,165.725,498.454,147.662z M260.189,418.674c-4.373,4.374-10.189,6.783-16.374,6.783
+	c-6.185,0-11.999-2.408-16.374-6.783l-79.44-79.438c-4.525-4.523-11.858-4.523-16.384,0c-4.524,4.524-4.524,11.859,0,16.384
+	l79.44,79.437c5.842,5.843,12.968,9.933,20.742,12.005l-35.008,35.008c-9.027,9.027-23.718,9.029-32.748,0L29.929,347.954
+	c-9.028-9.029-9.028-23.72,0-32.748l35.008-35.008c2.073,7.774,6.162,14.9,12.004,20.742l21.909,21.91
+	c4.525,4.522,11.858,4.524,16.384,0c4.524-4.524,4.524-11.859,0-16.384l-21.91-21.91c-4.373-4.373-6.782-10.189-6.782-16.374
+	c0-6.185,2.408-11.999,6.783-16.374l102.748-102.748l166.865,166.865L260.189,418.674z M482.071,196.793L379.321,299.542
+	L212.458,132.68L315.207,29.93c9.027-9.027,23.718-9.028,32.748,0l134.116,134.116C491.099,173.074,491.099,187.765,482.071,196.793
+	z"/></svg>
+                </a>
+
 
             </div>
         );
     }
 }
 
-
-
-const RealDT = asyncDecorator(DataTable, table);
-
-const ControlledTable = memo(props => {
-
-    const DT = window.dash_table.DataTable;
-    const { id } = props;
-
-    console.log(DT);
-    console.log(RealDT);
-
-    return (
-
-        <Suspense
-            fallback={
-                <div
-                    id={id}
-                    key={id}
-                />
-            }
-        >
-            <RealDT {...props}/>
-            {/* <DT {...props} /> */}
-        </Suspense>
-    );
-});
 
 
 
@@ -261,7 +260,7 @@ export const defaultProps = {
     selectedData: {},
     selected_row_ids: [],
     cell_selectable: true,
-    row_selectable: true,
+    row_selectable: "multi",
 
     style_table: {},
     style_cell_conditional: [],
