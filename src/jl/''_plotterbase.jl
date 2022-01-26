@@ -8,6 +8,7 @@ export ''_plotterbase
 A PlotterBase component.
 
 Keyword arguments:
+- `id` (optional): The config the user sets in this component.
 - `allColOptions` (optional): All currently available column options
 - `catColOptions` (optional): Currently available categorical options
 - `config` (optional): The config the user sets in this component.
@@ -17,7 +18,7 @@ Keyword arguments:
 to Dash, to make them available for callbacks.
 """
 function ''_plotterbase(; kwargs...)
-        available_props = Symbol[:allColOptions, :catColOptions, :config, :numColOptions, :numOptions]
+        available_props = Symbol[:id, :allColOptions, :catColOptions, :config, :numColOptions, :numOptions]
         wild_props = Symbol[]
         return Component("''_plotterbase", "PlotterBase", "dash_express_components", available_props, wild_props; kwargs...)
 end

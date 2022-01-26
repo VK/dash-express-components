@@ -10,11 +10,13 @@
 }
 
 \usage{
-''PlotterBase(allColOptions=NULL, catColOptions=NULL, config=NULL,
-numColOptions=NULL, numOptions=NULL)
+''PlotterBase(id=NULL, allColOptions=NULL, catColOptions=NULL,
+config=NULL, numColOptions=NULL, numOptions=NULL)
 }
 
 \arguments{
+\item{id}{The config the user sets in this component.}
+
 \item{allColOptions}{All currently available column options}
 
 \item{catColOptions}{Currently available categorical options}

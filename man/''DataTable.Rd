@@ -29,10 +29,10 @@ export_format=NULL, export_headers=NULL, fill_width=NULL,
 filter_action=NULL, filter_options=NULL, filter_query=NULL,
 fixed_columns=NULL, fixed_rows=NULL, hidden_columns=NULL,
 include_headers_on_copy_paste=NULL, index=NULL,
-is_focused=NULL, loading_state=NULL, locale_format=NULL,
-markdown_options=NULL, merge_duplicate_headers=NULL,
-page_action=NULL, page_count=NULL, page_current=NULL,
-page_size=NULL, persisted_props=NULL, persistence=NULL,
+is_focused=NULL, locale_format=NULL, markdown_options=NULL,
+merge_duplicate_headers=NULL, page_action=NULL,
+page_count=NULL, page_current=NULL, page_size=NULL,
+persisted_props=NULL, persistence=NULL,
 persistence_type=NULL, row_deletable=NULL,
 row_selectable=NULL, selectedData=NULL, selected_cells=NULL,
 selected_columns=NULL, selected_row_ids=NULL,
@@ -490,12 +490,6 @@ between two tables within the same tab.}
 \item{index}{Character. }
 
 \item{is_focused}{Logical. If True, then the `active_cell` is in a focused state.}
-
-\item{loading_state}{Lists containing elements 'is_loading', 'prop_name', 'component_name'.
-those elements have the following types:
-  - is_loading (logical; optional): determines if the component is loading or not
-  - prop_name (character; optional): holds which property is loading
-  - component_name (character; optional): holds the name of the component that is loading. Object that holds the loading state object coming from dash-renderer}
 
 \item{locale_format}{Lists containing elements 'symbol', 'decimal', 'group', 'grouping', 'numerals', 'percent', 'separate_4digits'.
 those elements have the following types:

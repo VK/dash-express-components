@@ -178,7 +178,9 @@ const ControlledTable = memo(props => {
     const DT = window.dash_table.DataTable;
     const { id } = props;
 
-    const res = RealDT;
+    console.log(DT);
+    console.log(RealDT);
+
     return (
 
         <Suspense
@@ -189,9 +191,8 @@ const ControlledTable = memo(props => {
                 />
             }
         >
-            {JSON.stringify(res)}
             <RealDT {...props}/>
-            <DT {...props} />
+            {/* <DT {...props} /> */}
         </Suspense>
     );
 });
