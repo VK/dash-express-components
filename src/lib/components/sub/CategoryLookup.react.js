@@ -15,21 +15,30 @@ export default class CategoryLookup extends SubComponentBase {
             ...this.state,
             newColName: "",
             selectedCol: undefined,
-            values: {}
+            values: []
         }
+
+        this.editablelist_ref = React.createRef();
     }
 
     static config_to_string(el) {
-        return <span><b>{el.col}</b> combines [{el.cols.join(", ")}]</span>
+        return <span><b>{el.col}</b> is <b>{el.incol}</b> after the lookup in {JSON.stringify(el.values, null, 2)}</span>
     }
 
     config_from_state(input) {
+
+        let parsed_values = null;
+        try {
+            parsed_values = input.values.map((el) => JSON.parse("{" + el + "}")).reduce((k, v) => { return { ...k, ...v } }
+                , {});
+            console.log(parsed_values);
+        } catch { }
+
         return {
             type: "catlookup",
             col: input.newColName,
             incol: input.selectedCol,
-            values: input.values
-
+            values: parsed_values
         }
     }
 
@@ -38,16 +47,31 @@ export default class CategoryLookup extends SubComponentBase {
         let current_meta = input["meta"];
 
         let col = input["col"];
-        let cols = input["cols"];
+        let incol = input["incol"];
+        let values = input["values"];
 
-        let res = cols.map(k => SubComponentBase.get_col_or_median(current_meta[k])).join("_");
+        if (values == null) {
+            return {
+                value: 0, error: true, message: "Not able to parse your inputs!", type: undefined
+            };
+        }
+
+        let res = values[Object.keys(values)[0]];
+
+        let type = {
+            number: "numerical",
+            boolean: "bool",
+            string: "categorical",
+            undefined: "?"
+        }[String(typeof res)];
+
 
         let output = {
-            value: res, error: false, message: "", type: "categorical"
+            value: res, error: false, message: "", type: type
         };
 
         let new_meta = { ...current_meta };
-        new_meta[col] = SubComponentBase.get_dummy_meta_entry("categorical", res);
+        new_meta[col] = SubComponentBase.get_dummy_meta_entry(type, res);
         output["new_meta"] = new_meta;
 
         return output;
@@ -57,12 +81,15 @@ export default class CategoryLookup extends SubComponentBase {
     render() {
 
         const {
-            newColName,
-            selectedCol,
             catColOptions,
             allOptions,
-            values,
             meta
+        } = this.state;
+
+        let {
+            newColName,
+            selectedCol,
+            values,
         } = this.state;
 
         return <div>
@@ -74,7 +101,8 @@ export default class CategoryLookup extends SubComponentBase {
                     this.setStateConfig(
                         {
                             newColName: e.target.value,
-                            selectedCol: selectedCol
+                            selectedCol: selectedCol,
+                            values: values
                         }
                     );
                 }} />
@@ -89,17 +117,16 @@ export default class CategoryLookup extends SubComponentBase {
                 onChange={selectedOption => {
 
                     let new_config = {
+                        newColName: newColName,
                         selectedCol: selectedOption.value
                     };
                     if (selectedOption.value in meta) {
-                        if (meta[selectedOption.value]["type"] === "bool") {
-                            new_config["values"] = { true: 1, false: 0 };
-                        }
                         if (meta[selectedOption.value]["type"] === "categorical") {
-                            new_config["values"] = meta[selectedOption.value].cat.reduce((a, v) => ({ ...a, [v]: 0 }), {})
+                            new_config["values"] = meta[selectedOption.value].cat.map((v) => '"' + v + '": 0');
+                            this.editablelist_ref.current.setState({ list: new_config["values"] });
                         }
                     }
-                    this.setState(new_config);
+                    this.setStateConfig(new_config);
                 }}
                 isClearable
                 styles={singleColorStyle}
@@ -108,9 +135,14 @@ export default class CategoryLookup extends SubComponentBase {
 
             Define the new value for each category:
             <EditableList
-                list={Object.keys(values).map((k) => k + ": " + values[k])}
+                ref={this.editablelist_ref}
+                list={values}
                 className="w-100"
-                onListChange={e => console.log(e)}
+                onListChange={e => this.setStateConfig({
+                    values: e,
+                    newColName: newColName,
+                    selectedCol: selectedCol
+                })}
                 placeholder='Enter a value'
             />
 
