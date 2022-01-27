@@ -13,10 +13,12 @@ import Accordion from 'react-bootstrap/Accordion';
 import EvalTransform from './sub/EvalTransform.react';
 import MeltTransform from './sub/MeltTransform.react';
 import CombinecatTransform from './sub/CombinecatTransform.react';
+import CategoryLookup from './sub/CategoryLookup.react';
 let known_trafos = [
     { type: "eval", class: EvalTransform, "label": "Compute new column" },
     { type: "combinecat", class: CombinecatTransform, "label": "Combine to categorical column" },
-    { type: "melt", class: MeltTransform, "label": "Melt multiple colums to one" }
+    { type: "melt", class: MeltTransform, "label": "Melt multiple colums to one" },
+    { type: "catlookup", class: CategoryLookup, "label": "Lookup for category" }
 ]
 
 

@@ -18,6 +18,7 @@ from .ScatterMatrix import ScatterMatrix
 from .Table import Table
 from .Violin import Violin
 from .Base import Base
+from .CategoryLookup import CategoryLookup
 from .CombinecatTransform import CombinecatTransform
 from .EvalTransform import EvalTransform
 from .MeltTransform import MeltTransform
@@ -44,6 +45,7 @@ __all__ = [
     "Table",
     "Violin",
     "Base",
+    "CategoryLookup",
     "CombinecatTransform",
     "EvalTransform",
     "MeltTransform",
