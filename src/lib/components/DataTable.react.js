@@ -1,6 +1,5 @@
 import React, { Component, Suspense, memo } from 'react';
 import PropTypes from 'prop-types';
-import ExcelJS from 'exceljs';
 
 /**
  * Dash DataTable is an interactive table component designed for
@@ -125,12 +124,25 @@ export default class DataTable extends Component {
 
                 <a style={{ position: "absolute", top: "1px", left: "1px", cursor: "pointer" }} onClick={event => {
 
-                    const workbook = new ExcelJS.Workbook();
-                    const sheet = workbook.addWorksheet('Data');
+                    import(/* webpackChunkName: "excel" */ '../../../node_modules/exceljs').then(ExcelJS => {
+                        const workbook = new ExcelJS.Workbook();
+                        const sheet = workbook.addWorksheet('Data');
 
-                    var buff = workbook.xlsx.writeBuffer().then(function (data) {
-                        var blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-                        saveAs(blob, "data.xlsx");
+                        let cols = this.props.columns.map((el) => {
+                            return {
+                                header: el.name, id: el.id
+                            }
+                        });
+                        sheet.columns = cols;
+                        console.log(cols);
+                        cols.forEach((c, idx) => {
+                            sheet.getColumn(idx + 1).values = [c.header, ...this.props.data[c.id]];
+                        });
+
+                        var buff = workbook.xlsx.writeBuffer().then(function (data) {
+                            var blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+                            saveAs(blob, "data.xlsx");
+                        });
                     });
                 }
 
@@ -145,10 +157,10 @@ export default class DataTable extends Component {
                         <path fill="#185C37" d="M1437.75,1011.75L532.5,852v1180.393c0,53.907,43.7,97.607,97.607,97.607l0,0h1562.036  c53.907,0,97.607-43.7,97.607-97.607l0,0V1597.5L1437.75,1011.75z" />
                         <path fill="#21A366" d="M1437.75,0H630.107C576.2,0,532.5,43.7,532.5,97.607c0,0,0,0,0,0V532.5l905.25,532.5L1917,1224.75  L2289.75,1065V532.5L1437.75,0z" />
                         <path fill="#107C41" d="M532.5,532.5h905.25V1065H532.5V532.5z" />
-                        <path opacity="0.1"  d="M1180.393,426H532.5v1331.25h647.893c53.834-0.175,97.432-43.773,97.607-97.607  V523.607C1277.825,469.773,1234.227,426.175,1180.393,426z" />
-                        <path opacity="0.2"  d="M1127.143,479.25H532.5V1810.5h594.643  c53.834-0.175,97.432-43.773,97.607-97.607V576.857C1224.575,523.023,1180.977,479.425,1127.143,479.25z" />
+                        <path opacity="0.1" d="M1180.393,426H532.5v1331.25h647.893c53.834-0.175,97.432-43.773,97.607-97.607  V523.607C1277.825,469.773,1234.227,426.175,1180.393,426z" />
+                        <path opacity="0.2" d="M1127.143,479.25H532.5V1810.5h594.643  c53.834-0.175,97.432-43.773,97.607-97.607V576.857C1224.575,523.023,1180.977,479.425,1127.143,479.25z" />
                         <path opacity="0.2" d="M1127.143,479.25H532.5V1704h594.643c53.834-0.175,97.432-43.773,97.607-97.607  V576.857C1224.575,523.023,1180.977,479.425,1127.143,479.25z" />
-                        <path opacity="0.2"  d="M1073.893,479.25H532.5V1704h541.393c53.834-0.175,97.432-43.773,97.607-97.607  V576.857C1171.325,523.023,1127.727,479.425,1073.893,479.25z" />
+                        <path opacity="0.2" d="M1073.893,479.25H532.5V1704h541.393c53.834-0.175,97.432-43.773,97.607-97.607  V576.857C1171.325,523.023,1127.727,479.425,1073.893,479.25z" />
                         <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="203.5132" y1="1729.0183" x2="967.9868" y2="404.9817" gradientTransform="matrix(1 0 0 -1 0 2132)">
                             <stop offset="0" style={{ stopColor: '#18884F' }} />
                             <stop offset="0.5" style={{ stopColor: '#117E43' }} />

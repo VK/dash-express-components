@@ -6,7 +6,6 @@ const resources_path = realpath(joinpath( @__DIR__, "..", "deps"))
 const version = "0.0.13"
 
 include("jl/configurator.jl")
-include("jl/datatable.jl")
 include("jl/filter.jl")
 include("jl/graph.jl")
 include("jl/localstore.jl")
@@ -46,8 +45,22 @@ function __init__()
     type = :js
 ),
 DashBase.Resource(
+    relative_package_path = "async-excel.js",
+    external_url = "https://unpkg.com/dash_express_components@0.0.13/dash_express_components/async-excel.js",
+    dynamic = nothing,
+    async = :true,
+    type = :js
+),
+DashBase.Resource(
     relative_package_path = "async-graph.js.map",
     external_url = "https://unpkg.com/dash_express_components@0.0.13/dash_express_components/async-graph.js.map",
+    dynamic = true,
+    async = nothing,
+    type = :js
+),
+DashBase.Resource(
+    relative_package_path = "async-excel.js.map",
+    external_url = "https://unpkg.com/dash_express_components@0.0.13/dash_express_components/async-excel.js.map",
     dynamic = true,
     async = nothing,
     type = :js
