@@ -302,17 +302,61 @@ const DummyControlledTable = memo(props => {
 
     const dummy_props = {
         id: id + "-dummy",
-        figure: {}
+
+        "configuratorId": "topaz-waferPlot-config",
+        "defParams": {
+            "filter": [],
+            "graphId": null,
+            "labels": [],
+            "name": "waferPlot",
+            "parameterization": {
+                "computeAll": false,
+                "computeMatrix": [],
+                "parameters": []
+            },
+            "plot": {
+                "params": {},
+                "type": "scatter"
+            },
+            "transform": []
+        },
+        "figure": {
+            "data": [
+                {
+                    "hovertemplate": "CW=%{x}<br>index=%{y}<extra></extra>",
+                    "legendgroup": "",
+                    "marker": {
+                        "color": "#636efa",
+                        "symbol": "circle"
+                    },
+                    "mode": "markers",
+                    "name": "",
+                    "showlegend": false,
+                    "type": "scattergl",
+                    "x": [
+                        "2021-22",
+                        "2021-22"
+                    ],
+                    "xaxis": "x",
+                    "y": [
+                        0,
+                        0
+                    ],
+                    "yaxis": "y"
+                }
+            ]
+        }
+
     }
 
     const extendedClassName = className
         ? 'dash-graph ' + className
         : 'dash-graph';
 
-    try {
-        let dummy = RealPlotlyGraph(props);
-        console.log(dummy);
-    } catch { };
+    // try {
+    //     let dummy = RealPlotlyGraph(props);
+    //     console.log(dummy);
+    // } catch { };
 
     return (
         <Suspense
@@ -324,7 +368,6 @@ const DummyControlledTable = memo(props => {
                 />
             }
         >
-
             <DataTable {...props} className={extendedClassName} />
         </Suspense>
     );
