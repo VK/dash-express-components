@@ -10,6 +10,9 @@ import {
 } from '../fragments/Graph.privateprops';
 import './css/saveClick.css';
 import DataTable from './DataTable.react';
+import Configurator from './Configurator.react';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import { prop } from 'ramda';
 
 const EMPTY_DATA = [];
@@ -32,10 +35,12 @@ class PlotlyGraph extends Component {
             extendData: [],
             page_current: 0,
             sort_by: [],
-            filter_query: ""
+            filter_query: "",
+            config_modal_open: false
         };
 
         this.clearState = this.clearState.bind(this);
+        this.config_in_modal_ref = React.createRef();
     }
 
     componentDidMount() {
@@ -91,29 +96,45 @@ class PlotlyGraph extends Component {
     }
 
 
-    sendEditData(image) {
-        let messageData = { thumbnail: image, defs: this.props.defParams, app: window.appName, href: location.href, configuratorId: this.props.configuratorId, graphId: this.props.id };
+    // sendEditData(image) {
+    //     let messageData = { thumbnail: image, defs: this.props.defParams, app: window.appName, href: location.href, configuratorId: this.props.configuratorId, graphId: this.props.id };
 
-        try {
-            window.parent.postMessage(messageData, "*");
-        } catch (e) {
-            console.log(e);
-        }
+    //     try {
+    //         window.parent.postMessage(messageData, "*");
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
+
+    // editClick() {
+
+    //     if (this.isGraph()) {
+    //         //compute a thumpnail
+    //         let imagePromise = Plotly.toImage(document.getElementById(this.props.id).children[1], { format: 'png', height: 400, width: 800 });
+    //         //send the image data once created
+    //         imagePromise.then((img) => this.sendEditData(img));
+    //     } else {
+    //         this.sendEditData(TABLE_PNG);
+
+    //     }
+
+    // }
+
+
+
+    handleOpen() {
+        this.setState({ config_modal_open: true });
+
+        let that = this;
+        setTimeout(() => {
+            that.config_in_modal_ref.current.update_config(this.props.defParams);
+        }, 200);
     }
 
-    editClick() {
-
-        if (this.isGraph()) {
-            //compute a thumpnail
-            let imagePromise = Plotly.toImage(document.getElementById(this.props.id).children[1], { format: 'png', height: 400, width: 800 });
-            //send the image data once created
-            imagePromise.then((img) => this.sendEditData(img));
-        } else {
-            this.sendEditData(TABLE_PNG);
-
-        }
-
+    handleClose() {
+        this.setState({ config_modal_open: false });
     }
+
 
     /*End VK addon*/
 
@@ -177,6 +198,7 @@ class PlotlyGraph extends Component {
         });
     }
 
+
     render() {
 
         /*Start VK addon*/
@@ -190,13 +212,44 @@ class PlotlyGraph extends Component {
             </a>
         }
         if (this.props.defParams && this.props.configuratorId) {
-            edit_button = <a className="saveClickButton" onClick={this.editClick.bind(this)} key={this.props.id + "-edit-button"}>
+            edit_button = <a className="saveClickButton" onClick={e => this.handleOpen()} key={this.props.id + "-edit-button"}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1.3em" width="1.3em">
                     <path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
                 </svg>
             </a>
         }
 
+
+        let configurator_modal = (
+            <Modal backdrop="static" show={this.state.config_modal_open} onHide={() => this.handleClose()}>
+                <Modal.Header closeButton>
+                    <Modal.Title> Edit Plot Config</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Configurator ref={this.config_in_modal_ref}
+                        config={this.props.defParams}
+                        meta={this.props.meta}
+                        showUpdate={false}
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => this.handleClose()}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={(e) => {
+
+                        this.props.setProps({
+                            defParams:
+                                this.config_in_modal_ref.current.state.config
+                        });
+
+                        this.handleClose();
+                    }}>
+                        Update Plot
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        )
 
         /*End VK addon*/
 
@@ -211,6 +264,7 @@ class PlotlyGraph extends Component {
                         clearState={this.clearState}
                     />
                     <div className="saveClickContainer" >{save_button}{edit_button}</div>
+                    {configurator_modal}
                 </div>
             );
 
@@ -258,6 +312,7 @@ class PlotlyGraph extends Component {
                     />
 
                     <div className="saveClickContainer" style={{ left: "-15px", bottom: "0px" }}>{save_button}{edit_button}</div>
+                    {configurator_modal}
                 </div>
             );
 
@@ -415,6 +470,11 @@ PlotlyGraph.propTypes = {
      * id of the plotter  if a reload of the connfig should be allowed
      */
     configuratorId: PropTypes.string,
+
+    /**
+     * The metadata the plotter selection is based on.
+     */
+    meta: PropTypes.any,
 
     /* End VK addon */
 
@@ -801,6 +861,10 @@ ControlledPlotlyGraph.propTypes = PlotlyGraph.propTypes;
 
 PlotlyGraph.defaultProps = {
     ...privateDefaultProps,
+
+    defParams: null,
+    configuratorId: null,
+    meta: null,
 
     clickData: null,
     clickAnnotationData: null,

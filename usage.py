@@ -62,7 +62,8 @@ initial_config = {'filter': [{'col': 'Name', 'type': 'eq', 'value': 'cat'}],
                   'parameterization': {'parameters': [{'name': 'adsf', 'type': 'o', 'path': ['filter', '0', 'value'], 'value': 'cat', 'col': 'Name'}, {'name': 'data', 'type': 'usa', 'path': ['plot', 'params', 'dimensions'], 'value': ['R', 'G']}],
                                        'computeAll': False, 'computeMatrix': []}}
 
-initial_config = {'plot':[]}
+meta = dxc.get_meta(df)
+initial_config = {'plot': []}
 
 app.layout = html.Div([
 
@@ -70,11 +71,11 @@ app.layout = html.Div([
         dxc.Configurator(
             id="plotConfig",
             config={},
-            meta=dxc.get_meta(df),
+            meta=meta,
 
             showParameterization=True,
             showStore=True
-            
+
         ),
 
         html.Div(id='output'),
@@ -83,7 +84,10 @@ app.layout = html.Div([
     html.Div(
         [
             dxc.Graph(id={'type': 'fig', 'index': idx},
-                      defParams=initial_config, configuratorId="plotConfig")
+                      defParams=initial_config,
+                      configuratorId="plotConfig",
+                      meta=meta
+                      )
             for idx in range(3)
         ],
         style={
@@ -104,7 +108,6 @@ app.layout = html.Div([
 )
 def update_plot_config(newConfig, defParams, graphIds):
 
-
     if defParams is None:
         raise PreventUpdate
 
@@ -119,8 +122,6 @@ def update_plot_config(newConfig, defParams, graphIds):
         defParams[idx] = newConfig
     else:
         defParams[0] = newConfig
-            
-
 
     return defParams,
 

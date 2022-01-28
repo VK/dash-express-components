@@ -156,13 +156,25 @@
           "computed": false
         }
       },
+      "showUpdate": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.bool"
+        },
+        "required": false,
+        "description": "Prop to define the visibility of the update plot button",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
       "setProps": {
         "type": {
           "name": "custom",
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -262,12 +274,12 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
   "src/lib/components/Graph.react.js": {
-    "description": "Graph can be used to render any plotly.js-powered data visualization.\n\nYou can define callbacks based on user interaction with Graphs such as\nhovering, clicking or selecting",
+    "description": "Graph can be used to render any plotly.js-powered data visualization.\r\n\nYou can define callbacks based on user interaction with Graphs such as\r\nhovering, clicking or selecting",
     "displayName": "PlotlyGraph",
     "methods": [
       {
@@ -297,19 +309,14 @@
         "returns": null
       },
       {
-        "name": "sendEditData",
+        "name": "handleOpen",
         "docblock": null,
         "modifiers": [],
-        "params": [
-          {
-            "name": "image",
-            "type": null
-          }
-        ],
+        "params": [],
         "returns": null
       },
       {
-        "name": "editClick",
+        "name": "handleClose",
         "docblock": null,
         "modifiers": [],
         "params": [],
@@ -334,7 +341,7 @@
           "name": "string"
         },
         "required": false,
-        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+        "description": "The ID of this component, used to identify dash components\r\nin callbacks. The ID needs to be unique across all of the\r\ncomponents in an app."
       },
       "responsive": {
         "type": {
@@ -355,7 +362,7 @@
           ]
         },
         "required": false,
-        "description": "If True, the Plotly.js plot will be fully responsive to window resize\nand parent element resize event. This is achieved by overriding\n`config.responsive` to True, `figure.layout.autosize` to True and unsetting\n`figure.layout.height` and `figure.layout.width`.\nIf False, the Plotly.js plot not be responsive to window resize and\nparent element resize event. This is achieved by overriding `config.responsive`\nto False and `figure.layout.autosize` to False.\nIf 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully\nresponsive (True) or not (False) based on the values in `config.responsive`,\n`figure.layout.autosize`, `figure.layout.height`, `figure.layout.width`.\nThis is the legacy behavior of the Graph component.\n\nNeeds to be combined with appropriate dimension / styling through the `style` prop\nto fully take effect.",
+        "description": "If True, the Plotly.js plot will be fully responsive to window resize\r\nand parent element resize event. This is achieved by overriding\r\n`config.responsive` to True, `figure.layout.autosize` to True and unsetting\r\n`figure.layout.height` and `figure.layout.width`.\r\nIf False, the Plotly.js plot not be responsive to window resize and\r\nparent element resize event. This is achieved by overriding `config.responsive`\r\nto False and `figure.layout.autosize` to False.\r\nIf 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully\r\nresponsive (True) or not (False) based on the values in `config.responsive`,\r\n`figure.layout.autosize`, `figure.layout.height`, `figure.layout.width`.\r\nThis is the legacy behavior of the Graph component.\r\n\nNeeds to be combined with appropriate dimension / styling through the `style` prop\r\nto fully take effect.",
         "defaultValue": {
           "value": "'auto'",
           "computed": false
@@ -366,14 +373,33 @@
           "name": "object"
         },
         "required": false,
-        "description": "Metadata to describe the plot features"
+        "description": "Metadata to describe the plot features",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
       },
       "configuratorId": {
         "type": {
           "name": "string"
         },
         "required": false,
-        "description": "id of the plotter  if a reload of the connfig should be allowed"
+        "description": "id of the plotter  if a reload of the connfig should be allowed",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "meta": {
+        "type": {
+          "name": "any"
+        },
+        "required": false,
+        "description": "The metadata the plotter selection is based on.",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
       },
       "clickData": {
         "type": {
@@ -413,7 +439,7 @@
           "name": "bool"
         },
         "required": false,
-        "description": "If True, `clear_on_unhover` will clear the `hoverData` property\nwhen the user \"unhovers\" from a point.\nIf False, then the `hoverData` property will be equal to the\ndata from the last point that was hovered over.",
+        "description": "If True, `clear_on_unhover` will clear the `hoverData` property\r\nwhen the user \"unhovers\" from a point.\r\nIf False, then the `hoverData` property will be equal to the\r\ndata from the last point that was hovered over.",
         "defaultValue": {
           "value": "false",
           "computed": false
@@ -435,7 +461,7 @@
           "name": "object"
         },
         "required": false,
-        "description": "Data from latest relayout event which occurs\nwhen the user zooms or pans on the plot or other\nlayout-level edits. Has the form `{<attr string>: <value>}`\ndescribing the changes made. Read-only.",
+        "description": "Data from latest relayout event which occurs\r\nwhen the user zooms or pans on the plot or other\r\nlayout-level edits. Has the form `{<attr string>: <value>}`\r\ndescribing the changes made. Read-only.",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -454,7 +480,7 @@
           ]
         },
         "required": false,
-        "description": "Data that should be appended to existing traces. Has the form\n`[updateData, traceIndices, maxPoints]`, where `updateData` is an object\ncontaining the data to extend, `traceIndices` (optional) is an array of\ntrace indices that should be extended, and `maxPoints` (optional) is\neither an integer defining the maximum number of points allowed or an\nobject with key:value pairs matching `updateData`\nReference the Plotly.extendTraces API for full usage:\nhttps://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces",
+        "description": "Data that should be appended to existing traces. Has the form\r\n`[updateData, traceIndices, maxPoints]`, where `updateData` is an object\r\ncontaining the data to extend, `traceIndices` (optional) is an array of\r\ntrace indices that should be extended, and `maxPoints` (optional) is\r\neither an integer defining the maximum number of points allowed or an\r\nobject with key:value pairs matching `updateData`\r\nReference the Plotly.extendTraces API for full usage:\r\nhttps://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -473,7 +499,7 @@
           ]
         },
         "required": false,
-        "description": "Data that should be prepended to existing traces. Has the form\n`[updateData, traceIndices, maxPoints]`, where `updateData` is an object\ncontaining the data to prepend, `traceIndices` (optional) is an array of\ntrace indices that should be prepended, and `maxPoints` (optional) is\neither an integer defining the maximum number of points allowed or an\nobject with key:value pairs matching `updateData`\nReference the Plotly.prependTraces API for full usage:\nhttps://plotly.com/javascript/plotlyjs-function-reference/#plotlyprependtraces",
+        "description": "Data that should be prepended to existing traces. Has the form\r\n`[updateData, traceIndices, maxPoints]`, where `updateData` is an object\r\ncontaining the data to prepend, `traceIndices` (optional) is an array of\r\ntrace indices that should be prepended, and `maxPoints` (optional) is\r\neither an integer defining the maximum number of points allowed or an\r\nobject with key:value pairs matching `updateData`\r\nReference the Plotly.prependTraces API for full usage:\r\nhttps://plotly.com/javascript/plotlyjs-function-reference/#plotlyprependtraces",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -484,7 +510,7 @@
           "name": "array"
         },
         "required": false,
-        "description": "Data from latest restyle event which occurs\nwhen the user toggles a legend item, changes\nparcoords selections, or other trace-level edits.\nHas the form `[edits, indices]`, where `edits` is an object\n`{<attr string>: <value>}` describing the changes made,\nand `indices` is an array of trace indices that were edited.\nRead-only.",
+        "description": "Data from latest restyle event which occurs\r\nwhen the user toggles a legend item, changes\r\nparcoords selections, or other trace-level edits.\r\nHas the form `[edits, indices]`, where `edits` is an object\r\n`{<attr string>: <value>}` describing the changes made,\r\nand `indices` is an array of trace indices that were edited.\r\nRead-only.",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -495,9 +521,9 @@
           "name": "any"
         },
         "required": false,
-        "description": "Plotly `figure` object. See schema:\nhttps://plotly.com/javascript/reference\n\n`config` is set separately by the `config` property",
+        "description": "Plotly `figure` object. See schema:\r\nhttps://plotly.com/javascript/reference\r\n\n`config` is set separately by the `config` property",
         "defaultValue": {
-          "value": "{\n    data: [],\n    layout: {},\n    frames: [],\n}",
+          "value": "{\r\n    data: [],\r\n    layout: {},\r\n    frames: [],\r\n}",
           "computed": false
         }
       },
@@ -520,7 +546,7 @@
           "name": "bool"
         },
         "required": false,
-        "description": "Beta: If true, animate between updates using\nplotly.js's `animate` function",
+        "description": "Beta: If true, animate between updates using\r\nplotly.js's `animate` function",
         "defaultValue": {
           "value": "false",
           "computed": false
@@ -531,9 +557,9 @@
           "name": "object"
         },
         "required": false,
-        "description": "Beta: Object containing animation settings.\nOnly applies if `animate` is `true`",
+        "description": "Beta: Object containing animation settings.\r\nOnly applies if `animate` is `true`",
         "defaultValue": {
-          "value": "{\n    frame: {\n        redraw: false,\n    },\n    transition: {\n        duration: 750,\n        ease: 'cubic-in-out',\n    },\n}",
+          "value": "{\r\n    frame: {\r\n        redraw: false,\r\n    },\r\n    transition: {\r\n        duration: 750,\r\n        ease: 'cubic-in-out',\r\n    },\r\n}",
           "computed": false
         }
       },
@@ -553,7 +579,7 @@
             },
             "editable": {
               "name": "bool",
-              "description": "We can edit titles, move annotations, etc - sets all pieces of `edits`\nunless a separate `edits` config item overrides individual parts",
+              "description": "We can edit titles, move annotations, etc - sets all pieces of `edits`\r\nunless a separate `edits` config item overrides individual parts",
               "required": false
             },
             "edits": {
@@ -561,7 +587,7 @@
               "value": {
                 "annotationPosition": {
                   "name": "bool",
-                  "description": "The main anchor of the annotation, which is the\ntext (if no arrow) or the arrow (which drags the whole thing leaving\nthe arrow length & direction unchanged)",
+                  "description": "The main anchor of the annotation, which is the\r\ntext (if no arrow) or the arrow (which drags the whole thing leaving\r\nthe arrow length & direction unchanged)",
                   "required": false
                 },
                 "annotationTail": {
@@ -609,7 +635,7 @@
             },
             "autosizable": {
               "name": "bool",
-              "description": "DO autosize once regardless of layout.autosize\n(use default width or height values otherwise)",
+              "description": "DO autosize once regardless of layout.autosize\r\n(use default width or height values otherwise)",
               "required": false
             },
             "responsive": {
@@ -662,7 +688,7 @@
             },
             "doubleClickDelay": {
               "name": "number",
-              "description": "Delay for registering a double-click event in ms. The\nminimum value is 100 and the maximum value is 1000. By\ndefault this is 300.",
+              "description": "Delay for registering a double-click event in ms. The\r\nminimum value is 100 and the maximum value is 1000. By\r\ndefault this is 300.",
               "required": false
             },
             "showTips": {
@@ -677,7 +703,7 @@
             },
             "showAxisRangeEntryBoxes": {
               "name": "bool",
-              "description": "Enable direct range entry at the pan/zoom drag points\n(drag handles must be enabled above)",
+              "description": "Enable direct range entry at the pan/zoom drag points\r\n(drag handles must be enabled above)",
               "required": false
             },
             "showLink": {
@@ -716,17 +742,17 @@
             },
             "showSendToCloud": {
               "name": "bool",
-              "description": "Should we include a modebar button to send this data to a\nPlotly Cloud instance, linked by `plotlyServerURL`.\nBy default this is false.",
+              "description": "Should we include a modebar button to send this data to a\r\nPlotly Cloud instance, linked by `plotlyServerURL`.\r\nBy default this is false.",
               "required": false
             },
             "showEditInChartStudio": {
               "name": "bool",
-              "description": "Should we show a modebar button to send this data to a\nPlotly Chart Studio plot. If both this and showSendToCloud\nare selected, only showEditInChartStudio will be\nhonored. By default this is false.",
+              "description": "Should we show a modebar button to send this data to a\r\nPlotly Chart Studio plot. If both this and showSendToCloud\r\nare selected, only showEditInChartStudio will be\r\nhonored. By default this is false.",
               "required": false
             },
             "modeBarButtonsToRemove": {
               "name": "array",
-              "description": "Remove mode bar button by name.\nAll modebar button names at https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js\nCommon names include:\nsendDataToCloud;\n(2D) zoom2d, pan2d, select2d, lasso2d, zoomIn2d, zoomOut2d, autoScale2d, resetScale2d;\n(Cartesian) hoverClosestCartesian, hoverCompareCartesian;\n(3D) zoom3d, pan3d, orbitRotation, tableRotation, handleDrag3d, resetCameraDefault3d, resetCameraLastSave3d, hoverClosest3d;\n(Geo) zoomInGeo, zoomOutGeo, resetGeo, hoverClosestGeo;\nhoverClosestGl2d, hoverClosestPie, toggleHover, resetViews.",
+              "description": "Remove mode bar button by name.\r\nAll modebar button names at https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js\r\nCommon names include:\r\nsendDataToCloud;\r\n(2D) zoom2d, pan2d, select2d, lasso2d, zoomIn2d, zoomOut2d, autoScale2d, resetScale2d;\r\n(Cartesian) hoverClosestCartesian, hoverCompareCartesian;\r\n(3D) zoom3d, pan3d, orbitRotation, tableRotation, handleDrag3d, resetCameraDefault3d, resetCameraLastSave3d, hoverClosest3d;\r\n(Geo) zoomInGeo, zoomOutGeo, resetGeo, hoverClosestGeo;\r\nhoverClosestGl2d, hoverClosestPie, toggleHover, resetViews.",
               "required": false
             },
             "modeBarButtonsToAdd": {
@@ -736,7 +762,7 @@
             },
             "modeBarButtons": {
               "name": "any",
-              "description": "Fully custom mode bar buttons as nested array,\nwhere the outer arrays represents button groups, and\nthe inner arrays have buttons config objects or names of default buttons",
+              "description": "Fully custom mode bar buttons as nested array,\r\nwhere the outer arrays represents button groups, and\r\nthe inner arrays have buttons config objects or names of default buttons",
               "required": false
             },
             "toImageButtonOptions": {
@@ -782,7 +808,7 @@
                 },
                 "scale": {
                   "name": "number",
-                  "description": "Extra resolution to give the file after\nrendering it with the given width and height",
+                  "description": "Extra resolution to give the file after\r\nrendering it with the given width and height",
                   "required": false
                 }
               },
@@ -811,23 +837,23 @@
             },
             "mapboxAccessToken": {
               "name": "any",
-              "description": "Mapbox access token (required to plot mapbox trace types)\nIf using an Mapbox Atlas server, set this option to '',\nso that plotly.js won't attempt to authenticate to the public Mapbox server.",
+              "description": "Mapbox access token (required to plot mapbox trace types)\r\nIf using an Mapbox Atlas server, set this option to '',\r\nso that plotly.js won't attempt to authenticate to the public Mapbox server.",
               "required": false
             },
             "locale": {
               "name": "string",
-              "description": "The locale to use. Locales may be provided with the plot\n(`locales` below) or by loading them on the page, see:\nhttps://github.com/plotly/plotly.js/blob/master/dist/README.md#to-include-localization",
+              "description": "The locale to use. Locales may be provided with the plot\r\n(`locales` below) or by loading them on the page, see:\r\nhttps://github.com/plotly/plotly.js/blob/master/dist/README.md#to-include-localization",
               "required": false
             },
             "locales": {
               "name": "object",
-              "description": "Localization definitions, if you choose to provide them with the\nplot rather than registering them globally.",
+              "description": "Localization definitions, if you choose to provide them with the\r\nplot rather than registering them globally.",
               "required": false
             }
           }
         },
         "required": false,
-        "description": "Plotly.js config options.\nSee https://plotly.com/javascript/configuration-options/\nfor more info.",
+        "description": "Plotly.js config options.\r\nSee https://plotly.com/javascript/configuration-options/\r\nfor more info.",
         "defaultValue": {
           "value": "{}",
           "computed": false
@@ -953,7 +979,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -1000,7 +1026,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -1168,168 +1194,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
-      }
-    }
-  },
-  "src/lib/components/Plotter.react.js": {
-    "description": "",
-    "displayName": "Plotter",
-    "methods": [
-      {
-        "name": "handleClose",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleShow",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "get_modal",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "id": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.string"
-        },
-        "required": false,
-        "description": "The ID used to identify this component in Dash callbacks."
-      },
-      "config": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.any"
-        },
-        "required": false,
-        "description": "The config the user sets in this component."
-      },
-      "meta": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.any.isRequired"
-        },
-        "required": false,
-        "description": "The metadata this section is based on."
-      },
-      "meta_out": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.any"
-        },
-        "required": false,
-        "description": "The metadata section will create as output."
-      },
-      "setProps": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.func"
-        },
-        "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
-      }
-    }
-  },
-  "src/lib/components/Transform.react.js": {
-    "description": "",
-    "displayName": "Transform",
-    "methods": [
-      {
-        "name": "handleClose",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleShow",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "update_config",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "new_config",
-            "type": null
-          },
-          {
-            "name": "constructor",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "get_transform_blocks",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "get_modal_blocks",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "id": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.string"
-        },
-        "required": false,
-        "description": "The ID used to identify this component in Dash callbacks."
-      },
-      "config": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.any"
-        },
-        "required": false,
-        "description": "The config the user sets in this component."
-      },
-      "meta": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.any.isRequired"
-        },
-        "required": false,
-        "description": "The metadata this section is based on."
-      },
-      "meta_out": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.any"
-        },
-        "required": false,
-        "description": "The metadata section will create as output."
-      },
-      "setProps": {
-        "type": {
-          "name": "custom",
-          "raw": "PropTypes.func"
-        },
-        "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -1389,7 +1254,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -1449,7 +1314,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -1509,7 +1374,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -1569,7 +1434,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -1863,7 +1728,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -1923,7 +1788,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -1983,7 +1848,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -2043,7 +1908,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -2103,7 +1968,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -2163,7 +2028,76 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/Plotter.react.js": {
+    "description": "",
+    "displayName": "Plotter",
+    "methods": [
+      {
+        "name": "handleClose",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleShow",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "get_modal",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "meta": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "The metadata this section is based on."
+      },
+      "meta_out": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The metadata section will create as output."
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -2225,7 +2159,7 @@
       },
       {
         "name": "get_columns",
-        "docblock": "A helper to compute the column dropdown options based on the column metadata\nWe also filter continous and categorical variables, since some options only\nwork with one of them.\n@param meta \n@returns",
+        "docblock": "A helper to compute the column dropdown options based on the column metadata\r\nWe also filter continous and categorical variables, since some options only\r\nwork with one of them.\r\n@param meta \r\n@returns",
         "modifiers": [],
         "params": [
           {
@@ -2236,7 +2170,7 @@
           }
         ],
         "returns": null,
-        "description": "A helper to compute the column dropdown options based on the column metadata\nWe also filter continous and categorical variables, since some options only\nwork with one of them."
+        "description": "A helper to compute the column dropdown options based on the column metadata\r\nWe also filter continous and categorical variables, since some options only\r\nwork with one of them."
       }
     ],
     "props": {
@@ -2278,7 +2212,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -2374,7 +2308,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -2470,7 +2404,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -2566,7 +2500,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -2662,7 +2596,7 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
@@ -2710,7 +2644,7 @@
       },
       {
         "name": "eval",
-        "docblock": "use the config to compute a new transformed meta\n@param {} input \n@returns",
+        "docblock": "use the config to compute a new transformed meta\r\n@param {} input \r\n@returns",
         "modifiers": [
           "static"
         ],
@@ -2802,7 +2736,99 @@
           "raw": "PropTypes.func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/Transform.react.js": {
+    "description": "",
+    "displayName": "Transform",
+    "methods": [
+      {
+        "name": "handleClose",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleShow",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "update_config",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "new_config",
+            "type": null
+          },
+          {
+            "name": "constructor",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "get_transform_blocks",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "get_modal_blocks",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "meta": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "The metadata this section is based on."
+      },
+      "meta_out": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The metadata section will create as output."
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   }

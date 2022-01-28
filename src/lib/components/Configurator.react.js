@@ -109,8 +109,7 @@ export default class Configurator extends Component {
 
 
     fix_config(new_config) {
-        if (new_config == undefined)
-        {
+        if (new_config == undefined) {
             new_config = {};
         }
         if (!("filter" in new_config)) {
@@ -297,7 +296,7 @@ export default class Configurator extends Component {
                 </CustomAccordionItem>}
 
 
-                <div className='accordion-item' key={`${id}-save-btn`}>
+                {this.props.showUpdate && <div className='accordion-item' key={`${id}-save-btn`}>
                     <h2 className='accordion-header'>
                         <ButtonGroup className='w-100 p-3'>
                             <Button
@@ -313,7 +312,7 @@ export default class Configurator extends Component {
                             >Update Plot</Button>}
                         </ButtonGroup>
                     </h2>
-                </div>
+                </div>}
 
                 {this.props.showParameterization && <CustomAccordionItem title="Parameterize" defaultOpen>
                     <Parametrize
@@ -397,7 +396,8 @@ Configurator.defaultProps = {
     showPlotter: true,
     showMetadata: false,
     showParameterization: false,
-    showStore: false
+    showStore: false,
+    showUpdate: true
 };
 
 Configurator.propTypes = {
@@ -447,6 +447,10 @@ Configurator.propTypes = {
      */
     showStore: PropTypes.bool,
 
+    /**
+     * Prop to define the visibility of the update plot button
+     */
+    showUpdate: PropTypes.bool,
 
     /**
      * Dash-assigned callback that should be called to report property changes

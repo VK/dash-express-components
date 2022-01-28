@@ -14,7 +14,7 @@ Graph can be used to render any plotly.js-powered data visualization.  You can 
 className=NULL, clear_on_unhover=NULL,
 clickAnnotationData=NULL, clickData=NULL, config=NULL,
 configuratorId=NULL, defParams=NULL, extendData=NULL,
-figure=NULL, hoverData=NULL, loading_state=NULL,
+figure=NULL, hoverData=NULL, loading_state=NULL, meta=NULL,
 prependData=NULL, relayoutData=NULL, responsive=NULL,
 restyleData=NULL, selectedData=NULL, style=NULL)
 }
@@ -148,6 +148,8 @@ those elements have the following types:
   - is_loading (logical; optional): determines if the component is loading or not
   - prop_name (character; optional): holds which property is loading
   - component_name (character; optional): holds the name of the component that is loading. Object that holds the loading state object coming from dash-renderer}
+
+\item{meta}{Logical | numeric | character | named list | unnamed list. The metadata the plotter selection is based on.}
 
 \item{prependData}{Unnamed list | named list. Data that should be prepended to existing traces. Has the form
 `[updateData, traceIndices, maxPoints]`, where `updateData` is an object
