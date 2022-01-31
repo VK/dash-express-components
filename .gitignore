@@ -281,4 +281,6 @@ JuliaManifest.toml
 
 
 # generated python R and julia
-dash_express_components
+dash_express_components/*
+!dash_express_components/plottypes/
+!dash_express_components/transformationtypes/
