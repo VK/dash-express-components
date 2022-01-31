@@ -4,8 +4,6 @@ from .Graph import Graph
 from .Localstore import Localstore
 from .MetaCheck import MetaCheck
 from .Parametrize import Parametrize
-from .Plotter import Plotter
-from .Transform import Transform
 from .BarCount import BarCount
 from .Box import Box
 from .HistogramLine import HistogramLine
@@ -16,12 +14,15 @@ from .Scatter import Scatter
 from .ScatterMatrix import ScatterMatrix
 from .Table import Table
 from .Violin import Violin
+from .Plotter import Plotter
 from .Base import Base
 from .CategoryLookup import CategoryLookup
 from .CombinecatTransform import CombinecatTransform
+from .DropnaTransform import DropnaTransform
 from .EvalTransform import EvalTransform
 from .MeltTransform import MeltTransform
 from .SubComponentBase import SubComponentBase
+from .Transform import Transform
 
 __all__ = [
     "Configurator",
@@ -30,8 +31,6 @@ __all__ = [
     "Localstore",
     "MetaCheck",
     "Parametrize",
-    "Plotter",
-    "Transform",
     "BarCount",
     "Box",
     "HistogramLine",
@@ -42,10 +41,13 @@ __all__ = [
     "ScatterMatrix",
     "Table",
     "Violin",
+    "Plotter",
     "Base",
     "CategoryLookup",
     "CombinecatTransform",
+    "DropnaTransform",
     "EvalTransform",
     "MeltTransform",
-    "SubComponentBase"
+    "SubComponentBase",
+    "Transform"
 ]

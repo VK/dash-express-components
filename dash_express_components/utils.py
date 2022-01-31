@@ -270,7 +270,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                 )
 
             # remove nan values from dataframe
-            inputDataFrame = inputDataFrame.dropna(subset=[c for c in inputDataFrame.columns if c in usedCols])
+            # inputDataFrame = inputDataFrame.dropna(subset=[c for c in inputDataFrame.columns if c in usedCols])
 
             # return the corresponding plot
             if plotConfigData["type"] == "scatter":
