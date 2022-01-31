@@ -2,7 +2,7 @@
     height: 0px; 
     text-align:right;
 
-    position: absolute;
+    /* position: absolute; */
     width: calc(100% - 10px);
 }
 

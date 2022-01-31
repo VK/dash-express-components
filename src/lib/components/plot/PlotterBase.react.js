@@ -443,7 +443,8 @@ export default class PlotterBase extends Component {
         const v = (varname in this.state) ? this.state[varname] : options[0];
 
         return <ToggleButton
-            id={"toggle-" + varname}
+            id={id + "-toggle-" + varname}
+            key={id + "-toggle-" + varname}        
             type="checkbox"
             variant="outline-primary"
             checked={v}

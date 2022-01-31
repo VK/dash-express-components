@@ -92,6 +92,7 @@ app.layout = html.Div([
         ],
         style={
             "width": "calc(100% - 500px)",
+            "widthMax": "800px",
             "display": "inline-block",
             "float": "left"
         }
