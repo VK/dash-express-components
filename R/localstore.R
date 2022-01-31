@@ -1,5 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+#' @export
 localstore <- function(id=NULL, config=NULL, meta=NULL, meta_out=NULL) {
     
     props <- list(id=id, config=config, meta=meta, meta_out=meta_out)

@@ -1,5 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+#' @export
 meltTransform <- function(allColOptions=NULL, catColOptions=NULL, config=NULL, meta=NULL, numColOptions=NULL) {
     
     props <- list(allColOptions=allColOptions, catColOptions=catColOptions, config=config, meta=meta, numColOptions=numColOptions)

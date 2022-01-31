@@ -439,12 +439,15 @@ export default class PlotterBase extends Component {
 
 
     toggleSelect(name, varname, options) {
+        const {
+            id
+        } = this.props;
 
         const v = (varname in this.state) ? this.state[varname] : options[0];
 
         return <ToggleButton
             id={id + "-toggle-" + varname}
-            key={id + "-toggle-" + varname}        
+            key={id + "-toggle-" + varname}
             type="checkbox"
             variant="outline-primary"
             checked={v}

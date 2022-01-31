@@ -126,6 +126,7 @@ Those elements have the following types:
   - `is_loading` (Bool; optional): Determines if the component is loading or not
   - `prop_name` (String; optional): Holds which property is loading
   - `component_name` (String; optional): Holds the name of the component that is loading
+- `meta` (Bool | Real | String | Dict | Array; optional): The metadata the plotter selection is based on.
 - `prependData` (Array | Dict; optional): Data that should be prepended to existing traces. Has the form
 `[updateData, traceIndices, maxPoints]`, where `updateData` is an object
 containing the data to prepend, `traceIndices` (optional) is an array of
@@ -163,7 +164,7 @@ Read-only.
 - `style` (Dict; optional): Generic style overrides on the plot div
 """
 function graph(; kwargs...)
-        available_props = Symbol[:id, :animate, :animation_options, :className, :clear_on_unhover, :clickAnnotationData, :clickData, :config, :configuratorId, :defParams, :extendData, :figure, :hoverData, :loading_state, :prependData, :relayoutData, :responsive, :restyleData, :selectedData, :style]
+        available_props = Symbol[:id, :animate, :animation_options, :className, :clear_on_unhover, :clickAnnotationData, :clickData, :config, :configuratorId, :defParams, :extendData, :figure, :hoverData, :loading_state, :meta, :prependData, :relayoutData, :responsive, :restyleData, :selectedData, :style]
         wild_props = Symbol[]
         return Component("graph", "Graph", "dash_express_components", available_props, wild_props; kwargs...)
 end

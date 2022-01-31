@@ -19,9 +19,10 @@ to Dash, to make them available for callbacks.
 - `showPlotter` (optional): Prop to define the visibility of the Plot panel
 - `showStore` (optional): Prop to define the visibility of the Store panel
 - `showTransform` (optional): Prop to define the visibility of the Transform panel
+- `showUpdate` (optional): Prop to define the visibility of the update plot button
 """
 function configurator(; kwargs...)
-        available_props = Symbol[:id, :config, :meta, :showFilter, :showMetadata, :showParameterization, :showPlotter, :showStore, :showTransform]
+        available_props = Symbol[:id, :config, :meta, :showFilter, :showMetadata, :showParameterization, :showPlotter, :showStore, :showTransform, :showUpdate]
         wild_props = Symbol[]
         return Component("configurator", "Configurator", "dash_express_components", available_props, wild_props; kwargs...)
 end

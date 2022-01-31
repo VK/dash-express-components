@@ -12,7 +12,8 @@ Configurator component
 \usage{
 configurator(id=NULL, config=NULL, meta=NULL, showFilter=NULL,
 showMetadata=NULL, showParameterization=NULL,
-showPlotter=NULL, showStore=NULL, showTransform=NULL)
+showPlotter=NULL, showStore=NULL, showTransform=NULL,
+showUpdate=NULL)
 }
 
 \arguments{
@@ -33,6 +34,8 @@ showPlotter=NULL, showStore=NULL, showTransform=NULL)
 \item{showStore}{Prop to define the visibility of the Store panel}
 
 \item{showTransform}{Prop to define the visibility of the Transform panel}
+
+\item{showUpdate}{Prop to define the visibility of the update plot button}
 }
 
 \value{named list of JSON elements corresponding to React.js properties and their values}

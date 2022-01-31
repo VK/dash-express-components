@@ -1,5 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+#' @export
 probability <- function(allColOptions=NULL, catColOptions=NULL, config=NULL, numColOptions=NULL) {
     
     props <- list(allColOptions=allColOptions, catColOptions=catColOptions, config=config, numColOptions=numColOptions)

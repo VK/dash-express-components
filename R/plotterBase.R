@@ -1,5 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+#' @export
 plotterBase <- function(id=NULL, allColOptions=NULL, catColOptions=NULL, config=NULL, numColOptions=NULL, numOptions=NULL) {
     
     props <- list(id=id, allColOptions=allColOptions, catColOptions=catColOptions, config=config, numColOptions=numColOptions, numOptions=numOptions)
