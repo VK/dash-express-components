@@ -66,10 +66,22 @@ export default class PlotterBase extends Component {
                     range_x: [], range_y: [], __range_x_min: null, __range_x_max: null, __range_y_min: null, __range_y_max: null,
                 }
             },
+            axis_withcolor: {
+                id: "axisWithCol", label: "Axis", visible: false, reset: {
+                    log_x: null, log_y: null,
+                    cat_x: null, cat_y: null,
+                    range_x: [], range_y: [], range_color: [], __range_x_min: null, __range_x_max: null, __range_y_min: null, __range_y_max: null, __range_c_min: null, __range_c_max: null
+                }
+            },
+            axis_onlycolor: {
+                id: "axisOnlyCol", label: "Axis", visible: false, reset: {
+                    range_color: [], __range_c_min: null, __range_c_max: null
+                }
+            },
             axis_nocat: {
                 id: "axisNoCat", label: "Axis", visible: false, reset: {
                     log_x: null, log_y: null,
-                    range_x: [], range_y: [], __range_x_min: null, __range_x_max: null, __range_y_min: null, __range_y_max: null,
+                    range_x: [], range_y: [], range_color: [], __range_x_min: null, __range_x_max: null, __range_y_min: null, __range_y_max: null
                 }
             },
 
@@ -108,7 +120,6 @@ export default class PlotterBase extends Component {
 
         let new_bar = [];
         optionsbar.forEach(el => {
-
 
             let tests = Object.keys(el.reset).map(k => k in this.state && (
                 (!Array.isArray(this.state[k]) && this.state[k] !== undefined && this.state[k] != null) ||
@@ -167,6 +178,8 @@ export default class PlotterBase extends Component {
             cat_y: this.state.cat_y,
             range_x: this.state.range_x,
             range_y: this.state.range_y,
+            range_color: this.state.range_color,
+
 
             title: this.state.title,
             hover_name: this.state.hover_name,
@@ -192,7 +205,7 @@ export default class PlotterBase extends Component {
     preferSimple(o) {
         let no = { ...o };
 
-        Object.keys(o).filter(k => !["hover_data", "range_x", "range_y", "dimensions"].includes(k)).forEach(k => {
+        Object.keys(o).filter(k => !["hover_data", "range_x", "range_y", "range_color", "dimensions"].includes(k)).forEach(k => {
             if (Array.isArray(o[k])) {
                 if (o[k].length === 0) {
                     delete no[k];
@@ -206,7 +219,7 @@ export default class PlotterBase extends Component {
             }
         });
 
-        Object.keys(o).filter(k => ["hover_data", "range_x", "range_y", "dimensions"].includes(k)).forEach(k => {
+        Object.keys(o).filter(k => ["hover_data", "range_x", "range_y", "range_color", "dimensions"].includes(k)).forEach(k => {
             if (Array.isArray(o[k])) {
                 if (o[k].length === 0) {
                     delete no[k];
@@ -316,10 +329,16 @@ export default class PlotterBase extends Component {
         //     v = [v];
         // }
 
-        return (<InputGroup className="mb-1 w-100">
-            <InputGroup.Text className="d-flex flex-grow-1" style={{ "minWidth": 75 }}>{name}</InputGroup.Text>
+        const {
+            id
+        } = this.props;
+
+        return (<InputGroup className="mb-1 w-100" id={id + "-group-" + varname} key={id + "-group-" + varname}>
+            <InputGroup.Text className="d-flex flex-grow-1" id={id + "-group-text-" + varname} key={id + "-group-text-" + varname} style={{ "minWidth": 75 }}>{name}</InputGroup.Text>
             <div style={{ "flexGrow": 10000 }}>
                 <Select
+                    id={id + "-select-" + varname}
+                    key={id + "-select-" + varname}
                     options={options}
                     styles={multiColorStyle}
                     components={hideGroupComponents}
@@ -335,12 +354,18 @@ export default class PlotterBase extends Component {
 
     singleSelect(name, varname, options) {
 
+        const {
+            id
+        } = this.props;
+
         const v = (varname in this.state) ? this.state[varname] : [];
 
-        return (<InputGroup className="mb-1 w-100">
-            <InputGroup.Text className="d-flex flex-grow-1" style={{ "minWidth": 75 }}>{name}</InputGroup.Text>
+        return (<InputGroup className="mb-1 w-100" id={id + "-group-" + varname} key={id + "-group-" + varname}>
+            <InputGroup.Text className="d-flex flex-grow-1" id={id + "-group-text-" + varname} key={id + "-group-text-" + varname} style={{ "minWidth": 75 }}>{name}</InputGroup.Text>
             <div style={{ "flexGrow": 10000 }}>
                 <Select
+                    id={id + "-select-" + varname}
+                    key={id + "-select-" + varname}
                     options={options}
                     value={(v) ? this.props.allOptions.filter(el => v === el.value) : undefined}
                     onChange={selectedOption => {
@@ -360,12 +385,18 @@ export default class PlotterBase extends Component {
 
     singleSelect_ExtraOption(name, varname, options) {
 
+        const {
+            id
+        } = this.props;
+
         const v = (varname in this.state) ? this.state[varname] : [];
 
-        return (<InputGroup className="mb-1 w-100">
-            <InputGroup.Text className="d-flex flex-grow-1" style={{ "minWidth": 75 }}>{name}</InputGroup.Text>
+        return (<InputGroup className="mb-1 w-100" id={id + "-group-" + varname} key={id + "-group-" + varname}>
+            <InputGroup.Text className="d-flex flex-grow-1" id={id + "-group-text-" + varname} key={id + "-group-text-" + varname} style={{ "minWidth": 75 }}>{name}</InputGroup.Text>
             <div style={{ "flexGrow": 10000 }}>
                 <Select
+                    id={id + "-select-" + varname}
+                    key={id + "-select-" + varname}
                     options={options}
                     value={(v) ? options.filter(el => v === el.value) : undefined}
                     onChange={selectedOption => {
@@ -383,35 +414,46 @@ export default class PlotterBase extends Component {
 
     range_ManualInputArray(name, varname, option_varnames) {
 
+        const {
+            id
+        } = this.props;
 
-        const o = option_varnames.map(el => (el in this.state) ? this.state[el] : null);
+        const o = option_varnames.map((el, idx) => (el in this.state) ? this.state[el] : (varname in this.state) ? this.state[varname][idx] : null);
         const v = option_varnames.map((el, idx) => o[idx]);
 
-        return (<InputGroup className="mb-1 w-100">
-            <InputGroup.Text className="d-flex flex-grow-1" style={{ "maxWidth": 75 }}>{name}</InputGroup.Text>
+
+        return (<InputGroup className="mb-1 w-100"
+
+            id={id + "-input-" + varname}
+            key={id + "-input-" + varname}
+        >
+            <InputGroup.Text className="d-flex flex-grow-1" id={id + "-group-text-" + varname} key={id + "-group-text-" + varname} style={{ "maxWidth": 75 }}>{name}</InputGroup.Text>
 
             {
                 option_varnames.map((el, idx) => {
 
-                    return <FormControl type="number" value={o[idx]} size='sm' onChange={e => {
-                        try {
-                            v[idx] = Number.parseFloat(e.target.value);
-                            if (isNaN(v[idx])) {
+                    return <FormControl type="number" step="any" value={o[idx]} size='sm'
+                        id={id + "-input-" + varname + "-" + String(idx)}
+                        key={id + "-input-" + varname + "-" + String(idx)}
+                        onChange={e => {
+                            try {
+                                v[idx] = Number.parseFloat(e.target.value);
+                                if (isNaN(v[idx])) {
+                                    v[idx] = null;
+                                }
+                            } catch {
                                 v[idx] = null;
+                            };
+                            let new_config = {
+                                [el]: v[idx]
                             }
-                        } catch {
-                            v[idx] = null;
-                        };
-                        let new_config = {
-                            [el]: v[idx]
-                        }
-                        if (o.every(e => Number.isFinite(e))) {
-                            new_config[varname] = v
-                        }
+                            if (o.every(e => Number.isFinite(e))) {
+                                new_config[varname] = v
+                            }
 
-                        this.setStateConfig(new_config);
-                    }
-                    }
+                            this.setStateConfig(new_config);
+                        }
+                        }
 
                     />
                 })
@@ -423,17 +465,23 @@ export default class PlotterBase extends Component {
 
     range_ManualString(name, varname) {
 
+        const {
+            id
+        } = this.props;
+
         const v = (varname in this.state) ? this.state[varname] : "";
 
-        return (<InputGroup className="mb-1 w-100">
-            <InputGroup.Text className="d-flex flex-grow-1" style={{ "maxWidth": 75 }}>{name}</InputGroup.Text>
-            <FormControl value={v} size='sm' onChange={e => {
-                if (varname === "titleadfasdfasdfs") {
-                    this.setState({ [varname]: e.target.value });
-                } else {
-                    this.setStateConfig({ [varname]: e.target.value });
-                }
-            }} />
+        return (<InputGroup className="mb-1 w-100" id={id + "-group-" + varname} key={id + "-group-" + varname}>
+            <InputGroup.Text className="d-flex flex-grow-1" id={id + "-group-text-" + varname} key={id + "-group-text-" + varname} style={{ "maxWidth": 75 }}>{name}</InputGroup.Text>
+            <FormControl value={v} size='sm'
+                id={id + "-input-" + varname} key={id + "-input-" + varname}
+                onChange={e => {
+                    if (varname === "titleadfasdfasdfs") {
+                        this.setState({ [varname]: e.target.value });
+                    } else {
+                        this.setStateConfig({ [varname]: e.target.value });
+                    }
+                }} />
         </InputGroup>)
     }
 
@@ -482,7 +530,7 @@ export default class PlotterBase extends Component {
         } = this.props;
 
 
-        return <ButtonGroup aria-label="options-bar" id="options-bar" className="w-100 mt-3 mb-2">
+        return <ButtonGroup aria-label={id + "toggle-group-bar"} id={id + "toggle-group-bar"} key={id + "toggle-group-bar"} className="w-100 mt-3 mb-2">
             {
                 optionsbar.map(el => {
                     return <ToggleButton
@@ -543,7 +591,7 @@ export default class PlotterBase extends Component {
                             {this.singleSelect("Rows", "facet_row", catColOptions)}
                             {this.singleSelect_ExtraOption("Wrap", "facet_col_wrap", this.facet_col_wrap_options)}
 
-                            <ButtonGroup aria-label="independent-bar" id="options-indep-axis" className="w-100 mb-1">
+                            <ButtonGroup aria-label={id + "independent-bar"} id={id + "options-indep-axis"} key={id + "options-indep-axis"} className="w-100 mb-1">
                                 {this.toggleSelect("Independent x", "indep_x", [null, true])}
                                 {this.toggleSelect("Independent y", "indep_y", [null, true])}
                             </ButtonGroup>
@@ -559,15 +607,45 @@ export default class PlotterBase extends Component {
                             {this.range_ManualInputArray("Range x", "range_x", ["__range_x_min", "__range_x_max"])}
                             {this.range_ManualInputArray("Range y", "range_y", ["__range_y_min", "__range_y_max"])}
 
-                            <ButtonGroup aria-label="independent-axis-log" id="options-axis-log" className="w-100 mb-1">
+                            <ButtonGroup aria-label={id + "independent-axis-log"} id={id + "options-axis-log"} key={id + "options-axis-log"} className="w-100 mb-1">
                                 {this.toggleSelect("Log x", "log_x", [null, true])}
                                 {this.toggleSelect("Log y", "log_y", [null, true])}
                             </ButtonGroup>
 
-                            <ButtonGroup aria-label="independent-axis-cat" id="options-axis-cat" className="w-100 mb-1">
+                            <ButtonGroup aria-label={id + "independent-axis-cat"} id={id + "options-axis-cat"} key={id + "options-axis-cat"} className="w-100 mb-1">
                                 {this.toggleSelect("Categorical x", "cat_x", [null, true])}
                                 {this.toggleSelect("Categorical y", "cat_y", [null, true])}
                             </ButtonGroup>
+
+                        </div>
+                    }
+
+                    if (el.id === "axisWithCol") {
+                        return <div>
+                            <h5>{el.label}</h5>
+
+                            {this.range_ManualInputArray("Range x", "range_x", ["__range_x_min", "__range_x_max"])}
+                            {this.range_ManualInputArray("Range y", "range_y", ["__range_y_min", "__range_y_max"])}
+                            {this.range_ManualInputArray("Range c", "range_color", ["__range_c_min", "__range_c_max"])}
+
+                            <ButtonGroup aria-label={id + "independent-axis-log"} id={id + "options-axis-log"} key={id + "options-axis-log"} className="w-100 mb-1">
+                                {this.toggleSelect("Log x", "log_x", [null, true])}
+                                {this.toggleSelect("Log y", "log_y", [null, true])}
+                            </ButtonGroup>
+
+                            <ButtonGroup aria-label={id + "independent-axis-cat"} id={id + "options-axis-cat"} key={id + "options-axis-cat"} className="w-100 mb-1">
+                                {this.toggleSelect("Categorical x", "cat_x", [null, true])}
+                                {this.toggleSelect("Categorical y", "cat_y", [null, true])}
+                            </ButtonGroup>
+
+                        </div>
+                    }
+
+                    if (el.id === "axisOnlyCol") {
+                        return <div>
+                            <h5>{el.label}</h5>
+
+                            {this.range_ManualInputArray("Range c", "range_color", ["__range_c_min", "__range_c_max"])}
 
                         </div>
                     }
@@ -579,7 +657,7 @@ export default class PlotterBase extends Component {
                             {this.range_ManualInputArray("Range x", "range_x", ["__range_x_min", "__range_x_max"])}
                             {this.range_ManualInputArray("Range y", "range_y", ["__range_y_min", "__range_y_max"])}
 
-                            <ButtonGroup aria-label="independent-axis-log" id="options-axis-log" className="w-100 mb-1">
+                            <ButtonGroup aria-label={id + "independent-axis-log"} id={id + "options-axis-log"} key={id + "options-axis-log"} className="w-100 mb-1">
                                 {this.toggleSelect("Log x", "log_x", [null, true])}
                                 {this.toggleSelect("Log y", "log_y", [null, true])}
                             </ButtonGroup>

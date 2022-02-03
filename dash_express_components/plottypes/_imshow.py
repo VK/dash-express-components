@@ -8,6 +8,7 @@ def _get(inputDataFrame, plotConfigData):
     fig = _go.Figure()
 
     print(plotConfigData)
+    extra_options = {}
 
     # if we have cols and rows, we want to make independent
     makeIndepX = False
@@ -18,6 +19,13 @@ def _get(inputDataFrame, plotConfigData):
     if "indep_y" in plotConfigData["params"]:
         makeIndepY = True
         del plotConfigData["params"]["indep_y"]
+
+    if "range_color" in plotConfigData["params"]:
+        
+        extra_options["zmin"] = plotConfigData["params"]["range_color"][0]
+        extra_options["zmax"] = plotConfigData["params"]["range_color"][1]
+        del plotConfigData["params"]["range_color"]
+    
 
     if "x" in plotConfigData["params"] and "y" in plotConfigData["params"] and "dimensions" in plotConfigData["params"]:
         # extrat params
@@ -119,7 +127,8 @@ def _get(inputDataFrame, plotConfigData):
                     col=colid,
                     coloraxis="coloraxis",
                     xaxis=None if makeIndepX else "x",
-                    yaxis=None if makeIndepY else "y"
+                    yaxis=None if makeIndepY else "y",
+                    **extra_options
                 )
                 colid = colid + 1
                 if colid > col_wrap:
@@ -131,7 +140,8 @@ def _get(inputDataFrame, plotConfigData):
                 x0=all_min[0], dx=1,
                 y0=all_min[1], dy=1,
                 z=_get_MAP_array(inputDataFrame, dimensions[0]),
-                hovertemplate=f"{x}: %{{x}}<br>{y}: %{{y}}<br>{dimensions[0]}: %{{z}}<br>"
+                hovertemplate=f"{x}: %{{x}}<br>{y}: %{{y}}<br>{dimensions[0]}: %{{z}}<br>",
+                **extra_options
             )
 
     return fig

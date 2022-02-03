@@ -68,13 +68,14 @@ export default class Plotter extends Base {
     get_modal() {
 
         const {
-            showModal
+            showModal,
+            id
         } = this.state;
 
         return (<Modal backdrop="static"
             show={showModal}
             onHide={() => this.handleClose()}
-            key="plot-type-modal"
+            key={id + "-plot-type-modal"}
         >
             <Modal.Header closeButton>
                 <Modal.Title>Plot Types</Modal.Title>
@@ -136,7 +137,7 @@ export default class Plotter extends Base {
             <div>
 
                 <Button
-                    key="plot-open-button"
+                    key={id + "plot-open-button"}
                     variant="outline-secondary"
                     className="d-flex align-items-center w-100 mb-2"
                     onClick={() => this.handleShow()}>
