@@ -269,6 +269,27 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                 plotConfigData["params"]["category_orders"][val_name] = cat_values.tolist(
                 )
 
+            # add a sort command if multiple facets are present
+            if "facet_row" in plotConfigData["params"]:
+                if not "category_orders" in plotConfigData["params"]:
+                    plotConfigData["params"]["category_orders"] = {}
+                val_name = plotConfigData["params"]["facet_row"]
+                cat_values = inputDataFrame[val_name].unique()
+                cat_values.sort()
+                plotConfigData["params"]["category_orders"][val_name] = cat_values.tolist(
+                )
+
+            if "facet_col" in plotConfigData["params"]:
+                if not "category_orders" in plotConfigData["params"]:
+                    plotConfigData["params"]["category_orders"] = {}
+                val_name = plotConfigData["params"]["facet_col"]
+                cat_values = inputDataFrame[val_name].unique()
+                cat_values.sort()
+                plotConfigData["params"]["category_orders"][val_name] = cat_values.tolist(
+                )                                
+
+
+
             # remove nan values from dataframe
             # inputDataFrame = inputDataFrame.dropna(subset=[c for c in inputDataFrame.columns if c in usedCols])
 

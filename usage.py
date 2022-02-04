@@ -42,7 +42,7 @@ image_df = image_df.append(_img_to_df(imgdata.cat(), "cat"))
 image_df = image_df.append(_img_to_df(imgdata.astronaut(), "astronaut"))
 image_df = image_df.append(_img_to_df(imgdata.coffee(), "coffee"))
 
-df = image_df
+df = gapminder_df
 
 df = df.rename(columns={"R": "Colour»R", "G": "Colour»G", "B": "Colour»B"})
 #df["Test»B"] = _np.nan
