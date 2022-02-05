@@ -12,7 +12,7 @@ export default class MeltTransform extends SubComponentBase {
         {
             ...this.state,
             newColName: "",
-            newColName: "",
+            newColNameTwo: "",
             selectedCols: []
         }
     }

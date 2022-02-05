@@ -2836,6 +2836,114 @@
       }
     }
   },
+  "src/lib/components/sub/WideToLong.react.js": {
+    "description": "",
+    "displayName": "WideToLong",
+    "methods": [
+      {
+        "name": "config_to_string",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "config_from_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "eval",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "input",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "update_state",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "update_cfg",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "config": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any"
+        },
+        "required": false,
+        "description": "The config the user sets in this component."
+      },
+      "meta": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "The metadata this section is based on."
+      },
+      "allColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "All currently available column options"
+      },
+      "catColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available categorical options"
+      },
+      "numColOptions": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.any.isRequired"
+        },
+        "required": false,
+        "description": "Currently available numerical options"
+      },
+      "setProps": {
+        "type": {
+          "name": "custom",
+          "raw": "PropTypes.func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
   "src/lib/components/Transform.react.js": {
     "description": "",
     "displayName": "Transform",

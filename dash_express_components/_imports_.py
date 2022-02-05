@@ -22,6 +22,7 @@ from .DropnaTransform import DropnaTransform
 from .EvalTransform import EvalTransform
 from .MeltTransform import MeltTransform
 from .SubComponentBase import SubComponentBase
+from .WideToLong import WideToLong
 from .Transform import Transform
 
 __all__ = [
@@ -49,5 +50,6 @@ __all__ = [
     "EvalTransform",
     "MeltTransform",
     "SubComponentBase",
+    "WideToLong",
     "Transform"
 ]

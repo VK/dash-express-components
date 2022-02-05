@@ -203,6 +203,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                             el, inputDataFrame)
                     )
 
+
             usedCols = list(set(usedCols))
 
             # if we don't get a pandas dataframe it might be dask or mongodf

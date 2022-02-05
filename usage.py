@@ -44,7 +44,17 @@ image_df = image_df.append(_img_to_df(imgdata.coffee(), "coffee"))
 
 df = gapminder_df
 
+df = image_df
 df = df.rename(columns={"R": "Colour»R", "G": "Colour»G", "B": "Colour»B"})
+df["TEST»R"] = 1
+df["TEST»G"] = 2
+df["TEST»C"] = 3
+# print(df.columns)
+
+# cfg = {'stubnames': ['Colour', 'TEST'], 'i': ['Name', 'X', 'Y'], 'j': 'Type', 'sep': '»', 'suffix': '\\w+'}
+
+# print(pd.wide_to_long(df, **cfg).reset_index())
+
 #df["Test»B"] = _np.nan
 
 # external CSS stylesheets
