@@ -24,6 +24,7 @@ from .EvalTransform import EvalTransform
 from .MeltTransform import MeltTransform
 from .SubComponentBase import SubComponentBase
 from .WideToLong import WideToLong
+from .ZerosToNanTransform import ZerosToNanTransform
 
 __all__ = [
     "Configurator",
@@ -51,5 +52,6 @@ __all__ = [
     "EvalTransform",
     "MeltTransform",
     "SubComponentBase",
-    "WideToLong"
+    "WideToLong",
+    "ZerosToNanTransform"
 ]
