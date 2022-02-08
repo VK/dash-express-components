@@ -3,7 +3,7 @@ module DashExpressComponents
 using Dash
 
 const resources_path = realpath(joinpath( @__DIR__, "..", "deps"))
-const version = "0.0.18"
+const version = "0.0.19"
 
 include("jl/''_configurator.jl")
 include("jl/''_filter.jl")
@@ -41,63 +41,63 @@ function __init__()
             [
                 DashBase.Resource(
     relative_package_path = "async-graph.js",
-    external_url = "https://unpkg.com/dash_express_components@0.0.18/dash_express_components/async-graph.js",
+    external_url = "https://unpkg.com/dash_express_components@0.0.19/dash_express_components/async-graph.js",
     dynamic = nothing,
     async = :true,
     type = :js
 ),
 DashBase.Resource(
     relative_package_path = "async-excel.js",
-    external_url = "https://unpkg.com/dash_express_components@0.0.18/dash_express_components/async-excel.js",
+    external_url = "https://unpkg.com/dash_express_components@0.0.19/dash_express_components/async-excel.js",
     dynamic = nothing,
     async = :true,
     type = :js
 ),
 DashBase.Resource(
     relative_package_path = "async-graph.js.map",
-    external_url = "https://unpkg.com/dash_express_components@0.0.18/dash_express_components/async-graph.js.map",
+    external_url = "https://unpkg.com/dash_express_components@0.0.19/dash_express_components/async-graph.js.map",
     dynamic = true,
     async = nothing,
     type = :js
 ),
 DashBase.Resource(
     relative_package_path = "async-excel.js.map",
-    external_url = "https://unpkg.com/dash_express_components@0.0.18/dash_express_components/async-excel.js.map",
+    external_url = "https://unpkg.com/dash_express_components@0.0.19/dash_express_components/async-excel.js.map",
     dynamic = true,
     async = nothing,
     type = :js
 ),
 DashBase.Resource(
     relative_package_path = "dash_express_components.min.js",
-    external_url = "https://unpkg.com/dash_express_components@0.0.18/dash_express_components/dash_express_components.min.js",
+    external_url = "https://unpkg.com/dash_express_components@0.0.19/dash_express_components/dash_express_components.min.js",
     dynamic = nothing,
     async = nothing,
     type = :js
 ),
 DashBase.Resource(
     relative_package_path = "dash_express_components.min.js.map",
-    external_url = "https://unpkg.com/dash_express_components@0.0.18/dash_express_components/dash_express_components.min.js.map",
+    external_url = "https://unpkg.com/dash_express_components@0.0.19/dash_express_components/dash_express_components.min.js.map",
     dynamic = true,
     async = nothing,
     type = :js
 ),
 DashBase.Resource(
     relative_package_path = "plotly.min.js",
-    external_url = "https://unpkg.com/dash-core-components@0.0.18/dash_core_components/plotly.min.js",
+    external_url = "https://unpkg.com/dash-core-components@0.0.19/dash_core_components/plotly.min.js",
     dynamic = nothing,
     async = :eager,
     type = :js
 ),
 DashBase.Resource(
     relative_package_path = "async-plotlyjs.js",
-    external_url = "https://unpkg.com/dash-core-components@0.0.18/dash_core_components/async-plotlyjs.js",
+    external_url = "https://unpkg.com/dash-core-components@0.0.19/dash_core_components/async-plotlyjs.js",
     dynamic = nothing,
     async = :lazy,
     type = :js
 ),
 DashBase.Resource(
     relative_package_path = "async-plotlyjs.js.map",
-    external_url = "https://unpkg.com/dash-core-components@0.0.18/dash_core_components/async-plotlyjs.js.map",
+    external_url = "https://unpkg.com/dash-core-components@0.0.19/dash_core_components/async-plotlyjs.js.map",
     dynamic = true,
     async = nothing,
     type = :js

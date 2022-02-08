@@ -1,6 +1,6 @@
 Package: dashExpressComponents
 Title: Simple widgets to add plotly express style plotting to dash
-Version: 0.0.18
+Version: 0.0.19
 Description: Simple widgets to add plotly express style plotting to dash
 Depends: R (>= 3.0.2)
 Imports: 

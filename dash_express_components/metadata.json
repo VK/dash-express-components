@@ -2867,6 +2867,24 @@
         "returns": null
       },
       {
+        "name": "sep_split",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "str",
+            "type": null
+          },
+          {
+            "name": "sep",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
         "name": "eval",
         "docblock": null,
         "modifiers": [
