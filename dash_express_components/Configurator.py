@@ -20,7 +20,7 @@ Keyword arguments:
 
 - setProps (optional):
     Dash-assigned callback that should be called to report property
-    changes  to Dash, to make them available for callbacks.
+    changes to Dash, to make them available for callbacks.
 
 - showFilter (default True):
     Prop to define the visibility of the Filter panel.
