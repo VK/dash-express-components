@@ -121,7 +121,7 @@ export default class WideToLong extends SubComponentBase {
                             });
                         new_options = new_options.filter((value, index, self) =>
                             index === self.findIndex((t) => (
-                                t.place === value.place && t.name === value.name
+                                t.place === value.place && t.label === value.label
                             ))
                         )
                         return { ...o, options: new_options };

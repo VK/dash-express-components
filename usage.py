@@ -45,7 +45,7 @@ image_df = image_df.append(_img_to_df(imgdata.coffee(), "coffee"))
 df = gapminder_df
 
 df = image_df
-df = df.rename(columns={"R": "Colour»R", "G": "Colour»G", "B": "Colour»B"})
+df = df.rename(columns={"R": "Colour»T_R", "G": "Colour»T_G", "B": "Colour»G_B"})
 df["TEST»R"] = 1
 df["TEST»G"] = 2
 df["TEST»C"] = 3
