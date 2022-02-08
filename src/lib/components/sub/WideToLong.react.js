@@ -59,9 +59,10 @@ export default class WideToLong extends SubComponentBase {
         input.stubnames.forEach(el => {
             let group = Object.keys(input.meta).filter(s => s.includes(input.sep) && WideToLong.sep_split(s, input.sep) == el);
             new_meta[el] = input.meta[group[0]];
-            let new_types = group.map(s => s.split(input.sep)[-1]);
+            let new_types = group.map(s => s.split(input.sep).slice(-1)[0]);
             types = [...types, ...new_types];
         });
+
         types = [...new Set(types)];
 
         new_meta[input.j] = {
@@ -86,7 +87,7 @@ export default class WideToLong extends SubComponentBase {
             suffix: this.state.suffix,
         }
         new_cfg = { ...new_cfg, ...update_cfg };
-        console.log(new_cfg);
+        
         this.setStateConfig(new_cfg);
     }
 

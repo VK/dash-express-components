@@ -17,7 +17,7 @@ export default class ZerosToNanTransform extends SubComponentBase {
     }
 
     static config_to_string(el) {
-        return <span>Drop nan values from <b>[{el.subset.join(", ")}]</b>.</span>
+        return <span>Replace 0 with nan values for <b>[{el.subset.join(", ")}]</b>.</span>
     }
 
     config_from_state(input) {

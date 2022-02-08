@@ -2627,6 +2627,20 @@
         "returns": null
       },
       {
+        "name": "fix_variable_name",
+        "docblock": null,
+        "modifiers": [
+          "static"
+        ],
+        "params": [
+          {
+            "name": "str",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
         "name": "eval",
         "docblock": null,
         "modifiers": [
