@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import chroma from 'chroma-js';
 import { components } from "react-select";
+import './dash-express-components.css';
 
 
 const dot = (color = 'transparent') => ({

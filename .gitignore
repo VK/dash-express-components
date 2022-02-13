@@ -284,3 +284,14 @@ JuliaManifest.toml
 dash_express_components/*
 !dash_express_components/plottypes/
 !dash_express_components/transformationtypes/
+
+
+
+/build
+/dash_express_components
+/deps
+/inst
+/man
+/R
+DESCRIPTION
+NAMESPACE

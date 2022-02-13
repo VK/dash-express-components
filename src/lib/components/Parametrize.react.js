@@ -7,7 +7,6 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Modal from 'react-bootstrap/Modal';
 import EditableList from 'react-list-editable';
-import './sub/react-list-editable.css';
 import Alert from 'react-bootstrap/Alert';
 
 import Select from 'react-select';
