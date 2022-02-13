@@ -31,10 +31,14 @@ export default class EvalTransform extends SubComponentBase {
     }
 
 
+    static fix_variable_name(str) {
+        return str.replaceAll("»", "RightPointingDoubleAngle");
+    }
+
     static eval(input) {
         let current_meta = input["meta"];
 
-        let formula = input["formula"];
+        let formula = input["formula"].slice();
         let col = input["col"];
 
         let res = undefined;
@@ -42,6 +46,10 @@ export default class EvalTransform extends SubComponentBase {
         let message = null;
         let type = undefined;
         try {
+
+            Object.keys(current_meta).forEach(c => {
+                formula = formula.replaceAll(c, EvalTransform.fix_variable_name(c));
+            });
 
             let variables = {
                 "at_pi": 3.14159265359,
@@ -77,16 +85,16 @@ export default class EvalTransform extends SubComponentBase {
 
                 ...Object.keys(current_meta).reduce(function (result, key) {
                     if (current_meta[key]["type"] === "numerical") {
-                        result[key] = current_meta[key].median;
+                        result[EvalTransform.fix_variable_name(key)] = current_meta[key].median;
                     }
                     if (current_meta[key]["type"] === "bool") {
-                        result[key] = true;
+                        result[EvalTransform.fix_variable_name(key)] = true;
                     }
                     if (current_meta[key]["type"] === "categorical") {
-                        result[key] = current_meta[key].cat[0];
+                        result[EvalTransform.fix_variable_name(key)] = current_meta[key].cat[0];
                     }
                     if (current_meta[key]["type"] === "temporal") {
-                        result[key] = new Date(current_meta[key].median);
+                        result[EvalTransform.fix_variable_name(key)] = new Date(current_meta[key].median);
                     }
                     return result
                 }, {})

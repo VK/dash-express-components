@@ -38,6 +38,13 @@ export default class WideToLong extends SubComponentBase {
     }
 
 
+    static sep_split(str, sep) {
+        let arr = str.split(sep);
+        arr.splice(-1);
+        return arr.join(sep);
+    }
+
+
     static eval(input) {
         //stubnames
         //i
@@ -50,11 +57,12 @@ export default class WideToLong extends SubComponentBase {
 
         let types = [];
         input.stubnames.forEach(el => {
-            let group = Object.keys(input.meta).filter(s => s.includes(input.sep) && s.split(input.sep)[0] == el);
+            let group = Object.keys(input.meta).filter(s => s.includes(input.sep) && WideToLong.sep_split(s, input.sep) == el);
             new_meta[el] = input.meta[group[0]];
-            let new_types = group.map(s => s.split(input.sep)[1]);
+            let new_types = group.map(s => s.split(input.sep).slice(-1)[0]);
             types = [...types, ...new_types];
         });
+
         types = [...new Set(types)];
 
         new_meta[input.j] = {
@@ -79,7 +87,7 @@ export default class WideToLong extends SubComponentBase {
             suffix: this.state.suffix,
         }
         new_cfg = { ...new_cfg, ...update_cfg };
-        console.log(new_cfg);
+        
         this.setStateConfig(new_cfg);
     }
 
@@ -108,21 +116,21 @@ export default class WideToLong extends SubComponentBase {
                             .map((e) => {
                                 return {
                                     ...e,
-                                    value: e.value.split(sep)[0],
-                                    label: e.label.split(sep)[0],
+                                    value: WideToLong.sep_split(e.value, sep),
+                                    label: WideToLong.sep_split(e.label, sep),
                                 }
                             });
                         new_options = new_options.filter((value, index, self) =>
                             index === self.findIndex((t) => (
-                                t.place === value.place && t.name === value.name
+                                t.place === value.place && t.label === value.label
                             ))
                         )
                         return { ...o, options: new_options };
                     } else {
                         return {
                             ...o,
-                            value: o.value.split(sep)[0],
-                            label: o.label.split(sep)[0],
+                            value: WideToLong.sep_split(e.value, sep),
+                            label: WideToLong.sep_split(e.label, sep),
                         }
                     }
                 }
