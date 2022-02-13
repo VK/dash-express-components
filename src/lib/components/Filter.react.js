@@ -141,7 +141,17 @@ export default class Filter extends Base {
                             let new_config = config.filter((e, idx) => idx !== id);
                             this.update_config(new_config)
 
-                        }}>{this.filter_to_string(el)}</Alert>
+                        }}>{this.filter_to_string(el)}
+
+                            <button className='btn-close btn-edit'
+
+                                onClick={() => {
+                                    console.log(config);
+                                    console.log(config[id]);
+                                }}
+                            ></button>
+
+                        </Alert>
                     )
                 }
 
@@ -259,13 +269,13 @@ export default class Filter extends Base {
                         </InputGroup>
 
                         {["isnotin", "isin"].includes(filterType) && <Select
-                            options={categoryOptions} 
+                            options={categoryOptions}
                             {...multiCallbacks(
                                 this,
                                 (s) => this.setState(s),
                                 "selectedCategories",
                                 categoryOptions
-                            )}                            
+                            )}
                         />}
 
                         {["eq"].includes(filterType) && <Select
