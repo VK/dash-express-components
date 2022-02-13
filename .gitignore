@@ -294,3 +294,5 @@ dash_express_components/*
 /R
 DESCRIPTION
 NAMESPACE
+/src/*.jl
+/src/jl/
