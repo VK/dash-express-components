@@ -5,3 +5,4 @@ from . import _catlookup as catlookup
 from . import _dropna as dropna
 from . import _wide_to_long as wide_to_long
 from . import _zerostonan as zerostonan
+from . import _rename as rename

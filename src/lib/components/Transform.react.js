@@ -16,7 +16,8 @@ import CombinecatTransform from './_sub/CombinecatTransform.react';
 import CategoryLookup from './_sub/CategoryLookup.react';
 import DropnaTransform from './_sub/DropnaTransform.react';
 import WideToLong from './_sub/WideToLong.react';
-import { ZerosToNanTransform } from './_sub/ZerosToNanTransform.react';
+import ZerosToNanTransform from './_sub/ZerosToNanTransform.react';
+import RenameTransform from './_sub/RenameTransform.react';
 
 
 export default class Transform extends Base {
@@ -28,7 +29,8 @@ export default class Transform extends Base {
         { type: "wide_to_long", class: WideToLong, "label": "Transform from wide to long" },
         { type: "catlookup", class: CategoryLookup, "label": "Lookup for category" },
         { type: "dropna", class: DropnaTransform, "label": "Drop nan values" },
-        { type: "zerostonan", class: ZerosToNanTransform, "label": "Replace zero values with nan" }
+        { type: "zerostonan", class: ZerosToNanTransform, "label": "Replace zero values with nan" },
+        { type: "rename", class: RenameTransform, "label": "Rename multiple columns" }
     ]
 
 
