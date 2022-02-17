@@ -4,7 +4,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Select from 'react-select';
-import { singleColorStyle, multiColorStyle, hideGroupComponents, multiCallbacks } from '../sub/Base.react';
+import { singleColorStyle, multiColorStyle, hideGroupComponents, multiCallbacks } from '../_sub/Base.react';
 
 
 export default class PlotterBase extends Component {

@@ -1,24 +1,24 @@
 import React from 'react';
-import Base from './sub/Base.react';
+import Base from './_sub/Base.react';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 
 
-import Scatter from './plot/Scatter.react';
-import Box from './plot/Box.react';
-import Violin from './plot/Violin.react';
+import Scatter from './_plot/Scatter.react';
+import Box from './_plot/Box.react';
+import Violin from './_plot/Violin.react';
 
-import Imshow from './plot/Imshow.react';
+import Imshow from './_plot/Imshow.react';
 
-import BarCount from './plot/BarCount.react';
-import ScatterMatrix from './plot/ScatterMatrix.react';
+import BarCount from './_plot/BarCount.react';
+import ScatterMatrix from './_plot/ScatterMatrix.react';
 
-import HistogramLine from './plot/HistogramLine.react';
-import Probability from './plot/Probability.react';
+import HistogramLine from './_plot/HistogramLine.react';
+import Probability from './_plot/Probability.react';
 
-import Table from './plot/Table.react';
+import Table from './_plot/Table.react';
 let known_plots = [Scatter, Box, Violin, Imshow, BarCount, ScatterMatrix, HistogramLine, Probability, Table].map(el => {
     return { type: el.type, class: el, label: el.label, icon: el.icon }
 });
@@ -28,7 +28,7 @@ let plots_dict = Object.assign({}, ...known_plots.map((x) => ({ [x.type]: x })))
 
 export default class Plotter extends Base {
     constructor(props) {
-        super(props);
+        super({}, props);
 
         this.state =
         {
@@ -72,7 +72,9 @@ export default class Plotter extends Base {
             id
         } = this.state;
 
-        return (<Modal backdrop="static"
+        return (<Modal
+            backdrop="static"
+            animation={false}
             show={showModal}
             onHide={() => this.handleClose()}
             key={id + "-plot-type-modal"}
@@ -190,7 +192,7 @@ Plotter.propTypes = {
     /**
      * The ID used to identify this component in Dash callbacks.
      */
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
 
     /**
     * The config the user sets in this component.

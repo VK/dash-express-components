@@ -11,7 +11,7 @@ import Filter from './Filter.react';
 import Transform from './Transform.react';
 import MetaCheck from './MetaCheck.react';
 import Plotter from './Plotter.react';
-import Parametrize from './Parametrize.react';
+import Parameterize from './Parameterize.react';
 import Localstore from './Localstore.react';
 import { none } from 'ramda';
 
@@ -170,11 +170,29 @@ export default class Configurator extends Component {
     }
 
     update_props(graphId = null) {
-        let config = this.state.config;
+        let config = JSON.parse(JSON.stringify(this.state.config));
+
         config["graphId"] = graphId;
 
+        if (config.filter == null || config.filter === undefined || config.filter.length === 0) {
+            delete config["filter"];
+        }
+
+        if (config.transform == null || config.transform === undefined || config.transform.length === 0) {
+            delete config["transform"];
+        }
+
+        if (config.parameterization == null || config.parameterization === undefined || config.parameterization.parameters === undefined
+            || config.parameterization.parameters.length === 0) {
+            delete config["parameterization"];
+        }
+
+        if (config.graphId === null || config.graphId === undefined) {
+            delete config["graphId"];
+        }
+
         this.props.setProps({
-            config: config
+            config: JSON.parse(JSON.stringify(config))
         });
     }
 
@@ -186,7 +204,8 @@ export default class Configurator extends Component {
     UNSAFE_componentWillReceiveProps(newProps) {
 
         if (newProps.config !== this.props.config) {
-            let config = JSON.parse(JSON.stringify(this.fix_config(newProps.config)));
+            let config = this.fix_config(JSON.parse(JSON.stringify(newProps.config)));
+            //let config = JSON.parse(JSON.stringify(this.fix_config(newProps.config)));
             this.setState(
                 { config: config }
             )
@@ -315,7 +334,7 @@ export default class Configurator extends Component {
                 </div>}
 
                 {this.props.showParameterization && <CustomAccordionItem title="Parameterize" defaultOpen>
-                    <Parametrize
+                    <Parameterize
                         id={`${id}-parametrize`}
                         key={`${id}-parametrize`}
                         meta={transform_meta_out}
@@ -347,7 +366,11 @@ export default class Configurator extends Component {
                 </CustomAccordionItem>}
 
 
-                <Modal backdrop="static" show={showEditModal} onHide={() => this.handleClose()}>
+                <Modal
+                    backdrop="static"
+                    animation={false}
+                    show={showEditModal}
+                    onHide={() => this.handleClose()}>
                     <Modal.Header closeButton>
                         <Modal.Title>Load Plot Config</Modal.Title>
                     </Modal.Header>
@@ -404,7 +427,7 @@ Configurator.propTypes = {
     /**
      * The ID used to identify this component in Dash callbacks.
      */
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
 
 
     /**

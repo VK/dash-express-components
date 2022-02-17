@@ -84,7 +84,7 @@ export const multiCallbacks = (obj, setState, varname, options) => {
     let select_value = (options && options !== undefined && v !== undefined) ? v.map((e) => get_el(e)) : [];
 
     const callback = (inputValue, { action, prevInputValue }) => {
-        
+
         if (action === "input-change" && inputValue && inputValue !== undefined) {
 
             let s = inputValue.split(/[ ,;\n\t]+/).map((e) => e.toUpperCase());
@@ -255,10 +255,16 @@ export const type_colors = {
 };
 
 export default class Base extends Component {
-    constructor(props) {
+    constructor(default_config, props) {
         super(props);
+
+        let config = props.config;
+        if (typeof props.config === 'undefined' || props.config === null) {
+            config = default_config;
+        }
+
         this.state = {
-            config: props.config,
+            config: config,
             meta: props.meta,
             meta_out: props.meta,
             ...this.get_columns(props.meta)

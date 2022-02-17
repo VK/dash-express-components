@@ -2,7 +2,7 @@ import SubComponentBase from "./SubComponentBase";
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Select from 'react-select';
-import { multiColorStyle, hideGroupComponents, multiCallbacks } from '../sub/Base.react';
+import { multiColorStyle, hideGroupComponents, multiCallbacks } from '../_sub/Base.react';
 
 export default class MeltTransform extends SubComponentBase {
     constructor(props) {

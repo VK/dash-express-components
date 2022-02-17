@@ -1,17 +1,19 @@
+from re import T
 import dash
 from dash import html, Input, Output
 from dash.exceptions import PreventUpdate
 import dash_express_components as dxc
 import plotly.express as px
+import json
 
 
 df = px.data.gapminder()
-df = df.rename(columns={
-    "country": "location»country",
-    "continent": "location»continent",
-    "iso_alpha": "location»iso_alpha",
-    "iso_num": "location»iso_num"
-})
+# df = df.rename(columns={
+#     "country": "location»country",
+#     "continent": "location»continent",
+#     "iso_alpha": "location»iso_alpha",
+#     "iso_num": "location»iso_num"
+# })
 meta = dxc.get_meta(df)
 
 
@@ -27,14 +29,13 @@ app.layout = html.Div([
             id="plotConfig",
             meta=meta,
         ),
-
-        html.Div(id='output'),
+        html.H3("Config:"),
+        html.Pre([html.Code(id='output')]),
     ], style={"width": "500px", "float": "left"}),
 
     html.Div(
 
         [dxc.Graph(id="fig",
-                   configuratorId="plotConfig",
                    meta=meta,
                    style={"height": "100%", "width": "100%"}
                    )],
@@ -47,10 +48,11 @@ app.layout = html.Div([
 
 
 @app.callback(
-    Output('fig', 'defParams'), Input('plotConfig', 'config')
+    [Output('fig', 'defParams'), Output('output', 'children')
+     ], Input('plotConfig', 'config')
 )
 def update_plot_config(newConfig):
-    return newConfig
+    return newConfig, json.dumps(newConfig, indent=2)
 
 
 @app.callback(

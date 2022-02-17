@@ -1,6 +1,6 @@
 {
   "name": "dash_express_components",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "Simple widgets to add plotly express style plotting to dash",
   "main": "build/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "validate-init": "python _validate_init.py",
     "prepublishOnly": "npm run validate-init",
     "build:js": "webpack --mode production",
-    "build:backends": "copyfiles -u1 dash_express_components_base/**/**.py dash_express_components_base/**.py dash_express_components && dash-generate-components ./src/lib/components dash_express_components -p package-info.json --r-prefix '' --jl-prefix '' --ignore \\.test\\.",
+    "build:backends": "copyfiles -u1 dash_express_components_base/**/**.py dash_express_components_base/**.py dash_express_components && dash-generate-components ./src/lib/components dash_express_components -p package-info.json --r-prefix '' --jl-prefix '' --ignore \\.test\\. --ignore ^_",
     "build:backends-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:py_and_r)",
     "build": "npm run build:js && npm run build:backends",
     "build:activated": "npm run build:js && npm run build:backends-activated"

@@ -1,10 +1,10 @@
 import React from 'react';
-import Base from './sub/Base.react';
+import Base from './_sub/Base.react';
 
 
 export default class MetaCheck extends Base {
     constructor(props) {
-        super(props);
+        super([], props);
     }
 
     render() {
@@ -81,7 +81,7 @@ MetaCheck.propTypes = {
     /**
      * The ID used to identify this component in Dash callbacks.
      */
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
 
     /**
     * The config the user sets in this component.

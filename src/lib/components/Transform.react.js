@@ -1,5 +1,5 @@
 import React from 'react';
-import Base from './sub/Base.react';
+import Base from './_sub/Base.react';
 
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
@@ -10,28 +10,30 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Accordion from 'react-bootstrap/Accordion';
 
 
-import EvalTransform from './sub/EvalTransform.react';
-import MeltTransform from './sub/MeltTransform.react';
-import CombinecatTransform from './sub/CombinecatTransform.react';
-import CategoryLookup from './sub/CategoryLookup.react';
-import DropnaTransform from './sub/DropnaTransform.react';
-import WideToLong from './sub/WideToLong.react';
-import ZerosToNanTransform from './sub/ZerosToNanTransform.react';
-let known_trafos = [
-    { type: "eval", class: EvalTransform, "label": "Compute new column" },
-    { type: "combinecat", class: CombinecatTransform, "label": "Combine to categorical column" },
-    { type: "melt", class: MeltTransform, "label": "Melt multiple colums to one" },
-    { type: "wide_to_long", class: WideToLong, "label": "Transform from wide to long" },
-    { type: "catlookup", class: CategoryLookup, "label": "Lookup for category" },
-    { type: "dropna", class: DropnaTransform, "label": "Drop nan values" },
-    { type: "zerostonan", class: ZerosToNanTransform, "label": "Replace zero values with nan" }
-]
-
+import EvalTransform from './_sub/EvalTransform.react';
+import MeltTransform from './_sub/MeltTransform.react';
+import CombinecatTransform from './_sub/CombinecatTransform.react';
+import CategoryLookup from './_sub/CategoryLookup.react';
+import DropnaTransform from './_sub/DropnaTransform.react';
+import WideToLong from './_sub/WideToLong.react';
+import { ZerosToNanTransform } from './_sub/ZerosToNanTransform.react';
 
 
 export default class Transform extends Base {
+
+    static known_trafos = [
+        { type: "eval", class: EvalTransform, "label": "Compute new column" },
+        { type: "combinecat", class: CombinecatTransform, "label": "Combine to categorical column" },
+        { type: "melt", class: MeltTransform, "label": "Melt multiple colums to one" },
+        { type: "wide_to_long", class: WideToLong, "label": "Transform from wide to long" },
+        { type: "catlookup", class: CategoryLookup, "label": "Lookup for category" },
+        { type: "dropna", class: DropnaTransform, "label": "Drop nan values" },
+        { type: "zerostonan", class: ZerosToNanTransform, "label": "Replace zero values with nan" }
+    ]
+
+
     constructor(props) {
-        super(props);
+        super([], props);
 
 
 
@@ -77,7 +79,7 @@ export default class Transform extends Base {
         if (new_config)
             new_config.forEach(el => {
 
-                let transform_class = known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
+                let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
                 let res = transform_class.eval(
                     {
                         ...el,
@@ -111,7 +113,7 @@ export default class Transform extends Base {
                 {
                     config.map((el, id) => {
 
-                        let transform_class = known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
+                        let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
 
                         let config_string = transform_class.config_to_string(el);
 
@@ -150,7 +152,10 @@ export default class Transform extends Base {
         } = this.state;
 
 
-        return (<Modal backdrop="static"
+
+        return (<Modal
+            backdrop="static"
+            animation={false}
             show={showAddModal}
             onHide={() => this.handleClose()}
         >
@@ -178,7 +183,7 @@ export default class Transform extends Base {
                     >
                         <option value=""></option>
                         {
-                            known_trafos.map(trafo_el => {
+                            Transform.known_trafos.map(trafo_el => {
                                 return (<option key={"option" + trafo_el["type"]} value={trafo_el["type"]}>{trafo_el.label}</option>)
                             })
                         }
@@ -189,7 +194,7 @@ export default class Transform extends Base {
 
 
                 {
-                    known_trafos.map(trafo_el => {
+                    Transform.known_trafos.map(trafo_el => {
                         return (
                             transformType === trafo_el["type"] &&
                             <trafo_el.class
@@ -212,12 +217,12 @@ export default class Transform extends Base {
                 <Button variant="secondary" onClick={() => this.handleClose()}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={(e) => {
+                <Button variant="primary" onClick={() => {
 
                     if ("type" in sub_config) {
 
 
-                        let transform_class = known_trafos.filter(el => el["type"] === sub_config["type"])[0]["class"];
+                        let transform_class = Transform.known_trafos.filter(el => el["type"] === sub_config["type"])[0]["class"];
                         let res = transform_class.eval(
                             {
                                 ...sub_config,
@@ -274,7 +279,7 @@ Transform.propTypes = {
     /**
      * The ID used to identify this component in Dash callbacks.
      */
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
 
     /**
     * The config the user sets in this component.

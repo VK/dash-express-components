@@ -1,5 +1,5 @@
 import React from 'react';
-import Base from './sub/Base.react';
+import Base from './_sub/Base.react';
 
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
@@ -14,7 +14,7 @@ import Modal from 'react-bootstrap/Modal';
 
 export default class Localstore extends Base {
     constructor(props) {
-        super(props);
+        super({}, props);
 
         this.state = {
             ...this.state,
@@ -73,7 +73,9 @@ export default class Localstore extends Base {
         } = this.state;
 
 
-        return (<Modal backdrop="static"
+        return (<Modal
+            backdrop="static"
+            animation={false}
             show={showLoadModal}
             onHide={() => this.handleLoadClose()}
         >
@@ -184,7 +186,7 @@ Localstore.propTypes = {
     /**
      * The ID used to identify this component in Dash callbacks.
      */
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
 
     /**
     * The config the user sets in this component.

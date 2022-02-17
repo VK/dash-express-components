@@ -1,6 +1,6 @@
 import { filter, isNil, pluck } from 'ramda';
 import React from 'react';
-import Base, { singleColorStyle, hideGroupComponents, multiCallbacks } from './sub/Base.react';
+import Base, { singleColorStyle, hideGroupComponents, multiCallbacks } from './_sub/Base.react';
 
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
@@ -17,7 +17,7 @@ import DateTimePicker from 'react-datetime-picker';
 
 export default class Filter extends Base {
     constructor(props) {
-        super(props);
+        super([], props);
 
 
 
@@ -41,6 +41,7 @@ export default class Filter extends Base {
             filterType: "",
             filterNumber: 0,
 
+            filterIndex: undefined,
 
         };
 
@@ -55,11 +56,10 @@ export default class Filter extends Base {
 
 
     update_config(new_config) {
-        console.log("super_config");
         super.update_config(new_config);
 
-        //let new_meta = JSON.parse(JSON.stringify(this.state.meta))
-        let new_meta = { ...this.state.meta };
+        let new_meta = JSON.parse(JSON.stringify(this.props.meta))
+        //let new_meta = { ...this.props.meta };
 
         if (new_config)
             new_config.forEach(el => {
@@ -94,7 +94,6 @@ export default class Filter extends Base {
             });
 
 
-        console.log("update_meta_out");
         super.update_meta_out(new_meta);
     }
 
@@ -131,6 +130,7 @@ export default class Filter extends Base {
 
     get_filter_blocks() {
         const { config } = this.state;
+        const { meta } = this.props;
 
         if (config) {
             return <div>
@@ -146,8 +146,30 @@ export default class Filter extends Base {
                             <button className='btn-close btn-edit'
 
                                 onClick={() => {
-                                    console.log(config);
-                                    console.log(config[id]);
+
+                                    let update_state = {
+                                        filterIndex: id,
+                                        selectedColumn: config[id].col,
+                                        selectedType: meta[config[id].col].type,
+                                        filterType: config[id].type,
+                                        filterNumber: config[id].value
+                                    }
+
+                                    if (meta[config[id].col].type === "categorical") {
+
+                                        update_state["selectedCategories"] = config[id].value;
+
+                                        update_state["categoryOptions"] = [
+                                            ...meta[config[id].col].cat.map(option => ({
+                                                label: String(option),
+                                                value: option,
+                                            }))];
+                                    }
+
+                                    this.setState(update_state, () => {
+                                        this.handleShow();
+                                    })
+
                                 }}
                             ></button>
 
@@ -163,20 +185,25 @@ export default class Filter extends Base {
 
         const {
             allColOptions,
+            allOptions,
             showAddModal,
             selectedColumn, selectedType,
             categoryOptions, selectedCategories,
             selectedDateTime,
             filterType,
             filterNumber,
-            config, meta } = this.state;
+            filterIndex,
+            config } = this.state;
+        const { meta, id } = this.props;
 
-        return (<Modal backdrop="static"
+        return (<Modal
+            backdrop="static"
+            animation={false}
             show={showAddModal}
             onHide={() => this.handleClose()}
         >
             <Modal.Header closeButton>
-                <Modal.Title>Add filter</Modal.Title>
+                <Modal.Title>{(filterIndex === undefined) ? "Add" : "Edit"} filter</Modal.Title>
             </Modal.Header>
             <Modal.Body><div style={{ minHeight: "15em" }} className="mb-3">
 
@@ -184,10 +211,11 @@ export default class Filter extends Base {
 
                 <Select
                     className="mb-3"
+                    key={id + "-selectOptions"}
 
                     options={allColOptions}
 
-                    value={allColOptions.filter(o => o.value === selectedColumn)[0]}
+                    value={allOptions.filter(o => o.value === selectedColumn)[0]}
                     onChange={selectedOption => {
 
                         let value = selectedOption.value;
@@ -223,6 +251,7 @@ export default class Filter extends Base {
                         <InputGroup className="mb-3">
                             <InputGroup.Text id="basic-addon1">Type</InputGroup.Text>
                             <Form.Select
+                                key={id + "-selectType"}
 
 
                                 value={filterType}
@@ -243,7 +272,9 @@ export default class Filter extends Base {
 
                         <InputGroup className="mb-3">
                             <InputGroup.Text id="basic-addon1">Value</InputGroup.Text>
-                            <FormControl type="number" value={filterNumber} onChange={e => { this.setState({ filterNumber: e.target.value }); }} />
+                            <FormControl type="number"
+                                key={id + "-inputValue"}
+                                value={filterNumber} onChange={e => { this.setState({ filterNumber: e.target.value }); }} />
                         </InputGroup>
 
                     </div>
@@ -258,6 +289,7 @@ export default class Filter extends Base {
                         <InputGroup className="mb-3">
                             <InputGroup.Text id="basic-addon1">Type</InputGroup.Text>
                             <Form.Select
+                                key={id + "-selectCatOption"}
                                 value={filterType}
                                 onChange={e => { this.setState({ filterType: e.target.value }); }}
                             >
@@ -270,6 +302,7 @@ export default class Filter extends Base {
 
                         {["isnotin", "isin"].includes(filterType) && <Select
                             options={categoryOptions}
+                            key={id + "-selectOptions"}
                             {...multiCallbacks(
                                 this,
                                 (s) => this.setState(s),
@@ -281,7 +314,7 @@ export default class Filter extends Base {
                         {["eq"].includes(filterType) && <Select
                             options={categoryOptions}
                             isClearable
-
+                            key={id + "-selectEqOptions"}
                             value={(selectedCategories) ? categoryOptions.filter(o => selectedCategories === o.value) : undefined}
                             onChange={selectedOption => {
 
@@ -306,6 +339,7 @@ export default class Filter extends Base {
                             <InputGroup.Text id="basic-addon1">Type</InputGroup.Text>
                             <Form.Select
                                 value={filterType}
+                                key={id + "-selectTimeOptions"}
                                 onChange={e => { this.setState({ filterType: e.target.value }); }}
                             >
                                 <option value=""></option>
@@ -319,6 +353,7 @@ export default class Filter extends Base {
                             <DateTimePicker
                                 className="w-100 border rounded"
                                 value={selectedDateTime}
+                                key={id + "-selectTime"}
                                 onChange={newDateTime => {
                                     this.setState({
                                         selectedDateTime: newDateTime
@@ -329,7 +364,8 @@ export default class Filter extends Base {
                         {filterType === "lastn" &&
                             <InputGroup className="mb-3">
                                 <InputGroup.Text id="basic-addon1">Value</InputGroup.Text>
-                                <FormControl type="number" value={filterNumber} onChange={e => { this.setState({ filterNumber: e.target.value }); }} />
+                                <FormControl type="number" key={id + "-inputDeltaTime"}
+                                    value={filterNumber} onChange={e => { this.setState({ filterNumber: e.target.value }); }} />
                             </InputGroup>
                         }
 
@@ -346,6 +382,7 @@ export default class Filter extends Base {
                             <InputGroup.Text id="basic-addon1">Type</InputGroup.Text>
                             <Form.Select
                                 value={filterType}
+                                key={id + "-selectBool"}
                                 onChange={e => { this.setState({ filterType: e.target.value }); }}
                             >
                                 <option value=""></option>
@@ -366,7 +403,6 @@ export default class Filter extends Base {
                 </Button>
                 <Button variant="primary" onClick={(e) => {
 
-                    console.log("add Click");
 
                     let new_filter = { col: selectedColumn, "type": "test", "value": "test" };
 
@@ -413,21 +449,26 @@ export default class Filter extends Base {
                         }
                     }
 
-                    let new_config = [
-                        ...config,
-                        new_filter
-                    ];
-                    console.log(new_config);
 
-                    console.log("update_config");
-                    this.update_config(new_config);
+                    if (filterIndex === undefined) {
+                        let new_config = [
+                            ...config,
+                            new_filter
+                        ];
+                        this.update_config(new_config);
+                    } else {
+                        let new_config = [
+                            ...config
+                        ];
+                        new_config[filterIndex] = new_filter;
+                        this.update_config(new_config);
+                    }
 
-                    console.log("handle Close");
                     this.handleClose();
 
 
                 }}>
-                    Add
+                    {(filterIndex === undefined) ? "Add" : "Update"}
                 </Button>
             </Modal.Footer>
         </Modal>)
@@ -441,12 +482,15 @@ export default class Filter extends Base {
             <div id={id}>
                 {this.get_filter_blocks()}
 
-                <Button className='w-100' onClick={() => this.handleShow()}>
+                <Button className='w-100' onClick={() => {
+                    this.setState({ filterIndex: undefined });
+                    this.handleShow()
+                }}>
                     Add filter
                 </Button>
 
                 {this.get_modal_blocks()}
-            </div>
+            </div >
         )
 
     }
@@ -462,7 +506,7 @@ Filter.propTypes = {
     /**
      * The ID used to identify this component in Dash callbacks.
      */
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
 
     /**
     * The config the user sets in this component.

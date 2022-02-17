@@ -1,5 +1,5 @@
 import React from 'react';
-import Base from './sub/Base.react';
+import Base from './_sub/Base.react';
 
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
@@ -10,14 +10,14 @@ import EditableList from 'react-list-editable';
 import Alert from 'react-bootstrap/Alert';
 
 import Select from 'react-select';
-import { singleColorStyle, multiColorStyle, hideGroupComponents, multiCallbacks } from './sub/Base.react';
+import { singleColorStyle, multiColorStyle, hideGroupComponents, multiCallbacks } from './_sub/Base.react';
 
 
 
 
-export default class Parametrize extends Base {
+export default class Parameterize extends Base {
     constructor(props) {
-        super(props);
+        super({}, props);
 
 
         this.state = {
@@ -189,7 +189,9 @@ export default class Parametrize extends Base {
 
 
 
-        return (<Modal backdrop="static"
+        return (<Modal
+            backdrop="static"
+            animation={false}
             show={showAddModal}
             onHide={() => this.handleAddClose()}
         >
@@ -570,15 +572,15 @@ export default class Parametrize extends Base {
 
 
 
-Parametrize.defaultProps = {};
+Parameterize.defaultProps = {};
 
 
-Parametrize.propTypes = {
+Parameterize.propTypes = {
 
     /**
      * The ID used to identify this component in Dash callbacks.
      */
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
 
     /**
     * The config the user sets in this component.
