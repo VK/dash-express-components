@@ -7,7 +7,6 @@ def _get(inputDataFrame, plotConfigData):
 
     fig = _go.Figure()
 
-    print(plotConfigData)
     extra_options = {}
 
     # if we have cols and rows, we want to make independent
@@ -21,11 +20,10 @@ def _get(inputDataFrame, plotConfigData):
         del plotConfigData["params"]["indep_y"]
 
     if "range_color" in plotConfigData["params"]:
-        
+
         extra_options["zmin"] = plotConfigData["params"]["range_color"][0]
         extra_options["zmax"] = plotConfigData["params"]["range_color"][1]
         del plotConfigData["params"]["range_color"]
-    
 
     if "x" in plotConfigData["params"] and "y" in plotConfigData["params"] and "dimensions" in plotConfigData["params"]:
         # extrat params
@@ -128,12 +126,20 @@ def _get(inputDataFrame, plotConfigData):
                     coloraxis="coloraxis",
                     xaxis=None if makeIndepX else "x",
                     yaxis=None if makeIndepY else "y",
-                    **extra_options
                 )
                 colid = colid + 1
                 if colid > col_wrap:
                     rowid = rowid + 1
                     colid = 1
+
+            if "zmin" in extra_options:
+                fig.update_coloraxes(
+                    cmin=extra_options["zmin"]
+                )
+            if "zmax" in extra_options:
+                fig.update_coloraxes(
+                    cmax=extra_options["zmax"]
+                )
 
         else:
             fig.add_heatmap(
