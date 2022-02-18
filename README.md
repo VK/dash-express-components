@@ -6,7 +6,7 @@
 
 ## Widgets to bring [Plotly Express](https://plotly.com/python/plotly-express/) style plots to [Dash](https://dash.plotly.com/)
 
-![multiplots example](./examples/lumino/recording.gif)
+![example](https://raw.githubusercontent.com/VK/dash-express-components/master/lumino/recording.gif)  
 Example uses **[dash-lumino-components](https://github.com/VK/dash-lumino-components)** for MDI layout. 
 
 
