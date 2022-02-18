@@ -12,11 +12,11 @@ Example uses **[dash-lumino-components](https://github.com/VK/dash-lumino-compon
 
 ## Try it
 Install dependencies
-```
+```console
 $ pip install dash-express-components
 ```
 and start with quickly editable graphs:
-``` python
+```python
 import dash_express_components as dxc
 app.layout = html.Div([
 
@@ -42,28 +42,28 @@ app.layout = html.Div([
 
 ## Develop
 1. Install npm packages
-    ```
+    ```console
     $ npm install
     ```
     
 2. Create a virtual env and activate.
-    ```
+    ```console
     $ virtualenv venv
     $ . venv/bin/activate
     ```
     _Note: venv\Scripts\activate for windows_
 
 3. Install python packages required to build components.
-    ```
+    ```console
     $ pip install -r requirements.txt
     ```
 
 4. Build your code
-    ```
+    ```console
     $ npm run build
     ```
 
 5. Run the example
-      ```
+    ```console
     $ python usage.py
     ```

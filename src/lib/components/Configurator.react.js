@@ -15,6 +15,8 @@ import Parameterize from './Parameterize.react';
 import Localstore from './Localstore.react';
 import { none } from 'ramda';
 
+
+
 /**
  * Warp all subcomponents used in the configurator into an accordion
  * 
@@ -78,7 +80,7 @@ class CustomAccordionItem extends Component {
  *           id="plotConfig",
  *           meta=meta,
  *  )
- * 
+ * @public
  */
 class Configurator extends Component {
     constructor(props) {
@@ -447,6 +449,7 @@ Configurator.defaultProps = {
 
 /**
  * @typedef
+ * @public
  * @enum {}
  */
 Configurator.propTypes = {

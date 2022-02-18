@@ -20,7 +20,7 @@
         "cleverLinks": true,
         "monospaceLinks": true,
         "systemName": "Dash Express Components",
-        "systemSummary": "Simple widgets to add plotly express style plotting to dash",
+        "systemSummary": "Widgets to bring Plotly Express style plots to Dash",
         "collapseSymbols": false,
         "showTableOfContents": false
     },
@@ -29,6 +29,15 @@
         "recurse": true,
         "readme": "README.md",
         "private": false,
-        "template": "./node_modules/foodoc/template"
+        "template": "node_modules/clean-jsdoc-theme",
+        "theme_opts": {
+            "menu": [
+                {
+                    "title": "Github",
+                    "link": "https://github.com/VK/dash-express-components",
+                    "target": "_blank"
+                }
+            ]
+        }
     }
 }
