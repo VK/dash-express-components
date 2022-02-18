@@ -11,7 +11,8 @@
     "build:backends": "copyfiles -u1 dash_express_components_base/**/**.py dash_express_components_base/**.py dash_express_components && dash-generate-components ./src/lib/components dash_express_components -p package-info.json --r-prefix '' --jl-prefix '' --ignore \\.test\\. --ignore ^_",
     "build:backends-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:py_and_r)",
     "build": "npm run build:js && npm run build:backends",
-    "build:activated": "npm run build:js && npm run build:backends-activated"
+    "build:activated": "npm run build:js && npm run build:backends-activated",
+    "doc": "jsdoc -c ./jsdoc.conf.json"
   },
   "author": "Viktor Krückl <viktor@krueckl.de>",
   "license": "MIT",
@@ -43,6 +44,8 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-react": "^7.14.2",
+    "foodoc": "^0.0.9",
+    "jsdoc": "^3.6.10",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-docgen": "^4.1.1",

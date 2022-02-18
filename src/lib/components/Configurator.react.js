@@ -15,7 +15,11 @@ import Parameterize from './Parameterize.react';
 import Localstore from './Localstore.react';
 import { none } from 'ramda';
 
-
+/**
+ * Warp all subcomponents used in the configurator into an accordion
+ * 
+ * @private
+ */
 class CustomAccordionItem extends Component {
     constructor(props) {
         super(props);
@@ -57,9 +61,26 @@ class CustomAccordionItem extends Component {
 
 
 /**
- * Configurator component
+ * The configurator component helps to define plot definitions based on the
+ * metadata of a dataframe.
+ * 
+ * The metadata is used to compute the available parameters after data 
+ * transformations for the most common plot types.
+ * @hideconstructor
+ * 
+ * @example
+ * import dash_express_components as dxc
+ * import plotly.express as px
+ * 
+ * meta = dxc.get_meta(px.data.gapminder())
+ * 
+ *  dxc.Configurator(
+ *           id="plotConfig",
+ *           meta=meta,
+ *  )
+ * 
  */
-export default class Configurator extends Component {
+class Configurator extends Component {
     constructor(props) {
         super(props);
 
@@ -200,6 +221,7 @@ export default class Configurator extends Component {
     /**
      * external parameters like the dataframe metadata might change.
      * Then we have to update the content
+     * @private
      */
     UNSAFE_componentWillReceiveProps(newProps) {
 
@@ -423,61 +445,76 @@ Configurator.defaultProps = {
     showUpdate: true
 };
 
+/**
+ * @typedef
+ * @enum {}
+ */
 Configurator.propTypes = {
     /**
      * The ID used to identify this component in Dash callbacks.
+     * @type {string}
      */
     id: PropTypes.string.isRequired,
 
 
     /**
      * The metadata the plotter selection is based on.
+     * @type {Object}
      */
     meta: PropTypes.any.isRequired,
 
     /**
      * Prop The resulting configuration of the plot.
+     * @type {Object}
      */
     config: PropTypes.any,
 
     /**
      * Prop to define the visibility of the Filter panel
+     * @type {boolean}
      */
     showFilter: PropTypes.bool,
 
     /**
      * Prop to define the visibility of the Transform panel
+     * @type {boolean}
      */
     showTransform: PropTypes.bool,
 
     /**
      * Prop to define the visibility of the Plot panel
+     * @type {boolean}
      */
     showPlotter: PropTypes.bool,
 
     /**
      * Prop to define the visibility of the Metadata panel
+     * @type {boolean}
      */
     showMetadata: PropTypes.bool,
 
     /**
      * Prop to define the visibility of the Parameterization panel
+     * @type {boolean}
      */
     showParameterization: PropTypes.bool,
 
     /**
      * Prop to define the visibility of the Store panel
+     * @type {boolean}
      */
     showStore: PropTypes.bool,
 
     /**
      * Prop to define the visibility of the update plot button
+     * @type {boolean}
      */
     showUpdate: PropTypes.bool,
 
     /**
      * Dash-assigned callback that should be called to report property changes
      * to Dash, to make them available for callbacks.
+     * @private
      */
     setProps: PropTypes.func
 
@@ -485,3 +522,8 @@ Configurator.propTypes = {
 
 }
 
+
+/**
+ * @private
+ */
+export default Configurator;

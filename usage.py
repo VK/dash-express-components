@@ -6,16 +6,8 @@ import dash_express_components as dxc
 import plotly.express as px
 import json
 
-
 df = px.data.gapminder()
-# df = df.rename(columns={
-#     "country": "location»country",
-#     "continent": "location»continent",
-#     "iso_alpha": "location»iso_alpha",
-#     "iso_num": "location»iso_num"
-# })
 meta = dxc.get_meta(df)
-
 
 app = dash.Dash(
     external_stylesheets=[

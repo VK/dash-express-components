@@ -32,10 +32,28 @@ let guid = () => {
 }
 
 /**
- * Graph can be used to render any plotly.js-powered data visualization.
- *
- * You can define callbacks based on user interaction with Graphs such as
- * hovering, clicking or selecting
+ * Graph is based on the original dash Graph and can be used to render any
+ * plotly.js-powered data visualization.
+ * 
+ * In addition, there is the possibility to add plot parameters as `defParams` and 
+ * the dataframe `meta` data.
+ * This automatically adds a configurator modal, which can be opened via a button
+ * at the bottom right. 
+ * @hideconstructor
+ * 
+ * @example
+ * import dash_express_components as dxc
+ * import plotly.express as px
+ * 
+ * meta = dxc.get_meta(px.data.gapminder())
+ * 
+ * dxc.Graph(
+ *     id="fig",
+ *     meta=meta,
+ *     defParams={}
+ * )
+ * 
+ * @alias Graph
  */
 class PlotlyGraph extends Component {
     constructor(props) {
@@ -453,7 +471,10 @@ const DummyControlledTable = memo(props => {
 });
 
 
-
+/**
+ * @typedef
+ * @enum {}
+ */
 PlotlyGraph.propTypes = {
     ...privatePropTypes,
 
@@ -461,6 +482,7 @@ PlotlyGraph.propTypes = {
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
      * components in an app.
+     * @type {string}
      */
     id: PropTypes.string,
 
@@ -916,4 +938,8 @@ PlotlyGraph.defaultProps = {
 export const graphPropTypes = PlotlyGraph.propTypes;
 export const graphDefaultProps = PlotlyGraph.defaultProps;
 
+
+/**
+ * @private
+ */
 export default PlotlyGraph;

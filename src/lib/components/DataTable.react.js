@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
  * component was written from scratch in React.js specifically for the
  * Dash community. Its API was designed to be ergonomic and its behavior
  * is completely customizable through its properties.
+ * @ignore
  */
 export default class DataTable extends Component {
     constructor(props) {

@@ -116,6 +116,8 @@ const filterEventData = (gd, eventData, event) => {
  *
  * You can define callbacks based on user interaction with Graphs such as
  * hovering, clicking or selecting
+ * 
+ * @ignore
  */
 class PlotlyGraph extends Component {
     constructor(props) {
@@ -488,4 +490,7 @@ PlotlyGraph.defaultProps = {
     extendData: [],
 };
 
+/**
+ * @private
+ */
 export default PlotlyGraph;
