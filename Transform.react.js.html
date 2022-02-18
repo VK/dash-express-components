@@ -1,0 +1,528 @@
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>Transform.react.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"Dash Express Components","systemSummary":"Simple widgets to add plotly express style plotting to dash","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.","linenums":true,"collapseSymbols":false,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":false,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":true,"cleverLinks":true};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					Dash Express Components
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Globals<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="global.html#action">action</a></li>
+											<li><a href="global.html#allow_null">allow_null</a></li>
+											<li><a href="global.html#allow_YY">allow_YY</a></li>
+											<li><a href="global.html#annotationPosition">annotationPosition</a></li>
+											<li><a href="global.html#annotationTail">annotationTail</a></li>
+											<li><a href="global.html#autosizable">autosizable</a></li>
+											<li><a href="global.html#clearable">clearable</a></li>
+											<li><a href="global.html#column_id">column_id</a></li>
+											<li><a href="global.html#component_name">component_name</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#decimal">decimal</a></li>
+											<li><a href="global.html#decimal">decimal</a></li>
+											<li><a href="global.html#default">default</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#deletable">deletable</a></li>
+											<li><a href="global.html#displaylogo">displaylogo</a></li>
+											<li><a href="global.html#displayModeBar">displayModeBar</a></li>
+											<li><a href="global.html#doubleClick">doubleClick</a></li>
+											<li><a href="global.html#doubleClickDelay">doubleClickDelay</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#editable">editable</a></li>
+											<li><a href="global.html#editable">editable</a></li>
+											<li><a href="global.html#edits">edits</a></li>
+											<li><a href="global.html#failure">failure</a></li>
+											<li><a href="global.html#filename">filename</a></li>
+											<li><a href="global.html#fillFrame">fillFrame</a></li>
+											<li><a href="global.html#filter_options">filter_options</a></li>
+											<li><a href="global.html#filter_query">filter_query</a></li>
+											<li><a href="global.html#format">format</a></li>
+											<li><a href="global.html#format">format</a></li>
+											<li><a href="global.html#frameMargins">frameMargins</a></li>
+											<li><a href="global.html#group">group</a></li>
+											<li><a href="global.html#group">group</a></li>
+											<li><a href="global.html#grouping">grouping</a></li>
+											<li><a href="global.html#grouping">grouping</a></li>
+											<li><a href="global.html#height">height</a></li>
+											<li><a href="global.html#hideable">hideable</a></li>
+											<li><a href="global.html#html">html</a></li>
+											<li><a href="global.html#id">id</a></li>
+											<li><a href="global.html#if">if</a></li>
+											<li><a href="global.html#is_loading">is_loading</a></li>
+											<li><a href="global.html#legendText">legendText</a></li>
+											<li><a href="global.html#link_target">link_target</a></li>
+											<li><a href="global.html#linkText">linkText</a></li>
+											<li><a href="global.html#locale">locale</a></li>
+											<li><a href="global.html#locale">locale</a></li>
+											<li><a href="global.html#locales">locales</a></li>
+											<li><a href="global.html#mapboxAccessToken">mapboxAccessToken</a></li>
+											<li><a href="global.html#modeBarButtons">modeBarButtons</a></li>
+											<li><a href="global.html#modeBarButtonsToAdd">modeBarButtonsToAdd</a></li>
+											<li><a href="global.html#modeBarButtonsToRemove">modeBarButtonsToRemove</a></li>
+											<li><a href="global.html#name">name</a></li>
+											<li><a href="global.html#nully">nully</a></li>
+											<li><a href="global.html#numerals">numerals</a></li>
+											<li><a href="global.html#numerals">numerals</a></li>
+											<li><a href="global.html#on_change">on_change</a></li>
+											<li><a href="global.html#percent">percent</a></li>
+											<li><a href="global.html#percent">percent</a></li>
+											<li><a href="global.html#plotGlPixelRatio">plotGlPixelRatio</a></li>
+											<li><a href="global.html#plotlyServerURL">plotlyServerURL</a></li>
+											<li><a href="global.html#prefix">prefix</a></li>
+											<li><a href="global.html#presentation">presentation</a></li>
+											<li><a href="global.html#prop_name">prop_name</a></li>
+											<li><a href="global.html#queueLength">queueLength</a></li>
+											<li><a href="global.html#renamable">renamable</a></li>
+											<li><a href="global.html#responsive">responsive</a></li>
+											<li><a href="global.html#row_index">row_index</a></li>
+											<li><a href="global.html#scale">scale</a></li>
+											<li><a href="global.html#scrollZoom">scrollZoom</a></li>
+											<li><a href="global.html#selectable">selectable</a></li>
+											<li><a href="global.html#sendData">sendData</a></li>
+											<li><a href="global.html#separate_4digits">separate_4digits</a></li>
+											<li><a href="global.html#separate_4digits">separate_4digits</a></li>
+											<li><a href="global.html#showAxisDragHandles">showAxisDragHandles</a></li>
+											<li><a href="global.html#showAxisRangeEntryBoxes">showAxisRangeEntryBoxes</a></li>
+											<li><a href="global.html#showEditInChartStudio">showEditInChartStudio</a></li>
+											<li><a href="global.html#showLink">showLink</a></li>
+											<li><a href="global.html#showSendToCloud">showSendToCloud</a></li>
+											<li><a href="global.html#showTips">showTips</a></li>
+											<li><a href="global.html#sort_as_null">sort_as_null</a></li>
+											<li><a href="global.html#specifier">specifier</a></li>
+											<li><a href="global.html#staticPlot">staticPlot</a></li>
+											<li><a href="global.html#symbol">symbol</a></li>
+											<li><a href="global.html#symbol">symbol</a></li>
+											<li><a href="global.html#titleText">titleText</a></li>
+											<li><a href="global.html#toImageButtonOptions">toImageButtonOptions</a></li>
+											<li><a href="global.html#topojsonURL">topojsonURL</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#use_with">use_with</a></li>
+											<li><a href="global.html#validation">validation</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#watermark">watermark</a></li>
+											<li><a href="global.html#width">width</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="Configurator.html">Configurator</a></li>
+											<li><a href="Graph.html">Graph</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">Transform.react.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">import React from 'react';
+import Base from './_sub/Base.react';
+
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+
+import Accordion from 'react-bootstrap/Accordion';
+
+
+import EvalTransform from './_sub/EvalTransform.react';
+import MeltTransform from './_sub/MeltTransform.react';
+import CombinecatTransform from './_sub/CombinecatTransform.react';
+import CategoryLookup from './_sub/CategoryLookup.react';
+import DropnaTransform from './_sub/DropnaTransform.react';
+import WideToLong from './_sub/WideToLong.react';
+import ZerosToNanTransform from './_sub/ZerosToNanTransform.react';
+import RenameTransform from './_sub/RenameTransform.react';
+
+
+export default class Transform extends Base {
+
+    static known_trafos = [
+        { type: "eval", class: EvalTransform, "label": "Compute new column" },
+        { type: "combinecat", class: CombinecatTransform, "label": "Combine to categorical column" },
+        { type: "melt", class: MeltTransform, "label": "Melt multiple colums to one" },
+        { type: "wide_to_long", class: WideToLong, "label": "Transform from wide to long" },
+        { type: "catlookup", class: CategoryLookup, "label": "Lookup for category" },
+        { type: "dropna", class: DropnaTransform, "label": "Drop nan values" },
+        { type: "zerostonan", class: ZerosToNanTransform, "label": "Replace zero values with nan" },
+        { type: "rename", class: RenameTransform, "label": "Rename multiple columns" }
+    ]
+
+
+    constructor(props) {
+        super([], props);
+
+
+
+        this.state =
+        {
+            ...this.state,
+
+            /* state of the modal to add new filters */
+            showAddModal: false,
+
+            transformType: "",
+            sub_config: {}
+        };
+
+        this.update_config(this.state.config, true);
+    }
+
+    handleClose() {
+        this.setState({ showAddModal: false });
+    }
+    handleShow() {
+        this.setState({ showAddModal: true });
+    }
+
+    UNSAFE_componentWillReceiveProps(newProps) {
+        const update_config_needed = (newProps.config !== this.props.config);
+
+        super.UNSAFE_componentWillReceiveProps(newProps);
+
+        if (update_config_needed &amp;&amp; "config" in newProps) {
+            this.update_config(newProps.config);
+        }
+
+    }
+
+
+    update_config(new_config, constructor = false) {
+        super.update_config(new_config, constructor);
+
+        //let new_meta = JSON.parse(JSON.stringify(this.state.meta))
+        let new_meta = { ...this.state.meta };
+
+        if (new_config)
+            new_config.forEach(el => {
+
+                let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
+                let res = transform_class.eval(
+                    {
+                        ...el,
+                        meta: new_meta
+                    }
+                );
+                if (res["new_meta"] != undefined) {
+                    new_meta = res["new_meta"];
+                }
+
+
+            });
+
+        super.update_meta_out(new_meta, constructor);
+
+        if (constructor) {
+            this.state = {
+                ...this.state,
+                ...this.get_columns(new_meta)
+            }
+        } else {
+            this.setState(this.get_columns(new_meta));
+        }
+    }
+
+    get_transform_blocks() {
+        const { config } = this.state;
+
+        if (config) {
+            return &lt;div>
+                {
+                    config.map((el, id) => {
+
+                        let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
+
+                        let config_string = transform_class.config_to_string(el);
+
+                        return (&lt;Alert dismissible={id === config.length - 1} key={id} onClose={() => {
+
+                            let new_config = config.filter((e, idx) => idx !== id);
+                            this.update_config(new_config)
+
+                        }}>{config_string}&lt;/Alert>)
+                    }
+                    )
+                }
+
+            &lt;/div>
+        }
+    }
+
+
+
+
+    get_modal_blocks() {
+
+        const {
+            allColOptions,
+            catColOptions,
+            numColOptions,
+            allOptions,
+            meta_out,
+
+
+            showAddModal,
+            transformType,
+
+            sub_config,
+            config,
+        } = this.state;
+
+
+
+        return (&lt;Modal
+            backdrop="static"
+            animation={false}
+            show={showAddModal}
+            onHide={() => this.handleClose()}
+        >
+            &lt;Modal.Header closeButton>
+                &lt;Modal.Title>Add transform&lt;/Modal.Title>
+            &lt;/Modal.Header>
+            &lt;Modal.Body>&lt;div style={{ minHeight: "15em" }} className="mb-3">
+
+
+
+                &lt;InputGroup className="mb-3">
+                    &lt;InputGroup.Text id="basic-addon1">Type&lt;/InputGroup.Text>
+                    &lt;Form.Select
+
+
+                        value={transformType}
+                        onChange={e => {
+                            this.setState({
+                                transformType: e.target.value,
+                                new_transform: {}
+
+                            });
+                        }}
+
+                    >
+                        &lt;option value="">&lt;/option>
+                        {
+                            Transform.known_trafos.map(trafo_el => {
+                                return (&lt;option key={"option" + trafo_el["type"]} value={trafo_el["type"]}>{trafo_el.label}&lt;/option>)
+                            })
+                        }
+                    &lt;/Form.Select>
+
+                &lt;/InputGroup>
+
+
+
+                {
+                    Transform.known_trafos.map(trafo_el => {
+                        return (
+                            transformType === trafo_el["type"] &amp;&amp;
+                            &lt;trafo_el.class
+                                key={"config" + trafo_el["type"]}
+                                meta={meta_out}
+                                allColOptions={allColOptions}
+                                catColOptions={catColOptions}
+                                numColOptions={numColOptions}
+                                allOptions={allOptions}
+                                setProps={e => { if ("config" in e) { this.setState({ sub_config: e.config }) } }}
+                            />
+                        )
+                    })
+                }
+
+
+            &lt;/div>
+            &lt;/Modal.Body>
+            &lt;Modal.Footer>
+                &lt;Button variant="secondary" onClick={() => this.handleClose()}>
+                    Close
+                &lt;/Button>
+                &lt;Button variant="primary" onClick={() => {
+
+                    if ("type" in sub_config) {
+
+
+                        let transform_class = Transform.known_trafos.filter(el => el["type"] === sub_config["type"])[0]["class"];
+                        let res = transform_class.eval(
+                            {
+                                ...sub_config,
+                                meta: meta_out
+                            }
+                        );
+
+                        if (!res.error || window.confirm("Do you want to add the transform, even with errors?")) {
+                            let new_config = [
+                                ...config,
+                                sub_config
+                            ];
+
+                            this.update_config(new_config);
+                            this.handleClose();
+                        }
+
+
+                    }
+
+
+                }}>
+                    Add
+                &lt;/Button>
+            &lt;/Modal.Footer>
+        &lt;/Modal>)
+
+    }
+
+    render() {
+
+        return (
+            &lt;div>
+                {this.get_transform_blocks()}
+
+                &lt;Button className='w-100' onClick={() => this.handleShow()}>
+                    Add transformation
+                &lt;/Button>
+
+                {this.get_modal_blocks()}
+            &lt;/div>
+        )
+
+    }
+}
+
+
+
+Transform.defaultProps = {};
+
+
+Transform.propTypes = {
+
+    /**
+     * The ID used to identify this component in Dash callbacks.
+     */
+    id: PropTypes.string.isRequired,
+
+    /**
+    * The config the user sets in this component.
+    */
+    config: PropTypes.any,
+
+    /**
+     * The metadata this section is based on.
+     */
+    meta: PropTypes.any.isRequired,
+
+
+    /**
+     * The metadata section will create as output.
+     */
+    meta_out: PropTypes.any,
+
+
+    /**
+     * Dash-assigned callback that should be called to report property changes
+     * to Dash, to make them available for callbacks.
+     */
+    setProps: PropTypes.func
+};
+
+</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on 18th Feb 2022 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->

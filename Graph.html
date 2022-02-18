@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>Graph</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"Dash Express Components","systemSummary":"Simple widgets to add plotly express style plotting to dash","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.","linenums":true,"collapseSymbols":false,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":false,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":true,"cleverLinks":true};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					Dash Express Components
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Globals<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="global.html#action">action</a></li>
+											<li><a href="global.html#allow_null">allow_null</a></li>
+											<li><a href="global.html#allow_YY">allow_YY</a></li>
+											<li><a href="global.html#annotationPosition">annotationPosition</a></li>
+											<li><a href="global.html#annotationTail">annotationTail</a></li>
+											<li><a href="global.html#autosizable">autosizable</a></li>
+											<li><a href="global.html#clearable">clearable</a></li>
+											<li><a href="global.html#column_id">column_id</a></li>
+											<li><a href="global.html#component_name">component_name</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#decimal">decimal</a></li>
+											<li><a href="global.html#decimal">decimal</a></li>
+											<li><a href="global.html#default">default</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#deletable">deletable</a></li>
+											<li><a href="global.html#displaylogo">displaylogo</a></li>
+											<li><a href="global.html#displayModeBar">displayModeBar</a></li>
+											<li><a href="global.html#doubleClick">doubleClick</a></li>
+											<li><a href="global.html#doubleClickDelay">doubleClickDelay</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#editable">editable</a></li>
+											<li><a href="global.html#editable">editable</a></li>
+											<li><a href="global.html#edits">edits</a></li>
+											<li><a href="global.html#failure">failure</a></li>
+											<li><a href="global.html#filename">filename</a></li>
+											<li><a href="global.html#fillFrame">fillFrame</a></li>
+											<li><a href="global.html#filter_options">filter_options</a></li>
+											<li><a href="global.html#filter_query">filter_query</a></li>
+											<li><a href="global.html#format">format</a></li>
+											<li><a href="global.html#format">format</a></li>
+											<li><a href="global.html#frameMargins">frameMargins</a></li>
+											<li><a href="global.html#group">group</a></li>
+											<li><a href="global.html#group">group</a></li>
+											<li><a href="global.html#grouping">grouping</a></li>
+											<li><a href="global.html#grouping">grouping</a></li>
+											<li><a href="global.html#height">height</a></li>
+											<li><a href="global.html#hideable">hideable</a></li>
+											<li><a href="global.html#html">html</a></li>
+											<li><a href="global.html#id">id</a></li>
+											<li><a href="global.html#if">if</a></li>
+											<li><a href="global.html#is_loading">is_loading</a></li>
+											<li><a href="global.html#legendText">legendText</a></li>
+											<li><a href="global.html#link_target">link_target</a></li>
+											<li><a href="global.html#linkText">linkText</a></li>
+											<li><a href="global.html#locale">locale</a></li>
+											<li><a href="global.html#locale">locale</a></li>
+											<li><a href="global.html#locales">locales</a></li>
+											<li><a href="global.html#mapboxAccessToken">mapboxAccessToken</a></li>
+											<li><a href="global.html#modeBarButtons">modeBarButtons</a></li>
+											<li><a href="global.html#modeBarButtonsToAdd">modeBarButtonsToAdd</a></li>
+											<li><a href="global.html#modeBarButtonsToRemove">modeBarButtonsToRemove</a></li>
+											<li><a href="global.html#name">name</a></li>
+											<li><a href="global.html#nully">nully</a></li>
+											<li><a href="global.html#numerals">numerals</a></li>
+											<li><a href="global.html#numerals">numerals</a></li>
+											<li><a href="global.html#on_change">on_change</a></li>
+											<li><a href="global.html#percent">percent</a></li>
+											<li><a href="global.html#percent">percent</a></li>
+											<li><a href="global.html#plotGlPixelRatio">plotGlPixelRatio</a></li>
+											<li><a href="global.html#plotlyServerURL">plotlyServerURL</a></li>
+											<li><a href="global.html#prefix">prefix</a></li>
+											<li><a href="global.html#presentation">presentation</a></li>
+											<li><a href="global.html#prop_name">prop_name</a></li>
+											<li><a href="global.html#queueLength">queueLength</a></li>
+											<li><a href="global.html#renamable">renamable</a></li>
+											<li><a href="global.html#responsive">responsive</a></li>
+											<li><a href="global.html#row_index">row_index</a></li>
+											<li><a href="global.html#scale">scale</a></li>
+											<li><a href="global.html#scrollZoom">scrollZoom</a></li>
+											<li><a href="global.html#selectable">selectable</a></li>
+											<li><a href="global.html#sendData">sendData</a></li>
+											<li><a href="global.html#separate_4digits">separate_4digits</a></li>
+											<li><a href="global.html#separate_4digits">separate_4digits</a></li>
+											<li><a href="global.html#showAxisDragHandles">showAxisDragHandles</a></li>
+											<li><a href="global.html#showAxisRangeEntryBoxes">showAxisRangeEntryBoxes</a></li>
+											<li><a href="global.html#showEditInChartStudio">showEditInChartStudio</a></li>
+											<li><a href="global.html#showLink">showLink</a></li>
+											<li><a href="global.html#showSendToCloud">showSendToCloud</a></li>
+											<li><a href="global.html#showTips">showTips</a></li>
+											<li><a href="global.html#sort_as_null">sort_as_null</a></li>
+											<li><a href="global.html#specifier">specifier</a></li>
+											<li><a href="global.html#staticPlot">staticPlot</a></li>
+											<li><a href="global.html#symbol">symbol</a></li>
+											<li><a href="global.html#symbol">symbol</a></li>
+											<li><a href="global.html#titleText">titleText</a></li>
+											<li><a href="global.html#toImageButtonOptions">toImageButtonOptions</a></li>
+											<li><a href="global.html#topojsonURL">topojsonURL</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#use_with">use_with</a></li>
+											<li><a href="global.html#validation">validation</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#watermark">watermark</a></li>
+											<li><a href="global.html#width">width</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="Configurator.html">Configurator</a></li>
+											<li><a href="Graph.html">Graph</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">class</span>
+				<h1><span class="name">Graph</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+						<ol class="breadcrumb">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="list_class.html">Classes</a></li>
+							<li class="active">Graph</li>
+						</ol>
+					<section>
+							<dl class="symbol primary">
+								<dt class="symbol-title class">
+			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">Graph</span><span class="signature-params">()</span><span class="signature-type"></span></h2>
+</dt>
+<dd class="symbol-details class" style="max-height: 9999px;">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description classdesc"><p>Graph is based on the original dash Graph and can be used to render any
+			plotly.js-powered data visualization.</p>
+			<p>In addition, there is the possibility to add plot parameters as <code>defParams</code> and
+			the dataframe <code>meta</code> data.
+			This automatically adds a configurator modal, which can be opened via a button
+			at the bottom right.</p></div>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">import dash_express_components as dxc
+			import plotly.express as px
+			
+			meta &#x3D; dxc.get_meta(px.data.gapminder())
+			
+			dxc.Graph(
+			    id&#x3D;&quot;fig&quot;,
+			    meta&#x3D;meta,
+			    defParams&#x3D;{}
+			)</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="Graph.react.js.html">Graph.react.js</a>, <a href="Graph.react.js.html#line-58">line 58</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+							</dl>
+							<article class="secondary">
+									<h3>Type Definitions</h3>
+									<dl class="symbol">
+											<hr/>
+											<dt class="symbol-title typedef public">
+			<h4 id=".propTypes" class="typedef public"><span class="name">propTypes</span></h4>
+		</dt>
+<dd class="symbol-details typedef public">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Properties</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Default</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>id</code></td>
+							<td><span class="param-type">string</span></td>
+								<td>PropTypes.string</td>
+							<td class="last">
+									<p>The ID of this component, used to identify dash components
+			in callbacks. The ID needs to be unique across all of the
+			components in an app.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>responsive</code></td>
+							<td></td>
+								<td></td>
+							<td class="last">
+									<p>If True, the Plotly.js plot will be fully responsive to window resize
+			and parent element resize event. This is achieved by overriding
+			<code>config.responsive</code> to True, <code>figure.layout.autosize</code> to True and unsetting
+			<code>figure.layout.height</code> and <code>figure.layout.width</code>.
+			If False, the Plotly.js plot not be responsive to window resize and
+			parent element resize event. This is achieved by overriding <code>config.responsive</code>
+			to False and <code>figure.layout.autosize</code> to False.
+			If 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully
+			responsive (True) or not (False) based on the values in <code>config.responsive</code>,
+			<code>figure.layout.autosize</code>, <code>figure.layout.height</code>, <code>figure.layout.width</code>.
+			This is the legacy behavior of the Graph component.</p>
+			<p>Needs to be combined with appropriate dimension / styling through the <code>style</code> prop
+			to fully take effect.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>defParams</code></td>
+							<td></td>
+								<td>PropTypes.object</td>
+							<td class="last">
+									<p>Metadata to describe the plot features</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>meta</code></td>
+							<td></td>
+								<td>PropTypes.any</td>
+							<td class="last">
+									<p>The metadata the plotter selection is based on.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>clickData</code></td>
+							<td></td>
+								<td>PropTypes.object</td>
+							<td class="last">
+									<p>Data from latest click event. Read-only.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>clickAnnotationData</code></td>
+							<td></td>
+								<td>PropTypes.object</td>
+							<td class="last">
+									<p>Data from latest click annotation event. Read-only.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>hoverData</code></td>
+							<td></td>
+								<td>PropTypes.object</td>
+							<td class="last">
+									<p>Data from latest hover event. Read-only.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>clear_on_unhover</code></td>
+							<td></td>
+								<td>PropTypes.bool</td>
+							<td class="last">
+									<p>If True, <code>clear_on_unhover</code> will clear the <code>hoverData</code> property
+			when the user &quot;unhovers&quot; from a point.
+			If False, then the <code>hoverData</code> property will be equal to the
+			data from the last point that was hovered over.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>selectedData</code></td>
+							<td></td>
+								<td>PropTypes.object</td>
+							<td class="last">
+									<p>Data from latest select event. Read-only.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>relayoutData</code></td>
+							<td></td>
+								<td>PropTypes.object</td>
+							<td class="last">
+									<p>Data from latest relayout event which occurs
+			when the user zooms or pans on the plot or other
+			layout-level edits. Has the form <code>{&lt;attr string&gt;: &lt;value&gt;}</code>
+			describing the changes made. Read-only.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>extendData</code></td>
+							<td></td>
+								<td></td>
+							<td class="last">
+									<p>Data that should be appended to existing traces. Has the form
+			<code>[updateData, traceIndices, maxPoints]</code>, where <code>updateData</code> is an object
+			containing the data to extend, <code>traceIndices</code> (optional) is an array of
+			trace indices that should be extended, and <code>maxPoints</code> (optional) is
+			either an integer defining the maximum number of points allowed or an
+			object with key:value pairs matching <code>updateData</code>
+			Reference the Plotly.extendTraces API for full usage:
+			https://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>prependData</code></td>
+							<td></td>
+								<td></td>
+							<td class="last">
+									<p>Data that should be prepended to existing traces. Has the form
+			<code>[updateData, traceIndices, maxPoints]</code>, where <code>updateData</code> is an object
+			containing the data to prepend, <code>traceIndices</code> (optional) is an array of
+			trace indices that should be prepended, and <code>maxPoints</code> (optional) is
+			either an integer defining the maximum number of points allowed or an
+			object with key:value pairs matching <code>updateData</code>
+			Reference the Plotly.prependTraces API for full usage:
+			https://plotly.com/javascript/plotlyjs-function-reference/#plotlyprependtraces</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>restyleData</code></td>
+							<td></td>
+								<td>PropTypes.array</td>
+							<td class="last">
+									<p>Data from latest restyle event which occurs
+			when the user toggles a legend item, changes
+			parcoords selections, or other trace-level edits.
+			Has the form <code>[edits, indices]</code>, where <code>edits</code> is an object
+			<code>{&lt;attr string&gt;: &lt;value&gt;}</code> describing the changes made,
+			and <code>indices</code> is an array of trace indices that were edited.
+			Read-only.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>figure</code></td>
+							<td></td>
+								<td>PropTypes.any</td>
+							<td class="last">
+									<p>Plotly <code>figure</code> object. See schema:
+			https://plotly.com/javascript/reference</p>
+			<p><code>config</code> is set separately by the <code>config</code> property</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>style</code></td>
+							<td></td>
+								<td>PropTypes.object</td>
+							<td class="last">
+									<p>Generic style overrides on the plot div</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>className</code></td>
+							<td></td>
+								<td>PropTypes.string</td>
+							<td class="last">
+									<p>className of the parent div</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>animate</code></td>
+							<td></td>
+								<td>PropTypes.bool</td>
+							<td class="last">
+									<p>Beta: If true, animate between updates using
+			plotly.js's <code>animate</code> function</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>animation_options</code></td>
+							<td></td>
+								<td>PropTypes.object</td>
+							<td class="last">
+									<p>Beta: Object containing animation settings.
+			Only applies if <code>animate</code> is <code>true</code></p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>config</code></td>
+							<td></td>
+								<td></td>
+							<td class="last">
+									<p>Plotly.js config options.
+			See https://plotly.com/javascript/configuration-options/
+			for more info.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>setProps</code></td>
+							<td></td>
+								<td>PropTypes.func</td>
+							<td class="last">
+									<p>Function that updates the state tree.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>loading_state</code></td>
+							<td></td>
+								<td></td>
+							<td class="last">
+									<p>Object that holds the loading state object coming from dash-renderer</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="Graph.react.js.html">Graph.react.js</a>, <a href="Graph.react.js.html#line-478">line 478</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+									</dl>
+							</article>
+					</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on 18th Feb 2022 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>

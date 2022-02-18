@@ -1,0 +1,748 @@
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>Configurator.react.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"Dash Express Components","systemSummary":"Simple widgets to add plotly express style plotting to dash","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.","linenums":true,"collapseSymbols":false,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":false,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":true,"cleverLinks":true};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					Dash Express Components
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Globals<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="global.html#action">action</a></li>
+											<li><a href="global.html#allow_null">allow_null</a></li>
+											<li><a href="global.html#allow_YY">allow_YY</a></li>
+											<li><a href="global.html#annotationPosition">annotationPosition</a></li>
+											<li><a href="global.html#annotationTail">annotationTail</a></li>
+											<li><a href="global.html#autosizable">autosizable</a></li>
+											<li><a href="global.html#clearable">clearable</a></li>
+											<li><a href="global.html#column_id">column_id</a></li>
+											<li><a href="global.html#component_name">component_name</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#decimal">decimal</a></li>
+											<li><a href="global.html#decimal">decimal</a></li>
+											<li><a href="global.html#default">default</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#deletable">deletable</a></li>
+											<li><a href="global.html#displaylogo">displaylogo</a></li>
+											<li><a href="global.html#displayModeBar">displayModeBar</a></li>
+											<li><a href="global.html#doubleClick">doubleClick</a></li>
+											<li><a href="global.html#doubleClickDelay">doubleClickDelay</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#editable">editable</a></li>
+											<li><a href="global.html#editable">editable</a></li>
+											<li><a href="global.html#edits">edits</a></li>
+											<li><a href="global.html#failure">failure</a></li>
+											<li><a href="global.html#filename">filename</a></li>
+											<li><a href="global.html#fillFrame">fillFrame</a></li>
+											<li><a href="global.html#filter_options">filter_options</a></li>
+											<li><a href="global.html#filter_query">filter_query</a></li>
+											<li><a href="global.html#format">format</a></li>
+											<li><a href="global.html#format">format</a></li>
+											<li><a href="global.html#frameMargins">frameMargins</a></li>
+											<li><a href="global.html#group">group</a></li>
+											<li><a href="global.html#group">group</a></li>
+											<li><a href="global.html#grouping">grouping</a></li>
+											<li><a href="global.html#grouping">grouping</a></li>
+											<li><a href="global.html#height">height</a></li>
+											<li><a href="global.html#hideable">hideable</a></li>
+											<li><a href="global.html#html">html</a></li>
+											<li><a href="global.html#id">id</a></li>
+											<li><a href="global.html#if">if</a></li>
+											<li><a href="global.html#is_loading">is_loading</a></li>
+											<li><a href="global.html#legendText">legendText</a></li>
+											<li><a href="global.html#link_target">link_target</a></li>
+											<li><a href="global.html#linkText">linkText</a></li>
+											<li><a href="global.html#locale">locale</a></li>
+											<li><a href="global.html#locale">locale</a></li>
+											<li><a href="global.html#locales">locales</a></li>
+											<li><a href="global.html#mapboxAccessToken">mapboxAccessToken</a></li>
+											<li><a href="global.html#modeBarButtons">modeBarButtons</a></li>
+											<li><a href="global.html#modeBarButtonsToAdd">modeBarButtonsToAdd</a></li>
+											<li><a href="global.html#modeBarButtonsToRemove">modeBarButtonsToRemove</a></li>
+											<li><a href="global.html#name">name</a></li>
+											<li><a href="global.html#nully">nully</a></li>
+											<li><a href="global.html#numerals">numerals</a></li>
+											<li><a href="global.html#numerals">numerals</a></li>
+											<li><a href="global.html#on_change">on_change</a></li>
+											<li><a href="global.html#percent">percent</a></li>
+											<li><a href="global.html#percent">percent</a></li>
+											<li><a href="global.html#plotGlPixelRatio">plotGlPixelRatio</a></li>
+											<li><a href="global.html#plotlyServerURL">plotlyServerURL</a></li>
+											<li><a href="global.html#prefix">prefix</a></li>
+											<li><a href="global.html#presentation">presentation</a></li>
+											<li><a href="global.html#prop_name">prop_name</a></li>
+											<li><a href="global.html#queueLength">queueLength</a></li>
+											<li><a href="global.html#renamable">renamable</a></li>
+											<li><a href="global.html#responsive">responsive</a></li>
+											<li><a href="global.html#row_index">row_index</a></li>
+											<li><a href="global.html#scale">scale</a></li>
+											<li><a href="global.html#scrollZoom">scrollZoom</a></li>
+											<li><a href="global.html#selectable">selectable</a></li>
+											<li><a href="global.html#sendData">sendData</a></li>
+											<li><a href="global.html#separate_4digits">separate_4digits</a></li>
+											<li><a href="global.html#separate_4digits">separate_4digits</a></li>
+											<li><a href="global.html#showAxisDragHandles">showAxisDragHandles</a></li>
+											<li><a href="global.html#showAxisRangeEntryBoxes">showAxisRangeEntryBoxes</a></li>
+											<li><a href="global.html#showEditInChartStudio">showEditInChartStudio</a></li>
+											<li><a href="global.html#showLink">showLink</a></li>
+											<li><a href="global.html#showSendToCloud">showSendToCloud</a></li>
+											<li><a href="global.html#showTips">showTips</a></li>
+											<li><a href="global.html#sort_as_null">sort_as_null</a></li>
+											<li><a href="global.html#specifier">specifier</a></li>
+											<li><a href="global.html#staticPlot">staticPlot</a></li>
+											<li><a href="global.html#symbol">symbol</a></li>
+											<li><a href="global.html#symbol">symbol</a></li>
+											<li><a href="global.html#titleText">titleText</a></li>
+											<li><a href="global.html#toImageButtonOptions">toImageButtonOptions</a></li>
+											<li><a href="global.html#topojsonURL">topojsonURL</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#use_with">use_with</a></li>
+											<li><a href="global.html#validation">validation</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#watermark">watermark</a></li>
+											<li><a href="global.html#width">width</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="Configurator.html">Configurator</a></li>
+											<li><a href="Graph.html">Graph</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">Configurator.react.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">import { Component } from 'react';
+
+import Accordion from 'react-bootstrap/Accordion';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import classNames from 'classnames';
+
+
+import Filter from './Filter.react';
+import Transform from './Transform.react';
+import MetaCheck from './MetaCheck.react';
+import Plotter from './Plotter.react';
+import Parameterize from './Parameterize.react';
+import Localstore from './Localstore.react';
+import { none } from 'ramda';
+
+/**
+ * Warp all subcomponents used in the configurator into an accordion
+ * 
+ * @private
+ */
+class CustomAccordionItem extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isOpen: ("defaultOpen" in props)
+        }
+
+
+    }
+
+    render() {
+        const { isOpen } = this.state;
+
+        return (
+            &lt;div className='accordion-item'>
+                &lt;h2 className='accordion-header'>
+                    &lt;button
+                        type="button"
+                        className={classNames('accordion-button', !isOpen &amp;&amp; 'collapsed')}
+                        onClick={e => { this.setState({ isOpen: !isOpen }); }}
+                    >
+                        {this.props.title}
+                    &lt;/button>
+                &lt;/h2>
+                &lt;div className={classNames('accordion-collapse', !isOpen &amp;&amp; 'collapse')}>
+                    &lt;div className='accordion-body'>
+                        {this.props.children}
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        )
+    }
+}
+
+
+
+
+
+
+/**
+ * The configurator component helps to define plot definitions based on the
+ * metadata of a dataframe.
+ * 
+ * The metadata is used to compute the available parameters after data 
+ * transformations for the most common plot types.
+ * @hideconstructor
+ * 
+ * @example
+ * import dash_express_components as dxc
+ * import plotly.express as px
+ * 
+ * meta = dxc.get_meta(px.data.gapminder())
+ * 
+ *  dxc.Configurator(
+ *           id="plotConfig",
+ *           meta=meta,
+ *  )
+ * 
+ */
+class Configurator extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            id: this.props.id,
+            config: {},
+            meta: props.meta,
+            filter_meta_out: { ...props.meta },
+            transform_meta_out: { ...props.meta },
+
+            /* state of the modal to ask if edit should be opened */
+            showEditModal: false,
+            eventConfig: {},
+            eventThumbnail: "",
+            eventGraphId: "",
+            modal_close_timeout: undefined
+
+        };
+
+        this.state.config = this.fix_config(this.state.config);
+
+        this.state.config_filter = this.state.config.filter;
+        this.state.config_transform = this.state.config.transform;
+        this.state.config_plot = this.state.config.plot;
+
+        window.addEventListener("message", (event) => {
+
+            if ("data" in event &amp;&amp; "configuratorId" in event.data &amp;&amp; event.data.configuratorId == this.props.id) {
+
+                this.setState({
+                    showEditModal: true,
+                    eventConfig: this.fix_config(event.data.defs),
+                    eventThumbnail: event.data.thumbnail,
+                    eventGraphId: event.data.graphId
+                });
+
+                let that = this;
+                let modal_close_timeout = setTimeout(function () { that.handleClose(); }, 5000);
+
+                this.setState({ modal_close_timeout: modal_close_timeout });
+
+            }
+
+        }, false);
+
+    }
+
+
+    fix_config(new_config) {
+        if (new_config == undefined) {
+            new_config = {};
+        }
+        if (!("filter" in new_config)) {
+            new_config["filter"] = [];
+        }
+        if (!("transform" in new_config)) {
+            new_config["transform"] = [];
+        }
+        if (!("plot" in new_config)) {
+            new_config["plot"] = {};
+        }
+        if (!("parameterization" in new_config)) {
+            new_config["parameterization"] = {
+                parameters: [],
+                computeAll: false,
+                computeMatrix: []
+            };
+        }
+        return new_config;
+    }
+
+    update_sub_config(config_dict) {
+
+        let that = this;
+
+        setTimeout(function () {
+
+            let new_config = { ...that.state.config, ...config_dict };
+
+            ["filter", "transform", "plot"].forEach(el => {
+                if (el in config_dict) {
+                    that.setState({ ['config_' + el]: config_dict[el] },
+                        () => { that.update_config(new_config); }
+                    )
+                }
+            })
+        }, 50);
+    }
+
+
+    update_config(new_config) {
+
+
+        new_config = this.fix_config(new_config);
+
+        this.setState({ config_filter: new_config.filter },
+            () => {
+                this.setState({ config_transform: new_config.transform },
+                    () => {
+                        this.setState({ config_plot: new_config.plot },
+                            () => {
+                                this.setState({ config: new_config });
+                            })
+                    }
+                )
+            });
+
+    }
+
+    update_props(graphId = null) {
+        let config = JSON.parse(JSON.stringify(this.state.config));
+
+        config["graphId"] = graphId;
+
+        if (config.filter == null || config.filter === undefined || config.filter.length === 0) {
+            delete config["filter"];
+        }
+
+        if (config.transform == null || config.transform === undefined || config.transform.length === 0) {
+            delete config["transform"];
+        }
+
+        if (config.parameterization == null || config.parameterization === undefined || config.parameterization.parameters === undefined
+            || config.parameterization.parameters.length === 0) {
+            delete config["parameterization"];
+        }
+
+        if (config.graphId === null || config.graphId === undefined) {
+            delete config["graphId"];
+        }
+
+        this.props.setProps({
+            config: JSON.parse(JSON.stringify(config))
+        });
+    }
+
+
+    /**
+     * external parameters like the dataframe metadata might change.
+     * Then we have to update the content
+     * @private
+     */
+    UNSAFE_componentWillReceiveProps(newProps) {
+
+        if (newProps.config !== this.props.config) {
+            let config = this.fix_config(JSON.parse(JSON.stringify(newProps.config)));
+            //let config = JSON.parse(JSON.stringify(this.fix_config(newProps.config)));
+            this.setState(
+                { config: config }
+            )
+        }
+
+        if (newProps.meta !== this.props.meta) {
+            this.setState(
+                { meta: newProps.meta }
+            )
+        }
+
+
+
+    }
+
+
+    handleClose() {
+
+        if (this.state.modal_close_timeout != undefined) {
+            clearTimeout(this.state.modal_close_timeout);
+        }
+        this.setState({ showEditModal: false, modal_close_timeout: undefined });
+
+    }
+
+
+    render() {
+        const { id } = this.props;
+        const { meta, filter_meta_out, transform_meta_out, showEditModal, eventGraphId } = this.state;
+        let { config,
+            config_filter,
+            config_transform,
+            config_plot
+        } = this.state;
+
+        return (
+
+            &lt;Accordion id={id} key={id} defaultActiveKey="plotter">
+
+                {this.props.showFilter &amp;&amp; &lt;CustomAccordionItem title="Filter">
+                    &lt; Filter
+                        id={`${id}-filter`}
+                        key={`${id}-filter`}
+                        meta={meta}
+                        config={config_filter}
+                        setProps={
+                            out => {
+                                if ("config" in out) {
+                                    //let new_config = { ...config };
+                                    //new_config["filter"] = out.config;
+                                    this.update_sub_config({ filter: out.config });
+                                }
+
+                                if ("meta_out" in out) {
+                                    this.setState({ filter_meta_out: out.meta_out });
+                                }
+                            }}
+                    />
+                &lt;/CustomAccordionItem>}
+
+
+                {this.props.showTransform &amp;&amp; &lt;CustomAccordionItem title="Transform">
+                    &lt;Transform
+                        id={`${id}-transform`}
+                        key={`${id}-transform`}
+                        meta={filter_meta_out}
+                        config={config_transform}
+                        setProps={
+                            out => {
+                                if ("config" in out) {
+                                    //let new_config = { ...config };
+                                    //new_config["transform"] = out.config;
+                                    this.update_sub_config({ transform: out.config });
+                                }
+
+                                if ("meta_out" in out) {
+                                    this.setState({ transform_meta_out: out.meta_out });
+                                }
+                            }}
+                    />
+                &lt;/CustomAccordionItem>}
+
+                {this.props.showMetadata &amp;&amp; &lt;CustomAccordionItem title="Data Columns">
+                    &lt;MetaCheck
+                        id={`${id}-metacheck`}
+                        key={`${id}-metacheck`}
+                        meta={transform_meta_out}
+                        setProps={out => { }}
+                    />
+                &lt;/CustomAccordionItem>}
+
+                {this.props.showPlotter &amp;&amp; &lt;CustomAccordionItem title="Plotter" defaultOpen>
+                    &lt;Plotter
+                        id={`${id}-plotter`}
+                        key={`${id}-plotter`}
+                        meta={transform_meta_out}
+                        config={config_plot}
+                        setProps={
+                            out => {
+                                if ("config" in out) {
+                                    //let new_config = { ...config };
+                                    //new_config["plot"] = out.config;
+                                    this.update_sub_config({ plot: out.config });
+                                }
+                            }}
+                    />
+                &lt;/CustomAccordionItem>}
+
+
+                {this.props.showUpdate &amp;&amp; &lt;div className='accordion-item' key={`${id}-save-btn`}>
+                    &lt;h2 className='accordion-header'>
+                        &lt;ButtonGroup className='w-100 p-3'>
+                            &lt;Button
+                                onClick={e => { this.update_props(); }}
+                                size="lg"
+                                variant="outline-primary"
+                            >New Plot&lt;/Button>
+                            {/* enable update plot button only if available */}
+                            {eventGraphId !== "" &amp;&amp; false &amp;&amp; &lt;Button
+                                onClick={e => { this.update_props(eventGraphId); }}
+                                size="lg"
+                                variant="outline-primary"
+                            >Update Plot&lt;/Button>}
+                        &lt;/ButtonGroup>
+                    &lt;/h2>
+                &lt;/div>}
+
+                {this.props.showParameterization &amp;&amp; &lt;CustomAccordionItem title="Parameterize" defaultOpen>
+                    &lt;Parameterize
+                        id={`${id}-parametrize`}
+                        key={`${id}-parametrize`}
+                        meta={transform_meta_out}
+                        config={{ ...config }}
+                        setProps={out => {
+                            if ("config" in out) {
+                                let new_config = { ...out.config };
+                                new_config = JSON.parse(JSON.stringify(new_config));
+                                config = new_config;
+                                this.update_config(new_config);
+                            }
+                        }}
+                    />
+                &lt;/CustomAccordionItem>}
+
+                {this.props.showStore &amp;&amp; &lt;CustomAccordionItem title="Store">
+                    &lt;Localstore
+                        id={`${id}-store`}
+                        key={`${id}-store`}
+                        meta={transform_meta_out}
+                        config={config}
+                        setProps={out => {
+                            if ("config" in out) {
+                                let new_config = { ...out.config }
+                                this.update_config(new_config);
+                            }
+                        }}
+                    />
+                &lt;/CustomAccordionItem>}
+
+
+                &lt;Modal
+                    backdrop="static"
+                    animation={false}
+                    show={showEditModal}
+                    onHide={() => this.handleClose()}>
+                    &lt;Modal.Header closeButton>
+                        &lt;Modal.Title>Load Plot Config&lt;/Modal.Title>
+                    &lt;/Modal.Header>
+                    &lt;Modal.Body>&lt;div style={{ minHeight: "15em" }} className="mb-3">
+
+                        Do you want the load the plot configuration for this plot:
+                        &lt;img src={this.state.eventThumbnail} alt="Plot Image" className='w-100' />
+
+                        &lt;b>Note!&lt;/b> It will replace the current plot configuration.
+                    &lt;/div>
+                    &lt;/Modal.Body>
+                    &lt;Modal.Footer>
+                        &lt;Button variant="secondary" onClick={() => this.handleClose()}>
+                            Close
+                        &lt;/Button>
+                        &lt;Button variant="primary" onClick={(e) => {
+
+                            this.update_config(
+                                this.state.eventConfig
+                            );
+                            //perhaps we want to do something with the eventGraphId
+                            //to update the plot just for the right id?
+
+                            this.handleClose();
+                        }}>
+                            Load
+                        &lt;/Button>
+                    &lt;/Modal.Footer>
+                &lt;/Modal>
+
+
+            &lt;/Accordion >
+
+
+
+
+
+
+        );
+    }
+}
+
+Configurator.defaultProps = {
+    showFilter: true,
+    showTransform: true,
+    showPlotter: true,
+    showMetadata: false,
+    showParameterization: false,
+    showStore: false,
+    showUpdate: true
+};
+
+/**
+ * @typedef
+ * @enum {}
+ */
+Configurator.propTypes = {
+    /**
+     * The ID used to identify this component in Dash callbacks.
+     * @type {string}
+     */
+    id: PropTypes.string.isRequired,
+
+
+    /**
+     * The metadata the plotter selection is based on.
+     * @type {Object}
+     */
+    meta: PropTypes.any.isRequired,
+
+    /**
+     * Prop The resulting configuration of the plot.
+     * @type {Object}
+     */
+    config: PropTypes.any,
+
+    /**
+     * Prop to define the visibility of the Filter panel
+     * @type {boolean}
+     */
+    showFilter: PropTypes.bool,
+
+    /**
+     * Prop to define the visibility of the Transform panel
+     * @type {boolean}
+     */
+    showTransform: PropTypes.bool,
+
+    /**
+     * Prop to define the visibility of the Plot panel
+     * @type {boolean}
+     */
+    showPlotter: PropTypes.bool,
+
+    /**
+     * Prop to define the visibility of the Metadata panel
+     * @type {boolean}
+     */
+    showMetadata: PropTypes.bool,
+
+    /**
+     * Prop to define the visibility of the Parameterization panel
+     * @type {boolean}
+     */
+    showParameterization: PropTypes.bool,
+
+    /**
+     * Prop to define the visibility of the Store panel
+     * @type {boolean}
+     */
+    showStore: PropTypes.bool,
+
+    /**
+     * Prop to define the visibility of the update plot button
+     * @type {boolean}
+     */
+    showUpdate: PropTypes.bool,
+
+    /**
+     * Dash-assigned callback that should be called to report property changes
+     * to Dash, to make them available for callbacks.
+     * @private
+     */
+    setProps: PropTypes.func
+
+
+
+}
+
+
+/**
+ * @private
+ */
+export default Configurator;
+</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on 18th Feb 2022 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->

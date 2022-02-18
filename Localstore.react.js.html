@@ -1,0 +1,433 @@
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>Localstore.react.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"Dash Express Components","systemSummary":"Simple widgets to add plotly express style plotting to dash","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.","linenums":true,"collapseSymbols":false,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":false,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":true,"cleverLinks":true};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					Dash Express Components
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Globals<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="global.html#action">action</a></li>
+											<li><a href="global.html#allow_null">allow_null</a></li>
+											<li><a href="global.html#allow_YY">allow_YY</a></li>
+											<li><a href="global.html#annotationPosition">annotationPosition</a></li>
+											<li><a href="global.html#annotationTail">annotationTail</a></li>
+											<li><a href="global.html#autosizable">autosizable</a></li>
+											<li><a href="global.html#clearable">clearable</a></li>
+											<li><a href="global.html#column_id">column_id</a></li>
+											<li><a href="global.html#component_name">component_name</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#data">data</a></li>
+											<li><a href="global.html#decimal">decimal</a></li>
+											<li><a href="global.html#decimal">decimal</a></li>
+											<li><a href="global.html#default">default</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#delay">delay</a></li>
+											<li><a href="global.html#deletable">deletable</a></li>
+											<li><a href="global.html#displaylogo">displaylogo</a></li>
+											<li><a href="global.html#displayModeBar">displayModeBar</a></li>
+											<li><a href="global.html#doubleClick">doubleClick</a></li>
+											<li><a href="global.html#doubleClickDelay">doubleClickDelay</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#duration">duration</a></li>
+											<li><a href="global.html#editable">editable</a></li>
+											<li><a href="global.html#editable">editable</a></li>
+											<li><a href="global.html#edits">edits</a></li>
+											<li><a href="global.html#failure">failure</a></li>
+											<li><a href="global.html#filename">filename</a></li>
+											<li><a href="global.html#fillFrame">fillFrame</a></li>
+											<li><a href="global.html#filter_options">filter_options</a></li>
+											<li><a href="global.html#filter_query">filter_query</a></li>
+											<li><a href="global.html#format">format</a></li>
+											<li><a href="global.html#format">format</a></li>
+											<li><a href="global.html#frameMargins">frameMargins</a></li>
+											<li><a href="global.html#group">group</a></li>
+											<li><a href="global.html#group">group</a></li>
+											<li><a href="global.html#grouping">grouping</a></li>
+											<li><a href="global.html#grouping">grouping</a></li>
+											<li><a href="global.html#height">height</a></li>
+											<li><a href="global.html#hideable">hideable</a></li>
+											<li><a href="global.html#html">html</a></li>
+											<li><a href="global.html#id">id</a></li>
+											<li><a href="global.html#if">if</a></li>
+											<li><a href="global.html#is_loading">is_loading</a></li>
+											<li><a href="global.html#legendText">legendText</a></li>
+											<li><a href="global.html#link_target">link_target</a></li>
+											<li><a href="global.html#linkText">linkText</a></li>
+											<li><a href="global.html#locale">locale</a></li>
+											<li><a href="global.html#locale">locale</a></li>
+											<li><a href="global.html#locales">locales</a></li>
+											<li><a href="global.html#mapboxAccessToken">mapboxAccessToken</a></li>
+											<li><a href="global.html#modeBarButtons">modeBarButtons</a></li>
+											<li><a href="global.html#modeBarButtonsToAdd">modeBarButtonsToAdd</a></li>
+											<li><a href="global.html#modeBarButtonsToRemove">modeBarButtonsToRemove</a></li>
+											<li><a href="global.html#name">name</a></li>
+											<li><a href="global.html#nully">nully</a></li>
+											<li><a href="global.html#numerals">numerals</a></li>
+											<li><a href="global.html#numerals">numerals</a></li>
+											<li><a href="global.html#on_change">on_change</a></li>
+											<li><a href="global.html#percent">percent</a></li>
+											<li><a href="global.html#percent">percent</a></li>
+											<li><a href="global.html#plotGlPixelRatio">plotGlPixelRatio</a></li>
+											<li><a href="global.html#plotlyServerURL">plotlyServerURL</a></li>
+											<li><a href="global.html#prefix">prefix</a></li>
+											<li><a href="global.html#presentation">presentation</a></li>
+											<li><a href="global.html#prop_name">prop_name</a></li>
+											<li><a href="global.html#queueLength">queueLength</a></li>
+											<li><a href="global.html#renamable">renamable</a></li>
+											<li><a href="global.html#responsive">responsive</a></li>
+											<li><a href="global.html#row_index">row_index</a></li>
+											<li><a href="global.html#scale">scale</a></li>
+											<li><a href="global.html#scrollZoom">scrollZoom</a></li>
+											<li><a href="global.html#selectable">selectable</a></li>
+											<li><a href="global.html#sendData">sendData</a></li>
+											<li><a href="global.html#separate_4digits">separate_4digits</a></li>
+											<li><a href="global.html#separate_4digits">separate_4digits</a></li>
+											<li><a href="global.html#showAxisDragHandles">showAxisDragHandles</a></li>
+											<li><a href="global.html#showAxisRangeEntryBoxes">showAxisRangeEntryBoxes</a></li>
+											<li><a href="global.html#showEditInChartStudio">showEditInChartStudio</a></li>
+											<li><a href="global.html#showLink">showLink</a></li>
+											<li><a href="global.html#showSendToCloud">showSendToCloud</a></li>
+											<li><a href="global.html#showTips">showTips</a></li>
+											<li><a href="global.html#sort_as_null">sort_as_null</a></li>
+											<li><a href="global.html#specifier">specifier</a></li>
+											<li><a href="global.html#staticPlot">staticPlot</a></li>
+											<li><a href="global.html#symbol">symbol</a></li>
+											<li><a href="global.html#symbol">symbol</a></li>
+											<li><a href="global.html#titleText">titleText</a></li>
+											<li><a href="global.html#toImageButtonOptions">toImageButtonOptions</a></li>
+											<li><a href="global.html#topojsonURL">topojsonURL</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#type">type</a></li>
+											<li><a href="global.html#use_with">use_with</a></li>
+											<li><a href="global.html#validation">validation</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#value">value</a></li>
+											<li><a href="global.html#watermark">watermark</a></li>
+											<li><a href="global.html#width">width</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="Configurator.html">Configurator</a></li>
+											<li><a href="Graph.html">Graph</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">Localstore.react.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">import React from 'react';
+import Base from './_sub/Base.react';
+
+import InputGroup from 'react-bootstrap/InputGroup';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
+import Modal from 'react-bootstrap/Modal';
+
+
+
+
+
+
+export default class Localstore extends Base {
+    constructor(props) {
+        super({}, props);
+
+        this.state = {
+            ...this.state,
+            store: this.getStore(),
+
+            showLoadModal: false,
+
+            /* params to save or load a preset */
+            selectedName: undefined,
+            newName: "",
+
+        };
+
+        this.state.selectedName = (this.state.store.length > 0) ? this.state.store[0].name : "";
+
+    }
+
+
+
+    UNSAFE_componentWillReceiveProps(newProps) {
+        super.UNSAFE_componentWillReceiveProps(newProps);
+    }
+
+    getStore() {
+        let res = localStorage.getItem('dash_express_plot_configs');
+
+        if (res) {
+            return JSON.parse(res);
+        } else {
+            return []
+        }
+
+    }
+
+
+    saveStore(new_store) {
+        this.setState({
+            store: new_store
+        });
+        localStorage.setItem('dash_express_plot_configs', JSON.stringify(new_store));
+    }
+
+    handleLoadClose() {
+        this.setState({ showLoadModal: false });
+    }
+    handleLoadShow() {
+        this.setState({ showLoadModal: true });
+    }
+
+
+
+    get_load_modal_blocks() {
+
+        const {
+            showLoadModal, config, store, selectedName, newName
+        } = this.state;
+
+
+        return (&lt;Modal
+            backdrop="static"
+            animation={false}
+            show={showLoadModal}
+            onHide={() => this.handleLoadClose()}
+        >
+            &lt;Modal.Header closeButton>
+                &lt;Modal.Title>Load and save config&lt;/Modal.Title>
+            &lt;/Modal.Header>
+            &lt;Modal.Body>
+
+
+                &lt;InputGroup className="mb-3">
+
+                    &lt;Form.Select
+                        value={selectedName}
+                        onChange={e => { this.setState({ selectedName: e.target.value }); }}
+                    >
+                        {store.map(n => &lt;option key={"st-" + n.name} value={n.name}>{n.name}&lt;/option>)}
+                    &lt;/Form.Select>
+
+                    &lt;Button onClick={e => {
+                        const new_configs = store.filter(el => el.name === selectedName);
+                        if (new_configs.length > 0) {
+                            const new_config = new_configs[0].config;
+                            this.props.setProps({
+                                config: new_config
+                            })
+                            this.handleLoadClose();
+                        }
+
+                    }}>
+
+                        Load
+                    &lt;/Button>
+
+                &lt;/InputGroup>
+
+
+                &lt;InputGroup className="mb-3">
+                    &lt;InputGroup.Text id="basic-addon1">Save&lt;/InputGroup.Text>
+                    &lt;FormControl value={newName} onChange={e => {
+                        this.setState({ newName: e.target.value }
+                        );
+                    }} />
+                    &lt;Button onClick={e => {
+                        let new_store = store.filter(el => el.name != newName);
+                        new_store.push({
+                            name: newName,
+                            config: config
+                        })
+                        this.saveStore(new_store);
+                        this.handleLoadClose();
+                    }}>
+                        Save
+                    &lt;/Button>
+                &lt;/InputGroup>
+
+
+            &lt;/Modal.Body>
+            &lt;Modal.Footer>
+                &lt;Button variant="secondary" onClick={() => this.handleLoadClose()}>
+                    Close
+                &lt;/Button>
+            &lt;/Modal.Footer>
+        &lt;/Modal>)
+
+    }
+
+
+
+
+    render() {
+        return (
+
+            &lt;div>
+                &lt;p>
+                    The local browser cache can be used to store plot configurations.
+                    This data can be easily lost! So please do not use it as a permanent storage solution.
+                &lt;/p>
+
+                &lt;Button className='w-100' onClick={() => this.handleLoadShow()}>
+                    Load / Save
+                &lt;/Button>
+
+                {this.get_load_modal_blocks()}
+            &lt;/div>
+        )
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+Localstore.defaultProps = {};
+
+
+Localstore.propTypes = {
+
+    /**
+     * The ID used to identify this component in Dash callbacks.
+     */
+    id: PropTypes.string.isRequired,
+
+    /**
+    * The config the user sets in this component.
+    */
+    config: PropTypes.any,
+
+    /**
+     * The metadata this section is based on.
+     */
+    meta: PropTypes.any.isRequired,
+
+
+    /**
+     * The metadata section will create as output.
+     */
+    meta_out: PropTypes.any,
+
+
+    /**
+     * Dash-assigned callback that should be called to report property changes
+     * to Dash, to make them available for callbacks.
+     */
+    setProps: PropTypes.func
+};
+
+</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on 18th Feb 2022 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->
