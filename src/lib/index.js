@@ -5,10 +5,8 @@ import Transform from './components/Transform.react';
 import Plotter from './components/Plotter.react';
 import Parameterize from './components/Parameterize.react';
 import Graph from './components/Graph.react';
-import DataTable from './components/DataTable.react';
 import MetaCheck from './components/MetaCheck.react';
 import Localstore from './components/Localstore.react';
-
 
 export {
     Configurator,
@@ -17,7 +15,6 @@ export {
     Plotter,
     Parameterize,
     Graph,
-    DataTable,
     MetaCheck,
     Localstore,
 };

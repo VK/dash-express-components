@@ -1,8 +1,24 @@
 import React from 'react';
 import Base from './_sub/Base.react';
 
-
-export default class MetaCheck extends Base {
+/**
+ * Bla bla
+ * 
+ * 
+ * @hideconstructor
+ * 
+ * @example
+ * import dash_express_components as dxc
+ * import plotly.express as px
+ * 
+ * meta = dxc.get_meta(px.data.gapminder())
+ * 
+ * dxc.MetaCheck(
+ * ???
+ * )
+ * @public
+ */
+class MetaCheck extends Base {
     constructor(props) {
         super([], props);
     }
@@ -75,7 +91,11 @@ export default class MetaCheck extends Base {
 
 MetaCheck.defaultProps = {};
 
-
+/**
+ * @typedef
+ * @public
+ * @enum {}
+ */
 MetaCheck.propTypes = {
 
     /**
@@ -106,3 +126,9 @@ MetaCheck.propTypes = {
      */
     setProps: PropTypes.func
 };
+
+
+/**
+ * @private
+ */
+ export default MetaCheck;

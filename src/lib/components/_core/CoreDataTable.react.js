@@ -1,26 +1,31 @@
-import React, { Component, Suspense, memo } from 'react';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import ResizeDetector from 'react-resize-detector';
 
 /**
- * Dash DataTable is an interactive table component designed for
- * viewing, editing, and exploring large datasets.
- * DataTable is rendered with standard, semantic HTML <table/> markup,
- * which makes it accessible, responsive, and easy to style. This
- * component was written from scratch in React.js specifically for the
- * Dash community. Its API was designed to be ergonomic and its behavior
- * is completely customizable through its properties.
- * @ignore
+ * CoreDataTable wraps the DataTable of Dash and adds some select functions
+ * to make it similar to a Dash Graph
+ * 
  */
-export default class DataTable extends Component {
+export default class CoreDataTable extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             selected_rows: [],
+            virtualIndices: [],
+            tableHeight: 500,
             ...this.loadData(this.props.data, this.props.index),
         };
 
+        this.tableResize = this.tableResize.bind(this);
+        this.datatable_ref = React.createRef();
+        this.clearTimeout = null;
     }
+
+
+
 
     loadData(indata, inindex = undefined) {
 
@@ -66,25 +71,42 @@ export default class DataTable extends Component {
         });
     }
 
+
+    selectAllFiltered() {
+
+        this.setState({
+            selected_rows: this.state.virtualIndices
+        });
+
+        this.props.setProps({
+            selectedData: {
+                points: this.state.virtualIndices
+            }
+        });
+    }
+
     componentDidMount() {
 
         let that = this;
-        setTimeout(function () { that.clearTableSelect(); }, 2000);
+        this.clearTimeout = setTimeout(function () { that.clearTableSelect(); }, 2000);
 
+    }
 
-        setTimeout(function () {
-            that.props.setProps({
-                prependData: []
-            });
-        }, 2100);
+    componentWillUnmount() {
+        if (this.clearTimeout) {
+            clearTimeout(this.setTimeout);
+        }
+    }
 
-        setTimeout(function () {
-            that.props.setProps({
-                extendData: []
-            });
-        }, 2200);
+    tableResize(w, h) {
+        if (this.state.tableHeight !== h) {
+            this.setState({ tableHeight: h });
 
+            const el = ReactDOM.findDOMNode(this.datatable_ref.current).children[1];
+            el.style["height"] = h + "px";
+            el.style["max-height"] = "unset";
 
+        }
 
     }
 
@@ -92,14 +114,25 @@ export default class DataTable extends Component {
     render() {
 
         const DT = window.dash_table.DataTable;
+
+
+
+
         let props = {
             ...this.props,
             ...this.state
         }
 
+
+        let clearable = this.state.selected_rows.length !== 0;
+        let hasVirtualIndices = this.state.virtualIndices.length !== 0;
+
+
+
         return (
-            <div style={{ width: "100%", height: "100%", position: "relative" }}>
-                <DT {...props} setProps={el => {
+            <div style={{ width: "100%", height: "100%", position: "relative" }} >
+
+                <DT {...props} ref={this.datatable_ref} setProps={el => {
 
                     if ("selected_rows" in el) {
                         this.setState({
@@ -120,12 +153,19 @@ export default class DataTable extends Component {
                     } else {
                         this.props.setProps(el);
                     }
+
+                    if ("derived_virtual_indices" in el) {
+                        this.setState({
+                            virtualIndices: el.derived_virtual_indices
+                        })
+                    }
                 }
                 } />
 
-                <a style={{ position: "absolute", top: "1px", left: "1px", cursor: "pointer" }} onClick={event => {
 
-                    import(/* webpackChunkName: "excel" */ '../../../node_modules/exceljs').then(ExcelJS => {
+                <a style={{ position: "absolute", top: "1px", left: "1px", cursor: "pointer", zIndex: 301 }} onClick={event => {
+
+                    import(/* webpackChunkName: "excel" */ 'exceljs').then(ExcelJS => {
                         const workbook = new ExcelJS.Workbook();
                         const sheet = workbook.addWorksheet('Data');
 
@@ -147,7 +187,7 @@ export default class DataTable extends Component {
                     });
                 }
 
-                } key={this.props.id + "-edit-button"}>
+                } key={this.props.id + "-excel-button"}>
                     <svg version="1.1" x="0px" y="0px" viewBox="0 0 2289.75 2130" enableBackground="new 0 0 2289.75 2130" width="28px" height="29px">
                         <metadata>
                             <sfw xmlns="http://ns.adobe.com/SaveForWeb/1.0/">
@@ -173,13 +213,12 @@ export default class DataTable extends Component {
                         <path fill="#107C41" d="M1437.75,1065h852v532.5h-852V1065z" />
                     </svg>
                 </a>
-                <a style={{ position: "absolute", top: "32px", left: "4px", cursor: "pointer" }} onClick={event => {
-                    this.clearTableSelect();
-                }
 
-                } key={this.props.id + "-clear-button"}>
-
-
+                {clearable && <a style={{ position: "absolute", top: "32px", left: "4px", cursor: "pointer", zIndex: 301 }}
+                    onClick={event => {
+                        this.clearTableSelect();
+                    }
+                    } key={this.props.id + "-clear-button"}>
                     <svg version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" enableBackground="new 0 0 512 512;" width="25px" height="25px" >
                         <path fill="#3B8BC0" d="M85.134,243.62l-63.395,63.395c-13.567,13.567-13.567,35.564,0,49.131l134.116,134.116
 	c13.567,13.567,35.564,13.567,49.131,0l63.395-63.395L85.134,243.62z"/>
@@ -200,7 +239,33 @@ export default class DataTable extends Component {
 	c0-6.185,2.408-11.999,6.783-16.374l102.748-102.748l166.865,166.865L260.189,418.674z M482.071,196.793L379.321,299.542
 	L212.458,132.68L315.207,29.93c9.027-9.027,23.718-9.028,32.748,0l134.116,134.116C491.099,173.074,491.099,187.765,482.071,196.793
 	z"/></svg>
-                </a>
+                </a>}
+
+
+                {!clearable && hasVirtualIndices && <a style={{ position: "absolute", top: "31px", left: "3px", cursor: "pointer", zIndex: 301 }}
+                    onClick={event => {
+                        this.selectAllFiltered();
+                    }
+                    } key={this.props.id + "-selectall-button"}>
+
+                    <svg version="1.1" viewBox="0 0 22 22" width="26px" height="26px">
+                        <g transform="translate(-347.64 -417.01)">
+                            <path transform="matrix(.061114 0 0 .061114 336.74 401.83)" d="m534.29 429.51a177.14 177.14 0 1 1-354.29 0 177.14 177.14 0 1 1 354.29 0z" fill="#fff" fill-rule="evenodd"></path>
+                            <path transform="matrix(.053629 0 0 .053629 339.38 404.96)" d="m534.29 429.51a177.14 177.14 0 1 1-354.29 0 177.14 177.14 0 1 1 354.29 0z" fill="#0d6efd" fill-rule="evenodd"></path>
+                            <path d="m357.44 430.15-2.7858-2.7858-1.6646 1.7034 4.4044 4.5806 7.8246-8.1468-1.795-1.8411z" fill="#fff"></path>
+                        </g>
+                    </svg>
+                </a>}
+
+
+                <ResizeDetector
+                    handleHeight={true}
+                    handleWidth={true}
+                    refreshMode="debounce"
+                    refreshOptions={{ trailing: true }}
+                    refreshRate={50}
+                    onResize={(w, h) => this.tableResize(w, h)}
+                />
 
 
             </div>
@@ -211,7 +276,7 @@ export default class DataTable extends Component {
 
 
 
-export const defaultProps = {
+const defaultProps = {
     page_action: 'native',
     page_current: 0,
     page_size: 100,
@@ -292,7 +357,7 @@ export const defaultProps = {
     persistence_type: 'local'
 };
 
-export const propTypes = {
+const propTypes = {
     /**
      * The contents of the table.
      * The keys of each item in data should match the column IDs.
@@ -1737,7 +1802,7 @@ export const propTypes = {
     persistence_type: PropTypes.oneOf(['local', 'session', 'memory'])
 };
 
-DataTable.persistenceTransforms = {
+CoreDataTable.persistenceTransforms = {
     columns: {
         name: {
             extract: propValue => R.pluck('name', propValue),
@@ -1747,5 +1812,5 @@ DataTable.persistenceTransforms = {
     }
 };
 
-DataTable.defaultProps = defaultProps;
-DataTable.propTypes = propTypes;
+CoreDataTable.defaultProps = defaultProps;
+CoreDataTable.propTypes = propTypes;

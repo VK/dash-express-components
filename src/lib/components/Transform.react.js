@@ -20,7 +20,25 @@ import ZerosToNanTransform from './_sub/ZerosToNanTransform.react';
 import RenameTransform from './_sub/RenameTransform.react';
 
 
-export default class Transform extends Base {
+
+/**
+ * Bla bla
+ * 
+ * 
+ * @hideconstructor
+ * 
+ * @example
+ * import dash_express_components as dxc
+ * import plotly.express as px
+ * 
+ * meta = dxc.get_meta(px.data.gapminder())
+ * 
+ * dxc.Transform(
+ * ???
+ * )
+ * @public
+ */
+class Transform extends Base {
 
     static known_trafos = [
         { type: "eval", class: EvalTransform, "label": "Compute new column" },
@@ -275,7 +293,11 @@ export default class Transform extends Base {
 
 Transform.defaultProps = {};
 
-
+/**
+ * @typedef
+ * @public
+ * @enum {}
+ */
 Transform.propTypes = {
 
     /**
@@ -307,3 +329,8 @@ Transform.propTypes = {
     setProps: PropTypes.func
 };
 
+
+/**
+ * @private
+ */
+ export default Transform;

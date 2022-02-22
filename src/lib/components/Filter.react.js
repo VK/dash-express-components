@@ -9,13 +9,28 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 
-
-
 import Select from 'react-select';
 import Accordion from 'react-bootstrap/Accordion';
 import DateTimePicker from 'react-datetime-picker';
 
-export default class Filter extends Base {
+/**
+ * Bla bla
+ * 
+ * 
+ * @hideconstructor
+ * 
+ * @example
+ * import dash_express_components as dxc
+ * import plotly.express as px
+ * 
+ * meta = dxc.get_meta(px.data.gapminder())
+ * 
+ * dxc.Filter(
+ * ???
+ * )
+ * @public
+ */
+class Filter extends Base {
     constructor(props) {
         super([], props);
 
@@ -500,7 +515,11 @@ export default class Filter extends Base {
 
 Filter.defaultProps = {};
 
-
+/**
+ * @typedef
+ * @public
+ * @enum {}
+ */
 Filter.propTypes = {
 
     /**
@@ -531,3 +550,9 @@ Filter.propTypes = {
      */
     setProps: PropTypes.func
 };
+
+
+/**
+ * @private
+ */
+ export default Filter;

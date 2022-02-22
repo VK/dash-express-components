@@ -25,8 +25,24 @@ let known_plots = [Scatter, Box, Violin, Imshow, BarCount, ScatterMatrix, Histog
 let plots_dict = Object.assign({}, ...known_plots.map((x) => ({ [x.type]: x })));
 
 
-
-export default class Plotter extends Base {
+/**
+ * Bla bla
+ * 
+ * 
+ * @hideconstructor
+ * 
+ * @example
+ * import dash_express_components as dxc
+ * import plotly.express as px
+ * 
+ * meta = dxc.get_meta(px.data.gapminder())
+ * 
+ * dxc.Plotter(
+ * ???
+ * )
+ * @public
+ */
+class Plotter extends Base {
     constructor(props) {
         super({}, props);
 
@@ -186,7 +202,11 @@ export default class Plotter extends Base {
 
 Plotter.defaultProps = {};
 
-
+/**
+ * @typedef
+ * @public
+ * @enum {}
+ */
 Plotter.propTypes = {
 
     /**
@@ -217,3 +237,8 @@ Plotter.propTypes = {
      */
     setProps: PropTypes.func
 };
+
+/**
+ * @private
+ */
+ export default Plotter;
