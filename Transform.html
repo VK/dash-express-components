@@ -31,7 +31,7 @@
 
 
     <title>
-      Configurator
+      Transform
     </title>
 
     <!--[if lt IE 9]>
@@ -98,7 +98,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        Configurator
+        Transform
       </h1>
       
 
@@ -115,15 +115,12 @@
         
         <h2>
         
-        Configurator
+        Transform
         
         </h2>
         
         
-            <div class="class-description"><p>The configurator component helps to define plot definitions based on the
-metadata of a dataframe.</p>
-<p>The metadata is used to compute the available parameters after data
-transformations for the most common plot types.</p></div>
+            <div class="class-description"><p>Bla bla</p></div>
         
     
 </header>
@@ -138,9 +135,9 @@ transformations for the most common plot types.</p></div>
         <h2>Constructor</h2>
     
 
-    <h4 class="name" id="Configurator">
-        <a href="#Configurator">#</a>
-        <span class="type-signature"></span>new Configurator<span class="signature">()</span><span class="type-signature"></span>
+    <h4 class="name" id="Transform">
+        <a href="#Transform">#</a>
+        <span class="type-signature"></span>new Transform<span class="signature">()</span><span class="type-signature"></span>
     </h4>
 
     
@@ -191,7 +188,7 @@ transformations for the most common plot types.</p></div>
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="Configurator.react.js.html">Configurator.react.js</a>, <a href="Configurator.react.js.html#line85">line 85</a>
+                <a href="Transform.react.js.html">Transform.react.js</a>, <a href="Transform.react.js.html#line41">line 41</a>
             </li></ul></dd>
         </div>
     
@@ -228,10 +225,9 @@ import plotly.express as px
 
 meta = dxc.get_meta(px.data.gapminder())
 
- dxc.Configurator(
-          id="plotConfig",
-          meta=meta,
- )</code></pre>
+dxc.Transform(
+???
+)</code></pre>
     
     
     </div>
@@ -307,11 +303,6 @@ meta = dxc.get_meta(px.data.gapminder())
 
             <td class="type">
             
-                
-<span class="param-type">string</span>
-
-
-            
             </td>
 
             
@@ -325,61 +316,28 @@ meta = dxc.get_meta(px.data.gapminder())
 
         <tr>
             
-                <td class="name"><code>meta</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The metadata the plotter selection is based on.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>config</code></td>
             
 
             <td class="type">
             
-                
-<span class="param-type">Object</span>
-
-
-            
             </td>
 
             
 
             
 
-            <td class="description last"><p>Prop The resulting configuration of the plot.</p></td>
+            <td class="description last"><p>The config the user sets in this component.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>showFilter</code></td>
+                <td class="name"><code>meta</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
             
             </td>
 
@@ -387,22 +345,17 @@ meta = dxc.get_meta(px.data.gapminder())
 
             
 
-            <td class="description last"><p>Prop to define the visibility of the Filter panel</p></td>
+            <td class="description last"><p>The metadata this section is based on.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>showTransform</code></td>
+                <td class="name"><code>meta_out</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
             
             </td>
 
@@ -410,122 +363,7 @@ meta = dxc.get_meta(px.data.gapminder())
 
             
 
-            <td class="description last"><p>Prop to define the visibility of the Transform panel</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>showPlotter</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Prop to define the visibility of the Plot panel</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>showMetadata</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Prop to define the visibility of the Metadata panel</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>showParameterization</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Prop to define the visibility of the Parameterization panel</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>showStore</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Prop to define the visibility of the Store panel</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>showUpdate</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Prop to define the visibility of the update plot button</p></td>
+            <td class="description last"><p>The metadata section will create as output.</p></td>
         </tr>
 
     
@@ -586,7 +424,7 @@ to Dash, to make them available for callbacks.</p></td>
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="Configurator.react.js.html">Configurator.react.js</a>, <a href="Configurator.react.js.html#line455">line 455</a>
+                <a href="Transform.react.js.html">Transform.react.js</a>, <a href="Transform.react.js.html#line301">line 301</a>
             </li></ul></dd>
         </div>
     

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Adding favicon -->
+    
+
+    <!-- Adding meta -->
+    
+
+    <!-- Adding external script-->
+    
+
+    <!-- Adding external style-->
+    
+
+    <!-- Adding scripts-->
+    
+
+    <!-- Adding style-->
+    
+
+    <!-- Adding overlay script-->
+    
+
+    <!-- Adding overlay style-->
+    
+
+
+    <title>
+      Plotter.react.js
+    </title>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/third-party/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/third-party/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/reset.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-base.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-light.css">
+    
+    <svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    style="display:none">
+    <defs>
+        <symbol id="copy-icon" viewbox="0 0 488.3 488.3">
+            <g>
+                <path
+                    d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z" />
+                <path
+                    d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z" />
+            </g>
+        </symbol>
+        <symbol id='search-icon' viewBox="0 0 512 512">
+            <g>
+                <g>
+                    <path
+                        d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z" />
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path
+                        d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z" />
+                </g>
+            </g>
+        </symbol>
+        <symbol id="down-icon" viewBox="0 0 16 16">
+            <path 
+                fill-rule="evenodd" 
+                clip-rule="evenodd" 
+                d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"
+            >
+            </path>
+        </symbol>
+    </defs>
+</svg>
+  </head>
+
+  <body>
+
+    <nav class="navbar" id="navbar">
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="4415032" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      
+
+    </nav>
+    <div class="navbar-ham" id="navbar-ham">
+      <div>
+        <div class="first"></div>
+        <div class="second"></div>
+        <div class="third"></div>
+      </div>
+    </div>
+
+    <div id="main" class="main-content">
+      
+      <h1 id='page-title' class="page-title">
+        Plotter.react.js
+      </h1>
+      
+
+      
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import Base from './_sub/Base.react';
+import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
+
+
+import Scatter from './_plot/Scatter.react';
+import Box from './_plot/Box.react';
+import Violin from './_plot/Violin.react';
+
+import Imshow from './_plot/Imshow.react';
+
+import BarCount from './_plot/BarCount.react';
+import ScatterMatrix from './_plot/ScatterMatrix.react';
+
+import HistogramLine from './_plot/HistogramLine.react';
+import Probability from './_plot/Probability.react';
+
+import Table from './_plot/Table.react';
+let known_plots = [Scatter, Box, Violin, Imshow, BarCount, ScatterMatrix, HistogramLine, Probability, Table].map(el => {
+    return { type: el.type, class: el, label: el.label, icon: el.icon }
+});
+let plots_dict = Object.assign({}, ...known_plots.map((x) => ({ [x.type]: x })));
+
+
+/**
+ * Bla bla
+ * 
+ * 
+ * @hideconstructor
+ * 
+ * @example
+ * import dash_express_components as dxc
+ * import plotly.express as px
+ * 
+ * meta = dxc.get_meta(px.data.gapminder())
+ * 
+ * dxc.Plotter(
+ * ???
+ * )
+ * @public
+ */
+class Plotter extends Base {
+    constructor(props) {
+        super({}, props);
+
+        this.state =
+        {
+            ...this.state,
+
+            /* state of the modal to add new filters */
+            showModal: false,
+            plotType: (this.state.config &amp;&amp; this.state.config.type) ? this.state.config.type : "scatter",
+
+        };
+    }
+
+    handleClose() {
+        this.setState({ showModal: false });
+    }
+    handleShow() {
+        this.setState({ showModal: true });
+    }
+
+    UNSAFE_componentWillReceiveProps(newProps) {
+        super.UNSAFE_componentWillReceiveProps(newProps);
+        try {
+            if (("config" in newProps) &amp;&amp; ("type" in newProps.config)) {
+                this.setState({
+                    plotType:
+                        newProps.config.type
+                });
+            }
+        } catch { };
+
+
+
+
+    }
+
+
+    get_modal() {
+
+        const {
+            showModal,
+            id
+        } = this.state;
+
+        return (&lt;Modal
+            backdrop="static"
+            animation={false}
+            show={showModal}
+            onHide={() => this.handleClose()}
+            key={id + "-plot-type-modal"}
+        >
+            &lt;Modal.Header closeButton>
+                &lt;Modal.Title>Plot Types&lt;/Modal.Title>
+            &lt;/Modal.Header>
+            &lt;Modal.Body>&lt;div className="mt-2">
+
+                {known_plots.map(pt => {
+
+
+                    return (
+                        &lt;Button
+                            key={"set-plot-" + pt.type}
+                            variant="outline-secondary"
+                            className="d-flex align-items-center w-100 mb-2"
+
+                            onClick={(e) => {
+
+                                this.setState({
+                                    plotType: pt.type
+                                });
+                                this.handleClose()
+                            }}
+
+                        >
+                            &lt;div style={{ width: "60px", height: "60px" }}>{(pt &amp;&amp; "icon" in pt) ? pt.icon : ""}&lt;/div>
+                            &lt;div className="flex-grow-1 mt-2 h3">
+                                {(pt &amp;&amp; "label" in pt) ? pt.label : ""}
+                            &lt;/div>
+                        &lt;/Button>
+                    );
+                })}
+
+            &lt;/div>
+            &lt;/Modal.Body>
+            &lt;Modal.Footer>
+                &lt;Button variant="secondary" onClick={() => this.handleClose()}>
+                    Close
+                &lt;/Button>
+
+            &lt;/Modal.Footer>
+        &lt;/Modal>)
+    }
+
+    render() {
+        const {
+            plotType,
+            config,
+            allColOptions,
+            catColOptions,
+            numColOptions,
+            allOptions
+        } = this.state;
+
+        const { id } = this.props;
+
+        const pt = plots_dict[plotType];
+
+        return (
+            &lt;div>
+
+                &lt;Button
+                    key={id + "plot-open-button"}
+                    variant="outline-secondary"
+                    className="d-flex align-items-center w-100 mb-2"
+                    onClick={() => this.handleShow()}>
+
+                    {(pt &amp;&amp; "icon" in pt) &amp;&amp; &lt;div style={{ width: "60px", height: "60px" }}>{pt.icon}&lt;/div>}
+                    {(pt &amp;&amp; "icon" in pt) &amp;&amp; &lt;div className="flex-grow-1 mt-2 h3">{pt.label}&lt;/div>}
+                    {!(pt &amp;&amp; "icon" in pt) &amp;&amp; &lt;div className="flex-grow-1 mt-2 h3" >Choose a plot type&lt;/div>}
+
+                &lt;/Button>
+
+
+                {
+                    known_plots.map((plt, idx) => {
+
+                        return (
+                            plotType === plt["type"] &amp;&amp;
+                            &lt;plt.class
+                                key={id + "plottype-" + plt["type"]}
+                                id={id + "plottype-" + plt["type"]}
+                                allColOptions={allColOptions}
+                                catColOptions={catColOptions}
+                                numColOptions={numColOptions}
+                                allOptions={allOptions}
+                                config={config}
+                                setProps={e => {
+                                    if ("config" in e) {
+                                        super.update_config(e["config"]);
+                                    }
+                                }}
+                            />
+                        )
+                    })
+                }
+
+                {this.get_modal()}
+
+            &lt;/div>
+        )
+
+    }
+}
+
+
+
+Plotter.defaultProps = {};
+
+/**
+ * @typedef
+ * @public
+ * @enum {}
+ */
+Plotter.propTypes = {
+
+    /**
+     * The ID used to identify this component in Dash callbacks.
+     */
+    id: PropTypes.string.isRequired,
+
+    /**
+    * The config the user sets in this component.
+    */
+    config: PropTypes.any,
+
+    /**
+     * The metadata this section is based on.
+     */
+    meta: PropTypes.any.isRequired,
+
+
+    /**
+     * The metadata section will create as output.
+     */
+    meta_out: PropTypes.any,
+
+
+    /**
+     * Dash-assigned callback that should be called to report property changes
+     * to Dash, to make them available for callbacks.
+     */
+    setProps: PropTypes.func
+};
+
+/**
+ * @private
+ */
+ export default Plotter;</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+
+    <footer class="footer" id="footer">
+      
+    </footer>
+
+    <script src="scripts/third-party/prettify.js"></script>
+    <script src="scripts/third-party/lang-css.js"></script>
+    <script type="text/javascript" src="scripts/misc.js"></script>
+
+    <script>prettyPrint();</script>
+    <script src="scripts/linenumber.js"></script>
+    <script src="scripts/fix-code-block.js"></script>
+    <script src="scripts/fix-navbar.js"></script>
+    
+      <script src="scripts/search.js"></script>
+      <script src="scripts/third-party/fuse.js"></script>
+      <script>
+        var list = [{"title":"Configurator","link":"<a href=\"Configurator.html\">Configurator</a>"},{"title":"Filter","link":"<a href=\"Filter.html\">Filter</a>"},{"title":"Graph","link":"<a href=\"Graph.html\">Graph</a>"},{"title":"MetaCheck","link":"<a href=\"MetaCheck.html\">MetaCheck</a>"},{"title":"Plotter","link":"<a href=\"Plotter.html\">Plotter</a>"},{"title":"Transform","link":"<a href=\"Transform.html\">Transform</a>"}];
+        var options = 
+          setupSearch(list, options)
+      </script>
+    
+
+    
+
+    
+
+    
+
+
+  </body>
+
+</html>

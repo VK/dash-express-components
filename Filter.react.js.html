@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Adding favicon -->
+    
+
+    <!-- Adding meta -->
+    
+
+    <!-- Adding external script-->
+    
+
+    <!-- Adding external style-->
+    
+
+    <!-- Adding scripts-->
+    
+
+    <!-- Adding style-->
+    
+
+    <!-- Adding overlay script-->
+    
+
+    <!-- Adding overlay style-->
+    
+
+
+    <title>
+      Filter.react.js
+    </title>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/third-party/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/third-party/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/reset.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-base.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-light.css">
+    
+    <svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    style="display:none">
+    <defs>
+        <symbol id="copy-icon" viewbox="0 0 488.3 488.3">
+            <g>
+                <path
+                    d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z" />
+                <path
+                    d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z" />
+            </g>
+        </symbol>
+        <symbol id='search-icon' viewBox="0 0 512 512">
+            <g>
+                <g>
+                    <path
+                        d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z" />
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path
+                        d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z" />
+                </g>
+            </g>
+        </symbol>
+        <symbol id="down-icon" viewBox="0 0 16 16">
+            <path 
+                fill-rule="evenodd" 
+                clip-rule="evenodd" 
+                d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"
+            >
+            </path>
+        </symbol>
+    </defs>
+</svg>
+  </head>
+
+  <body>
+
+    <nav class="navbar" id="navbar">
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="4415032" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      
+
+    </nav>
+    <div class="navbar-ham" id="navbar-ham">
+      <div>
+        <div class="first"></div>
+        <div class="second"></div>
+        <div class="third"></div>
+      </div>
+    </div>
+
+    <div id="main" class="main-content">
+      
+      <h1 id='page-title' class="page-title">
+        Filter.react.js
+      </h1>
+      
+
+      
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { filter, isNil, pluck } from 'ramda';
+import React from 'react';
+import Base, { singleColorStyle, hideGroupComponents, multiCallbacks } from './_sub/Base.react';
+
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
+
+import Select from 'react-select';
+import Accordion from 'react-bootstrap/Accordion';
+import DateTimePicker from 'react-datetime-picker';
+
+/**
+ * Bla bla
+ * 
+ * 
+ * @hideconstructor
+ * 
+ * @example
+ * import dash_express_components as dxc
+ * import plotly.express as px
+ * 
+ * meta = dxc.get_meta(px.data.gapminder())
+ * 
+ * dxc.Filter(
+ * ???
+ * )
+ * @public
+ */
+class Filter extends Base {
+    constructor(props) {
+        super([], props);
+
+
+
+        this.state =
+        {
+            ...this.state,
+
+            /* state of the modal to add new filters */
+            showAddModal: false,
+
+            /* content of the dropdown to select coolum names*/
+            selectedColumn: null,
+            selectedType: null,
+
+            /* conent of the dropdown to select a label if a cat column is selected*/
+            categoryOptions: [],
+            selectedCategories: [],
+
+            selectedDateTime: new Date(),
+
+            filterType: "",
+            filterNumber: 0,
+
+            filterIndex: undefined,
+
+        };
+
+    }
+
+    handleClose() {
+        this.setState({ showAddModal: false });
+    }
+    handleShow() {
+        this.setState({ showAddModal: true });
+    }
+
+
+    update_config(new_config) {
+        super.update_config(new_config);
+
+        let new_meta = JSON.parse(JSON.stringify(this.props.meta))
+        //let new_meta = { ...this.props.meta };
+
+        if (new_config)
+            new_config.forEach(el => {
+                if (el.col in new_meta) {
+                    if (el["type"] === "gt" || el["type"] === "gte") {
+
+                        new_meta[el.col].min = el.value;
+                        new_meta[el.col].max = Math.max(new_meta[el.col].max, el.value);
+                        new_meta[el.col].median = Math.max(new_meta[el.col].median, el.value);
+                    }
+                    if (el["type"] === "lt" || el["type"] === "lte") {
+                        new_meta[el.col].max = el.value;
+                        new_meta[el.col].min = Math.max(new_meta[el.col].min, el.value);
+                        new_meta[el.col].median = Math.max(new_meta[el.col].median, el.value);
+                    }
+                    if (el["type"] === "eq") {
+                        new_meta[el.col].max = el.value;
+                        new_meta[el.col].min = el.value;
+                        new_meta[el.col].median = el.value;
+                    }
+                    if (el["type"] === "isin") {
+                        new_meta[el.col].cat = new_meta[el.col].cat.filter(
+                            ael => el.value.indexOf(ael) !== -1
+                        )
+                    }
+                    if (el["type"] === "isnotin") {
+                        new_meta[el.col].cat = new_meta[el.col].cat.filter(
+                            ael => el.value.indexOf(ael) === -1
+                        )
+                    }
+                }
+            });
+
+
+        super.update_meta_out(new_meta);
+    }
+
+    filter_to_string(el) {
+
+        let translate = {
+            isin: "∈",
+            isnotin: "∉",
+            gt: ">",
+            gte: "≥",
+            lt: "&lt;",
+            lte: "≤",
+            eq: "=",
+            neq: "≠",
+            istrue: "= True",
+            isfalse: "= False",
+
+            after: "after",
+            before: "before",
+            lastn: "last days: ",
+
+        }
+
+        try {
+            if (el["type"] === "isin" || el["type"] === "isnotin") {
+                return &lt;span>&lt;b>{el.col}&lt;/b> {translate[el["type"]]} [{el.value.join(', ')}]&lt;/span>;
+            }
+        } catch { }
+
+
+        return &lt;span>&lt;b>{el.col}&lt;/b> {translate[el["type"]]} {el.value}&lt;/span>;
+
+    }
+
+    get_filter_blocks() {
+        const { config } = this.state;
+        const { meta } = this.props;
+
+        if (config) {
+            return &lt;div>
+                {
+                    config.map((el, id) =>
+                        &lt;Alert dismissible key={id} onClose={() => {
+
+                            let new_config = config.filter((e, idx) => idx !== id);
+                            this.update_config(new_config)
+
+                        }}>{this.filter_to_string(el)}
+
+                            &lt;button className='btn-close btn-edit'
+
+                                onClick={() => {
+
+                                    let update_state = {
+                                        filterIndex: id,
+                                        selectedColumn: config[id].col,
+                                        selectedType: meta[config[id].col].type,
+                                        filterType: config[id].type,
+                                        filterNumber: config[id].value
+                                    }
+
+                                    if (meta[config[id].col].type === "categorical") {
+
+                                        update_state["selectedCategories"] = config[id].value;
+
+                                        update_state["categoryOptions"] = [
+                                            ...meta[config[id].col].cat.map(option => ({
+                                                label: String(option),
+                                                value: option,
+                                            }))];
+                                    }
+
+                                    this.setState(update_state, () => {
+                                        this.handleShow();
+                                    })
+
+                                }}
+                            >&lt;/button>
+
+                        &lt;/Alert>
+                    )
+                }
+
+            &lt;/div>
+        }
+    }
+
+    get_modal_blocks() {
+
+        const {
+            allColOptions,
+            allOptions,
+            showAddModal,
+            selectedColumn, selectedType,
+            categoryOptions, selectedCategories,
+            selectedDateTime,
+            filterType,
+            filterNumber,
+            filterIndex,
+            config } = this.state;
+        const { meta, id } = this.props;
+
+        return (&lt;Modal
+            backdrop="static"
+            animation={false}
+            show={showAddModal}
+            onHide={() => this.handleClose()}
+        >
+            &lt;Modal.Header closeButton>
+                &lt;Modal.Title>{(filterIndex === undefined) ? "Add" : "Edit"} filter&lt;/Modal.Title>
+            &lt;/Modal.Header>
+            &lt;Modal.Body>&lt;div style={{ minHeight: "15em" }} className="mb-3">
+
+                Specify the column you want to filter.
+
+                &lt;Select
+                    className="mb-3"
+                    key={id + "-selectOptions"}
+
+                    options={allColOptions}
+
+                    value={allOptions.filter(o => o.value === selectedColumn)[0]}
+                    onChange={selectedOption => {
+
+                        let value = selectedOption.value;
+                        let type = meta[value].type;
+
+
+                        if (type == "categorical") {
+                            this.setState({
+                                categoryOptions: meta[value].cat.map(option => ({
+                                    label: String(option),
+                                    value: option,
+                                }))
+                            })
+                        }
+
+                        this.setState({
+                            selectedColumn: value,
+                            selectedType: type
+                        });
+
+                    }}
+                    styles={singleColorStyle}
+                    components={hideGroupComponents}
+                />
+
+                {
+                    selectedType == "numerical" &amp;&amp;
+                    &lt;div>
+
+                        Select the numerical filtering you want to apply:
+
+
+                        &lt;InputGroup className="mb-3">
+                            &lt;InputGroup.Text id="basic-addon1">Type&lt;/InputGroup.Text>
+                            &lt;Form.Select
+                                key={id + "-selectType"}
+
+
+                                value={filterType}
+                                onChange={e => { this.setState({ filterType: e.target.value }); }}
+
+                            >
+                                &lt;option value="">&lt;/option>
+                                &lt;option value="gt">&amp;gt;&lt;/option>
+                                &lt;option value="gte">≥&lt;/option>
+                                &lt;option value="lt">&amp;lt;&lt;/option>
+                                &lt;option value="lte">≤&lt;/option>
+                                &lt;option value="eq">=&lt;/option>
+                                &lt;option value="neq">≠&lt;/option>
+                            &lt;/Form.Select>
+
+                        &lt;/InputGroup>
+
+
+                        &lt;InputGroup className="mb-3">
+                            &lt;InputGroup.Text id="basic-addon1">Value&lt;/InputGroup.Text>
+                            &lt;FormControl type="number"
+                                key={id + "-inputValue"}
+                                value={filterNumber} onChange={e => { this.setState({ filterNumber: e.target.value }); }} />
+                        &lt;/InputGroup>
+
+                    &lt;/div>
+                }
+
+                {
+                    selectedType == "categorical" &amp;&amp;
+                    &lt;div>
+
+                        Select which categories you want to filter:
+
+                        &lt;InputGroup className="mb-3">
+                            &lt;InputGroup.Text id="basic-addon1">Type&lt;/InputGroup.Text>
+                            &lt;Form.Select
+                                key={id + "-selectCatOption"}
+                                value={filterType}
+                                onChange={e => { this.setState({ filterType: e.target.value }); }}
+                            >
+                                &lt;option value="">&lt;/option>
+                                &lt;option value="eq">=&lt;/option>
+                                &lt;option value="isin">∈&lt;/option>
+                                &lt;option value="isnotin">∉&lt;/option>
+                            &lt;/Form.Select>
+                        &lt;/InputGroup>
+
+                        {["isnotin", "isin"].includes(filterType) &amp;&amp; &lt;Select
+                            options={categoryOptions}
+                            key={id + "-selectOptions"}
+                            {...multiCallbacks(
+                                this,
+                                (s) => this.setState(s),
+                                "selectedCategories",
+                                categoryOptions
+                            )}
+                        />}
+
+                        {["eq"].includes(filterType) &amp;&amp; &lt;Select
+                            options={categoryOptions}
+                            isClearable
+                            key={id + "-selectEqOptions"}
+                            value={(selectedCategories) ? categoryOptions.filter(o => selectedCategories === o.value) : undefined}
+                            onChange={selectedOption => {
+
+                                if (selectedOption) {
+                                    this.setState({ selectedCategories: selectedOption.value });
+                                } else {
+                                    this.setState({ selectedCategories: undefined });
+                                }
+
+                            }}
+                        />}
+
+                    &lt;/div>
+                }
+
+                {
+                    selectedType == "temporal" &amp;&amp;
+                    &lt;div>
+
+
+                        &lt;InputGroup className="mb-3">
+                            &lt;InputGroup.Text id="basic-addon1">Type&lt;/InputGroup.Text>
+                            &lt;Form.Select
+                                value={filterType}
+                                key={id + "-selectTimeOptions"}
+                                onChange={e => { this.setState({ filterType: e.target.value }); }}
+                            >
+                                &lt;option value="">&lt;/option>
+                                &lt;option value="after">after&lt;/option>
+                                &lt;option value="before">before&lt;/option>
+                                &lt;option value="lastn">last days&lt;/option>
+                            &lt;/Form.Select>
+
+                        &lt;/InputGroup>
+                        {filterType !== "lastn" &amp;&amp;
+                            &lt;DateTimePicker
+                                className="w-100 border rounded"
+                                value={selectedDateTime}
+                                key={id + "-selectTime"}
+                                onChange={newDateTime => {
+                                    this.setState({
+                                        selectedDateTime: newDateTime
+                                    })
+                                }}
+                            />}
+
+                        {filterType === "lastn" &amp;&amp;
+                            &lt;InputGroup className="mb-3">
+                                &lt;InputGroup.Text id="basic-addon1">Value&lt;/InputGroup.Text>
+                                &lt;FormControl type="number" key={id + "-inputDeltaTime"}
+                                    value={filterNumber} onChange={e => { this.setState({ filterNumber: e.target.value }); }} />
+                            &lt;/InputGroup>
+                        }
+
+                    &lt;/div>
+                }
+                {
+                    selectedType == "bool" &amp;&amp;
+                    &lt;div>
+
+
+                        Select which flag you want to keep:
+
+                        &lt;InputGroup className="mb-3">
+                            &lt;InputGroup.Text id="basic-addon1">Type&lt;/InputGroup.Text>
+                            &lt;Form.Select
+                                value={filterType}
+                                key={id + "-selectBool"}
+                                onChange={e => { this.setState({ filterType: e.target.value }); }}
+                            >
+                                &lt;option value="">&lt;/option>
+                                &lt;option value="istrue">True&lt;/option>
+                                &lt;option value="iffalse">False&lt;/option>
+                            &lt;/Form.Select>
+                        &lt;/InputGroup>
+
+
+                    &lt;/div>
+                }
+
+            &lt;/div>
+            &lt;/Modal.Body>
+            &lt;Modal.Footer>
+                &lt;Button variant="secondary" onClick={() => this.handleClose()}>
+                    Close
+                &lt;/Button>
+                &lt;Button variant="primary" onClick={(e) => {
+
+
+                    let new_filter = { col: selectedColumn, "type": "test", "value": "test" };
+
+                    if (selectedType === "categorical") {
+                        new_filter = {
+                            col: selectedColumn,
+                            "type": filterType, "value": selectedCategories
+                        };
+                        if (filterType === "" || selectedCategories.length == 0) {
+                            return;
+                        }
+                    }
+                    if (selectedType === "numerical") {
+                        new_filter = {
+                            col: selectedColumn, "type": filterType, "value": parseFloat(filterNumber)
+                        };
+                        if (filterType === "") {
+                            return;
+                        }
+                    }
+
+                    if (selectedType === "bool") {
+                        new_filter = {
+                            col: selectedColumn, "type": filterType,
+                        };
+                        if (filterType === "") {
+                            return;
+                        }
+                    }
+
+                    if (selectedType === "temporal") {
+
+                        if (filterType !== "lastn") {
+                            new_filter = {
+                                col: selectedColumn, "type": filterType, "value": selectedDateTime.toISOString()
+                            };
+                        } else {
+                            new_filter = {
+                                col: selectedColumn, "type": filterType, "value": parseFloat(filterNumber)
+                            };
+                        }
+                        if (filterType === "") {
+                            return;
+                        }
+                    }
+
+
+                    if (filterIndex === undefined) {
+                        let new_config = [
+                            ...config,
+                            new_filter
+                        ];
+                        this.update_config(new_config);
+                    } else {
+                        let new_config = [
+                            ...config
+                        ];
+                        new_config[filterIndex] = new_filter;
+                        this.update_config(new_config);
+                    }
+
+                    this.handleClose();
+
+
+                }}>
+                    {(filterIndex === undefined) ? "Add" : "Update"}
+                &lt;/Button>
+            &lt;/Modal.Footer>
+        &lt;/Modal>)
+
+    }
+
+    render() {
+        const { id } = this.props;
+
+        return (
+            &lt;div id={id}>
+                {this.get_filter_blocks()}
+
+                &lt;Button className='w-100' onClick={() => {
+                    this.setState({ filterIndex: undefined });
+                    this.handleShow()
+                }}>
+                    Add filter
+                &lt;/Button>
+
+                {this.get_modal_blocks()}
+            &lt;/div >
+        )
+
+    }
+}
+
+
+
+Filter.defaultProps = {};
+
+/**
+ * @typedef
+ * @public
+ * @enum {}
+ */
+Filter.propTypes = {
+
+    /**
+     * The ID used to identify this component in Dash callbacks.
+     */
+    id: PropTypes.string.isRequired,
+
+    /**
+    * The config the user sets in this component.
+    */
+    config: PropTypes.any,
+
+    /**
+     * The metadata this section is based on.
+     */
+    meta: PropTypes.any.isRequired,
+
+
+    /**
+     * The metadata section will create as output.
+     */
+    meta_out: PropTypes.any,
+
+
+    /**
+     * Dash-assigned callback that should be called to report property changes
+     * to Dash, to make them available for callbacks.
+     */
+    setProps: PropTypes.func
+};
+
+
+/**
+ * @private
+ */
+ export default Filter;</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+
+    <footer class="footer" id="footer">
+      
+    </footer>
+
+    <script src="scripts/third-party/prettify.js"></script>
+    <script src="scripts/third-party/lang-css.js"></script>
+    <script type="text/javascript" src="scripts/misc.js"></script>
+
+    <script>prettyPrint();</script>
+    <script src="scripts/linenumber.js"></script>
+    <script src="scripts/fix-code-block.js"></script>
+    <script src="scripts/fix-navbar.js"></script>
+    
+      <script src="scripts/search.js"></script>
+      <script src="scripts/third-party/fuse.js"></script>
+      <script>
+        var list = [{"title":"Configurator","link":"<a href=\"Configurator.html\">Configurator</a>"},{"title":"Filter","link":"<a href=\"Filter.html\">Filter</a>"},{"title":"Graph","link":"<a href=\"Graph.html\">Graph</a>"},{"title":"MetaCheck","link":"<a href=\"MetaCheck.html\">MetaCheck</a>"},{"title":"Plotter","link":"<a href=\"Plotter.html\">Plotter</a>"},{"title":"Transform","link":"<a href=\"Transform.html\">Transform</a>"}];
+        var options = 
+          setupSearch(list, options)
+      </script>
+    
+
+    
+
+    
+
+    
+
+
+  </body>
+
+</html>

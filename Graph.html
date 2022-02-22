@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="1715747" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="4415032" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -123,7 +123,7 @@
             <div class="class-description"><p>Graph is based on the original dash Graph and can be used to render any
 plotly.js-powered data visualization.</p>
 <p>In addition, there is the possibility to add plot parameters as <code>defParams</code> and
-the dataframe <code>meta</code> data.
+the dataframe <code>meta</code> data.<br>
 This automatically adds a configurator modal, which can be opened via a button
 at the bottom right.</p></div>
         
@@ -193,7 +193,7 @@ at the bottom right.</p></div>
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="Graph.react.js.html">Graph.react.js</a>, <a href="Graph.react.js.html#line59">line 59</a>
+                <a href="Graph.react.js.html">Graph.react.js</a>, <a href="Graph.react.js.html#line54">line 54</a>
             </li></ul></dd>
         </div>
     
@@ -330,36 +330,6 @@ components in an app.</p></td>
 
         <tr>
             
-                <td class="name"><code>responsive</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>If True, the Plotly.js plot will be fully responsive to window resize
-and parent element resize event. This is achieved by overriding
-<code>config.responsive</code> to True, <code>figure.layout.autosize</code> to True and unsetting
-<code>figure.layout.height</code> and <code>figure.layout.width</code>.
-If False, the Plotly.js plot not be responsive to window resize and
-parent element resize event. This is achieved by overriding <code>config.responsive</code>
-to False and <code>figure.layout.autosize</code> to False.
-If 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully
-responsive (True) or not (False) based on the values in <code>config.responsive</code>,
-<code>figure.layout.autosize</code>, <code>figure.layout.height</code>, <code>figure.layout.width</code>.
-This is the legacy behavior of the Graph component.</p>
-<p>Needs to be combined with appropriate dimension / styling through the <code>style</code> prop
-to fully take effect.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>defParams</code></td>
             
 
@@ -390,194 +360,6 @@ to fully take effect.</p></td>
             
 
             <td class="description last"><p>The metadata the plotter selection is based on.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>clickData</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Data from latest click event. Read-only.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>clickAnnotationData</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Data from latest click annotation event. Read-only.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>hoverData</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Data from latest hover event. Read-only.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>clear_on_unhover</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>If True, <code>clear_on_unhover</code> will clear the <code>hoverData</code> property
-when the user &quot;unhovers&quot; from a point.
-If False, then the <code>hoverData</code> property will be equal to the
-data from the last point that was hovered over.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>selectedData</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Data from latest select event. Read-only.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>relayoutData</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Data from latest relayout event which occurs
-when the user zooms or pans on the plot or other
-layout-level edits. Has the form <code>{&lt;attr string&gt;: &lt;value&gt;}</code>
-describing the changes made. Read-only.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>extendData</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Data that should be appended to existing traces. Has the form
-<code>[updateData, traceIndices, maxPoints]</code>, where <code>updateData</code> is an object
-containing the data to extend, <code>traceIndices</code> (optional) is an array of
-trace indices that should be extended, and <code>maxPoints</code> (optional) is
-either an integer defining the maximum number of points allowed or an
-object with key:value pairs matching <code>updateData</code>
-Reference the Plotly.extendTraces API for full usage:
-https://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>prependData</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Data that should be prepended to existing traces. Has the form
-<code>[updateData, traceIndices, maxPoints]</code>, where <code>updateData</code> is an object
-containing the data to prepend, <code>traceIndices</code> (optional) is an array of
-trace indices that should be prepended, and <code>maxPoints</code> (optional) is
-either an integer defining the maximum number of points allowed or an
-object with key:value pairs matching <code>updateData</code>
-Reference the Plotly.prependTraces API for full usage:
-https://plotly.com/javascript/plotlyjs-function-reference/#plotlyprependtraces</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>restyleData</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Data from latest restyle event which occurs
-when the user toggles a legend item, changes
-parcoords selections, or other trace-level edits.
-Has the form <code>[edits, indices]</code>, where <code>edits</code> is an object
-<code>{&lt;attr string&gt;: &lt;value&gt;}</code> describing the changes made,
-and <code>indices</code> is an array of trace indices that were edited.
-Read-only.</p></td>
         </tr>
 
     
@@ -640,64 +422,6 @@ https://plotly.com/javascript/reference</p>
 
         <tr>
             
-                <td class="name"><code>animate</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Beta: If true, animate between updates using
-plotly.js's <code>animate</code> function</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>animation_options</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Beta: Object containing animation settings.
-Only applies if <code>animate</code> is <code>true</code></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>config</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Plotly.js config options.
-See https://plotly.com/javascript/configuration-options/
-for more info.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>setProps</code></td>
             
 
@@ -710,24 +434,6 @@ for more info.</p></td>
             
 
             <td class="description last"><p>Function that updates the state tree.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>loading_state</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Object that holds the loading state object coming from dash-renderer</p></td>
         </tr>
 
     
@@ -769,7 +475,7 @@ for more info.</p></td>
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="Graph.react.js.html">Graph.react.js</a>, <a href="Graph.react.js.html#line480">line 480</a>
+                <a href="Graph.react.js.html">Graph.react.js</a>, <a href="Graph.react.js.html#line275">line 275</a>
             </li></ul></dd>
         </div>
     
@@ -817,7 +523,7 @@ for more info.</p></td>
       <script src="scripts/search.js"></script>
       <script src="scripts/third-party/fuse.js"></script>
       <script>
-        var list = [{"title":"Configurator","link":"<a href=\"Configurator.html\">Configurator</a>"},{"title":"Graph","link":"<a href=\"Graph.html\">Graph</a>"}];
+        var list = [{"title":"Configurator","link":"<a href=\"Configurator.html\">Configurator</a>"},{"title":"Filter","link":"<a href=\"Filter.html\">Filter</a>"},{"title":"Graph","link":"<a href=\"Graph.html\">Graph</a>"},{"title":"MetaCheck","link":"<a href=\"MetaCheck.html\">MetaCheck</a>"},{"title":"Plotter","link":"<a href=\"Plotter.html\">Plotter</a>"},{"title":"Transform","link":"<a href=\"Transform.html\">Transform</a>"}];
         var options = 
           setupSearch(list, options)
       </script>

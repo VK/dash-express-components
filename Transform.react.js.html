@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Adding favicon -->
+    
+
+    <!-- Adding meta -->
+    
+
+    <!-- Adding external script-->
+    
+
+    <!-- Adding external style-->
+    
+
+    <!-- Adding scripts-->
+    
+
+    <!-- Adding style-->
+    
+
+    <!-- Adding overlay script-->
+    
+
+    <!-- Adding overlay style-->
+    
+
+
+    <title>
+      Transform.react.js
+    </title>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/third-party/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/third-party/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/reset.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-base.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-light.css">
+    
+    <svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    style="display:none">
+    <defs>
+        <symbol id="copy-icon" viewbox="0 0 488.3 488.3">
+            <g>
+                <path
+                    d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z" />
+                <path
+                    d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z" />
+            </g>
+        </symbol>
+        <symbol id='search-icon' viewBox="0 0 512 512">
+            <g>
+                <g>
+                    <path
+                        d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z" />
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path
+                        d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z" />
+                </g>
+            </g>
+        </symbol>
+        <symbol id="down-icon" viewBox="0 0 16 16">
+            <path 
+                fill-rule="evenodd" 
+                clip-rule="evenodd" 
+                d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"
+            >
+            </path>
+        </symbol>
+    </defs>
+</svg>
+  </head>
+
+  <body>
+
+    <nav class="navbar" id="navbar">
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="4415032" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      
+
+    </nav>
+    <div class="navbar-ham" id="navbar-ham">
+      <div>
+        <div class="first"></div>
+        <div class="second"></div>
+        <div class="third"></div>
+      </div>
+    </div>
+
+    <div id="main" class="main-content">
+      
+      <h1 id='page-title' class="page-title">
+        Transform.react.js
+      </h1>
+      
+
+      
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import Base from './_sub/Base.react';
+
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+
+import Accordion from 'react-bootstrap/Accordion';
+
+
+import EvalTransform from './_sub/EvalTransform.react';
+import MeltTransform from './_sub/MeltTransform.react';
+import CombinecatTransform from './_sub/CombinecatTransform.react';
+import CategoryLookup from './_sub/CategoryLookup.react';
+import DropnaTransform from './_sub/DropnaTransform.react';
+import WideToLong from './_sub/WideToLong.react';
+import ZerosToNanTransform from './_sub/ZerosToNanTransform.react';
+import RenameTransform from './_sub/RenameTransform.react';
+
+
+
+/**
+ * Bla bla
+ * 
+ * 
+ * @hideconstructor
+ * 
+ * @example
+ * import dash_express_components as dxc
+ * import plotly.express as px
+ * 
+ * meta = dxc.get_meta(px.data.gapminder())
+ * 
+ * dxc.Transform(
+ * ???
+ * )
+ * @public
+ */
+class Transform extends Base {
+
+    static known_trafos = [
+        { type: "eval", class: EvalTransform, "label": "Compute new column" },
+        { type: "combinecat", class: CombinecatTransform, "label": "Combine to categorical column" },
+        { type: "melt", class: MeltTransform, "label": "Melt multiple colums to one" },
+        { type: "wide_to_long", class: WideToLong, "label": "Transform from wide to long" },
+        { type: "catlookup", class: CategoryLookup, "label": "Lookup for category" },
+        { type: "dropna", class: DropnaTransform, "label": "Drop nan values" },
+        { type: "zerostonan", class: ZerosToNanTransform, "label": "Replace zero values with nan" },
+        { type: "rename", class: RenameTransform, "label": "Rename multiple columns" }
+    ]
+
+
+    constructor(props) {
+        super([], props);
+
+
+
+        this.state =
+        {
+            ...this.state,
+
+            /* state of the modal to add new filters */
+            showAddModal: false,
+
+            transformType: "",
+            sub_config: {}
+        };
+
+        this.update_config(this.state.config, true);
+    }
+
+    handleClose() {
+        this.setState({ showAddModal: false });
+    }
+    handleShow() {
+        this.setState({ showAddModal: true });
+    }
+
+    UNSAFE_componentWillReceiveProps(newProps) {
+        const update_config_needed = (newProps.config !== this.props.config);
+
+        super.UNSAFE_componentWillReceiveProps(newProps);
+
+        if (update_config_needed &amp;&amp; "config" in newProps) {
+            this.update_config(newProps.config);
+        }
+
+    }
+
+
+    update_config(new_config, constructor = false) {
+        super.update_config(new_config, constructor);
+
+        //let new_meta = JSON.parse(JSON.stringify(this.state.meta))
+        let new_meta = { ...this.state.meta };
+
+        if (new_config)
+            new_config.forEach(el => {
+
+                let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
+                let res = transform_class.eval(
+                    {
+                        ...el,
+                        meta: new_meta
+                    }
+                );
+                if (res["new_meta"] != undefined) {
+                    new_meta = res["new_meta"];
+                }
+
+
+            });
+
+        super.update_meta_out(new_meta, constructor);
+
+        if (constructor) {
+            this.state = {
+                ...this.state,
+                ...this.get_columns(new_meta)
+            }
+        } else {
+            this.setState(this.get_columns(new_meta));
+        }
+    }
+
+    get_transform_blocks() {
+        const { config } = this.state;
+
+        if (config) {
+            return &lt;div>
+                {
+                    config.map((el, id) => {
+
+                        let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
+
+                        let config_string = transform_class.config_to_string(el);
+
+                        return (&lt;Alert dismissible={id === config.length - 1} key={id} onClose={() => {
+
+                            let new_config = config.filter((e, idx) => idx !== id);
+                            this.update_config(new_config)
+
+                        }}>{config_string}&lt;/Alert>)
+                    }
+                    )
+                }
+
+            &lt;/div>
+        }
+    }
+
+
+
+
+    get_modal_blocks() {
+
+        const {
+            allColOptions,
+            catColOptions,
+            numColOptions,
+            allOptions,
+            meta_out,
+
+
+            showAddModal,
+            transformType,
+
+            sub_config,
+            config,
+        } = this.state;
+
+
+
+        return (&lt;Modal
+            backdrop="static"
+            animation={false}
+            show={showAddModal}
+            onHide={() => this.handleClose()}
+        >
+            &lt;Modal.Header closeButton>
+                &lt;Modal.Title>Add transform&lt;/Modal.Title>
+            &lt;/Modal.Header>
+            &lt;Modal.Body>&lt;div style={{ minHeight: "15em" }} className="mb-3">
+
+
+
+                &lt;InputGroup className="mb-3">
+                    &lt;InputGroup.Text id="basic-addon1">Type&lt;/InputGroup.Text>
+                    &lt;Form.Select
+
+
+                        value={transformType}
+                        onChange={e => {
+                            this.setState({
+                                transformType: e.target.value,
+                                new_transform: {}
+
+                            });
+                        }}
+
+                    >
+                        &lt;option value="">&lt;/option>
+                        {
+                            Transform.known_trafos.map(trafo_el => {
+                                return (&lt;option key={"option" + trafo_el["type"]} value={trafo_el["type"]}>{trafo_el.label}&lt;/option>)
+                            })
+                        }
+                    &lt;/Form.Select>
+
+                &lt;/InputGroup>
+
+
+
+                {
+                    Transform.known_trafos.map(trafo_el => {
+                        return (
+                            transformType === trafo_el["type"] &amp;&amp;
+                            &lt;trafo_el.class
+                                key={"config" + trafo_el["type"]}
+                                meta={meta_out}
+                                allColOptions={allColOptions}
+                                catColOptions={catColOptions}
+                                numColOptions={numColOptions}
+                                allOptions={allOptions}
+                                setProps={e => { if ("config" in e) { this.setState({ sub_config: e.config }) } }}
+                            />
+                        )
+                    })
+                }
+
+
+            &lt;/div>
+            &lt;/Modal.Body>
+            &lt;Modal.Footer>
+                &lt;Button variant="secondary" onClick={() => this.handleClose()}>
+                    Close
+                &lt;/Button>
+                &lt;Button variant="primary" onClick={() => {
+
+                    if ("type" in sub_config) {
+
+
+                        let transform_class = Transform.known_trafos.filter(el => el["type"] === sub_config["type"])[0]["class"];
+                        let res = transform_class.eval(
+                            {
+                                ...sub_config,
+                                meta: meta_out
+                            }
+                        );
+
+                        if (!res.error || window.confirm("Do you want to add the transform, even with errors?")) {
+                            let new_config = [
+                                ...config,
+                                sub_config
+                            ];
+
+                            this.update_config(new_config);
+                            this.handleClose();
+                        }
+
+
+                    }
+
+
+                }}>
+                    Add
+                &lt;/Button>
+            &lt;/Modal.Footer>
+        &lt;/Modal>)
+
+    }
+
+    render() {
+
+        return (
+            &lt;div>
+                {this.get_transform_blocks()}
+
+                &lt;Button className='w-100' onClick={() => this.handleShow()}>
+                    Add transformation
+                &lt;/Button>
+
+                {this.get_modal_blocks()}
+            &lt;/div>
+        )
+
+    }
+}
+
+
+
+Transform.defaultProps = {};
+
+/**
+ * @typedef
+ * @public
+ * @enum {}
+ */
+Transform.propTypes = {
+
+    /**
+     * The ID used to identify this component in Dash callbacks.
+     */
+    id: PropTypes.string.isRequired,
+
+    /**
+    * The config the user sets in this component.
+    */
+    config: PropTypes.any,
+
+    /**
+     * The metadata this section is based on.
+     */
+    meta: PropTypes.any.isRequired,
+
+
+    /**
+     * The metadata section will create as output.
+     */
+    meta_out: PropTypes.any,
+
+
+    /**
+     * Dash-assigned callback that should be called to report property changes
+     * to Dash, to make them available for callbacks.
+     */
+    setProps: PropTypes.func
+};
+
+
+/**
+ * @private
+ */
+ export default Transform;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+
+    <footer class="footer" id="footer">
+      
+    </footer>
+
+    <script src="scripts/third-party/prettify.js"></script>
+    <script src="scripts/third-party/lang-css.js"></script>
+    <script type="text/javascript" src="scripts/misc.js"></script>
+
+    <script>prettyPrint();</script>
+    <script src="scripts/linenumber.js"></script>
+    <script src="scripts/fix-code-block.js"></script>
+    <script src="scripts/fix-navbar.js"></script>
+    
+      <script src="scripts/search.js"></script>
+      <script src="scripts/third-party/fuse.js"></script>
+      <script>
+        var list = [{"title":"Configurator","link":"<a href=\"Configurator.html\">Configurator</a>"},{"title":"Filter","link":"<a href=\"Filter.html\">Filter</a>"},{"title":"Graph","link":"<a href=\"Graph.html\">Graph</a>"},{"title":"MetaCheck","link":"<a href=\"MetaCheck.html\">MetaCheck</a>"},{"title":"Plotter","link":"<a href=\"Plotter.html\">Plotter</a>"},{"title":"Transform","link":"<a href=\"Transform.html\">Transform</a>"}];
+        var options = 
+          setupSearch(list, options)
+      </script>
+    
+
+    
+
+    
+
+    
+
+
+  </body>
+
+</html>

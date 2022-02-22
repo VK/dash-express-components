@@ -31,7 +31,7 @@
 
 
     <title>
-      Home
+      MetaCheck.react.js
     </title>
 
     <!--[if lt IE 9]>
@@ -97,83 +97,154 @@
 
     <div id="main" class="main-content">
       
+      <h1 id='page-title' class="page-title">
+        MetaCheck.react.js
+      </h1>
+      
 
       
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import Base from './_sub/Base.react';
+
+/**
+ * Bla bla
+ * 
+ * 
+ * @hideconstructor
+ * 
+ * @example
+ * import dash_express_components as dxc
+ * import plotly.express as px
+ * 
+ * meta = dxc.get_meta(px.data.gapminder())
+ * 
+ * dxc.MetaCheck(
+ * ???
+ * )
+ * @public
+ */
+class MetaCheck extends Base {
+    constructor(props) {
+        super([], props);
+    }
+
+    render() {
+
+        let { meta } = this.state;
+
+        return (
+
+            &lt;div className="p-3" style={{
+                margin: "-1rem -1.25rem",
+                maxHeight: "200px",
+                overflowY: "auto"
+            }}>
 
 
-    <section class="readme">
-        <article><h1>Dash Express Components</h1>
-<p><img src="https://github.com/VK/dash-express-components/workflows/Publish%20release/badge.svg" alt="Publish release">
-<a href="https://pypi.org/project/dash-express-components"><img src="https://img.shields.io/pypi/v/dash-express-components?logo=pypi" alt="PyPI"></a>
-<a href="https://www.npmjs.com/package/dash_express_components"><img src="https://img.shields.io/npm/v/dash_express_components.svg?logo=npm" alt="npm"></a>
-<a href="https://vk.github.io/dash-express-components"><img src="https://github.com/VK/dash-express-components/workflows/Documentation/badge.svg" alt="Documentation"></a></p>
-<h2>Widgets to bring <a href="https://plotly.com/python/plotly-express/">Plotly Express</a> style plots to <a href="https://dash.plotly.com/">Dash</a></h2>
-<p><img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/lumino/recording.gif" alt="example"><br>
-Example uses <strong><a href="https://github.com/VK/dash-lumino-components">dash-lumino-components</a></strong> for MDI layout.</p>
-<h2>Try it</h2>
-<p>Install dependencies</p>
-<pre class="prettyprint source lang-console"><code>$ pip install dash-express-components
-</code></pre>
-<p>and start with quickly editable graphs:</p>
-<pre class="prettyprint source lang-python"><code>import dash_express_components as dxc
-app.layout = html.Div([
+                &lt;table className="table">
 
-    # add a plot dxc.Configurator
-    html.Div([
-        dxc.Configurator(
-            id=&quot;plotConfig&quot;,
-            meta=meta,
-        ),
-    ], style={&quot;width&quot;: &quot;500px&quot;, &quot;float&quot;: &quot;left&quot;}),
+                    &lt;thead>
+                        &lt;tr>
+                            &lt;th scope="col">Column&lt;/th>
+                            &lt;th scope="col">Type&lt;/th>
+                            &lt;th scope="col">Example&lt;/th>
+                        &lt;/tr>
+                    &lt;/thead>
+                    &lt;tbody>
+                        {
+                            Object.keys(meta).map(col => {
 
-    # add an editable dxc.Graph 
-    html.Div([
-        dxc.Graph(id=&quot;fig&quot;,
-                  meta=meta,
-                  style={&quot;height&quot;: &quot;100%&quot;, &quot;width&quot;: &quot;100%&quot;}
-                 )],
-        style={&quot;width&quot;: &quot;calc(100% - 500px)&quot;, &quot;height&quot;: &quot;calc(100vh - 30px)&quot;,
-               &quot;display&quot;: &quot;inline-block&quot;, &quot;float&quot;: &quot;left&quot;}
-    )
-])
-</code></pre>
-<h2>Develop</h2>
-<ol>
-<li>
-<p>Install npm packages</p>
-<pre class="prettyprint source lang-console"><code>$ npm install
-</code></pre>
-</li>
-<li>
-<p>Create a virtual env and activate.</p>
-<pre class="prettyprint source lang-console"><code>$ virtualenv venv
-$ . venv/bin/activate
-</code></pre>
-<p><em>Note: venv\Scripts\activate for windows</em></p>
-</li>
-<li>
-<p>Install python packages required to build components.</p>
-<pre class="prettyprint source lang-console"><code>$ pip install -r requirements.txt
-</code></pre>
-</li>
-<li>
-<p>Build your code</p>
-<pre class="prettyprint source lang-console"><code>$ npm run build
-</code></pre>
-</li>
-<li>
-<p>Run the example</p>
-<pre class="prettyprint source lang-console"><code>$ python usage.py
-</code></pre>
-</li>
-</ol></article>
+                                let type = meta[col].type;
+
+
+                                let className = {
+                                    categorical: "table-info",
+                                    bool: "table-success",
+                                    temporal: "table-danger",
+                                    numerical: "table-warning",
+                                }[type];
+
+                                let t = {
+                                    categorical: "C",
+                                    bool: "B",
+                                    temporal: "T",
+                                    numerical: "N",
+                                    undefined: "?"
+                                }[type];
+
+                                let e = {
+                                    categorical: (("cat" in meta[col]) ? meta[col].cat[0] : ''),
+                                    bool: "true",
+                                    temporal: meta[col].median,
+                                    numerical: meta[col].median,
+                                }[type];
+
+
+                                return &lt;tr className={className} key={"tab-" + col}>&lt;th>{col}&lt;/th>&lt;td>{t}&lt;/td>&lt;td>{e}&lt;/td>&lt;/tr>
+                            })
+                        }
+                    &lt;/tbody>
+                &lt;/table>
+
+            &lt;/div>
+        )
+
+    }
+}
+
+
+
+MetaCheck.defaultProps = {};
+
+/**
+ * @typedef
+ * @public
+ * @enum {}
+ */
+MetaCheck.propTypes = {
+
+    /**
+     * The ID used to identify this component in Dash callbacks.
+     */
+    id: PropTypes.string.isRequired,
+
+    /**
+    * The config the user sets in this component.
+    */
+    config: PropTypes.any,
+
+    /**
+     * The metadata this section is based on.
+     */
+    meta: PropTypes.any.isRequired,
+
+
+    /**
+     * The metadata section will create as output.
+     */
+    meta_out: PropTypes.any,
+
+
+    /**
+     * Dash-assigned callback that should be called to report property changes
+     * to Dash, to make them available for callbacks.
+     */
+    setProps: PropTypes.func
+};
+
+
+/**
+ * @private
+ */
+ export default MetaCheck;</code></pre>
+        </article>
     </section>
-
-
 
 
 
