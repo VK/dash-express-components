@@ -228,7 +228,8 @@ class Graph extends Component {
                 virtualization: true,
                 page_action: 'none',
                 fixed_rows: { headers: true, data: 0 },
-                style_table: { height: '300px', overflowY: 'auto' }
+                style_table: { height: '300px', overflowY: 'auto' },
+                style_cell:{'minWidth': '50px'}
             }
 
             return (
@@ -236,7 +237,6 @@ class Graph extends Component {
 
                     <CoreDataTable {...props} setProps={
                         el => {
-
 
                             if (("selectedData" in el) || ("prependData" in el) || ("extendData" in el)) {
                                 this.props.setProps(el);

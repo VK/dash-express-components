@@ -15,6 +15,7 @@ export default class CoreDataTable extends Component {
         this.state = {
             selected_rows: [],
             virtualIndices: [],
+            tableWidth: 500,
             tableHeight: 500,
             ...this.loadData(this.props.data, this.props.index),
         };
@@ -79,8 +80,14 @@ export default class CoreDataTable extends Component {
         });
 
         this.props.setProps({
-            selectedData: {
-                points: this.state.virtualIndices
+            selectedData:
+            {
+                points: this.state.virtualIndices.map(r => {
+                    return {
+                        ...this.state.data[r],
+                        hovertext: this.state.data[r][this.state.index]
+                    }
+                })
             }
         });
     }
@@ -99,11 +106,13 @@ export default class CoreDataTable extends Component {
     }
 
     tableResize(w, h) {
-        if (this.state.tableHeight !== h) {
+        if (this.state.tableHeight !== h || this.state.tableWidth !== w) {
             this.setState({ tableHeight: h });
+            this.setState({ tableWidth: w });
 
             const el = ReactDOM.findDOMNode(this.datatable_ref.current).children[1];
             el.style["height"] = h + "px";
+            el.style["width"] = w + "px";
             el.style["max-height"] = "unset";
 
         }
