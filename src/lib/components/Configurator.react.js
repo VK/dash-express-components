@@ -58,16 +58,20 @@ class CustomAccordionItem extends Component {
 }
 
 
-
-
-
-
 /**
+ * <div style="width:450px; margin-left: 20px; float: right;  margin-top: -150px;">
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/configurator.png"/>
+ * </div>
+ * 
+ *
  * The configurator component helps to define plot definitions based on the
  * metadata of a dataframe.
- * 
+ * Different configuration parts like `Filter`, `Transform` or `Plotter`
+ * are combined in a single accordion component.
+ *
  * The metadata is used to compute the available parameters after data 
- * transformations for the most common plot types.
+ * transformations and newly available colums are adjusted automatically.
+ * 
  * @hideconstructor
  * 
  * @example
@@ -87,8 +91,8 @@ class Configurator extends Component {
         super(props);
 
         this.state = {
-            id: this.props.id,
-            config: {},
+            id: props.id,
+            config: props.config,
             meta: props.meta,
             filter_meta_out: { ...props.meta },
             transform_meta_out: { ...props.meta },

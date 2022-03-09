@@ -2,10 +2,11 @@ import { isNil, pluck } from 'ramda';
 import PlotterBase from "./PlotterBase.react";
 import Select from 'react-select';
 import InputGroup from 'react-bootstrap/InputGroup';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 
 
-export default class BarCount extends PlotterBase {
+export default class Bar extends PlotterBase {
 
     constructor(props) {
         super(props);
@@ -20,51 +21,20 @@ export default class BarCount extends PlotterBase {
 
         }
 
-        this.copy_params("bar_count");
+        this.barmode_options = [
+            { label: 'stack', value: undefined },
+            { label: 'overlay', value: 'overlay' },
+            { label: 'group', value: 'group' }
+        ];
+
+        this.copy_params("bar");
         this.init_check_options(true);
     }
 
 
-    static icon = (<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" viewBox="0 0 46 46">
-        <path
-            fill="none"
-            d="M0 0h46v46H0z"
-            id="path2" />
-        <path
-            fill="#25fdfc"
-            d="M7 28h6v12H7z"
-            id="path4" />
-        <path
-            fill="#1d9bfb"
-            d="m 21,28 h -6 v 12 h 6 z M 38,10 h -6 v 30 h 6 z"
-            id="path6" />
-        <path
-            fill="#25fdfc"
-            d="M24 20h6v20h-6z"
-            id="path8" />
-        <path
-            fill="#000000"
-            d="m 9.8988084,10.063492 h 1.4821426 v 12 H 9.8988084 Z"
-            id="path4-9"
-        />
-        <path
-            fill="#000000"
-            d="m 14.416664,10.063492 h 1.482143 v 12 h -1.482143 z"
-            id="path4-9-8"
-        />
-        <path
-            fill="#000000"
-            d="m 18.898806,13.06349 v 1.482143 H 6.8988091 V 13.06349 Z"
-            id="path4-9-9"
-        />
-        <path
-            fill="#000000"
-            d="m 18.898806,17.581348 v 1.482143 H 6.8988091 v -1.482143 z"
-            id="path4-9-8-5"
-        />
-    </svg>)
-    static label = "Bar Count Plot";
-    static type = "bar_count";
+    static icon = (<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" viewBox="0 0 46 46"><path fill="none" d="M0 0h46v46H0z"></path><path fill="#25fdfc" d="M7 28h6v12H7z"></path><path fill="#1d9bfb" d="M32 28h6v12h-6zM15 10h6v30h-6z"></path><path fill="#25fdfc" d="M24 20h6v20h-6z"></path></svg>)
+    static label = "Bar Plot";
+    static type = "bar";
 
     config_from_state(input) {
         let params = {
@@ -79,7 +49,7 @@ export default class BarCount extends PlotterBase {
         }
 
         return {
-            type: "bar_count",
+            type: "bar",
             params: params
         }
     }
@@ -89,13 +59,19 @@ export default class BarCount extends PlotterBase {
         const {
             allColOptions,
             catColOptions,
-            optionsbar
+            optionsbar,
         } = this.state;
 
         return (
             <div>
-                {this.multiSelect("X", "x", catColOptions)}
+                {this.multiSelect("X", "x", allColOptions)}
+                {this.multiSelect("Y", "y", allColOptions)}
                 {this.singleSelect("Color", "color", allColOptions)}
+                {this.singleSelect("Pattern", "pattern_shape", catColOptions)}
+                {this.singleSelect_ExtraOption("Mode", "barmode", this.barmode_options)}
+                <ButtonGroup aria-label="extra-box-options" id="extra-box-options" className="w-100 mb-1">
+                    {this.toggleSelect("Text", "text_auto", [null, true])}
+                </ButtonGroup>                
 
                 {this.optionsBar(optionsbar)}
                 {this.commonOptionBarControlls()}
@@ -108,9 +84,9 @@ export default class BarCount extends PlotterBase {
 
 
 
-BarCount.defaultProps = {};
+Bar.defaultProps = {};
 
-BarCount.propTypes = {
+Bar.propTypes = {
 
     /**
     * The config the user sets in this component.

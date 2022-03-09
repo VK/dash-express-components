@@ -15,6 +15,14 @@ export default class CombinecatTransform extends SubComponentBase {
             newColName: "",
             selectedCols: []
         }
+
+        if ("config" in props) {
+            this.state = {
+                ...this.state,
+                newColName: ("col" in props.config) ? props.config.col : [],
+                selectedCols: ("cols" in props.config) ? props.config.cols : []
+            };
+        }
     }
 
     static config_to_string(el) {
@@ -35,6 +43,17 @@ export default class CombinecatTransform extends SubComponentBase {
 
         let col = input["col"];
         let cols = input["cols"];
+
+        let error = false;
+        cols.forEach(k => {
+            if (!(k in current_meta)) {
+                error = true;
+            }
+        });
+
+        if (error) {
+            return { error: true, message: "Missing input columns" };
+        }
 
         let res = cols.map(k => SubComponentBase.get_col_or_median(current_meta[k])).join("_");
 
@@ -61,7 +80,7 @@ export default class CombinecatTransform extends SubComponentBase {
 
         return <div>
 
-            Select the name of a new category.
+            <div className="color-helper-blue">Choose the name of a new category.</div>
             <InputGroup className="mb-3" key="selectName">
                 <InputGroup.Text id="basic-addon1">New column</InputGroup.Text>
                 <FormControl value={newColName} onChange={e => {
@@ -74,9 +93,7 @@ export default class CombinecatTransform extends SubComponentBase {
                 }} />
             </InputGroup>
 
-            Select the columns that should be grouped into a new cateogy.
-
-
+            <div className="color-helper-green">Select the columns that should be grouped into a new cateogy.</div>
             <Select
                 className="mb-3"
                 key="selectCols"

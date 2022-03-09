@@ -101,8 +101,6 @@ def get_meta_dask(df):
 
 def get_plot(inputDataFrame, config, apply_parameterization=True):
 
-    print(config)
-
     errorResult = "Empty plot"
 
     try:
@@ -188,7 +186,9 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                         (c if type(c) == list else [c]) for c in [
                             plotConfigData["params"].get(key) for key in
                             ["x", "y", "error_x", "error_y", "dimensions",
-                                "color", "facet_col", "facet_row", "hover_name"]
+                                "color", "facet_col",
+                                "size", "symbol", "pattern_shape",
+                                "facet_row", "hover_name"]
                         ] if c is not None
                         ] for b in a]
 
@@ -207,7 +207,6 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
             usedCols = list(set(usedCols))
 
             # if we don't get a pandas dataframe it might be dask or mongodf
-            print(usedCols)
             if not isinstance(inputDataFrame, _pd.DataFrame):
                 try:
                     inputDataFrame = inputDataFrame[[c for c in usedCols if c in inputDataFrame.columns]].compute(
@@ -307,8 +306,6 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
             if plotConfigData["type"] == "density_contour":
                 fig = _px.density_contour(
                     inputDataFrame, **plotConfigData["params"])
-            if plotConfigData["type"] == "box":
-                fig = _px.box(inputDataFrame, **plotConfigData["params"])
             if plotConfigData["type"] == "violin":
                 fig = _px.violin(inputDataFrame, **
                                  plotConfigData["params"])

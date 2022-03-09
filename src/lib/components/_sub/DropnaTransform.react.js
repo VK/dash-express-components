@@ -14,6 +14,14 @@ export default class DropnaTransform extends SubComponentBase {
             ...this.state,
             selectedCols: []
         }
+
+        if ("config" in props) {
+            this.state = {
+                ...this.state,
+                selectedCols: ("subset" in props.config) ? props.config.subset : []
+            };
+        }
+
     }
 
     static config_to_string(el) {
@@ -31,8 +39,18 @@ export default class DropnaTransform extends SubComponentBase {
     static eval(input) {
         let current_meta = input["meta"];
 
+        let error = false;
+        let message = "";
+
+        input.subset.forEach(c => {
+            if (!(c in current_meta)) {
+                error = true;
+                message = "Missing column " + c + "\n";
+            }
+        })
+
         let output = {
-            value: 0, error: false, message: "", type: "categorical", new_meta: current_meta
+            value: 0, error: error, message: message, type: "categorical", new_meta: current_meta
         };
 
         return output;
@@ -50,9 +68,7 @@ export default class DropnaTransform extends SubComponentBase {
         return <div>
 
 
-            Select the columns you want to clean from nan values.
-
-
+            <div className="color-helper-blue mt-5">Select the columns to be cleaned of nan values.</div>
             <Select
                 className="mb-3"
                 key="selectCols"
@@ -62,7 +78,7 @@ export default class DropnaTransform extends SubComponentBase {
 
                 {...multiCallbacks(
                     this,
-                    (s) => this.setStateConfig({ ...s}),
+                    (s) => this.setStateConfig({ ...s }),
                     "selectedCols",
                     allOptions
                 )}

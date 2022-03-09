@@ -17,10 +17,15 @@ export default class Box extends PlotterBase {
                 this.option_dict.facet,
                 this.option_dict.axis,
                 this.option_dict.labels,
-                { id: "boxoptions", label: "Box options", visible: false, reset: { boxmode: [], points: [] } },
+                { id: "boxoptions", label: "Box options", visible: false, reset: { boxmode: [], points: [], aggr: [] } },
             ]
 
         }
+
+        this.boxmode_options = [
+            { label: 'Group', value: 'group' },
+            { label: 'Overlay', value: 'overlay' }
+        ];
 
         this.boxmode_options = [
             { label: 'Group', value: 'group' },
@@ -32,6 +37,24 @@ export default class Box extends PlotterBase {
             { label: 'Suspected outliers', value: 'suspectedoutliers' },
             { label: 'All points', value: 'all' },
             { label: 'No points', value: false }
+        ];
+
+        this.aggr_options = [
+            { label: 'Mean', value: 'mean' },
+            { label: 'Median', value: 'median' },
+            { label: 'Count', value: 'count' },
+            { label: 'Min', value: 'min' },
+            { label: 'Max', value: 'max' },
+
+            { label: 'IQR', value: 'iqr' },
+            { label: 'Range', value: 'range' },
+
+            { value: 'q01', label: '1th percentile' },
+            { value: 'q05', label: '5th percentile' },
+            { value: 'q25', label: '25th percentile' },
+            { value: 'q75', label: '75th percentile' },
+            { value: 'q95', label: '95th percentile' },
+            { value: 'q99', label: '99th percentile' }            
         ];
 
         this.copy_params("box");
@@ -83,6 +106,7 @@ export default class Box extends PlotterBase {
                             <h5>{el.label}</h5>
                             {this.singleSelect_ExtraOption("Mode", "boxmode", this.boxmode_options)}
                             {this.singleSelect_ExtraOption("Points", "points", this.points_options)}
+                            {this.multiSelect_ExtraOption("Stats", "aggr", this.aggr_options)}
                         </div>
                     }
                 })}

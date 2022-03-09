@@ -29,7 +29,21 @@ export default class HistogramLine extends PlotterBase {
     }
 
 
-    static icon = (<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" viewBox="0 0 46 46"><path fill="none" d="M0 0h46v46H0z"></path><path fill="#25fdfc" d="M38 39V23l-11 4-9-3-11 3v12h31z"></path><path fill="#1d9bfb" d="M38 21l-11 4-9-3-11 3V14l14 5L38 7v14z"></path></svg>)
+    static icon = (<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" viewBox="0 0 46 46"><g fill="none"><path d="M0 0h46v46H0z"></path>
+        <path
+            stroke="#1d9bfb"
+            d="m 5.087,39 9.391,-12.913 4.077014,3.019697 4.657285,-7.399839 2.107648,-10.250451 2.651337,14.787696 9.211266,12.672024"
+            strokeMiterlimit="10"
+            strokeWidth="2.348"
+        />
+        <path
+            stroke="#25fdfc"
+            d="m 9.8742411,38.916127 9.9944319,-15.325537 6.345412,6.463162 4.168085,-4.165906 9.953782,13.028281"
+            strokeMiterlimit="10"
+            strokeWidth="2.348"
+        />
+    </g>
+    </svg>)
     static label = "Line Histogram";
     static type = "histogram_line";
 

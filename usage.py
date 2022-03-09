@@ -7,6 +7,42 @@ import plotly.express as px
 import json
 
 df = px.data.gapminder()
+
+
+test_cfg = {
+    "transform": [
+        {
+            "type": "aggr",
+            "groupby": [
+                "country",
+                "continent"
+            ],
+            "cols": ["gdpPercap"],
+            "types": [
+                "median"
+            ]
+        }
+    ],
+    "plot": {
+        "type": "box",
+        "params": {
+            "x": "continent",
+            "y": "gdpPercap_median",
+            "color": "continent",
+            "aggr": ["mean"]
+        }
+    },
+    "filter": [
+        {
+            "col": "continent",
+            "type": "isnotin",
+            "value": [
+                "Oceania"
+            ]
+        }
+    ]
+}
+
 meta = dxc.get_meta(df)
 
 app = dash.Dash(
@@ -17,9 +53,11 @@ app = dash.Dash(
 app.layout = html.Div([
 
     html.Div([
+
         dxc.Configurator(
             id="plotConfig",
             meta=meta,
+            config=test_cfg
         ),
         html.H3("Config:"),
         html.Pre([html.Code(id='output')]),

@@ -18,6 +18,15 @@ export default class CategoryLookup extends SubComponentBase {
             values: []
         }
 
+        if ("config" in props) {
+            this.state = {
+                ...this.state,
+                newColName: ("col" in props.config) ? props.config.col : "",
+                selectedCol: ("incol" in props.config) ? props.config.incol : [],
+                values: ("values" in props.config) ? Object.keys(props.config.values).map(k => '"' + k + '": ' + props.config.values[k]) : []
+            };
+        }
+
         this.editablelist_ref = React.createRef();
     }
 
@@ -53,6 +62,12 @@ export default class CategoryLookup extends SubComponentBase {
         if (values == null) {
             return {
                 value: 0, error: true, message: "Not able to parse your inputs!", type: undefined
+            };
+        }
+
+        if (!(incol in current_meta)) {
+            return {
+                value: 0, error: true, message: "Input column not in metadata!", type: undefined
             };
         }
 
@@ -94,7 +109,7 @@ export default class CategoryLookup extends SubComponentBase {
 
         return <div>
 
-            Set the name of the new column.
+            <div className="color-helper-blue">Set the name of the new column with the lookup results.</div>
             <InputGroup className="mb-3" key="selectName">
                 <InputGroup.Text id="basic-addon1">New column</InputGroup.Text>
                 <FormControl value={newColName} onChange={e => {
@@ -108,7 +123,7 @@ export default class CategoryLookup extends SubComponentBase {
                 }} />
             </InputGroup>
 
-            Select the column you want to use for the lookup.
+            <div className="color-helper-green">Select the column you want to use for the lookup.</div>
             <Select
                 className="mb-3"
                 key="selectCol"

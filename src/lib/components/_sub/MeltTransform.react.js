@@ -15,6 +15,17 @@ export default class MeltTransform extends SubComponentBase {
             newColNameTwo: "",
             selectedCols: []
         }
+
+
+        if ("config" in props) {
+            this.state = {
+                ...this.state,
+                newColName: ("col" in props.config) ? props.config.col : "",
+                newColNameTwo: ("col2" in props.config) ? props.config.col2 : "",
+                selectedCols: ("cols" in props.config) ? props.config.cols : []
+            };
+        }
+
     }
 
     static config_to_string(el) {
@@ -37,6 +48,20 @@ export default class MeltTransform extends SubComponentBase {
         let col = input["col"];
         let col2 = input["col2"];
         let cols = input["cols"];
+
+        let error = false;
+        let message = "";
+
+        cols.forEach(c => {
+            if (!(c in current_meta)) {
+                error = true;
+                message = "Missing column " + c + "\n";
+            }
+        });
+
+        if (error) {
+            return { error: error, message: message };
+        }
 
         let res = cols.map(k => SubComponentBase.get_col_or_median(current_meta[k])).join("_");
 
@@ -74,9 +99,9 @@ export default class MeltTransform extends SubComponentBase {
 
         return <div>
 
-            Select the name of a new columns.
+            <div>Choose the names of the new columns.</div>
             <InputGroup className="mb-3">
-                <InputGroup.Text id="basic-addon1">Value</InputGroup.Text>
+                <InputGroup.Text className="color-helper-blue" id="basic-addon1">Value</InputGroup.Text>
                 <FormControl value={newColName} onChange={e => {
                     this.setStateConfig(
                         {
@@ -86,7 +111,7 @@ export default class MeltTransform extends SubComponentBase {
                         }
                     );
                 }} />
-                <InputGroup.Text id="basic-addon2">Type</InputGroup.Text>
+                <InputGroup.Text className="color-helper-red" id="basic-addon2">Type</InputGroup.Text>
                 <FormControl value={newColNameTwo} onChange={e => {
                     this.setStateConfig(
                         {
@@ -98,7 +123,7 @@ export default class MeltTransform extends SubComponentBase {
                 }} />
             </InputGroup>
 
-            Select the columns that should be combined:
+            <div className="color-helper-green">Select the columns that should be combined:</div>
 
 
             <Select

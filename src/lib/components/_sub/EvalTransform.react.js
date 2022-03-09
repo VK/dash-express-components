@@ -16,6 +16,13 @@ export default class EvalTransform extends SubComponentBase {
             newColFormula: "",
             newColComputeResult: {}
         }
+        if ("config" in props) {
+            this.state = {
+                ...this.state,
+                newColName: ("col" in props.config) ? props.config.col : "",
+                newColFormula: ("formula" in props.config) ? props.config.formula : ""
+            };
+        }
     }
 
     static config_to_string(el) {
@@ -133,10 +140,12 @@ export default class EvalTransform extends SubComponentBase {
 
         if (type === "?") {
             error = true;
+            message = "Evaluation error!";
         }
 
         if (type === "numerical" && isNaN(res)) {
             error = true;
+            message = "Evaluation error!";
         }
 
         let output = {
@@ -164,6 +173,7 @@ export default class EvalTransform extends SubComponentBase {
 
         return <div>
 
+            <div className="color-helper-blue">Create a new column computed by row data.</div>
             <InputGroup className="mb-3">
                 <InputGroup.Text id="basic-addon1">New column</InputGroup.Text>
                 <FormControl value={newColName} onChange={e => {

@@ -152,6 +152,7 @@ export default class PlotterBase extends Component {
             size: this.state.size,
 
             boxmode: this.state.boxmode,
+            aggr: this.state.aggr,
             points: this.state.points,
 
             error_x: this.state.error_x,
@@ -342,6 +343,29 @@ export default class PlotterBase extends Component {
                     options={options}
                     styles={multiColorStyle}
                     components={hideGroupComponents}
+                    {...multiCallbacks(
+                        this,
+                        (s) => this.setStateConfig(s),
+                        varname,
+                        this.props.allOptions
+                    )}
+                /></div>
+        </InputGroup>)
+    }
+
+    multiSelect_ExtraOption(name, varname, options) {
+
+        const {
+            id
+        } = this.props;
+
+        return (<InputGroup className="mb-1 w-100" id={id + "-group-" + varname} key={id + "-group-" + varname}>
+            <InputGroup.Text className="d-flex flex-grow-1" id={id + "-group-text-" + varname} key={id + "-group-text-" + varname} style={{ "minWidth": 75 }}>{name}</InputGroup.Text>
+            <div style={{ "flexGrow": 10000 }}>
+                <Select
+                    id={id + "-select-" + varname}
+                    key={id + "-select-" + varname}
+                    options={options}
                     {...multiCallbacks(
                         this,
                         (s) => this.setStateConfig(s),

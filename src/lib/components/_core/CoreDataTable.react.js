@@ -95,7 +95,9 @@ export default class CoreDataTable extends Component {
     componentDidMount() {
 
         let that = this;
-        this.clearTimeout = setTimeout(function () { that.clearTableSelect(); }, 2000);
+        this.clearTimeout = setTimeout(function () {
+            that.tableResize(that.state.tableWidth, that.state.tableHeight + 1);
+        }, 2000);
 
     }
 
@@ -106,16 +108,24 @@ export default class CoreDataTable extends Component {
     }
 
     tableResize(w, h) {
-        if (this.state.tableHeight !== h || this.state.tableWidth !== w) {
-            this.setState({ tableHeight: h });
-            this.setState({ tableWidth: w });
+        let that = this;
 
-            const el = ReactDOM.findDOMNode(this.datatable_ref.current).children[1];
-            el.style["height"] = h + "px";
-            el.style["width"] = w + "px";
-            el.style["max-height"] = "unset";
+        setTimeout(function () {
+            try {
+                if (that.state.tableHeight !== h || that.state.tableWidth !== w) {
+                    that.setState({ tableHeight: h, tableWidth: w });
 
-        }
+                    const el = ReactDOM.findDOMNode(that.datatable_ref.current).children[1];
+                    el.style["height"] = h + "px";
+                    el.style["width"] = w + "px";
+                    el.style["max-height"] = "unset";
+
+                }
+            } catch (error) {
+
+            }
+        }, 500);
+
 
     }
 
@@ -259,8 +269,8 @@ export default class CoreDataTable extends Component {
 
                     <svg version="1.1" viewBox="0 0 22 22" width="26px" height="26px">
                         <g transform="translate(-347.64 -417.01)">
-                            <path transform="matrix(.061114 0 0 .061114 336.74 401.83)" d="m534.29 429.51a177.14 177.14 0 1 1-354.29 0 177.14 177.14 0 1 1 354.29 0z" fill="#fff" fill-rule="evenodd"></path>
-                            <path transform="matrix(.053629 0 0 .053629 339.38 404.96)" d="m534.29 429.51a177.14 177.14 0 1 1-354.29 0 177.14 177.14 0 1 1 354.29 0z" fill="#0d6efd" fill-rule="evenodd"></path>
+                            <path transform="matrix(.061114 0 0 .061114 336.74 401.83)" d="m534.29 429.51a177.14 177.14 0 1 1-354.29 0 177.14 177.14 0 1 1 354.29 0z" fill="#fff" fillRule="evenodd"></path>
+                            <path transform="matrix(.053629 0 0 .053629 339.38 404.96)" d="m534.29 429.51a177.14 177.14 0 1 1-354.29 0 177.14 177.14 0 1 1 354.29 0z" fill="#0d6efd" fillRule="evenodd"></path>
                             <path d="m357.44 430.15-2.7858-2.7858-1.6646 1.7034 4.4044 4.5806 7.8246-8.1468-1.795-1.8411z" fill="#fff"></path>
                         </g>
                     </svg>

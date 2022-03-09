@@ -27,13 +27,22 @@ let guid = () => {
 }
 
 /**
- * Graph is based on the original dash Graph and can be used to render any
- * plotly.js-powered data visualization.
+ * <div style="width:450px; margin-left: 20px; float: right;  margin-top: -150px;">
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/graph.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/graph-table.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/graph-modal.png"/>
+ * </div>
+ * 
+ * 
+ * The `Graph` component is a combination of the original dash `Graph` and the dash `data_table`.
+ *
+ * It can not only be used to render a plotly.js-powered data visualization,
+ * but also shows a searchable table, if only data is submitted.
  * 
  * In addition, there is the possibility to add plot parameters as `defParams` and 
  * the dataframe `meta` data.  
  * This automatically adds a configurator modal, which can be opened via a button
- * at the bottom right. 
+ * at the bottom right.
  * 
  * 
  * @hideconstructor
@@ -157,6 +166,7 @@ class Graph extends Component {
 
         let configurator_modal = (
             <Modal
+                centered
                 backdrop="static"
                 animation={false}
                 show={this.state.config_modal_open}
@@ -199,8 +209,6 @@ class Graph extends Component {
                 <div className='pxc-graph-container'>
                     <CoreGraph
                         {...this.props}
-                        // prependData={this.state.prependData}
-                        // extendData={this.state.extendData}
                         clearState={this.clearState}
                     />
                     <div className="saveClickContainer" >{save_button}{edit_button}</div>
@@ -229,7 +237,7 @@ class Graph extends Component {
                 page_action: 'none',
                 fixed_rows: { headers: true, data: 0 },
                 style_table: { height: '300px', overflowY: 'auto' },
-                style_cell:{'minWidth': '50px'}
+                style_cell: { 'minWidth': '50px' }
             }
 
             return (
@@ -305,6 +313,11 @@ Graph.propTypes = {
      * Generic style overrides on the plot div
      */
     style: PropTypes.object,
+
+    /**
+     * The data selected in the plot or in the table
+     */
+    selectedData: PropTypes.any,
 
     /**
      * className of the parent div

@@ -14,7 +14,18 @@ import Accordion from 'react-bootstrap/Accordion';
 import DateTimePicker from 'react-datetime-picker';
 
 /**
- * Bla bla
+ * <div style="width:450px; margin-left: 20px; float: right;  margin-top: -150px;">
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/filter.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/filter-modal.png"/>
+ * </div>
+ * 
+ * 
+ * The filter component allows filters to be set on individual columns.
+ * 
+ * These are all combined with and.
+ * 
+ * There are the options like >, <, = for numerical, as well as isin etc. for categorical columns.
+ * Possible options are given by the `meta` props.
  * 
  * 
  * @hideconstructor
@@ -26,7 +37,8 @@ import DateTimePicker from 'react-datetime-picker';
  * meta = dxc.get_meta(px.data.gapminder())
  * 
  * dxc.Filter(
- * ???
+ *   id="filter",
+ *   meta=meta
  * )
  * @public
  */
@@ -60,6 +72,7 @@ class Filter extends Base {
 
         };
 
+        this.update_config(this.state.config, true);
     }
 
     handleClose() {
@@ -70,8 +83,8 @@ class Filter extends Base {
     }
 
 
-    update_config(new_config) {
-        super.update_config(new_config);
+    update_config(new_config, constructor = false) {
+        super.update_config(new_config, constructor);
 
         let new_meta = JSON.parse(JSON.stringify(this.props.meta))
         //let new_meta = { ...this.props.meta };
@@ -109,7 +122,7 @@ class Filter extends Base {
             });
 
 
-        super.update_meta_out(new_meta);
+        super.update_meta_out(new_meta, constructor);
     }
 
     filter_to_string(el) {
@@ -212,6 +225,7 @@ class Filter extends Base {
         const { meta, id } = this.props;
 
         return (<Modal
+            centered
             backdrop="static"
             animation={false}
             show={showAddModal}
@@ -555,4 +569,4 @@ Filter.propTypes = {
 /**
  * @private
  */
- export default Filter;
+export default Filter;

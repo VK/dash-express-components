@@ -17,7 +17,18 @@ export default class RenameTransform extends SubComponentBase {
             values: []
         }
 
+        if ("config" in props) {
+            if ("columns" in props.config) {
+                this.state = {
+                    ...this.setState,
+                    selectedCols: Object.keys(props.config.columns),
+                    values: Object.keys(props.config.columns).map(k => '"' + k + '": "' + props.config.columns[k] + '"')
+                }
+            }
+        }
+
         this.editablelist_ref = React.createRef();
+
     }
 
     static config_to_string(el) {
@@ -45,25 +56,37 @@ export default class RenameTransform extends SubComponentBase {
         let current_meta = input["meta"];
         let columns = input["columns"];
 
-
-
-
         if (columns == null) {
             return {
                 value: 0, error: true, message: "Not able to parse your inputs!", type: undefined
             };
         }
 
+        let error = false;
+        let message = "";
+
+        Object.keys(columns).forEach(c => {
+            if (!(c in current_meta)) {
+                error = true;
+                message = "Missing column " + c + "\n";
+            }
+        })
+
         let output = {
-            value: 1, error: false, message: "", type: "categorical"
+            value: 1, error: error, message: message, type: "categorical"
         };
+        if (error) {
+            return output;
+        }
 
         let new_meta = { ...current_meta };
 
         for (const [key, value] of Object.entries(columns)) {
 
             new_meta[value] = new_meta[key];
-            delete new_meta[key];
+            if (key !== value) {
+                delete new_meta[key];
+            }
         }
         output["new_meta"] = new_meta;
 
@@ -76,7 +99,7 @@ export default class RenameTransform extends SubComponentBase {
         const {
             allColOptions,
             allOptions
-        } = this.state;
+        } = this.props;
 
         let {
             selectedCols,
@@ -85,8 +108,7 @@ export default class RenameTransform extends SubComponentBase {
 
         return <div>
 
-
-            Select the columns you want to rename:
+            <div className="color-helper-green">Select the columns you want to rename:</div>
             <Select
                 className="mb-3"
                 key="selectCols"
@@ -108,9 +130,7 @@ export default class RenameTransform extends SubComponentBase {
                 )}
             />
 
-
-
-            Define the new column names:
+            <div className="color-helper-blue">Define the new column names:</div>
             <EditableList
                 ref={this.editablelist_ref}
                 list={values}

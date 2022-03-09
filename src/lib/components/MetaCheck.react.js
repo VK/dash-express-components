@@ -2,8 +2,11 @@ import React from 'react';
 import Base from './_sub/Base.react';
 
 /**
- * Bla bla
+ * Helper to show the metadata of the data inside a component.
  * 
+ * Can be usefull, to check how a data transformation works.
+ * 
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/metacheck.png"/>
  * 
  * @hideconstructor
  * 

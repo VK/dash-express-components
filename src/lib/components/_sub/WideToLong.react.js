@@ -20,6 +20,20 @@ export default class WideToLong extends SubComponentBase {
             sep: "_",
             suffix: "string",
         }
+
+
+        if ("config" in props) {
+            this.state = {
+                ...this.state,
+                groupby: ("i" in props.config) ? props.config.i : [],
+                stubnames: ("stubnames" in props.config) ? props.config.stubnames : [],
+
+                type: ("j" in props.config) ? props.config.j : "Type",
+                sep: ("sep" in props.config) ? props.config.sep : "_",
+                suffix: ("suffix" in props.config) ? props.config.suffix : "string"
+            };
+        }
+
     }
 
     static config_to_string(el) {
@@ -52,15 +66,38 @@ export default class WideToLong extends SubComponentBase {
         //sep
         //suffix
 
+
+        let current_meta = input["meta"];
+        let error = false;
+        let message = "";
+
+        input.i.forEach(c => {
+            if (!(c in current_meta)) {
+                error = true;
+                message = "Missing column " + c + "\n";
+            }
+        });
+
+        if (error) {
+            return { error: error, message: message };
+        }
+
+
         let new_meta = {};
         input.i.forEach(el => new_meta[el] = input.meta[el]);
 
         let types = [];
         input.stubnames.forEach(el => {
             let group = Object.keys(input.meta).filter(s => s.includes(input.sep) && WideToLong.sep_split(s, input.sep) == el);
-            new_meta[el] = input.meta[group[0]];
-            let new_types = group.map(s => s.split(input.sep).slice(-1)[0]);
-            types = [...types, ...new_types];
+
+            if (group.length > 0) {
+                new_meta[el] = input.meta[group[0]];
+                let new_types = group.map(s => s.split(input.sep).slice(-1)[0]);
+                types = [...types, ...new_types];
+            } else {
+                error = true;
+                message = "Missing column start " + el + "\n";
+            }
         });
 
         types = [...new Set(types)];
@@ -73,7 +110,7 @@ export default class WideToLong extends SubComponentBase {
         input.meta = new_meta;
 
         return {
-            value: 0, error: false, message: "", type: "categorical", new_meta: new_meta
+            value: 0, error: error, message: message, type: "categorical", new_meta: new_meta
         };
     }
 
@@ -87,7 +124,7 @@ export default class WideToLong extends SubComponentBase {
             suffix: this.state.suffix,
         }
         new_cfg = { ...new_cfg, ...update_cfg };
-        
+
         this.setStateConfig(new_cfg);
     }
 
@@ -129,8 +166,8 @@ export default class WideToLong extends SubComponentBase {
                     } else {
                         return {
                             ...o,
-                            value: WideToLong.sep_split(e.value, sep),
-                            label: WideToLong.sep_split(e.label, sep),
+                            value: WideToLong.sep_split(o.value, sep),
+                            label: WideToLong.sep_split(o.label, sep),
                         }
                     }
                 }
@@ -150,9 +187,9 @@ export default class WideToLong extends SubComponentBase {
 
         return <div>
 
-            Set the name of the column, the separator and the suffix type.
+            <div className="color-helper-blue">Extract a variable type from the input colum names:</div>
             <InputGroup className="mb-3">
-                <InputGroup.Text id="basic-addon1">Type</InputGroup.Text>
+                <InputGroup.Text id="basic-addon1" >Type</InputGroup.Text>
                 <FormControl value={type} onChange={e => {
                     this.update_state({ type: e.target.value });
                 }} />
@@ -178,7 +215,7 @@ export default class WideToLong extends SubComponentBase {
             </InputGroup>
 
 
-            Select the columns that should be grouped into new variabels.
+            <div className="color-helper-green">Select the columns that should be grouped into new variabels.</div>
 
             <Select
                 className="mb-3"
@@ -195,7 +232,7 @@ export default class WideToLong extends SubComponentBase {
             />
 
 
-            Select the columns that you want to keep. Note! You must keep all columns to define an index.
+            <div className="color-helper-red">Select the columns that should be kept.<br /><b>Note!</b> You must keep all columns that define the index.</div>
             <Select
                 className="mb-3"
                 options={allColOptions}
