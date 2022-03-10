@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="6686191" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="5718377" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -120,7 +120,21 @@
         </h2>
         
         
-            <div class="class-description"><p>Bla bla</p></div>
+            <div class="class-description"><div style="width:450px; margin-left: 20px; float: right;  margin-top: -150px;">
+<img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/transform.png"/>
+<img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/transform-modal.png"/>
+<img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/transform-types.png"/>
+</div>
+<p>The <code>Transform</code> component helps to create user defined data transformations.
+Currently basic transformations are available, like:</p>
+<ul style="margin-left: 20px;">
+   <li><b>eval</b></li>
+   <li><b>groupby([...]).aggr([...])</b></li>
+   <li><b>melt</b></li>
+   <li><b>wide_to_long</b></li>
+   <li><b>replace</b></li>
+   <li><b>rename</b></li>
+</ul></div>
         
     
 </header>
@@ -188,7 +202,7 @@
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="Transform.react.js.html">Transform.react.js</a>, <a href="Transform.react.js.html#line41">line 41</a>
+                <a href="Transform.react.js.html">Transform.react.js</a>, <a href="Transform.react.js.html#line66">line 66</a>
             </li></ul></dd>
         </div>
     
@@ -226,7 +240,8 @@ import plotly.express as px
 meta = dxc.get_meta(px.data.gapminder())
 
 dxc.Transform(
-???
+   id="transform",
+   meta=meta
 )</code></pre>
     
     
@@ -424,7 +439,7 @@ to Dash, to make them available for callbacks.</p></td>
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="Transform.react.js.html">Transform.react.js</a>, <a href="Transform.react.js.html#line301">line 301</a>
+                <a href="Transform.react.js.html">Transform.react.js</a>, <a href="Transform.react.js.html#line527">line 527</a>
             </li></ul></dd>
         </div>
     

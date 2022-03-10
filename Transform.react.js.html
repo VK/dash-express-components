@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="6686191" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="5718377" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -120,7 +120,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 import Accordion from 'react-bootstrap/Accordion';
 
-
+import AggrTransform from './_sub/AggrTransform.react';
 import EvalTransform from './_sub/EvalTransform.react';
 import MeltTransform from './_sub/MeltTransform.react';
 import CombinecatTransform from './_sub/CombinecatTransform.react';
@@ -131,11 +131,35 @@ import ZerosToNanTransform from './_sub/ZerosToNanTransform.react';
 import RenameTransform from './_sub/RenameTransform.react';
 
 
+import AggrSvg from 'react-svg-loader!./_svg/aggr.svg';
+import EvalSvg from 'react-svg-loader!./_svg/eval.svg';
+import MeltSvg from 'react-svg-loader!./_svg/melt.svg';
+import CombinecatSvg from 'react-svg-loader!./_svg/combinecat.svg';
+import CatlookupSvg from 'react-svg-loader!./_svg/catlookup.svg';
+import DropnaSvg from 'react-svg-loader!./_svg/dropna.svg';
+import WideToLongSvg from 'react-svg-loader!./_svg/wide_to_long.svg';
+import ZerostoNanSvg from 'react-svg-loader!./_svg/zerostonan.svg';
+import RenameSvg from 'react-svg-loader!./_svg/rename.svg';
+
 
 /**
- * Bla bla
+ * &lt;div style="width:450px; margin-left: 20px; float: right;  margin-top: -150px;">
+ * &lt;img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/transform.png"/>
+ * &lt;img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/transform-modal.png"/>
+ * &lt;img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/transform-types.png"/>
+ * &lt;/div>
  * 
+ * The `Transform` component helps to create user defined data transformations.
+ * Currently basic transformations are available, like:
  * 
+ * &lt;ul style="margin-left: 20px;">
+ *    &lt;li>&lt;b>eval&lt;/b>&lt;/li>
+ *    &lt;li>&lt;b>groupby([...]).aggr([...])&lt;/b>&lt;/li>
+ *    &lt;li>&lt;b>melt&lt;/b>&lt;/li>
+ *    &lt;li>&lt;b>wide_to_long&lt;/b>&lt;/li>
+ *    &lt;li>&lt;b>replace&lt;/b>&lt;/li>
+ *    &lt;li>&lt;b>rename&lt;/b>&lt;/li>
+ * &lt;/ul>
  * @hideconstructor
  * 
  * @example
@@ -145,21 +169,57 @@ import RenameTransform from './_sub/RenameTransform.react';
  * meta = dxc.get_meta(px.data.gapminder())
  * 
  * dxc.Transform(
- * ???
+ *    id="transform",
+ *    meta=meta
  * )
  * @public
  */
 class Transform extends Base {
 
+    static trafo_groups = [
+        { label: "New columns", value: "col" },
+        { label: "Reshape data", value: "reshape" },
+        { label: "Missing data", value: "missing" },
+        { label: "Metadata", value: "meta" },
+    ]
+
     static known_trafos = [
-        { type: "eval", class: EvalTransform, "label": "Compute new column" },
-        { type: "combinecat", class: CombinecatTransform, "label": "Combine to categorical column" },
-        { type: "melt", class: MeltTransform, "label": "Melt multiple colums to one" },
-        { type: "wide_to_long", class: WideToLong, "label": "Transform from wide to long" },
-        { type: "catlookup", class: CategoryLookup, "label": "Lookup for category" },
-        { type: "dropna", class: DropnaTransform, "label": "Drop nan values" },
-        { type: "zerostonan", class: ZerosToNanTransform, "label": "Replace zero values with nan" },
-        { type: "rename", class: RenameTransform, "label": "Rename multiple columns" }
+        {
+            group: "col", type: "eval", class: EvalTransform,
+            "label": "Compute new column", svg: &lt;EvalSvg />
+        },
+        {
+            group: "reshape", type: "aggr", class: AggrTransform,
+            "label": "Aggregate grouped dataset", svg: &lt;AggrSvg />
+        },
+        {
+            group: "col", type: "combinecat", class: CombinecatTransform,
+            "label": "Combine multiple columns to new category", svg: &lt;CombinecatSvg />
+        },
+        {
+            group: "reshape", type: "melt", class: MeltTransform,
+            "label": "Rearrange multiple colums to one", svg: &lt;MeltSvg />
+        },
+        {
+            group: "reshape", type: "wide_to_long", class: WideToLong,
+            "label": "Rearrange columns based on naming", svg: &lt;WideToLongSvg />
+        },
+        {
+            group: "col", type: "catlookup", class: CategoryLookup,
+            "label": "Apply a lookup on a categorical column", svg: &lt;CatlookupSvg />
+        },
+        {
+            group: "missing", type: "dropna", class: DropnaTransform,
+            "label": "Remove rows with nan values", svg: &lt;DropnaSvg />
+        },
+        {
+            group: "missing", type: "zerostonan", class: ZerosToNanTransform,
+            "label": "Replace zero values with nan values", svg: &lt;ZerostoNanSvg />
+        },
+        {
+            group: "meta", type: "rename", class: RenameTransform,
+            "label": "Rename multiple columns", svg: &lt;RenameSvg />
+        }
     ]
 
 
@@ -174,6 +234,9 @@ class Transform extends Base {
 
             /* state of the modal to add new filters */
             showAddModal: false,
+            showChooseModal: false,
+
+            transformIndex: undefined,
 
             transformType: "",
             sub_config: {}
@@ -187,6 +250,13 @@ class Transform extends Base {
     }
     handleShow() {
         this.setState({ showAddModal: true });
+    }
+
+    handleChooseClose() {
+        this.setState({ showChooseModal: false });
+    }
+    handleChooseShow() {
+        this.setState({ showChooseModal: true });
     }
 
     UNSAFE_componentWillReceiveProps(newProps) {
@@ -206,6 +276,9 @@ class Transform extends Base {
 
         //let new_meta = JSON.parse(JSON.stringify(this.state.meta))
         let new_meta = { ...this.state.meta };
+        let meta_stages = [];
+        let stage_results = [];
+        meta_stages.push(new_meta);
 
         if (new_config)
             new_config.forEach(el => {
@@ -219,25 +292,36 @@ class Transform extends Base {
                 );
                 if (res["new_meta"] != undefined) {
                     new_meta = res["new_meta"];
+                    meta_stages.push(new_meta);
+                } else {
+                    meta_stages.push({});
                 }
+                stage_results.push(res);
 
 
             });
 
         super.update_meta_out(new_meta, constructor);
 
+
         if (constructor) {
             this.state = {
                 ...this.state,
+                meta_stages: meta_stages,
+                stage_results: stage_results,
                 ...this.get_columns(new_meta)
             }
         } else {
-            this.setState(this.get_columns(new_meta));
+            this.setState({
+                meta_stages: meta_stages,
+                stage_results: stage_results,
+                ...this.get_columns(new_meta)
+            });
         }
     }
 
     get_transform_blocks() {
-        const { config } = this.state;
+        const { config, stage_results } = this.state;
 
         if (config) {
             return &lt;div>
@@ -247,13 +331,37 @@ class Transform extends Base {
                         let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
 
                         let config_string = transform_class.config_to_string(el);
+                        let variant = (stage_results[id].error) ? 'secondary' : 'primary';
+                        let error_string = (stage_results[id].error) ? (&lt;span className="text-danger">&lt;br />&lt;b>Error: &lt;/b>{stage_results[id].message}&lt;/span>) : '';
 
-                        return (&lt;Alert dismissible={id === config.length - 1} key={id} onClose={() => {
+                        return (&lt;Alert dismissible variant={variant} key={id} onClose={() => {
 
                             let new_config = config.filter((e, idx) => idx !== id);
                             this.update_config(new_config)
 
-                        }}>{config_string}&lt;/Alert>)
+                        }}>
+
+                            {config_string}
+                            {error_string}
+
+                            &lt;button className='btn-close btn-edit'
+
+                                onClick={() => {
+
+                                    let update_state = {
+                                        transformIndex: id,
+                                        transformType: el.type,
+                                        sub_config: el
+                                    };
+
+                                    this.setState(update_state, () => {
+                                        this.handleShow();
+                                    })
+
+                                }}
+                            >&lt;/button>
+
+                        &lt;/Alert>)
                     }
                     )
                 }
@@ -261,6 +369,9 @@ class Transform extends Base {
             &lt;/div>
         }
     }
+
+
+
 
 
 
@@ -280,61 +391,64 @@ class Transform extends Base {
 
             sub_config,
             config,
+
+            transformIndex,
+            meta_stages
         } = this.state;
 
+        const {
+            id
+        } = this.props;
+
+        const stt = Transform.known_trafos.filter((el) => el.type === transformType);
+        const tt = (stt.length === 1) ? stt[0] : undefined;
 
 
         return (&lt;Modal
+            centered
             backdrop="static"
             animation={false}
             show={showAddModal}
-            onHide={() => this.handleClose()}
+            onHide={() => this.handleClose()
+            }
         >
             &lt;Modal.Header closeButton>
-                &lt;Modal.Title>Add transform&lt;/Modal.Title>
+                &lt;Modal.Title>{(stt.length === 1) ? tt.label : "Add transform"}&lt;/Modal.Title>
             &lt;/Modal.Header>
             &lt;Modal.Body>&lt;div style={{ minHeight: "15em" }} className="mb-3">
 
 
+                &lt;Button
+                    key={id + "change-transform-button"}
+                    variant="outline-secondary"
+                    className="d-flex align-items-center w-100 mb-2"
+                    onClick={() => this.handleChooseShow()}
+                    style={{ "height": "110px" }}
+                >
 
-                &lt;InputGroup className="mb-3">
-                    &lt;InputGroup.Text id="basic-addon1">Type&lt;/InputGroup.Text>
-                    &lt;Form.Select
+                    {(tt &amp;&amp; "svg" in tt) &amp;&amp; &lt;div className="w-100">{tt.svg}&lt;/div>}
+                    {!(tt &amp;&amp; "svg" in tt) &amp;&amp; &lt;div className="w-100 h3">Choose a transformation type&lt;/div>}
 
-
-                        value={transformType}
-                        onChange={e => {
-                            this.setState({
-                                transformType: e.target.value,
-                                new_transform: {}
-
-                            });
-                        }}
-
-                    >
-                        &lt;option value="">&lt;/option>
-                        {
-                            Transform.known_trafos.map(trafo_el => {
-                                return (&lt;option key={"option" + trafo_el["type"]} value={trafo_el["type"]}>{trafo_el.label}&lt;/option>)
-                            })
-                        }
-                    &lt;/Form.Select>
-
-                &lt;/InputGroup>
+                &lt;/Button>
 
 
 
                 {
                     Transform.known_trafos.map(trafo_el => {
+
+                        let input_meta = (transformIndex === undefined) ? meta_out : meta_stages[transformIndex];
+                        let stage_options = this.get_columns(input_meta);
+
                         return (
                             transformType === trafo_el["type"] &amp;&amp;
                             &lt;trafo_el.class
                                 key={"config" + trafo_el["type"]}
-                                meta={meta_out}
-                                allColOptions={allColOptions}
-                                catColOptions={catColOptions}
-                                numColOptions={numColOptions}
-                                allOptions={allOptions}
+                                config={sub_config}
+                                meta={input_meta}
+                                allColOptions={stage_options.allColOptions}
+                                catColOptions={stage_options.catColOptions}
+                                numColOptions={stage_options.numColOptions}
+                                allOptions={stage_options.allOptions}
                                 setProps={e => { if ("config" in e) { this.setState({ sub_config: e.config }) } }}
                             />
                         )
@@ -353,22 +467,46 @@ class Transform extends Base {
                     if ("type" in sub_config) {
 
 
-                        let transform_class = Transform.known_trafos.filter(el => el["type"] === sub_config["type"])[0]["class"];
-                        let res = transform_class.eval(
-                            {
-                                ...sub_config,
-                                meta: meta_out
+                        if (transformIndex === undefined) {
+                            //add a new transform
+
+
+                            let transform_class = Transform.known_trafos.filter(el => el["type"] === sub_config["type"])[0]["class"];
+                            let res = transform_class.eval(
+                                {
+                                    ...sub_config,
+                                    meta: meta_out
+                                }
+                            );
+
+                            if (!res.error || window.confirm("Do you want to add the transform, even with errors?")) {
+                                let new_config = [
+                                    ...config,
+                                    sub_config
+                                ];
+
+                                this.update_config(new_config);
+                                this.handleClose();
                             }
-                        );
 
-                        if (!res.error || window.confirm("Do you want to add the transform, even with errors?")) {
-                            let new_config = [
-                                ...config,
-                                sub_config
-                            ];
+                        } else {
+                            //update a transform
 
-                            this.update_config(new_config);
-                            this.handleClose();
+                            let transform_class = Transform.known_trafos.filter(el => el["type"] === sub_config["type"])[0]["class"];
+                            let res = transform_class.eval(
+                                {
+                                    ...sub_config,
+                                    meta: meta_stages[transformIndex]
+                                }
+                            );
+
+                            if (!res.error || window.confirm("Do you want to add the transform, even with errors?")) {
+                                let new_config = config;
+                                new_config[transformIndex] = sub_config;
+
+                                this.update_config(new_config);
+                                this.handleClose();
+                            }
                         }
 
 
@@ -376,11 +514,90 @@ class Transform extends Base {
 
 
                 }}>
-                    Add
+                    {(transformIndex === undefined) ? "Add" : "Update"}
                 &lt;/Button>
             &lt;/Modal.Footer>
         &lt;/Modal>)
 
+    }
+
+
+
+    get_choose_modal() {
+
+        const {
+            showChooseModal
+        } = this.state;
+
+        const {
+            id
+        } = this.props;
+
+        return (&lt;Modal
+            size="xl"
+            centered
+            backdrop="static"
+            animation={false}
+            show={showChooseModal}
+            onHide={() => this.handleChooseClose()}
+            key={id + "-trafo-type-modal"}
+        >
+            &lt;Modal.Header closeButton>
+                &lt;Modal.Title>Transformation Types&lt;/Modal.Title>
+            &lt;/Modal.Header>
+            &lt;Modal.Body>&lt;div className="mt-2 container row" style={{ paddingRight: 0 }}>
+
+                {Transform.trafo_groups.map(gr => {
+
+                    return &lt;div className='p-1 col-6'>&lt;h4>{gr.label}&lt;/h4> {
+
+
+                        Transform.known_trafos.filter(pt => pt.group == gr.value).map(pt => {
+
+
+                            return (
+                                &lt;Button
+                                    key={"set-plot-" + pt.type}
+                                    variant="outline-secondary"
+                                    className="d-flex align-items-center w-100 mb-2"
+
+                                    onClick={(e) => {
+
+                                        this.setState({
+                                            transformType: pt.type
+                                        });
+                                        this.handleChooseClose()
+                                    }}
+
+                                >
+
+                                    &lt;div style={{ "transform": "scale(.6)", "transformOrigin": "0 0", width: "180px", height: "60px" }}>{(pt &amp;&amp; "svg" in pt) ? pt.svg : ""}&lt;/div>
+                                    &lt;div className="flex-grow-1 m-1 h5">
+                                        {(pt &amp;&amp; "label" in pt) ? pt.label : ""}
+                                    &lt;/div>
+
+                                &lt;/Button>
+                            );
+                        })
+                    } &lt;/div>
+
+
+                })
+
+                }
+
+
+
+
+            &lt;/div>
+            &lt;/Modal.Body>
+            &lt;Modal.Footer>
+                &lt;Button variant="secondary" onClick={() => this.handleChooseClose()}>
+                    Close
+                &lt;/Button>
+
+            &lt;/Modal.Footer>
+        &lt;/Modal>)
     }
 
     render() {
@@ -389,11 +606,20 @@ class Transform extends Base {
             &lt;div>
                 {this.get_transform_blocks()}
 
-                &lt;Button className='w-100' onClick={() => this.handleShow()}>
+                &lt;Button className='w-100' onClick={() => {
+                    this.setState({
+                        transformType: "",
+                        sub_config: {},
+                        transformIndex: undefined
+                    }, () => {
+                        this.handleShow();
+                    });
+                }}>
                     Add transformation
                 &lt;/Button>
 
                 {this.get_modal_blocks()}
+                {this.get_choose_modal()}
             &lt;/div>
         )
 
@@ -444,7 +670,7 @@ Transform.propTypes = {
 /**
  * @private
  */
- export default Transform;
+export default Transform;
 </code></pre>
         </article>
     </section>

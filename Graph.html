@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="6686191" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="5718377" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -120,8 +120,14 @@
         </h2>
         
         
-            <div class="class-description"><p>Graph is based on the original dash Graph and can be used to render any
-plotly.js-powered data visualization.</p>
+            <div class="class-description"><div style="width:450px; margin-left: 20px; float: right;  margin-top: -150px;">
+<img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/graph.png"/>
+<img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/graph-table.png"/>
+<img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/graph-modal.png"/>
+</div>
+<p>The <code>Graph</code> component is a combination of the original dash <code>Graph</code> and the dash <code>data_table</code>.</p>
+<p>It can not only be used to render a plotly.js-powered data visualization,
+but also shows a searchable table, if only data is submitted.</p>
 <p>In addition, there is the possibility to add plot parameters as <code>defParams</code> and
 the dataframe <code>meta</code> data.<br>
 This automatically adds a configurator modal, which can be opened via a button
@@ -193,7 +199,7 @@ at the bottom right.</p></div>
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="Graph.react.js.html">Graph.react.js</a>, <a href="Graph.react.js.html#line54">line 54</a>
+                <a href="Graph.react.js.html">Graph.react.js</a>, <a href="Graph.react.js.html#line63">line 63</a>
             </li></ul></dd>
         </div>
     
@@ -404,6 +410,24 @@ https://plotly.com/javascript/reference</p>
 
         <tr>
             
+                <td class="name"><code>selectedData</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The data selected in the plot or in the table</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>className</code></td>
             
 
@@ -475,7 +499,7 @@ https://plotly.com/javascript/reference</p>
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="Graph.react.js.html">Graph.react.js</a>, <a href="Graph.react.js.html#line275">line 275</a>
+                <a href="Graph.react.js.html">Graph.react.js</a>, <a href="Graph.react.js.html#line283">line 283</a>
             </li></ul></dd>
         </div>
     

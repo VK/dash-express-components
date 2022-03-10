@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="6686191" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="5718377" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -120,7 +120,14 @@
         </h2>
         
         
-            <div class="class-description"><p>Bla bla</p></div>
+            <div class="class-description"><div style="width:450px; margin-left: 20px; float: right;  margin-top: -150px;">
+<img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/filter.png"/>
+<img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/filter-modal.png"/>
+</div>
+<p>The filter component allows filters to be set on individual columns.</p>
+<p>These are all combined with and.</p>
+<p>There are the options like &gt;, &lt;, = for numerical, as well as isin etc. for categorical columns.
+Possible options are given by the <code>meta</code> props.</p></div>
         
     
 </header>
@@ -188,7 +195,7 @@
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="Filter.react.js.html">Filter.react.js</a>, <a href="Filter.react.js.html#line33">line 33</a>
+                <a href="Filter.react.js.html">Filter.react.js</a>, <a href="Filter.react.js.html#line45">line 45</a>
             </li></ul></dd>
         </div>
     
@@ -226,7 +233,8 @@ import plotly.express as px
 meta = dxc.get_meta(px.data.gapminder())
 
 dxc.Filter(
-???
+  id="filter",
+  meta=meta
 )</code></pre>
     
     
@@ -424,7 +432,7 @@ to Dash, to make them available for callbacks.</p></td>
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="Filter.react.js.html">Filter.react.js</a>, <a href="Filter.react.js.html#line523">line 523</a>
+                <a href="Filter.react.js.html">Filter.react.js</a>, <a href="Filter.react.js.html#line537">line 537</a>
             </li></ul></dd>
         </div>
     
