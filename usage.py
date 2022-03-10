@@ -29,7 +29,8 @@ test_cfg = {
             "x": "continent",
             "y": "gdpPercap_median",
             "color": "continent",
-            "aggr": ["mean"]
+            "aggr": ["mean"],
+            "reversed_x": True
         }
     },
     "filter": [

@@ -53,14 +53,12 @@ def _get(inputDataFrame, plotConfigData):
             d.showlegend = False
             fig.add_trace(d)
     fig.update_layout(scatterPlot.layout)
-    fig.update_layout(
-        yaxis=dict(
+    fig.update_yaxes(
             tickmode='array',
             tickvals=[-3.090232306, -2.326347874, -1.281551566, -0.841621234, -0.524400513, -0.253347103,
                         0, 0.253347103, 0.524400513, 0.841621234, 1.281551566, 1.644853627, 2.326347874, 3.090232306],
             ticktext=["0.1%", "1%", "10%", "20%", "30%", "40%", "50%",
                         "60%", "70%", "80%", "90%", "95%", "99%", "99.9%"]
-        )
     )
 
     return fig

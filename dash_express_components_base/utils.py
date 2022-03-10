@@ -203,7 +203,6 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                             el, inputDataFrame)
                     )
 
-
             usedCols = list(set(usedCols))
 
             # if we don't get a pandas dataframe it might be dask or mongodf
@@ -249,6 +248,16 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                 makeIndepY = True
                 del plotConfigData["params"]["indep_y"]
 
+            # if we have reversed x and y axis
+            reversedX = False
+            reversedY = False
+            if "reversed_x" in plotConfigData["params"]:
+                reversedX = True
+                del plotConfigData["params"]["reversed_x"]
+            if "reversed_y" in plotConfigData["params"]:
+                reversedY = True
+                del plotConfigData["params"]["reversed_y"]
+
             # add a sort command for categorical x columns
             if markCatX and "x" in plotConfigData["params"]:
                 if not "category_orders" in plotConfigData["params"]:
@@ -286,9 +295,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                 cat_values = inputDataFrame[val_name].unique()
                 cat_values.sort()
                 plotConfigData["params"]["category_orders"][val_name] = cat_values.tolist(
-                )                                
-
-
+                )
 
             # remove nan values from dataframe
             # inputDataFrame = inputDataFrame.dropna(subset=[c for c in inputDataFrame.columns if c in usedCols])
@@ -343,6 +350,12 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                         d_center - d_width, d_center+d_width)
             if makeIndepY:
                 fig.update_yaxes(matches=None, showticklabels=True)
+
+            # reverse the axis
+            if reversedX:
+                fig.update_xaxes(autorange="reversed")
+            if reversedY:
+                fig.update_yaxes(autorange="reversed")                
 
             # transform the fig to an png if object too big
             if "render" in plotConfigData and "png" in plotConfigData["render"]:

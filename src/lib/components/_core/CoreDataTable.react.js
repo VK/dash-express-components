@@ -55,7 +55,13 @@ export default class CoreDataTable extends Component {
             this.setState(this.loadData(
                 nextProps.data,
                 nextProps.index
-            ))
+            ));
+
+            clearTimeout(this.setTimeout);
+            let that = this;
+            this.clearTimeout = setTimeout(function () {
+                that.tableResize(that.state.tableWidth, that.state.tableHeight + 1);
+            }, 2000);
         }
     }
 
@@ -116,9 +122,13 @@ export default class CoreDataTable extends Component {
                     that.setState({ tableHeight: h, tableWidth: w });
 
                     const el = ReactDOM.findDOMNode(that.datatable_ref.current).children[1];
+
                     el.style["height"] = h + "px";
                     el.style["width"] = w + "px";
                     el.style["max-height"] = "unset";
+
+                    const el2 = el.children[0].children[1].children[1];
+                    el2.style["height"] = (h - 60) + "px";
 
                 }
             } catch (error) {

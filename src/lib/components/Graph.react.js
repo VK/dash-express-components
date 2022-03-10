@@ -237,7 +237,7 @@ class Graph extends Component {
                 page_action: 'none',
                 fixed_rows: { headers: true, data: 0 },
                 style_table: { height: '300px', overflowY: 'auto' },
-                style_cell: { 'minWidth': '50px' }
+                style_cell: { 'minWidth': '50px', fontSize: "14px" }
             }
 
             return (
@@ -263,7 +263,7 @@ class Graph extends Component {
                     }
                     />
 
-                    <div className="saveClickContainer" style={{ left: "-15px", bottom: "0px" }}>{save_button}{edit_button}</div>
+                    <div className="saveClickContainer" style={{ position: "relative", left: "-20px", bottom: "0px" }}>{save_button}{edit_button}</div>
                     {configurator_modal}
                 </div>
             );

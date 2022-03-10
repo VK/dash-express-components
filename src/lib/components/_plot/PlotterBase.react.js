@@ -63,6 +63,7 @@ export default class PlotterBase extends Component {
                 id: "axis", label: "Axis", visible: false, reset: {
                     log_x: null, log_y: null,
                     cat_x: null, cat_y: null,
+                    reversed_x: null, reversed_y: null,
                     range_x: [], range_y: [], __range_x_min: null, __range_x_max: null, __range_y_min: null, __range_y_max: null,
                 }
             },
@@ -70,17 +71,20 @@ export default class PlotterBase extends Component {
                 id: "axisWithCol", label: "Axis", visible: false, reset: {
                     log_x: null, log_y: null,
                     cat_x: null, cat_y: null,
+                    reversed_x: null, reversed_y: null,
                     range_x: [], range_y: [], range_color: [], __range_x_min: null, __range_x_max: null, __range_y_min: null, __range_y_max: null, __range_c_min: null, __range_c_max: null
                 }
             },
             axis_onlycolor: {
                 id: "axisOnlyCol", label: "Axis", visible: false, reset: {
+                    reversed_x: null, reversed_y: null,
                     range_color: [], __range_c_min: null, __range_c_max: null
                 }
             },
             axis_nocat: {
                 id: "axisNoCat", label: "Axis", visible: false, reset: {
                     log_x: null, log_y: null,
+                    reversed_x: null, reversed_y: null,
                     range_x: [], range_y: [], range_color: [], __range_x_min: null, __range_x_max: null, __range_y_min: null, __range_y_max: null
                 }
             },
@@ -175,6 +179,8 @@ export default class PlotterBase extends Component {
 
             log_x: this.state.log_x,
             log_y: this.state.log_y,
+            reversed_x: this.state.reversed_x,
+            reversed_y: this.state.reversed_y,
             cat_x: this.state.cat_x,
             cat_y: this.state.cat_y,
             range_x: this.state.range_x,
@@ -641,6 +647,11 @@ export default class PlotterBase extends Component {
                                 {this.toggleSelect("Categorical y", "cat_y", [null, true])}
                             </ButtonGroup>
 
+                            <ButtonGroup aria-label={id + "independent-axis-reversed"} id={id + "options-axis-reversed"} key={id + "options-axis-reversed"} className="w-100 mb-1">
+                                {this.toggleSelect("Reversed x", "reversed_x", [null, true])}
+                                {this.toggleSelect("Reversed y", "reversed_y", [null, true])}
+                            </ButtonGroup>                            
+
                         </div>
                     }
 
@@ -662,6 +673,11 @@ export default class PlotterBase extends Component {
                                 {this.toggleSelect("Categorical y", "cat_y", [null, true])}
                             </ButtonGroup>
 
+                            <ButtonGroup aria-label={id + "independent-axis-reversed"} id={id + "options-axis-reversed"} key={id + "options-axis-reversed"} className="w-100 mb-1">
+                                {this.toggleSelect("Reversed x", "reversed_x", [null, true])}
+                                {this.toggleSelect("Reversed y", "reversed_y", [null, true])}
+                            </ButtonGroup>                                 
+
                         </div>
                     }
 
@@ -670,6 +686,11 @@ export default class PlotterBase extends Component {
                             <h5>{el.label}</h5>
 
                             {this.range_ManualInputArray("Range c", "range_color", ["__range_c_min", "__range_c_max"])}
+
+                            <ButtonGroup aria-label={id + "independent-axis-reversed"} id={id + "options-axis-reversed"} key={id + "options-axis-reversed"} className="w-100 mb-1">
+                                {this.toggleSelect("Reversed x", "reversed_x", [null, true])}
+                                {this.toggleSelect("Reversed y", "reversed_y", [null, true])}
+                            </ButtonGroup>                                 
 
                         </div>
                     }
@@ -685,6 +706,11 @@ export default class PlotterBase extends Component {
                                 {this.toggleSelect("Log x", "log_x", [null, true])}
                                 {this.toggleSelect("Log y", "log_y", [null, true])}
                             </ButtonGroup>
+
+                            <ButtonGroup aria-label={id + "independent-axis-reversed"} id={id + "options-axis-reversed"} key={id + "options-axis-reversed"} className="w-100 mb-1">
+                                {this.toggleSelect("Reversed x", "reversed_x", [null, true])}
+                                {this.toggleSelect("Reversed y", "reversed_y", [null, true])}
+                            </ButtonGroup>                                 
 
 
                         </div>
