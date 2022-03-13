@@ -28,6 +28,6 @@ jobs:
           python setup.py sdist
       - name: Test components
         run: |
-          npm run test
+          pytest --cov=./dash_express_components
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
