@@ -15,6 +15,8 @@ import Parameterize from './Parameterize.react';
 import Localstore from './Localstore.react';
 import { none } from 'ramda';
 
+import PropTypes from 'prop-types';
+
 
 
 /**

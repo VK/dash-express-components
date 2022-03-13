@@ -1,5 +1,6 @@
 import { filter, isNil, pluck } from 'ramda';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Base, { singleColorStyle, hideGroupComponents, multiCallbacks } from './_sub/Base.react';
 
 import Alert from 'react-bootstrap/Alert';

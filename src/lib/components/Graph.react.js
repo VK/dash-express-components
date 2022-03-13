@@ -288,10 +288,10 @@ Graph.propTypes = {
      * components in an app.
      * @type {string}
      */
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
 
     /**
-     * Metadata to describe the plot features
+     * Configuration to describe the plot features
      */
     defParams: PropTypes.object,
 
@@ -333,8 +333,6 @@ Graph.propTypes = {
 
 
 Graph.defaultProps = {
-    id: null,
-    defParams: null,
     meta: null,
     figure: {
         data: [],
@@ -345,8 +343,6 @@ Graph.defaultProps = {
     className: null
 };
 
-export const graphPropTypes = Graph.propTypes;
-export const graphDefaultProps = Graph.defaultProps;
 
 
 /**

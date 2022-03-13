@@ -1,5 +1,6 @@
 import React from 'react';
 import Base from './_sub/Base.react';
+import PropTypes from 'prop-types';
 
 /**
  * Helper to show the metadata of the data inside a component.

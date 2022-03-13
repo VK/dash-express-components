@@ -1,5 +1,6 @@
 import React from 'react';
 import Base from './_sub/Base.react';
+import PropTypes from 'prop-types';
 
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';

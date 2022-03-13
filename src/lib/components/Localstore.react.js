@@ -1,5 +1,6 @@
 import React from 'react';
 import Base from './_sub/Base.react';
+import PropTypes from 'prop-types';
 
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';

@@ -12,7 +12,8 @@
     "build:backends-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:py_and_r)",
     "build": "npm run build:js && npm run build:backends",
     "build:activated": "npm run build:js && npm run build:backends-activated",
-    "doc": "jsdoc -c ./jsdoc.conf.json -a public"
+    "doc": "jsdoc -c ./jsdoc.conf.json -a public",
+    "test": "pytest --cov=dash_express_components tests --cov-report term-missing"
   },
   "author": "Viktor Krückl <viktor@krueckl.de>",
   "license": "MIT",

@@ -240,13 +240,14 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
 
             # if we have cols and rows, we want to make independent
             makeIndepX = False
-            makeIndepY = False
-            if "indep_x" in plotConfigData["params"]:
-                makeIndepX = True
-                del plotConfigData["params"]["indep_x"]
-            if "indep_y" in plotConfigData["params"]:
-                makeIndepY = True
-                del plotConfigData["params"]["indep_y"]
+            makeIndepY = False            
+            if plotConfigData["type"] not in ["imshow"]:
+                if "indep_x" in plotConfigData["params"]:
+                    makeIndepX = True
+                    del plotConfigData["params"]["indep_x"]
+                if "indep_y" in plotConfigData["params"]:
+                    makeIndepY = True
+                    del plotConfigData["params"]["indep_y"]
 
             # if we have reversed x and y axis
             reversedX = False

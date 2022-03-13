@@ -48,7 +48,7 @@ def test_configurator(dash_duo):
     plot_type_modal_button = dash_duo.wait_for_element("#configurator > div:nth-child(3) > div > div > div > button")
     plot_type_modal_button.click()
 
-    plot_type_button = dash_duo.wait_for_element("div.modal-body > div > button:nth-child(2)")
+    plot_type_button = dash_duo.wait_for_element("div.modal-body > div > div:nth-child(2) > button")
     plot_type_button.click()
 
     #configurator-plotterplottype-box-select-x > div > div > div > input
