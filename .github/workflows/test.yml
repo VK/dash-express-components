@@ -24,6 +24,8 @@ jobs:
         run: sudo apt-get install -y chromium-browser          
       - name: Install Python dependencies
         run: python -m pip install dash[dev,testing] flit invoke semver termcolor pandas scipy scikit-image dask kaleido pytest webdriver-manager
+      - uses: nanasess/setup-chromedriver@v1
+      - run: chromedriver --url-base=/wd/hub &        
       - name: Build the components
         run: |
           npm run build
@@ -31,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dash-express-components
-          path: dash_express_components/_components
+          path: dash_express_components
       - name: Test components
         run: |
           pytest
