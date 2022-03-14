@@ -3,6 +3,8 @@
 [![PyPI](https://img.shields.io/pypi/v/dash-express-components?logo=pypi)](https://pypi.org/project/dash-express-components)
 [![npm](https://img.shields.io/npm/v/dash_express_components.svg?logo=npm)](https://www.npmjs.com/package/dash_express_components)
 [![Documentation](https://github.com/VK/dash-express-components/workflows/Documentation/badge.svg)](https://vk.github.io/dash-express-components)
+[![Test](https://github.com/VK/dash-express-components/actions/workflows/test.yml/badge.svg)](https://github.com/VK/dash-express-components/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/VK/dash-express-components/branch/main/graph/badge.svg?token=13XCRAQY0D)](https://codecov.io/gh/VK/dash-express-components)
 
 ## Widgets to bring [Plotly Express](https://plotly.com/python/plotly-express/) style plots to [Dash](https://dash.plotly.com/)
 
