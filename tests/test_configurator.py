@@ -14,7 +14,7 @@ meta = dxc.get_meta(df)
 
 
 # Create a boxplot config
-def test_configurator(dash_duo):
+def configurator(dash_duo):
 
     app = dash.Dash(
         external_stylesheets=[

@@ -23,7 +23,7 @@ jobs:
       - name: Install software
         run: sudo apt-get install -y chromium-browser          
       - name: Install Python dependencies
-        run: python -m pip install dash[dev,testing] flit invoke semver termcolor pandas scipy scikit-image dask kaleido pytest webdriver-manager
+        run: python -m pip install dash[dev,testing] flit invoke semver termcolor pandas scipy scikit-image dask kaleido pytest pytest-cov webdriver-manager 
       - uses: nanasess/setup-chromedriver@v1
       - run: chromedriver --url-base=/wd/hub &        
       - name: Build the components
@@ -36,6 +36,6 @@ jobs:
           path: dash_express_components
       - name: Test components
         run: |
-          pytest
+          pytest --cov=dash_express_components
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1

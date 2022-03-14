@@ -16,10 +16,12 @@ def test_simple(histnorm):
                 "cumulative": True,
                 "nbins": 1000,
                 "title": "OK",
-                "histnorm": histnorm
+               
             }
         }
     }
+    if histnorm:
+         cfg["plot"]["params"]["histnorm"] = histnorm
 
     fig = dxc.get_plot(df, cfg)
 
@@ -66,12 +68,13 @@ def test_facet_row(histnorm):
                 "cumulative": True,
                 "facet_row": "continent",
                 "color": "continent",
-                "histnorm":  histnorm,
                 "nbins": 1000,
                 "title": "OK"
             }
         }
     }
+    if histnorm:
+         cfg["plot"]["params"]["histnorm"] = histnorm    
 
     fig = dxc.get_plot(df, cfg)
 
