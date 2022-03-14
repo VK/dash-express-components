@@ -23,7 +23,7 @@ jobs:
       - name: Install software
         run: sudo apt-get install -y chromium-browser          
       - name: Install Python dependencies
-        run: python -m pip install dash[dev,testing] flit invoke semver termcolor pandas scipy scikit-image dask kaleido pytest pytest-cov webdriver-manager 
+        run: python -m pip install dash[dev,testing] flit invoke semver termcolor pandas scipy scikit-image dask kaleido pytest pytest-cov webdriver-manager numexpr
       - uses: nanasess/setup-chromedriver@v1
       - run: chromedriver --url-base=/wd/hub &        
       - name: Build the components
