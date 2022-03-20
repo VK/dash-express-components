@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="2543" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="771434" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -113,9 +113,59 @@
 <a href="https://vk.github.io/dash-express-components"><img src="https://github.com/VK/dash-express-components/workflows/Documentation/badge.svg" alt="Documentation"></a>
 <a href="https://github.com/VK/dash-express-components/actions/workflows/test.yml"><img src="https://github.com/VK/dash-express-components/actions/workflows/test.yml/badge.svg" alt="Test"></a>
 <a href="https://codecov.io/gh/VK/dash-express-components"><img src="https://codecov.io/gh/VK/dash-express-components/branch/main/graph/badge.svg?token=13XCRAQY0D" alt="codecov"></a></p>
-<h2>Widgets to bring <a href="https://plotly.com/python/plotly-express/">Plotly Express</a> style plots to <a href="https://dash.plotly.com/">Dash</a></h2>
-<p><img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/lumino/recording.gif" alt="example"><br>
-Example uses <strong><a href="https://github.com/VK/dash-lumino-components">dash-lumino-components</a></strong> for MDI layout.</p>
+<h3>Components to bring <a href="https://plotly.com/python/plotly-express/">Plotly Express</a> style plots to <a href="https://dash.plotly.com/">Dash</a>:</h3>
+<ul>
+<li><a href="https://vk.github.io/dash-express-components/Filter.html"><strong>dxc.Filter</strong></a> to define  filter configurations for numerical, categorical or temporal columns.</li>
+<li><a href="https://vk.github.io/dash-express-components/Transform.html"><strong>dxc.Transform</strong></a> to specify a series of data transformations like melt, group by or aggregate.</li>
+<li><a href="https://vk.github.io/dash-express-components/Plotter.html"><strong>dxc.Plotter</strong></a> to set a plot layout like scatter, box, image or table.</li>
+<li><a href="https://vk.github.io/dash-express-components/Configurator.html"><strong>dxc.Configurator</strong></a> is a component that combines
+<a href="https://vk.github.io/dash-express-components/Filter.html"><strong>dxc.Filter</strong></a>,
+<a href="https://vk.github.io/dash-express-components/Transform.html"><strong>dxc.Transform</strong></a> and
+<a href="https://vk.github.io/dash-express-components/Plotter.html"><strong>dxc.Plotter</strong></a>
+to make the components even easier to use, since the interaction between them is handeled automatically.</li>
+<li><a href="https://vk.github.io/dash-express-components/Graph.html"><strong>dxc.Graph</strong></a> uses <a href="https://dash.plotly.com/dash-core-components/graph">dcc.Graph</a> and <a href="https://dash.plotly.com/datatable">dash_table.DataTable</a> to show a plot or a table, based on the plot configuration.</li>
+</ul>
+<h3>A typical data flow looks like this:</h3>
+<img align="right" src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/dataflow.png" width="370px">
+<p>First, the metadata is extracted from the dataframe <em><strong>df</strong></em> with <strong>dxc.get_meta(<em>df</em>)</strong>. This <em><strong>meta</strong></em> json is needed for
+<a href="https://vk.github.io/dash-express-components/Filter.html"><strong>dxc.Filter</strong></a>,
+<a href="https://vk.github.io/dash-express-components/Transform.html"><strong>dxc.Transform</strong></a> or  <a href="https://vk.github.io/dash-express-components/Plotter.html"><strong>dxc.Plotter</strong></a> to show all options without additional queries to the dataframe. As a result, the components react quite quickly.</p>
+<p>Since the metadata can be changed by filter or transform operations, and we don't want additional server calls, the changes are directly computed in the web components. You can access the metadata after transformations via the <em><strong>meta_out</strong></em> property of <a href="https://vk.github.io/dash-express-components/Filter.html"><strong>dxc.Filter</strong></a> and <a href="https://vk.github.io/dash-express-components/Transform.html"><strong>dxc.Transform</strong></a>.</p>
+<p>A combined <em><strong>config</strong></em> is needed to compute the final plot with <strong>dxc.get_plot(<em>df</em>, <em>config</em>)</strong>. You can combine the configurations of each component yourself or use the <a href="https://vk.github.io/dash-express-components/Configurator.html"><strong>dxc.Configurator</strong></a> to get a combined configuration like:</p>
+<img align="right" src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/box.png" width="370px">
+<pre class="prettyprint source lang-python"><code>{
+    &quot;filter&quot;: [
+        {
+            &quot;col&quot;: &quot;continent&quot;,
+            &quot;type&quot;: &quot;isnotin&quot;,
+            &quot;value&quot;: [&quot;Oceania&quot;]
+        }
+    ],    
+    &quot;transform&quot;: [
+        {
+            &quot;type&quot;: &quot;aggr&quot;,
+            &quot;groupby&quot;: [
+                &quot;country&quot;,
+                &quot;continent&quot;
+            ],
+            &quot;cols&quot;: [&quot;gdpPercap&quot;],
+            &quot;types&quot;: [&quot;median&quot;]
+        }
+    ],
+    &quot;plot&quot;: {
+        &quot;type&quot;: &quot;box&quot;,
+        &quot;params&quot;: {
+            &quot;x&quot;: &quot;continent&quot;,
+            &quot;y&quot;: &quot;gdpPercap_median&quot;,
+            &quot;color&quot;: &quot;continent&quot;,
+            &quot;aggr&quot;: [&quot;mean&quot;],
+            &quot;reversed_x&quot;: True
+        }
+    }
+}
+</code></pre>
+<p>An example with the gapminder dataset and <a href="https://github.com/VK/dash-lumino-components"><strong>dash-lumino-components</strong></a> for the MDI layout.
+<img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/lumino/recording.gif" alt="example"></p>
 <h2>Try it</h2>
 <p>Install dependencies</p>
 <pre class="prettyprint source lang-console"><code>$ pip install dash-express-components
