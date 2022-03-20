@@ -16,8 +16,8 @@ import DateTimePicker from 'react-datetime-picker';
 
 /**
  * <div style="width:450px; margin-left: 20px; float: right;  margin-top: -150px;">
- * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/filter.png"/>
- * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/filter-modal.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/filter.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/filter-modal.png"/>
  * </div>
  * 
  * 

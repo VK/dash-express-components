@@ -28,8 +28,8 @@ let plots_dict = Object.assign({}, ...known_plots.map((x) => ({ [x.type]: x })))
 
 /**
  * <div style="width:450px; margin-left: 20px; float: right;  margin-top: -150px;">
- * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/plotter.png"/>
- * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/plotter-modal.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/plotter.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/plotter-modal.png"/>
  * </div>
  * 
  * The `Plotter` component helps to define the right plot parameters in the style of plotly.express.

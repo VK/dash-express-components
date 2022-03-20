@@ -34,9 +34,9 @@ import RenameSvg from 'react-svg-loader!./_svg/rename.svg';
 
 /**
  * <div style="width:450px; margin-left: 20px; float: right;  margin-top: -150px;">
- * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/transform.png"/>
- * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/transform-modal.png"/>
- * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/transform-types.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/transform.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/transform-modal.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/transform-types.png"/>
  * </div>
  * 
  * The `Transform` component helps to create user defined data transformations.

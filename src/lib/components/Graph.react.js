@@ -28,9 +28,9 @@ let guid = () => {
 
 /**
  * <div style="width:450px; margin-left: 20px; float: right;  margin-top: -150px;">
- * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/graph.png"/>
- * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/graph-table.png"/>
- * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/graph-modal.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/graph.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/graph-table.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/graph-modal.png"/>
  * </div>
  * 
  * 

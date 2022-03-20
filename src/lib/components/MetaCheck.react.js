@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
  * 
  * Can be usefull, to check how a data transformation works.
  * 
- * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/examples/screenshots/metacheck.png"/>
+ * <img src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/metacheck.png"/>
  * 
  * @hideconstructor
  * 
