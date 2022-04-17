@@ -31,7 +31,7 @@
 
 
     <title>
-      MetaCheck
+      ConfigReceiver.react.js
     </title>
 
     <!--[if lt IE 9]>
@@ -98,7 +98,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        MetaCheck
+        ConfigReceiver.react.js
       </h1>
       
 
@@ -106,352 +106,93 @@
 
 
 
-
-<section>
-
-
-<header>
     
-        
-        <h2>
-        
-        MetaCheck
-        
-        </h2>
-        
-        
-            <div class="class-description"><p>Helper to show the metadata of the data inside a component.</p>
-<p>Can be usefull, to check how a data transformation works.</p>
-<img src="https://raw.githubusercontent.com/VK/dash-express-components/main/.media/metacheck.png"/></div>
-        
-    
-</header>
-
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-        <h2>Constructor</h2>
-    
-
-    <h4 class="name" id="MetaCheck">
-        <a href="#MetaCheck">#</a>
-        <span class="type-signature"></span>new MetaCheck<span class="signature">()</span><span class="type-signature"></span>
-    </h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="MetaCheck.react.js.html">MetaCheck.react.js</a>, <a href="MetaCheck.react.js.html#line25">line 25</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
-        <strong>Example</strong>
-        
-    <div class="rel">
-    <pre class="prettyprint"><code>import dash_express_components as dxc
-import plotly.express as px
-
-meta = dxc.get_meta(px.data.gapminder())
-
-dxc.MetaCheck(
-???
-)</code></pre>
-    
-    
-    </div>
-
-    </div>
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
-<h4 class="name" id=".propTypes">
-    <a href="#.propTypes">#</a>
-    propTypes
-</h4>
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties</h5>
-
-    
-<div class="allow-overflow">
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The ID used to identify this component in Dash callbacks.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>config</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The config the user sets in this component.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>meta</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The metadata this section is based on.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>meta_out</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The metadata section will create as output.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>setProps</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Dash-assigned callback that should be called to report property changes
-to Dash, to make them available for callbacks.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="MetaCheck.react.js.html">MetaCheck.react.js</a>, <a href="MetaCheck.react.js.html#line103">line 103</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-            
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Component } from 'react';
+
+import PropTypes from 'prop-types';
+
+
+
+
+/**
+ * A config receiver listening for `window.postMessage()`
+ * 
+ * @hideconstructor
+ * 
+ * @example
+ *  rec = dxc.ConfigReceiver(
+ *           id="plotConfig",
+ *           token="test"
+ *  )
+ * 
+ *  window.postMessage({config: "Test", token:"test" })
+ * @public
+ */
+class ConfigReceiver extends Component {
+    constructor(props) {
+        super(props);
+
+        window.addEventListener("message", (event) => {
+
+            if ("data" in event &amp;&amp; "token" in event.data &amp;&amp; event.data.token == this.props.token) {
+
+                props.setProps({
+                    config: event.data.config
+                });
+            }
+
+        }, false);
+
+    }
+
+    render() {
+        return ""
+    }
+
+}
+
+/**
+ * @typedef
+ * @public
+ * @enum {}
+ */
+ConfigReceiver.propTypes = {
+    /**
+     * The ID used to identify this component in Dash callbacks.
+     * @type {string}
+     */
+    id: PropTypes.string.isRequired,
+
+    /**
+     * A token used to define the configuration across frames.
+     * @type {string}
+     */
+    token: PropTypes.string.isRequired,
+
+    /**
+     * Prop The resulting configuration of the plot.
+     * @type {Object}
+     */
+    config: PropTypes.any,
+
+    /**
+     * Dash-assigned callback that should be called to report property changes
+     * to Dash, to make them available for callbacks.
+     * @private
+     */
+    setProps: PropTypes.func
+}
+
+
+/**
+ * @private
+ */
+export default ConfigReceiver;
+</code></pre>
+        </article>
+    </section>
 
 
 
