@@ -15,8 +15,8 @@
 [**dxc.Filter**](https://vk.github.io/dash-express-components/Filter.html),
 [**dxc.Transform**](https://vk.github.io/dash-express-components/Transform.html) and
 [**dxc.Plotter**](https://vk.github.io/dash-express-components/Plotter.html)
-to make the components even easier to use, since the interaction between them is handeled automatically.
-* [**dxc.Graph**](https://vk.github.io/dash-express-components/Graph.html) uses [dcc.Graph](https://dash.plotly.com/dash-core-components/graph) and [dash_table.DataTable](https://dash.plotly.com/datatable) to show a plot or a table, based on the plot configuration.
+to make the components even easier to use, since the interaction between them is handled automatically.
+* [**dxc.Graph**](https://vk.github.io/dash-express-components/Graph.html) uses [dcc.Graph](https://dash.plotly.com/dash-core-components/graph) and [dash_table.DataTable](https://dash.plotly.com/datatable) to show a plot or a table based on the plot configuration.
 
 
 
