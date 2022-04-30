@@ -19,6 +19,7 @@ import DropnaTransform from './_sub/DropnaTransform.react';
 import WideToLong from './_sub/WideToLong.react';
 import ZerosToNanTransform from './_sub/ZerosToNanTransform.react';
 import RenameTransform from './_sub/RenameTransform.react';
+import StrSplitTransform from './_sub/StrSplitTransform.react';
 
 
 import AggrSvg from 'react-svg-loader!./_svg/aggr.svg';
@@ -30,6 +31,7 @@ import DropnaSvg from 'react-svg-loader!./_svg/dropna.svg';
 import WideToLongSvg from 'react-svg-loader!./_svg/wide_to_long.svg';
 import ZerostoNanSvg from 'react-svg-loader!./_svg/zerostonan.svg';
 import RenameSvg from 'react-svg-loader!./_svg/rename.svg';
+import StrSplitSvg from 'react-svg-loader!./_svg/str.split.svg';
 
 
 /**
@@ -77,6 +79,10 @@ class Transform extends Base {
         {
             group: "col", type: "eval", class: EvalTransform,
             "label": "Compute new column", svg: <EvalSvg />
+        },
+        {
+            group: "col", type: "strsplit", class: StrSplitTransform,
+            "label": "Compute a string split", svg: <StrSplitSvg />
         },
         {
             group: "reshape", type: "aggr", class: AggrTransform,
