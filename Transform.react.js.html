@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="1533632" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="6739173" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -130,6 +130,7 @@ import DropnaTransform from './_sub/DropnaTransform.react';
 import WideToLong from './_sub/WideToLong.react';
 import ZerosToNanTransform from './_sub/ZerosToNanTransform.react';
 import RenameTransform from './_sub/RenameTransform.react';
+import StrSplitTransform from './_sub/StrSplitTransform.react';
 
 
 import AggrSvg from 'react-svg-loader!./_svg/aggr.svg';
@@ -141,6 +142,7 @@ import DropnaSvg from 'react-svg-loader!./_svg/dropna.svg';
 import WideToLongSvg from 'react-svg-loader!./_svg/wide_to_long.svg';
 import ZerostoNanSvg from 'react-svg-loader!./_svg/zerostonan.svg';
 import RenameSvg from 'react-svg-loader!./_svg/rename.svg';
+import StrSplitSvg from 'react-svg-loader!./_svg/str.split.svg';
 
 
 /**
@@ -188,6 +190,10 @@ class Transform extends Base {
         {
             group: "col", type: "eval", class: EvalTransform,
             "label": "Compute new column", svg: &lt;EvalSvg />
+        },
+        {
+            group: "col", type: "strsplit", class: StrSplitTransform,
+            "label": "Compute a string split", svg: &lt;StrSplitSvg />
         },
         {
             group: "reshape", type: "aggr", class: AggrTransform,
