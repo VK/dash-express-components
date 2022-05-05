@@ -3,14 +3,17 @@
 def compute(cfg, inputDataFrame):
 
     if cfg["sep"] == "":
-        inputDataFrame[cfg["col"]] = inputDataFrame[cfg["in"]
-                                                    ].str.slice(start=cfg["start"], stop=cfg["end"])
+        inputDataFrame[cfg["col"]] = inputDataFrame[cfg["in"]].astype(str).str.slice(start=cfg["start"], stop=cfg["end"])
     else:
-        inputDataFrame[cfg["col"]] = inputDataFrame[cfg["in"]].str.split(
-            pat=cfg["sep"]).map(lambda x: x[cfg["start"]])
+
+        output = inputDataFrame[cfg["in"]].astype(str).str.split(pat=cfg["sep"])
+        output = output.map(lambda x: x[cfg["start"]] if len(x) > cfg["start"] else "")
+
+        inputDataFrame[cfg["col"]] = output
 
     return inputDataFrame
 
 
 def dimensions(cfg, inputDataFrame):
-    return cfg["in"]
+    return [cfg["in"]] if isinstance(cfg["in"], str) else cfg["in"]
+
