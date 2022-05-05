@@ -51,8 +51,6 @@ export default class StrSplitTransform extends SubComponentBase {
     static eval(input) {
         let current_meta = input["meta"];
 
-        console.log(input);
-
         let col = input["col"];
         let in_col = input["in"];
         let sep = input["sep"];

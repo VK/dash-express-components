@@ -204,7 +204,7 @@ export default class CoreDataTable extends Component {
                             }
                         });
                         sheet.columns = cols;
-                        console.log(cols);
+
                         cols.forEach((c, idx) => {
                             sheet.getColumn(idx + 1).values = [c.header, ...this.props.data[c.id]];
                         });

@@ -236,9 +236,8 @@ class Configurator extends Component {
         if (newProps.config !== this.props.config) {
             let config = this.fix_config(JSON.parse(JSON.stringify(newProps.config)));
             //let config = JSON.parse(JSON.stringify(this.fix_config(newProps.config)));
-            this.setState(
-                { config: config }
-            )
+
+            this.update_config(config);
         }
 
         if (newProps.meta !== this.props.meta) {

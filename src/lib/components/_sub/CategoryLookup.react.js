@@ -40,7 +40,6 @@ export default class CategoryLookup extends SubComponentBase {
         try {
             parsed_values = input.values.map((el) => JSON.parse("{" + el + "}")).reduce((k, v) => { return { ...k, ...v } }
                 , {});
-            console.log(parsed_values);
         } catch { }
 
         return {
