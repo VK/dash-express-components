@@ -2,7 +2,7 @@ import SubComponentBase from "./SubComponentBase";
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Select from 'react-select';
-import { multiColorStyle, hideGroupComponents, multiCallbacks, singleColorStyle } from "./Base.react";
+import { hideGroupComponents, singleColorStyle } from "./Base.react";
 
 
 export default class StrSplitTransform extends SubComponentBase {
@@ -63,10 +63,23 @@ export default class StrSplitTransform extends SubComponentBase {
 
         let res;
         if (sep === "") {
-            res = current_meta[in_col].cat.map(el => el.substring(start, end));
+            res = current_meta[in_col].cat.map(el => {
+                try {
+                    return el.substring(start, end)
+                } catch {
+                    return ""
+                }
+            });
         } else {
-            res = current_meta[in_col].cat.map(el => el.split(sep)[start]);
+            res = current_meta[in_col].cat.map(el => {
+                try {
+                    return  el.split(sep)[start]
+                } catch {
+                    return ""
+                }
+            });
         }
+                
 
         let output = {
             value: "OK", error: false, message: "", type: "categorical"

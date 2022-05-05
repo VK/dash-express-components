@@ -85,7 +85,10 @@ export const multiCallbacks = (obj, setState, varname, options) => {
 
     const callback = (inputValue, { action, prevInputValue }) => {
 
-        if (action === "input-change" && inputValue && inputValue !== undefined) {
+        var lastChar = (inputValue.length > 0) ? inputValue[inputValue.length - 1] : "";
+
+        if (action === "input-change" && inputValue && inputValue !== undefined &&
+            [" ", "\n", "\t"].includes(lastChar)) {
 
             let s = inputValue.split(/[ ,;\n\t]+/).map((e) => e.toUpperCase());
 
