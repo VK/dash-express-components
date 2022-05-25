@@ -220,8 +220,8 @@ class Configurator extends Component {
             delete config["graphId"];
         }
 
-        if (config.prevent_update == null || config.prevent_update === undefined || config.prevent_update === false || config.prevent_update) {
-            delete config["prevent_update"];
+        if (config.plot != null && config.plot.prevent_update != null) {
+            delete config["plot"]["prevent_update"];
         }
 
         this.props.setProps({
