@@ -124,6 +124,8 @@ class Filter extends Base {
 
 
         super.update_meta_out(new_meta, constructor);
+
+        return new_meta;
     }
 
     filter_to_string(el) {
@@ -179,7 +181,7 @@ class Filter extends Base {
                                     let update_state = {
                                         filterIndex: id,
                                         selectedColumn: config[id].col,
-                                        selectedType: meta[config[id].col].type,
+                                        selectedType: ("type" in  meta[config[id].col]) ? meta[config[id].col].type : "",
                                         filterType: config[id].type,
                                         filterNumber: config[id].value
                                     }

@@ -134,6 +134,9 @@ class Configurator extends Component {
 
         }, false);
 
+
+        this.filter_ref = React.createRef();
+        this.transform_ref = React.createRef();
     }
 
 
@@ -198,6 +201,28 @@ class Configurator extends Component {
 
     }
 
+
+    update_meta(new_meta) {
+
+        let that = this;
+
+        this.setState({ meta: new_meta },
+            () => {
+
+                let filter_meta_out = that.filter_ref.current.update_config(that.state.config_filter);
+
+                this.setState({ filter_meta_out: filter_meta_out },
+                    () => {
+
+                        let transform_meta_out = that.transform_ref.current.update_config(that.state.config_transform);
+                        this.setState({ transform_meta_out: transform_meta_out });
+
+                    }
+                )
+            });
+
+    }
+
     update_props(graphId = null) {
         let config = JSON.parse(JSON.stringify(this.state.config));
 
@@ -245,9 +270,10 @@ class Configurator extends Component {
         }
 
         if (newProps.meta !== this.props.meta) {
-            this.setState(
-                { meta: newProps.meta }
-            )
+
+            let new_meta = JSON.parse(JSON.stringify(newProps.meta));
+            this.update_meta(new_meta);
+
         }
 
 
@@ -282,6 +308,7 @@ class Configurator extends Component {
                     < Filter
                         id={`${id}-filter`}
                         key={`${id}-filter`}
+                        ref={this.filter_ref}
                         meta={meta}
                         config={config_filter}
                         setProps={
@@ -304,6 +331,7 @@ class Configurator extends Component {
                     <Transform
                         id={`${id}-transform`}
                         key={`${id}-transform`}
+                        ref={this.transform_ref}
                         meta={filter_meta_out}
                         config={config_transform}
                         setProps={

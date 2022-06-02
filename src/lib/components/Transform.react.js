@@ -214,6 +214,8 @@ class Transform extends Base {
                 ...this.get_columns(new_meta)
             });
         }
+
+        return new_meta;
     }
 
     get_transform_blocks() {
