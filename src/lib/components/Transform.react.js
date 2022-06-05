@@ -20,6 +20,7 @@ import WideToLong from './_sub/WideToLong.react';
 import ZerosToNanTransform from './_sub/ZerosToNanTransform.react';
 import RenameTransform from './_sub/RenameTransform.react';
 import StrSplitTransform from './_sub/StrSplitTransform.react';
+import BinTransform from './_sub/BinTransform.react';
 
 
 import AggrSvg from 'react-svg-loader!./_svg/aggr.svg';
@@ -32,6 +33,7 @@ import WideToLongSvg from 'react-svg-loader!./_svg/wide_to_long.svg';
 import ZerostoNanSvg from 'react-svg-loader!./_svg/zerostonan.svg';
 import RenameSvg from 'react-svg-loader!./_svg/rename.svg';
 import StrSplitSvg from 'react-svg-loader!./_svg/str.split.svg';
+import BinSvg from 'react-svg-loader!./_svg/bin.svg';
 
 
 /**
@@ -115,7 +117,11 @@ class Transform extends Base {
         {
             group: "meta", type: "rename", class: RenameTransform,
             "label": "Rename multiple columns", svg: <RenameSvg />
-        }
+        },
+        {
+            group: "col", type: "bin", class: BinTransform,
+            "label": "Compute a binned variable", svg: <BinSvg />
+        },        
     ]
 
 
