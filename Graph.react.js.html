@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="7879417" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="140779" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -181,8 +181,14 @@ class Graph extends Component {
             //page_current: 0,
             sort_by: [],
             filter_query: "",
-            config_modal_open: false
+            config_modal_open: false,
+            defParams: props.defParams,
+            internalFigure: { data: [] }
         };
+
+        if ("plotApi" in this.props &amp;&amp; "defParams" in this.props) {
+            this.update_figure_from_defParams(props.defParams, true);
+        }
 
         this.clearState = this.clearState.bind(this);
         this.config_in_modal_ref = React.createRef();
@@ -191,8 +197,17 @@ class Graph extends Component {
 
 
     isGraph() {
-        return ("data" in this.props.figure)
+        try {
+            if ("plotApi" in this.props) {
+                return ("internalFigure" in this.state &amp;&amp; "data" in this.state.internalFigure)
+            } else {
+                return ("data" in this.props.figure)
+            }
+        } catch (e) {
+            return ("data" in this.props.figure)
+        }
     }
+
 
     sendSavedData(image) {
         let messageData = { thumbnail: image, defs: this.props.defParams, app: window.appName, href: location.href };
@@ -237,6 +252,70 @@ class Graph extends Component {
         }
     }
 
+    usePlotApi() {
+        try {
+            return "plotApi" in this.props;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    update_figure_from_defParams(input_params, initial = true) {
+
+        let defParams = JSON.parse(JSON.stringify(input_params));
+
+        if (!initial) {
+            this.setState({ defParams: defParams })
+        };
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", this.props.plotApi, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(defParams));
+
+        let that = this;
+
+        xhr.onreadystatechange = function () {
+
+            if (this.status == 200) {
+                try {
+                    var data = JSON.parse(this.responseText);
+
+                    // since my plotApi uses a timestamp array structure :)
+                    if ("plots" in data) {
+                        data = data.plots;
+                        if (Array.isArray(data)) {
+                            data = data[0];
+                        }
+                    }
+
+                    that.setState({ internalFigure: data })
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        };
+
+    }
+
+    /**
+     * if the plot config changes and the extra plotApi should be used
+     * Then we have to update the content
+     * @private
+     */
+    UNSAFE_componentWillReceiveProps(newProps) {
+
+        if (this.usePlotApi()) {
+            if (newProps.defParams !== this.state.defParams) {
+
+                if (JSON.stringify(newProps.defParams) !== JSON.stringify(this.state.defParams)) {
+                    this.update_figure_from_defParams(newProps.defParams, false);
+                }
+
+            }
+        }
+
+    }
 
     clearState(dataKey) {
 
@@ -316,20 +395,46 @@ class Graph extends Component {
 
         if (this.isGraph()) {
 
-            return (
-                &lt;div className='pxc-graph-container'>
-                    &lt;CoreGraph
-                        {...this.props}
-                        clearState={this.clearState}
-                    />
-                    &lt;div className="saveClickContainer" >{save_button}{edit_button}&lt;/div>
-                    {configurator_modal}
-                &lt;/div>
-            );
+            if (this.usePlotApi()) {
+
+                let inner_props = {
+                    ...this.props,
+                    figure: this.state.internalFigure
+                }
+
+                return (
+                    &lt;div className='pxc-graph-container'>
+                        &lt;CoreGraph
+                            {...inner_props}
+                            clearState={this.clearState}
+                        />
+                        &lt;div className="saveClickContainer" >{save_button}{edit_button}&lt;/div>
+                        {configurator_modal}
+                    &lt;/div>
+                );
+
+            } else {
+                return (
+                    &lt;div className='pxc-graph-container'>
+                        &lt;CoreGraph
+                            {...this.props}
+                            clearState={this.clearState}
+                        />
+                        &lt;div className="saveClickContainer" >{save_button}{edit_button}&lt;/div>
+                        {configurator_modal}
+                    &lt;/div>
+                );
+            }
 
         } else {
 
-            let columns = Object.keys(this.props.figure).map(k => { return { name: k, id: k } });
+            let columns = [];
+
+            if (this.usePlotApi()) {
+                columns = Object.keys(this.state.internalFigure).map(k => { return { name: k, id: k } });
+            } else {
+                columns = Object.keys(this.props.figure).map(k => { return { name: k, id: k } });
+            }
             if ("defParams" in this.props) {
                 try {
                     columns = this.props.defParams.plot.params.dimensions.map(k => { return { name: k, id: k } })
@@ -349,6 +454,10 @@ class Graph extends Component {
                 fixed_rows: { headers: true, data: 0 },
                 style_table: { height: '300px', overflowY: 'auto' },
                 style_cell: { 'minWidth': '50px', fontSize: "14px" }
+            }
+
+            if (this.usePlotApi()) {
+                props.data = this.state.internalFigure;
             }
 
             return (
@@ -411,6 +520,11 @@ Graph.propTypes = {
      * The metadata the plotter selection is based on.
      */
     meta: PropTypes.any,
+
+    /**
+     * Url to the plot Api
+     */
+    plotApi: PropTypes.string,
 
     /**
      * Plotly `figure` object. See schema:
