@@ -6,6 +6,11 @@ from dash.exceptions import PreventUpdate
 
 import plotly.express as px
 
+from flask import request
+
+import plotly
+import json
+
 # load gapminder example data
 df_gapminder = px.data.gapminder()
 meta_gapminder = dxc.get_meta(df_gapminder)
@@ -25,6 +30,7 @@ def get_new_widget(config, id):
         dxc.Graph(id={'type': 'graph', 'index': id},
                   defParams=config,
                   meta=meta_gapminder,
+                  plotApi="plotApi",
                   style={"width": "100%", "height": "100%"}),
         id=f'widget-{id}',
         title="Plot",
@@ -78,12 +84,13 @@ def handle_widget(config, widgets):
     return [*widgets, get_new_widget(config, next_id)]
 
 
-# update the plot data via a matching callback
-@app.callback(
-    Output({'type': 'graph', 'index': MATCH}, 'figure'),
-    Input({'type': 'graph', 'index': MATCH}, 'defParams'))
-def update_figure(config):
-    return dxc.get_plot(df_gapminder, config)
+@app.server.route("/plotApi", methods=['POST', 'GET'])
+def plotApi():
+    config = request.get_json()
+    if request.method == 'POST':
+        fig = dxc.get_plot(df_gapminder, config)
+        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return {}
 
 # start the app
 if __name__ == '__main__':

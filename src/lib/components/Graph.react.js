@@ -70,8 +70,14 @@ class Graph extends Component {
             //page_current: 0,
             sort_by: [],
             filter_query: "",
-            config_modal_open: false
+            config_modal_open: false,
+            defParams: props.defParams,
+            internalFigure: { data: [] }
         };
+
+        if ("plotApi" in this.props && "defParams" in this.props) {
+            this.update_figure_from_defParams(props.defParams, true);
+        }
 
         this.clearState = this.clearState.bind(this);
         this.config_in_modal_ref = React.createRef();
@@ -80,8 +86,17 @@ class Graph extends Component {
 
 
     isGraph() {
-        return ("data" in this.props.figure)
+        try {
+            if ("plotApi" in this.props) {
+                return ("internalFigure" in this.state && "data" in this.state.internalFigure)
+            } else {
+                return ("data" in this.props.figure)
+            }
+        } catch (e) {
+            return ("data" in this.props.figure)
+        }
     }
+
 
     sendSavedData(image) {
         let messageData = { thumbnail: image, defs: this.props.defParams, app: window.appName, href: location.href };
@@ -126,6 +141,70 @@ class Graph extends Component {
         }
     }
 
+    usePlotApi() {
+        try {
+            return "plotApi" in this.props;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    update_figure_from_defParams(input_params, initial = true) {
+
+        let defParams = JSON.parse(JSON.stringify(input_params));
+
+        if (!initial) {
+            this.setState({ defParams: defParams })
+        };
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", this.props.plotApi, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(defParams));
+
+        let that = this;
+
+        xhr.onreadystatechange = function () {
+
+            if (this.status == 200) {
+                try {
+                    var data = JSON.parse(this.responseText);
+
+                    // since my plotApi uses a timestamp array structure :)
+                    if ("plots" in data) {
+                        data = data.plots;
+                        if (Array.isArray(data)) {
+                            data = data[0];
+                        }
+                    }
+
+                    that.setState({ internalFigure: data })
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        };
+
+    }
+
+    /**
+     * if the plot config changes and the extra plotApi should be used
+     * Then we have to update the content
+     * @private
+     */
+    UNSAFE_componentWillReceiveProps(newProps) {
+
+        if (this.usePlotApi()) {
+            if (newProps.defParams !== this.state.defParams) {
+
+                if (JSON.stringify(newProps.defParams) !== JSON.stringify(this.state.defParams)) {
+                    this.update_figure_from_defParams(newProps.defParams, false);
+                }
+
+            }
+        }
+
+    }
 
     clearState(dataKey) {
 
@@ -205,20 +284,46 @@ class Graph extends Component {
 
         if (this.isGraph()) {
 
-            return (
-                <div className='pxc-graph-container'>
-                    <CoreGraph
-                        {...this.props}
-                        clearState={this.clearState}
-                    />
-                    <div className="saveClickContainer" >{save_button}{edit_button}</div>
-                    {configurator_modal}
-                </div>
-            );
+            if (this.usePlotApi()) {
+
+                let inner_props = {
+                    ...this.props,
+                    figure: this.state.internalFigure
+                }
+
+                return (
+                    <div className='pxc-graph-container'>
+                        <CoreGraph
+                            {...inner_props}
+                            clearState={this.clearState}
+                        />
+                        <div className="saveClickContainer" >{save_button}{edit_button}</div>
+                        {configurator_modal}
+                    </div>
+                );
+
+            } else {
+                return (
+                    <div className='pxc-graph-container'>
+                        <CoreGraph
+                            {...this.props}
+                            clearState={this.clearState}
+                        />
+                        <div className="saveClickContainer" >{save_button}{edit_button}</div>
+                        {configurator_modal}
+                    </div>
+                );
+            }
 
         } else {
 
-            let columns = Object.keys(this.props.figure).map(k => { return { name: k, id: k } });
+            let columns = [];
+
+            if (this.usePlotApi()) {
+                columns = Object.keys(this.state.internalFigure).map(k => { return { name: k, id: k } });
+            } else {
+                columns = Object.keys(this.props.figure).map(k => { return { name: k, id: k } });
+            }
             if ("defParams" in this.props) {
                 try {
                     columns = this.props.defParams.plot.params.dimensions.map(k => { return { name: k, id: k } })
@@ -238,6 +343,10 @@ class Graph extends Component {
                 fixed_rows: { headers: true, data: 0 },
                 style_table: { height: '300px', overflowY: 'auto' },
                 style_cell: { 'minWidth': '50px', fontSize: "14px" }
+            }
+
+            if (this.usePlotApi()) {
+                props.data = this.state.internalFigure;
             }
 
             return (
@@ -300,6 +409,11 @@ Graph.propTypes = {
      * The metadata the plotter selection is based on.
      */
     meta: PropTypes.any,
+
+    /**
+     * Url to the plot Api
+     */
+    plotApi: PropTypes.string,
 
     /**
      * Plotly `figure` object. See schema:

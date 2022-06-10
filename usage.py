@@ -9,7 +9,9 @@ from dash import html, Input, Output, dcc
 from dash.exceptions import PreventUpdate
 import dash_express_components as dxc
 import plotly.express as px
+import plotly
 import json
+from flask import request
 
 dataframe = {}
 
@@ -113,6 +115,7 @@ app.layout = html.Div([
 
         [dxc.Graph(id="fig",
                    meta=dataframe_meta[initial_option],
+                   plotApi="plotApi",
                    style={"height": "100%", "width": "100%"}
                    )],
 
@@ -132,26 +135,34 @@ def update_plot_config(newConfig):
 
 
 @app.callback(
-    Output('plotConfig', 'meta'),   
-    Output('fig', 'meta'),   
+    Output('plotConfig', 'meta'),
+    Output('fig', 'meta'),
     Input('dataframe-type', 'value')
 )
 def update_meta(dataframeType):
     return dataframe_meta[dataframeType], dataframe_meta[dataframeType],
 
 
-@app.callback(
-    Output('fig', 'figure'),   Input('fig', 'defParams'), Input('dataframe-type', 'value')
-)
-def update_fig(config, dataframeType):
-    try:
-        fig = dxc.get_plot(dataframe[dataframeType], config)
-        if fig:
-            return fig
-        raise PreventUpdate
-    except:
-        raise PreventUpdate
+@app.server.route("/plotApi", methods=['POST', 'GET'])
+def plotApi():
+    config = request.get_json()
+    if request.method == 'POST':
+        fig = dxc.get_plot(dataframe["gapminder"], config)
+        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return {}
+
+# @app.callback(
+#     Output('fig', 'figure'),   Input('fig', 'defParams'), Input('dataframe-type', 'value')
+# )
+# def update_fig(config, dataframeType):
+#     try:
+#         fig = dxc.get_plot(dataframe[dataframeType], config)
+#         if fig:
+#             return fig
+#         raise PreventUpdate
+#     except:
+#         raise PreventUpdate
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=9999)
+    app.run_server(debug=False, port=9999)
