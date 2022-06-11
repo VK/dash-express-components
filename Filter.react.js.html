@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="61982" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="1587107" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -174,6 +174,9 @@ class Filter extends Base {
             /* conent of the dropdown to select a label if a cat column is selected*/
             categoryOptions: [],
             selectedCategories: [],
+            categoryOptionsLarge: false,
+            manualCategories: "",
+
 
             selectedDateTime: new Date(),
 
@@ -221,6 +224,13 @@ class Filter extends Base {
                         new_meta[el.col].median = el.value;
                     }
                     if (el["type"] === "isin") {
+                        el.value.forEach(ael => {
+                            if (!new_meta[el.col].cat.includes(ael)) {
+                                new_meta[el.col].cat.push(ael);
+                            }
+                        }
+
+                        );
                         new_meta[el.col].cat = new_meta[el.col].cat.filter(
                             ael => el.value.indexOf(ael) !== -1
                         )
@@ -292,20 +302,30 @@ class Filter extends Base {
                                     let update_state = {
                                         filterIndex: id,
                                         selectedColumn: config[id].col,
-                                        selectedType: ("type" in  meta[config[id].col]) ? meta[config[id].col].type : "",
+                                        selectedType: ("type" in meta[config[id].col]) ? meta[config[id].col].type : "",
                                         filterType: config[id].type,
-                                        filterNumber: config[id].value
+                                        filterNumber: config[id].value,
                                     }
 
                                     if (meta[config[id].col].type === "categorical") {
 
                                         update_state["selectedCategories"] = config[id].value;
 
-                                        update_state["categoryOptions"] = [
-                                            ...meta[config[id].col].cat.map(option => ({
-                                                label: String(option),
-                                                value: option,
-                                            }))];
+                                        update_state["manualCategories"] = config[id].value.join("\n");
+
+                                        if ("large" in meta[config[id].col] &amp;&amp; meta[config[id].col].large) {
+
+                                            update_state["categoryOptionsLarge"] = true;
+
+                                        } else {
+                                            update_state["categoryOptionsLarge"] = false;
+
+                                            update_state["categoryOptions"] = [
+                                                ...meta[config[id].col].cat.map(option => ({
+                                                    label: String(option),
+                                                    value: option,
+                                                }))];
+                                        }
                                     }
 
                                     this.setState(update_state, () => {
@@ -330,7 +350,7 @@ class Filter extends Base {
             allOptions,
             showAddModal,
             selectedColumn, selectedType,
-            categoryOptions, selectedCategories,
+            categoryOptions, selectedCategories, categoryOptionsLarge, manualCategories,
             selectedDateTime,
             filterType,
             filterNumber,
@@ -370,7 +390,8 @@ class Filter extends Base {
                                 categoryOptions: meta[value].cat.map(option => ({
                                     label: String(option),
                                     value: option,
-                                }))
+                                })),
+                                categoryOptionsLarge: "large" in meta[value] &amp;&amp; meta[value].large
                             })
                         }
 
@@ -443,7 +464,7 @@ class Filter extends Base {
                             &lt;/Form.Select>
                         &lt;/InputGroup>
 
-                        {["isnotin", "isin"].includes(filterType) &amp;&amp; &lt;Select
+                        {["isnotin", "isin"].includes(filterType) &amp;&amp; !categoryOptionsLarge &amp;&amp; &lt;Select
                             options={categoryOptions}
                             key={id + "-selectOptions"}
                             {...multiCallbacks(
@@ -454,7 +475,7 @@ class Filter extends Base {
                             )}
                         />}
 
-                        {["eq"].includes(filterType) &amp;&amp; &lt;Select
+                        {["eq"].includes(filterType) &amp;&amp; !categoryOptionsLarge &amp;&amp; &lt;Select
                             options={categoryOptions}
                             isClearable
                             key={id + "-selectEqOptions"}
@@ -469,6 +490,28 @@ class Filter extends Base {
 
                             }}
                         />}
+
+
+                        {["isnotin", "isin", "eq"].includes(filterType) &amp;&amp; categoryOptionsLarge &amp;&amp; &lt;div>
+                            &lt;FormControl as="textarea" rows={3} value={manualCategories} onChange={e => {
+
+                                let cols = e.target.value.split(/\r?\n/).map(e => e.trimLeft().trimRight());
+
+                                if (filterType === "eq") {
+                                    cols = e.target.value
+                                }
+
+                                this.setState({
+                                    manualCategories: e.target.value,
+                                    selectedCategories: cols
+                                });
+
+
+                            }} />
+                        &lt;/div>
+
+
+                        }
 
                     &lt;/div>
                 }
