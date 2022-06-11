@@ -29,6 +29,7 @@ def test_simple():
         "plot": {
             "type": "imshow",
             "params": {
+                "render": "interactive",
                 "x": "X",
                 "y": "Y",
                 "dimensions": [
@@ -57,6 +58,7 @@ def test_multi_dim():
         "plot": {
             "type": "imshow",
             "params": {
+                "render": "interactive",
                 "x": "X",
                 "y": "Y",
                 "dimensions": [
@@ -93,6 +95,7 @@ def test_multi_group():
         "plot": {
             "type": "imshow",
             "params": {
+                "render": "interactive",
                 "x": "X",
                 "y": "Y",
                 "dimensions": [
@@ -123,6 +126,7 @@ def test_multi_combined():
         "plot": {
             "type": "imshow",
             "params": {
+                "render": "interactive",
                 "x": "X",
                 "y": "Y",
                 "dimensions": [
@@ -140,6 +144,8 @@ def test_multi_combined():
 
     assert "data" in fig
 
+    print(fig)
+
     subplot_names = [el["name"] for el in fig["data"]]
     expected = ['R of astronaut', 'G of astronaut', 'B of astronaut', 'R of cat', 'G of cat', 'B of cat', 'R of coffee', 'G of coffee', 'B of coffee']
     assert len(subplot_names) == len(expected)
@@ -151,6 +157,7 @@ def test_not_possible():
     cfg = {
         "plot": {
             "type": "imshow",
+            "render": "interactive",
             "params": {
                 "x": "X",
                 "y": "Y",

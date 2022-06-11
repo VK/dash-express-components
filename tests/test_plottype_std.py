@@ -337,7 +337,6 @@ def test_density_contour():
     assert "OK" == fig["layout"]["title"]["text"]
 
 
-
 def test_violin():
 
     cfg = {
@@ -357,7 +356,6 @@ def test_violin():
     assert "title" in fig["layout"]
     assert "text" in fig["layout"]["title"]
     assert "OK" == fig["layout"]["title"]["text"]
-
 
 
 def test_bar():
@@ -400,7 +398,8 @@ def test_histogram():
     assert "layout" in fig
     assert "title" in fig["layout"]
     assert "text" in fig["layout"]["title"]
-    assert "OK" == fig["layout"]["title"]["text"]    
+    assert "OK" == fig["layout"]["title"]["text"]
+
 
 def test_render_png():
 
@@ -409,17 +408,18 @@ def test_render_png():
             "type": "histogram",
             "params": {
                 "x": "year",
-                "title": "OK"
+                "title": "OK",
+                "render": "png"
             },
-            "render": "png"
+
         }
     }
 
     fig = dxc.get_plot(df, cfg)
-    
 
     assert "data" in fig
     assert "layout" in fig
     assert "images" in fig["layout"]
     assert 1 == len(fig["layout"]["images"])
-    assert fig["layout"]["images"][0]["source"].startswith("data:image/png;base64")
+    assert fig["layout"]["images"][0]["source"].startswith(
+        "data:image/png;base64")

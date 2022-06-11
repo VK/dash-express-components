@@ -44,3 +44,4 @@ def test_simple():
 
     for col in output_cols:
         assert col in fig
+

@@ -163,7 +163,9 @@ class Graph extends Component {
 
         let send_data = JSON.parse(JSON.stringify(defParams));
         if (send_data["plot"]["params"]["render_size"] === undefined) {
-            send_data["plot"]["params"]["render_size"] = [this.graphDiv.clientWidth, this.graphDiv.clientHeight]
+            try {
+                send_data["plot"]["params"]["render_size"] = [this.graphDiv.clientWidth, this.graphDiv.clientHeight]
+            } catch (e) { }
         }
 
         xhr.send(JSON.stringify(send_data));

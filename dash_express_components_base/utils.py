@@ -452,9 +452,10 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                 except Exception as ex:
                     print(ex)
 
-            fig.update_layout(
-                template="plotly_white"
-            )
+            if plotConfigData["type"] != "table":
+                fig.update_layout(
+                    template="plotly_white"
+                )
 
             return fig
 
