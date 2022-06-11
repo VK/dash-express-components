@@ -63,6 +63,9 @@ class Filter extends Base {
             /* conent of the dropdown to select a label if a cat column is selected*/
             categoryOptions: [],
             selectedCategories: [],
+            categoryOptionsLarge: false,
+            manualCategories: "",
+
 
             selectedDateTime: new Date(),
 
@@ -110,6 +113,13 @@ class Filter extends Base {
                         new_meta[el.col].median = el.value;
                     }
                     if (el["type"] === "isin") {
+                        el.value.forEach(ael => {
+                            if (!new_meta[el.col].cat.includes(ael)) {
+                                new_meta[el.col].cat.push(ael);
+                            }
+                        }
+
+                        );
                         new_meta[el.col].cat = new_meta[el.col].cat.filter(
                             ael => el.value.indexOf(ael) !== -1
                         )
@@ -181,20 +191,30 @@ class Filter extends Base {
                                     let update_state = {
                                         filterIndex: id,
                                         selectedColumn: config[id].col,
-                                        selectedType: ("type" in  meta[config[id].col]) ? meta[config[id].col].type : "",
+                                        selectedType: ("type" in meta[config[id].col]) ? meta[config[id].col].type : "",
                                         filterType: config[id].type,
-                                        filterNumber: config[id].value
+                                        filterNumber: config[id].value,
                                     }
 
                                     if (meta[config[id].col].type === "categorical") {
 
                                         update_state["selectedCategories"] = config[id].value;
 
-                                        update_state["categoryOptions"] = [
-                                            ...meta[config[id].col].cat.map(option => ({
-                                                label: String(option),
-                                                value: option,
-                                            }))];
+                                        update_state["manualCategories"] = config[id].value.join("\n");
+
+                                        if ("large" in meta[config[id].col] && meta[config[id].col].large) {
+
+                                            update_state["categoryOptionsLarge"] = true;
+
+                                        } else {
+                                            update_state["categoryOptionsLarge"] = false;
+
+                                            update_state["categoryOptions"] = [
+                                                ...meta[config[id].col].cat.map(option => ({
+                                                    label: String(option),
+                                                    value: option,
+                                                }))];
+                                        }
                                     }
 
                                     this.setState(update_state, () => {
@@ -219,7 +239,7 @@ class Filter extends Base {
             allOptions,
             showAddModal,
             selectedColumn, selectedType,
-            categoryOptions, selectedCategories,
+            categoryOptions, selectedCategories, categoryOptionsLarge, manualCategories,
             selectedDateTime,
             filterType,
             filterNumber,
@@ -259,7 +279,8 @@ class Filter extends Base {
                                 categoryOptions: meta[value].cat.map(option => ({
                                     label: String(option),
                                     value: option,
-                                }))
+                                })),
+                                categoryOptionsLarge: "large" in meta[value] && meta[value].large
                             })
                         }
 
@@ -332,7 +353,7 @@ class Filter extends Base {
                             </Form.Select>
                         </InputGroup>
 
-                        {["isnotin", "isin"].includes(filterType) && <Select
+                        {["isnotin", "isin"].includes(filterType) && !categoryOptionsLarge && <Select
                             options={categoryOptions}
                             key={id + "-selectOptions"}
                             {...multiCallbacks(
@@ -343,7 +364,7 @@ class Filter extends Base {
                             )}
                         />}
 
-                        {["eq"].includes(filterType) && <Select
+                        {["eq"].includes(filterType) && !categoryOptionsLarge && <Select
                             options={categoryOptions}
                             isClearable
                             key={id + "-selectEqOptions"}
@@ -358,6 +379,28 @@ class Filter extends Base {
 
                             }}
                         />}
+
+
+                        {["isnotin", "isin", "eq"].includes(filterType) && categoryOptionsLarge && <div>
+                            <FormControl as="textarea" rows={3} value={manualCategories} onChange={e => {
+
+                                let cols = e.target.value.split(/\r?\n/).map(e => e.trimLeft().trimRight());
+
+                                if (filterType === "eq") {
+                                    cols = e.target.value
+                                }
+
+                                this.setState({
+                                    manualCategories: e.target.value,
+                                    selectedCategories: cols
+                                });
+
+
+                            }} />
+                        </div>
+
+
+                        }
 
                     </div>
                 }

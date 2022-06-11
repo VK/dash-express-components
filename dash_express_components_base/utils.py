@@ -16,21 +16,37 @@ from . import transformationtypes
 _dummyData = _pd.DataFrame([None])
 
 
-def get_meta(df):
+def get_meta(df, large_threshold=1000):
     """
     extract the metadata from a dataframe needed to hand over to the Filter
     """
 
     def parse(key, val):
         if isinstance(val, _pd.CategoricalDtype):
+
+            if len(val.categories) > large_threshold:
+                return {
+                    "type": "categorical",
+                    "large": True,
+                    "cat": []
+                }
             return {
                 "type": "categorical",
                 "cat": val.categories.tolist()
             }
         elif val == dtype('O'):
+
+            cat = df[key].unique()
+            if len(cat) > large_threshold:
+                return {
+                    "type": "categorical",
+                    "large": True,
+                    "cat": []
+                }
+
             return {
                 "type": "categorical",
-                "cat": df[key].unique().tolist()
+                "cat": cat.tolist()
             }
         elif val == dtype('bool'):
             return {
@@ -47,7 +63,7 @@ def get_meta(df):
     }
 
 
-def get_meta_dask(df):
+def get_meta_dask(df, large_threshold=1000):
     from numpy import dtype
     import dask
     """
@@ -56,9 +72,18 @@ def get_meta_dask(df):
 
     def parse(key, val):
         if val == dtype('O'):
+
+            cat = df[key].unique()
+            if len(cat) > large_threshold:
+                return {
+                    "type": "categorical",
+                    "large": True,
+                    "cat": []
+                }
+
             return {
                 "type": "categorical",
-                "cat": df[key].unique()
+                "cat": cat
             }
         elif val == dtype('bool'):
             return {
@@ -240,7 +265,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
 
             # if we have cols and rows, we want to make independent
             makeIndepX = False
-            makeIndepY = False            
+            makeIndepY = False
             if plotConfigData["type"] not in ["imshow"]:
                 if "indep_x" in plotConfigData["params"]:
                     makeIndepX = True
@@ -356,7 +381,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
             if reversedX:
                 fig.update_xaxes(autorange="reversed")
             if reversedY:
-                fig.update_yaxes(autorange="reversed")                
+                fig.update_yaxes(autorange="reversed")
 
             # transform the fig to an png if object too big
             if "render" in plotConfigData and "png" in plotConfigData["render"]:
