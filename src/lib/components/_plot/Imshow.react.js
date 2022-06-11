@@ -13,7 +13,8 @@ export default class Imshow extends PlotterBase {
 
             optionsbar: [
                 this.option_dict.facet,
-                this.option_dict.axis_onlycolor,            
+                this.option_dict.axis_onlycolor,
+                this.option_dict.render          
             ]
 
         }

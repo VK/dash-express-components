@@ -13,7 +13,8 @@ export default class HistogramLine extends PlotterBase {
 
             optionsbar: [
                 this.option_dict.facet,
-                this.option_dict.axis_nocat
+                this.option_dict.axis_nocat,
+                this.option_dict.render
             ]
 
         }

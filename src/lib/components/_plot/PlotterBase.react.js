@@ -16,7 +16,6 @@ export default class PlotterBase extends Component {
             numColOptions: props.numColOptions,
             catColOptions: props.catColOptions,
             allOptions: props.allOptions
-
         };
 
 
@@ -41,6 +40,13 @@ export default class PlotterBase extends Component {
             { label: '8', value: 8 },
             { label: '9', value: 9 },
             { label: '10', value: 10 }
+        ];
+
+
+        this.render_options = [
+            { label: 'auto', value: undefined },
+            { label: 'interactive', value: "interactive" },
+            { label: 'png', value: "png" }
         ];
 
 
@@ -86,6 +92,13 @@ export default class PlotterBase extends Component {
                     log_x: null, log_y: null,
                     reversed_x: null, reversed_y: null,
                     range_x: [], range_y: [], range_color: [], __range_x_min: null, __range_x_max: null, __range_y_min: null, __range_y_max: null
+                }
+            },
+            render: {
+                id: "render", label: "Render", visible: false, reset: {
+                    render: null,
+                    render_size: [],
+                    __render_size_x: null, __render_size_y: null
                 }
             },
 
@@ -199,6 +212,10 @@ export default class PlotterBase extends Component {
 
 
             trendline: this.state.trendline,
+
+
+            render: this.state.render,
+            render_size: this.state.render_size
         }
 
     }
@@ -650,7 +667,7 @@ export default class PlotterBase extends Component {
                             <ButtonGroup aria-label={id + "independent-axis-reversed"} id={id + "options-axis-reversed"} key={id + "options-axis-reversed"} className="w-100 mb-1">
                                 {this.toggleSelect("Reversed x", "reversed_x", [null, true])}
                                 {this.toggleSelect("Reversed y", "reversed_y", [null, true])}
-                            </ButtonGroup>                            
+                            </ButtonGroup>
 
                         </div>
                     }
@@ -676,7 +693,7 @@ export default class PlotterBase extends Component {
                             <ButtonGroup aria-label={id + "independent-axis-reversed"} id={id + "options-axis-reversed"} key={id + "options-axis-reversed"} className="w-100 mb-1">
                                 {this.toggleSelect("Reversed x", "reversed_x", [null, true])}
                                 {this.toggleSelect("Reversed y", "reversed_y", [null, true])}
-                            </ButtonGroup>                                 
+                            </ButtonGroup>
 
                         </div>
                     }
@@ -690,7 +707,7 @@ export default class PlotterBase extends Component {
                             <ButtonGroup aria-label={id + "independent-axis-reversed"} id={id + "options-axis-reversed"} key={id + "options-axis-reversed"} className="w-100 mb-1">
                                 {this.toggleSelect("Reversed x", "reversed_x", [null, true])}
                                 {this.toggleSelect("Reversed y", "reversed_y", [null, true])}
-                            </ButtonGroup>                                 
+                            </ButtonGroup>
 
                         </div>
                     }
@@ -710,7 +727,7 @@ export default class PlotterBase extends Component {
                             <ButtonGroup aria-label={id + "independent-axis-reversed"} id={id + "options-axis-reversed"} key={id + "options-axis-reversed"} className="w-100 mb-1">
                                 {this.toggleSelect("Reversed x", "reversed_x", [null, true])}
                                 {this.toggleSelect("Reversed y", "reversed_y", [null, true])}
-                            </ButtonGroup>                                 
+                            </ButtonGroup>
 
 
                         </div>
@@ -722,6 +739,14 @@ export default class PlotterBase extends Component {
                             {this.range_ManualString("Title", "title")}
                             {this.singleSelect("Name", "hover_name", allColOptions)}
                             {this.multiSelect("Data", "hover_data", allColOptions)}
+                        </div>
+                    }
+
+                    if (el.id === "render") {
+                        return <div>
+                            <h5>{el.label}</h5>
+                            {this.singleSelect_ExtraOption("Type", "render", this.render_options)}
+                            {this.range_ManualInputArray("W x H", "render_size", ["__render_size_x", "__render_size_y"])}
                         </div>
                     }
 

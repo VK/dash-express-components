@@ -160,7 +160,13 @@ class Graph extends Component {
         var xhr = new XMLHttpRequest();
         xhr.open("POST", this.props.plotApi, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify(defParams));
+
+        let send_data = JSON.parse(JSON.stringify(defParams));
+        if (send_data["plot"]["params"]["render_size"] === undefined) {
+            send_data["plot"]["params"]["render_size"] = [this.graphDiv.clientWidth, this.graphDiv.clientHeight]
+        }
+
+        xhr.send(JSON.stringify(send_data));
 
         let that = this;
 
@@ -292,7 +298,7 @@ class Graph extends Component {
                 }
 
                 return (
-                    <div className='pxc-graph-container'>
+                    <div className='pxc-graph-container' ref={(divElement) => { this.graphDiv = divElement }}>
                         <CoreGraph
                             {...inner_props}
                             clearState={this.clearState}
@@ -304,7 +310,7 @@ class Graph extends Component {
 
             } else {
                 return (
-                    <div className='pxc-graph-container'>
+                    <div className='pxc-graph-container' ref={(divElement) => { this.graphDiv = divElement }}>
                         <CoreGraph
                             {...this.props}
                             clearState={this.clearState}

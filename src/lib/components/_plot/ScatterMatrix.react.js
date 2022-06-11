@@ -14,7 +14,8 @@ export default class ScatterMatrix extends PlotterBase {
             ...this.state,
 
             optionsbar: [
-                this.option_dict.labels
+                this.option_dict.labels,
+                this.option_dict.render
             ]
 
         }

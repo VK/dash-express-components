@@ -16,7 +16,8 @@ export default class Bar extends PlotterBase {
 
             optionsbar: [
                 this.option_dict.facet,
-                this.option_dict.axis
+                this.option_dict.axis,
+                this.option_dict.render
             ]
 
         }

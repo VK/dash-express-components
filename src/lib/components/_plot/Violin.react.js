@@ -17,7 +17,8 @@ export default class Violin extends PlotterBase {
                 this.option_dict.facet,
                 this.option_dict.axis,
                 this.option_dict.labels,
-                { id: "boxoptions", label: "Violin options", visible: false, reset: { points: [] } },
+                this.option_dict.render,
+                { id: "boxoptions", label: "Violin options", visible: false, reset: { points: [] } }
             ]
 
         }

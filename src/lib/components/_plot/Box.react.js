@@ -17,7 +17,8 @@ export default class Box extends PlotterBase {
                 this.option_dict.facet,
                 this.option_dict.axis,
                 this.option_dict.labels,
-                { id: "boxoptions", label: "Box options", visible: false, reset: { boxmode: [], points: [], aggr: [] } },
+                this.option_dict.render,
+                { id: "boxoptions", label: "Box options", visible: false, reset: { boxmode: [], points: [], aggr: [] } }
             ]
 
         }

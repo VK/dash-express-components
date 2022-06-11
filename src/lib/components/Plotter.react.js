@@ -215,6 +215,7 @@ class Plotter extends Base {
                     })
                 }
 
+
                 {this.get_modal()}
 
             </div>

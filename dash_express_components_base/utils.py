@@ -253,6 +253,19 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                     inputDataFrame = getattr(
                         transformationtypes, el["type"]).compute(el, inputDataFrame)
 
+            # extract the render info from the params
+            if "render" in plotConfigData["params"]:
+                render_type = plotConfigData["params"]["render"]
+                del plotConfigData["params"]["render"]
+            else:
+                render_type = "auto"
+
+            if "render_size" in plotConfigData["params"]:
+                render_size = plotConfigData["params"]["render_size"]
+                del plotConfigData["params"]["render_size"]
+            else:
+                render_size = [1200, 700]
+
             # if we want to force an axis as categorical
             markCatX = False
             markCatY = False
@@ -383,8 +396,12 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
             if reversedY:
                 fig.update_yaxes(autorange="reversed")
 
+            # automatically render a png if the dataframe is too long
+            if len(inputDataFrame) > 10000 and render_type == "auto":
+                render_type = "png"
+
             # transform the fig to an png if object too big
-            if "render" in plotConfigData and "png" in plotConfigData["render"]:
+            if render_type == "png":
 
                 try:
                     # prepare to compute the image on a remote orca server
@@ -392,7 +409,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                         template="plotly_white"
                     )
                     img_bytes = fig.to_image(
-                        format="png", width=1200, height=700, scale=2)
+                        format="png", width=render_size[0], height=render_size[1], scale=2)
                     encoded = _base64.b64encode(img_bytes)
 
                     # create an empty figure with some fixed axis
@@ -402,17 +419,17 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                             showticklabels=False,
                             showgrid=False,
                             zeroline=False,
-                            range=[0, 1200]
+                            range=[0, render_size[0]]
                         ),
                         yaxis=_go.layout.YAxis(
                             showticklabels=False,
                             showgrid=False,
                             zeroline=False,
-                            range=[0, 700],
-                            scaleanchor='x'
+                            range=[0, render_size[1]],
+#                            scaleanchor='x'
                         ),
                         margin={'l': 0, 'r': 0, 't': 0, 'b': 0},
-                        autosize=True,
+                        #autosize=True,
                     )
 
                     # add the png to the figure
@@ -423,9 +440,9 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                             xref="x",
                             yref="y",
                             x=0,
-                            sizex=1200,
-                            y=700,
-                            sizey=700,
+                            sizex=render_size[0],
+                            y=render_size[1],
+                            sizey=render_size[1],
                             opacity=1.0,
                             layer="below",
                             sizing="stretch"
@@ -434,6 +451,10 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
 
                 except Exception as ex:
                     print(ex)
+
+            fig.update_layout(
+                template="plotly_white"
+            )
 
             return fig
 
