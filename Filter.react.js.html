@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="9483516" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="1392189" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -225,6 +225,10 @@ class Filter extends Base {
                     }
                     if (el["type"] === "isin") {
                         el.value.forEach(ael => {
+                            if (!"cat" in new_meta[el.col]) {
+                                new_meta[el.col].cat = [];
+                            }
+
                             if (!new_meta[el.col].cat.includes(ael)) {
                                 new_meta[el.col].cat.push(ael);
                             }
@@ -236,6 +240,9 @@ class Filter extends Base {
                         )
                     }
                     if (el["type"] === "isnotin") {
+                        if (!"cat" in new_meta[el.col]) {
+                            new_meta[el.col].cat = [];
+                        }
                         new_meta[el.col].cat = new_meta[el.col].cat.filter(
                             ael => el.value.indexOf(ael) === -1
                         )
