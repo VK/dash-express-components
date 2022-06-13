@@ -114,6 +114,10 @@ class Filter extends Base {
                     }
                     if (el["type"] === "isin") {
                         el.value.forEach(ael => {
+                            if (!"cat" in new_meta[el.col]) {
+                                new_meta[el.col].cat = [];
+                            }
+
                             if (!new_meta[el.col].cat.includes(ael)) {
                                 new_meta[el.col].cat.push(ael);
                             }
@@ -125,6 +129,9 @@ class Filter extends Base {
                         )
                     }
                     if (el["type"] === "isnotin") {
+                        if (!"cat" in new_meta[el.col]) {
+                            new_meta[el.col].cat = [];
+                        }
                         new_meta[el.col].cat = new_meta[el.col].cat.filter(
                             ael => el.value.indexOf(ael) === -1
                         )
