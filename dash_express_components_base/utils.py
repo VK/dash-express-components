@@ -397,7 +397,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                 fig.update_yaxes(autorange="reversed")
 
             # automatically render a png if the dataframe is too long
-            if len(inputDataFrame) > 10000 and render_type == "auto":
+            if len(inputDataFrame) > 200000 and render_type == "auto":
                 render_type = "png"
 
             # transform the fig to an png if object too big
@@ -434,19 +434,18 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
 
                     # add the png to the figure
                     fig.add_layout_image(
-                        dict(
-                            source="data:image/png;base64,{}".format(
-                                encoded.decode('ascii')),
+                        
+                            source="data:image/png;base64,{}".format(encoded.decode('ascii')),
                             xref="x",
                             yref="y",
-                            x=0,
+                            x=0, y=0,
                             sizex=render_size[0],
-                            y=render_size[1],
+                            #y=render_size[1],
                             sizey=render_size[1],
                             opacity=1.0,
                             layer="below",
                             sizing="stretch"
-                        )
+                        
                     )
 
                 except Exception as ex:

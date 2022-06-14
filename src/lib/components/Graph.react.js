@@ -69,6 +69,7 @@ class Graph extends Component {
             extendData: [],
             //page_current: 0,
             sort_by: [],
+            is_loading: false,
             filter_query: "",
             config_modal_open: false,
             defParams: props.defParams,
@@ -157,6 +158,8 @@ class Graph extends Component {
             this.setState({ defParams: defParams })
         };
 
+        this.setState({ is_loading: true });
+
         var xhr = new XMLHttpRequest();
         xhr.open("POST", this.props.plotApi, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -191,6 +194,7 @@ class Graph extends Component {
                     console.log(e);
                 }
             }
+            that.setState({ is_loading: false });
         };
 
     }
@@ -301,6 +305,8 @@ class Graph extends Component {
 
                 return (
                     <div className='pxc-graph-container' ref={(divElement) => { this.graphDiv = divElement }}>
+                        {this.state.is_loading && <div className="d-flex justify-content-center w-100 h-100" style={{paddingTop:"50%", zIndex: 2000, position: "relative", marginBottom: "-200%"}}><div className=" spinner-border " role="status"><span class="sr-only"></span></div>
+                        </div>}
                         <CoreGraph
                             {...inner_props}
                             clearState={this.clearState}
@@ -313,6 +319,8 @@ class Graph extends Component {
             } else {
                 return (
                     <div className='pxc-graph-container' ref={(divElement) => { this.graphDiv = divElement }}>
+                        {this.state.is_loading && <div className="d-flex justify-content-center w-100 h-100" style={{paddingTop:"50%", zIndex: 2000, position: "relative", marginBottom: "-200%"}}><div className=" spinner-border " role="status"><span class="sr-only"></span></div>
+                        </div>}
                         <CoreGraph
                             {...this.props}
                             clearState={this.clearState}
@@ -359,6 +367,8 @@ class Graph extends Component {
 
             return (
                 <div className='pxc-graph-container' style={{ padding: "5px" }}>
+                    {this.state.is_loading && <div className="d-flex justify-content-center w-100 h-100" style={{paddingTop:"50%", zIndex: 2000, position: "relative", marginBottom: "-200%"}}><div className=" spinner-border " role="status"><span class="sr-only"></span></div>
+                    </div>}
 
                     <CoreDataTable {...props} setProps={
                         el => {
