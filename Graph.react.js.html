@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="7969641" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="550560" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -188,6 +188,10 @@ class Graph extends Component {
         };
 
         if ("plotApi" in this.props &amp;&amp; "defParams" in this.props) {
+            this.status = {
+                ...this.status,
+                is_loading: true
+            }
             this.update_figure_from_defParams(props.defParams, true);
         }
 
@@ -416,7 +420,7 @@ class Graph extends Component {
 
                 return (
                     &lt;div className='pxc-graph-container' ref={(divElement) => { this.graphDiv = divElement }}>
-                        {this.state.is_loading &amp;&amp; &lt;div className="d-flex justify-content-center w-100 h-100" style={{paddingTop:"50%", zIndex: 20000, position: "relative", background:"#fff"}}>&lt;div className=" spinner-border " role="status">&lt;span class="sr-only">&lt;/span>&lt;/div>
+                        {this.state.is_loading &amp;&amp; &lt;div className="d-flex justify-content-center w-100 h-100" style={{ paddingTop: "50%", zIndex: 20000, position: "relative", background: "#fff" }}>&lt;div className=" spinner-border " role="status">&lt;span class="sr-only">&lt;/span>&lt;/div>
                         &lt;/div>}
                         &lt;CoreGraph
                             {...inner_props}
@@ -430,7 +434,7 @@ class Graph extends Component {
             } else {
                 return (
                     &lt;div className='pxc-graph-container' ref={(divElement) => { this.graphDiv = divElement }}>
-                        {this.state.is_loading &amp;&amp; &lt;div className="d-flex justify-content-center w-100 h-100" style={{paddingTop:"50%", zIndex: 20000, position: "relative", background:"#fff"}}>&lt;div className=" spinner-border " role="status">&lt;span class="sr-only">&lt;/span>&lt;/div>
+                        {this.state.is_loading &amp;&amp; &lt;div className="d-flex justify-content-center w-100 h-100" style={{ paddingTop: "50%", zIndex: 20000, position: "relative", background: "#fff" }}>&lt;div className=" spinner-border " role="status">&lt;span class="sr-only">&lt;/span>&lt;/div>
                         &lt;/div>}
                         &lt;CoreGraph
                             {...this.props}
@@ -478,7 +482,7 @@ class Graph extends Component {
 
             return (
                 &lt;div className='pxc-graph-container' style={{ padding: "5px" }}>
-                    {this.state.is_loading &amp;&amp; &lt;div className="d-flex justify-content-center w-100 h-100" style={{paddingTop:"50%", zIndex: 20000, position: "relative", background:"#fff"}}>&lt;div className=" spinner-border " role="status">&lt;span class="sr-only">&lt;/span>&lt;/div>
+                    {this.state.is_loading &amp;&amp; &lt;div className="d-flex justify-content-center w-100 h-100" style={{ paddingTop: "50%", zIndex: 20000, position: "relative", background: "#fff" }}>&lt;div className=" spinner-border " role="status">&lt;span class="sr-only">&lt;/span>&lt;/div>
                     &lt;/div>}
 
                     &lt;CoreDataTable {...props} setProps={
