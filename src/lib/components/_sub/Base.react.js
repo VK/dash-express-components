@@ -134,7 +134,7 @@ export const multiCallbacks = (obj, setState, varname, options) => {
 
 export const singleColorStyle = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
-    menuList: (styles) => ({ ...styles, boxShadow: "0px 3px 5px 2px rgba(0,0,0,0.2)" }),
+    menuList: (styles) => ({ ...styles, boxShadow: "0px 3px 5px 2px rgba(0,0,0,0.2)",  maxHeight: "500px" }),
     groupHeading: (styles) => ({
         ...styles,
         backgroundColor: "#e9ecef",
@@ -185,7 +185,7 @@ export const singleColorStyle = {
 
 export const multiColorStyle = {
     control: (styles) => ({ ...styles, backgroundColor: 'white' }),
-    menuList: (styles) => ({ ...styles, boxShadow: "0px 3px 5px 2px rgba(0,0,0,0.2)" }),
+    menuList: (styles) => ({ ...styles, boxShadow: "0px 3px 5px 2px rgba(0,0,0,0.2)",  maxHeight: "500px"}),
     groupHeading: (styles) => ({
         ...styles,
         backgroundColor: "#e9ecef",
