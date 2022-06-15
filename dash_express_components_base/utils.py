@@ -410,42 +410,51 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                     )
                     img_bytes = fig.to_image(
                         format="png", width=render_size[0], height=render_size[1], scale=2)
+
                     encoded = _base64.b64encode(img_bytes)
 
                     # create an empty figure with some fixed axis
                     fig = _go.Figure()
+                    fig.add_trace(
+                        _go.Scatter(
+                            x=[0, render_size[0]],
+                            y=[0, render_size[1]],
+                            mode="markers",
+                            marker_opacity=0
+                        )
+                    )
+
+                    # Configure axes
+                    fig.update_xaxes(
+                        visible=False,
+                        range=[0, render_size[0]]
+                    )
+
+                    fig.update_yaxes(
+                        visible=False,
+                        range=[0, render_size[1]]
+                    )
+
                     fig.update_layout(
-                        xaxis=_go.layout.XAxis(
-                            showticklabels=False,
-                            showgrid=False,
-                            zeroline=False,
-                            range=[0, render_size[0]]
-                        ),
-                        yaxis=_go.layout.YAxis(
-                            showticklabels=False,
-                            showgrid=False,
-                            zeroline=False,
-                            range=[0, render_size[1]],
-#                            scaleanchor='x'
-                        ),
                         margin={'l': 0, 'r': 0, 't': 0, 'b': 0},
-                        #autosize=True,
+                        # autosize=True,
                     )
 
                     # add the png to the figure
                     fig.add_layout_image(
-                        
-                            source="data:image/png;base64,{}".format(encoded.decode('ascii')),
-                            xref="x",
-                            yref="y",
-                            x=0, y=0,
-                            sizex=render_size[0],
-                            #y=render_size[1],
-                            sizey=render_size[1],
-                            opacity=1.0,
-                            layer="below",
-                            sizing="stretch"
-                        
+
+                        source="data:image/png;base64,{}".format(
+                            encoded.decode('ascii')),
+                        xref="x",
+                        yref="y",
+                        x=0,
+                        sizex=render_size[0],
+                        y=render_size[1],
+                        sizey=render_size[1],
+                        opacity=1.0,
+                        layer="below",
+                        sizing="stretch"
+
                     )
 
                 except Exception as ex:
