@@ -305,7 +305,7 @@ class Graph extends Component {
 
                 return (
                     <div className='pxc-graph-container' ref={(divElement) => { this.graphDiv = divElement }}>
-                        {this.state.is_loading && <div className="d-flex justify-content-center w-100 h-100" style={{paddingTop:"50%", zIndex: 2000, position: "relative", marginBottom: "-200%"}}><div className=" spinner-border " role="status"><span class="sr-only"></span></div>
+                        {this.state.is_loading && <div className="d-flex justify-content-center w-100 h-100" style={{paddingTop:"50%", zIndex: 20000, position: "relative", background:"#fff"}}><div className=" spinner-border " role="status"><span class="sr-only"></span></div>
                         </div>}
                         <CoreGraph
                             {...inner_props}
@@ -319,7 +319,7 @@ class Graph extends Component {
             } else {
                 return (
                     <div className='pxc-graph-container' ref={(divElement) => { this.graphDiv = divElement }}>
-                        {this.state.is_loading && <div className="d-flex justify-content-center w-100 h-100" style={{paddingTop:"50%", zIndex: 2000, position: "relative", marginBottom: "-200%"}}><div className=" spinner-border " role="status"><span class="sr-only"></span></div>
+                        {this.state.is_loading && <div className="d-flex justify-content-center w-100 h-100" style={{paddingTop:"50%", zIndex: 20000, position: "relative", background:"#fff"}}><div className=" spinner-border " role="status"><span class="sr-only"></span></div>
                         </div>}
                         <CoreGraph
                             {...this.props}
@@ -367,7 +367,7 @@ class Graph extends Component {
 
             return (
                 <div className='pxc-graph-container' style={{ padding: "5px" }}>
-                    {this.state.is_loading && <div className="d-flex justify-content-center w-100 h-100" style={{paddingTop:"50%", zIndex: 2000, position: "relative", marginBottom: "-200%"}}><div className=" spinner-border " role="status"><span class="sr-only"></span></div>
+                    {this.state.is_loading && <div className="d-flex justify-content-center w-100 h-100" style={{paddingTop:"50%", zIndex: 20000, position: "relative", background:"#fff"}}><div className=" spinner-border " role="status"><span class="sr-only"></span></div>
                     </div>}
 
                     <CoreDataTable {...props} setProps={
