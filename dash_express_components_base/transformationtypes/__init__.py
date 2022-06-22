@@ -9,3 +9,4 @@ from . import _zerostonan as zerostonan
 from . import _rename as rename
 from . import _strsplit as strsplit
 from . import _bin as bin
+from . import _iqrfilter as filteriqr

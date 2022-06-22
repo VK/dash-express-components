@@ -21,6 +21,7 @@ import ZerosToNanTransform from './_sub/ZerosToNanTransform.react';
 import RenameTransform from './_sub/RenameTransform.react';
 import StrSplitTransform from './_sub/StrSplitTransform.react';
 import BinTransform from './_sub/BinTransform.react';
+import FilterIqrTransform from './_sub/FilterIqrTransform.react';
 
 
 import AggrSvg from 'react-svg-loader!./_svg/aggr.svg';
@@ -34,6 +35,7 @@ import ZerostoNanSvg from 'react-svg-loader!./_svg/zerostonan.svg';
 import RenameSvg from 'react-svg-loader!./_svg/rename.svg';
 import StrSplitSvg from 'react-svg-loader!./_svg/str.split.svg';
 import BinSvg from 'react-svg-loader!./_svg/bin.svg';
+import FilterIqrSvg from 'react-svg-loader!./_svg/filteriqr.svg';
 
 
 /**
@@ -73,8 +75,8 @@ class Transform extends Base {
     static trafo_groups = [
         { label: "New columns", value: "col" },
         { label: "Reshape data", value: "reshape" },
-        { label: "Missing data", value: "missing" },
         { label: "Metadata", value: "meta" },
+        { label: "Missing & filter data", value: "missing" }
     ]
 
     static known_trafos = [
@@ -114,6 +116,10 @@ class Transform extends Base {
             group: "missing", type: "zerostonan", class: ZerosToNanTransform,
             "label": "Replace zero values with nan values", svg: <ZerostoNanSvg />
         },
+        {
+            group: "missing", type: "filteriqr", class: FilterIqrTransform,
+            "label": "Apply a grouped IQR filter", svg: <FilterIqrSvg />
+        },        
         {
             group: "meta", type: "rename", class: RenameTransform,
             "label": "Rename multiple columns", svg: <RenameSvg />
@@ -405,7 +411,7 @@ class Transform extends Base {
                             );
 
                             if (!res.error || window.confirm("Do you want to add the transform, even with errors?")) {
-                                let new_config = config;
+                                let new_config = JSON.parse(JSON.stringify(config));
                                 new_config[transformIndex] = sub_config;
 
                                 this.update_config(new_config);
