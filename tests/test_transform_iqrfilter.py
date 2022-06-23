@@ -10,9 +10,7 @@ def test_both():
     trafo = {
         "type": "filteriqr",
         "col": "gdpPercap",
-        "groupby": [
-            "continent"
-        ],
+        "groupby": [],
         "lower": 1,
         "upper": 1
     }
@@ -22,14 +20,22 @@ def test_both():
         "continent",
         "year",
         "lifeExp",
-        "pop",
+        "data\u00bbpop",
         "gdpPercap",
         "iso_alpha",
         "iso_num"
     ]
 
     cfg = {
-        "transform": [trafo],
+        "transform": [
+            {
+                "type": "rename",
+                        "columns": {
+                            "pop": "data\u00bbpop",
+                        }
+            },
+            trafo
+        ],
         "plot": {
             "type": "table",
             "params": {
@@ -42,7 +48,6 @@ def test_both():
 
     for col in output_cols:
         assert col in fig
-
 
 
 def test_lower():
@@ -119,7 +124,6 @@ def test_upper():
 
     for col in output_cols:
         assert col in fig
-
 
 
 def test_none():

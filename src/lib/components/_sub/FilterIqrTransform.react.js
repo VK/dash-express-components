@@ -31,7 +31,11 @@ export default class FilterIqrTransform extends SubComponentBase {
     }
 
     static config_to_string(el) {
-        return <span>Filter values of <b>{el.col}</b> after grouping by {el.groupby.join(", ")}.</span>
+        if (el.groupby.length == 0) {
+            return <span>IQR filter <b>{el.col}</b> without grouping.</span>
+        } else {
+            return <span>IQR filter <b>{el.col}</b> after grouping by {el.groupby.join(", ")}.</span>
+        }
     }
 
     config_from_state(input) {
@@ -39,7 +43,7 @@ export default class FilterIqrTransform extends SubComponentBase {
             type: "filteriqr",
             groupby: input.selectedCols,
             col: input.col,
-            upper: (input.upper && input.upper.length > 0) ? input.upper : undefined ,
+            upper: (input.upper && input.upper.length > 0) ? input.upper : undefined,
             lower: (input.lower && input.lower.length > 0) ? input.lower : undefined
         }
     }
@@ -96,7 +100,11 @@ export default class FilterIqrTransform extends SubComponentBase {
 
                 {...multiCallbacks(
                     this,
-                    (s) => this.setStateConfig({ ...s }),
+                    (s) => this.setStateConfig({
+                        ...s, col: col,
+                        upper: upper,
+                        lower: lower
+                    }),
                     "selectedCols",
                     allOptions
                 )}
