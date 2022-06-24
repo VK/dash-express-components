@@ -21,8 +21,22 @@ def get_meta(df, large_threshold=1000):
     extract the metadata from a dataframe needed to hand over to the Filter
     """
 
+    def parse_object_cat(key):
+        cat = df[key].unique()
+        if len(cat) > large_threshold:
+            return {
+                "type": "categorical",
+                "large": True,
+                "cat": []
+            }
+        return {
+            "type": "categorical",
+            "cat": cat.tolist()
+        }
+
     def parse(key, val):
         if isinstance(val, _pd.CategoricalDtype):
+            # pandas special cat var
 
             if len(val.categories) > large_threshold:
                 return {
@@ -35,19 +49,9 @@ def get_meta(df, large_threshold=1000):
                 "cat": val.categories.tolist()
             }
         elif val == dtype('O'):
+            # conventional string mixed object cat var
+            return parse_object_cat(key)
 
-            cat = df[key].unique()
-            if len(cat) > large_threshold:
-                return {
-                    "type": "categorical",
-                    "large": True,
-                    "cat": []
-                }
-
-            return {
-                "type": "categorical",
-                "cat": cat.tolist()
-            }
         elif val == dtype('bool'):
             return {
                 "type": "bool"
@@ -55,7 +59,10 @@ def get_meta(df, large_threshold=1000):
         elif "time" in str(val):
             return {"type": "temporal", **df[key].agg(["median", "min", "max"]).T.to_dict()}
         else:
-            return {"type": "numerical", **df[key].agg(["median", "min", "max"]).T.to_dict()}
+            try:
+                return {"type": "numerical", **df[key].agg(["median", "min", "max"]).T.to_dict()}
+            except:
+                return parse_object_cat(key)
 
     return {
         k: parse(k, val)
