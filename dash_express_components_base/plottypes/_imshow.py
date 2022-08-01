@@ -19,6 +19,9 @@ def _get(inputDataFrame, plotConfigData):
         makeIndepY = True
         del plotConfigData["params"]["indep_y"]
 
+    if "colorscale" in plotConfigData["params"]:
+        extra_options["colorscale"] = plotConfigData["params"]["colorscale"]
+
     if "range_color" in plotConfigData["params"]:
 
         extra_options["zmin"] = plotConfigData["params"]["range_color"][0]
@@ -125,7 +128,7 @@ def _get(inputDataFrame, plotConfigData):
                     col=colid,
                     coloraxis="coloraxis",
                     xaxis=None if makeIndepX else "x",
-                    yaxis=None if makeIndepY else "y",
+                    yaxis=None if makeIndepY else "y"
                 )
                 colid = colid + 1
                 if colid > col_wrap:
@@ -140,6 +143,10 @@ def _get(inputDataFrame, plotConfigData):
                 fig.update_coloraxes(
                     cmax=extra_options["zmax"]
                 )
+            if "colorscale" in extra_options:
+                fig.update_coloraxes(
+                    colorscale=extra_options["colorscale"]
+                )                
 
         else:
             fig.add_heatmap(
