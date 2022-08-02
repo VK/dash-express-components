@@ -199,6 +199,10 @@ class Configurator extends Component {
                 )
             });
 
+        this.props.setProps({
+            currentConfig: new_config
+        });
+
     }
 
 
@@ -504,10 +508,18 @@ Configurator.propTypes = {
     meta: PropTypes.any.isRequired,
 
     /**
-     * Prop The resulting configuration of the plot.
+     * The resulting configuration of the plot.
      * @type {Object}
      */
     config: PropTypes.any,
+
+
+    /**
+     * The current configuration of the plot.
+     * @type {Object}
+     */
+    currentConfig: PropTypes.any,
+
 
     /**
      * Prop to define the visibility of the Filter panel

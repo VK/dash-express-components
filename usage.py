@@ -127,11 +127,19 @@ app.layout = html.Div([
 
 
 @app.callback(
-    [Output('fig', 'defParams'), Output('output', 'children')
-     ], Input('plotConfig', 'config')
+    Output('fig', 'defParams'),
+    Input('plotConfig', 'config')
 )
 def update_plot_config(newConfig):
-    return newConfig, json.dumps(newConfig, indent=2)
+    return newConfig
+
+
+@app.callback(
+    Output('output', 'children'),
+    Input('plotConfig', 'currentConfig')
+)
+def update_config(newConfig):
+    return json.dumps(newConfig, indent=2)
 
 
 @app.callback(
