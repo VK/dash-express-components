@@ -79,3 +79,24 @@ def test_box_horizontal_aggr():
     assert "title" in fig["layout"]
     assert "text" in fig["layout"]["title"]
     assert "OK" == fig["layout"]["title"]["text"]
+
+
+def test_box_line():
+
+    cfg = {"plot": {
+        "type": "box",
+        "params": {
+            "y": "pop",
+            "lines": "pop",
+            "x": "continent",
+            "title": "OK"
+        }
+    }}
+
+    fig = dxc.get_plot(df, cfg)
+
+    assert "data" in fig
+    assert "layout" in fig
+    assert "title" in fig["layout"]
+    assert "text" in fig["layout"]["title"]
+    assert "OK" == fig["layout"]["title"]["text"]
