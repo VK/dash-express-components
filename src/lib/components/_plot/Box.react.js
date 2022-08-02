@@ -18,7 +18,7 @@ export default class Box extends PlotterBase {
                 this.option_dict.axis,
                 this.option_dict.labels,
                 this.option_dict.render,
-                { id: "boxoptions", label: "Box options", visible: false, reset: { boxmode: [], points: [], aggr: [] } }
+                { id: "boxoptions", label: "Box options", visible: false, reset: { boxmode: [], points: [], aggr: [], lines: [] } }
             ]
 
         }
@@ -55,7 +55,7 @@ export default class Box extends PlotterBase {
             { value: 'q25', label: '25th percentile' },
             { value: 'q75', label: '75th percentile' },
             { value: 'q95', label: '95th percentile' },
-            { value: 'q99', label: '99th percentile' }            
+            { value: 'q99', label: '99th percentile' }
         ];
 
         this.copy_params("box");
@@ -89,6 +89,7 @@ export default class Box extends PlotterBase {
     render() {
         const {
             allColOptions,
+            numColOptions,
             optionsbar
         } = this.state;
 
@@ -108,6 +109,7 @@ export default class Box extends PlotterBase {
                             {this.singleSelect_ExtraOption("Mode", "boxmode", this.boxmode_options)}
                             {this.singleSelect_ExtraOption("Points", "points", this.points_options)}
                             {this.multiSelect_ExtraOption("Stats", "aggr", this.aggr_options)}
+                            {this.multiSelect("Lines", "lines", numColOptions)}
                         </div>
                     }
                 })}

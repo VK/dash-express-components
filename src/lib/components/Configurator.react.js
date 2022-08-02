@@ -199,9 +199,11 @@ class Configurator extends Component {
                 )
             });
 
-        this.props.setProps({
-            currentConfig: new_config
-        });
+        try {
+            this.props.setProps({
+                currentConfig: new_config
+            });
+        } catch (e) { };
 
     }
 
