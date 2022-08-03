@@ -220,7 +220,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                             ["x", "y", "error_x", "error_y", "dimensions",
                                 "color", "facet_col",
                                 "size", "symbol", "pattern_shape",
-                                "facet_row", "hover_name"]
+                                "facet_row", "hover_name", "lines"]
                         ] if c is not None
                         ] for b in a]
 
