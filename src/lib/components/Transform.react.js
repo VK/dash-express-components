@@ -22,6 +22,7 @@ import RenameTransform from './_sub/RenameTransform.react';
 import StrSplitTransform from './_sub/StrSplitTransform.react';
 import BinTransform from './_sub/BinTransform.react';
 import FilterIqrTransform from './_sub/FilterIqrTransform.react';
+import AsType from './_sub/AsType.react';
 
 
 import AggrSvg from 'react-svg-loader!./_svg/aggr.svg';
@@ -36,6 +37,7 @@ import RenameSvg from 'react-svg-loader!./_svg/rename.svg';
 import StrSplitSvg from 'react-svg-loader!./_svg/str.split.svg';
 import BinSvg from 'react-svg-loader!./_svg/bin.svg';
 import FilterIqrSvg from 'react-svg-loader!./_svg/filteriqr.svg';
+import AsTypeSvg from 'react-svg-loader!./_svg/astype.svg';
 
 
 /**
@@ -124,6 +126,10 @@ class Transform extends Base {
             group: "meta", type: "rename", class: RenameTransform,
             "label": "Rename multiple columns", svg: <RenameSvg />
         },
+        {
+            group: "meta", type: "as_type", class: AsType,
+            "label": "Recast multiple columns", svg: <AsTypeSvg />
+        },        
         {
             group: "col", type: "bin", class: BinTransform,
             "label": "Compute a binned variable", svg: <BinSvg />

@@ -10,3 +10,4 @@ from . import _rename as rename
 from . import _strsplit as strsplit
 from . import _bin as bin
 from . import _iqrfilter as filteriqr
+from . import _asType as as_type
