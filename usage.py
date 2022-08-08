@@ -5,7 +5,7 @@ import datetime
 import imp
 from re import T
 import dash
-from dash import html, Input, Output, dcc
+from dash import html, Input, Output, dcc, State
 from dash.exceptions import PreventUpdate
 import dash_express_components as dxc
 import plotly.express as px
@@ -136,9 +136,10 @@ def update_plot_config(newConfig):
 
 @app.callback(
     Output('output', 'children'),
-    Input('plotConfig', 'currentConfig')
+    Input('plotConfig', 'config'),
+    State('plotConfig', 'currentConfig')
 )
-def update_config(newConfig):
+def update_config(_, newConfig):
     return json.dumps(newConfig, indent=2)
 
 

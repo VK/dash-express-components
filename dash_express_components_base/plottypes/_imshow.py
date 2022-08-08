@@ -88,8 +88,12 @@ def _get(inputDataFrame, plotConfigData):
             if len(extraGroupParams) > 0:
                 for group, allValues in inputDataFrame.groupby(extraGroupParams):
                     for color in dimensions:
-                        data_dict[f"{color} of {group}"] = _get_MAP_array(
-                            allValues, color)
+                        if len(dimensions) == 1:
+                            data_dict[f"{group}"] = _get_MAP_array(
+                                allValues, color)
+                        else:
+                            data_dict[f"{color} of {group}"] = _get_MAP_array(
+                                allValues, color)
             else:
                 for color in dimensions:
                     data_dict[f"{color}"] = _get_MAP_array(
@@ -146,7 +150,7 @@ def _get(inputDataFrame, plotConfigData):
             if "colorscale" in extra_options:
                 fig.update_coloraxes(
                     colorscale=extra_options["colorscale"]
-                )                
+                )
 
         else:
             fig.add_heatmap(
