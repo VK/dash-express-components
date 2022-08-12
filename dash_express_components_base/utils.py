@@ -276,10 +276,10 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
             # if we want to force an axis as categorical
             markCatX = False
             markCatY = False
-            if "cat_x" in plotConfigData["params"]:
+            if "cat_x" in plotConfigData["params"] and plotConfigData["params"]["cat_x"]:
                 markCatX = True
                 del plotConfigData["params"]["cat_x"]
-            if "cat_y" in plotConfigData["params"]:
+            if "cat_y" in plotConfigData["params"] and plotConfigData["params"]["cat_y"]:
                 markCatY = True
                 del plotConfigData["params"]["cat_y"]
 
@@ -287,20 +287,20 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
             makeIndepX = False
             makeIndepY = False
             if plotConfigData["type"] not in ["imshow"]:
-                if "indep_x" in plotConfigData["params"]:
+                if "indep_x" in plotConfigData["params"] and plotConfigData["params"]["indep_x"]:
                     makeIndepX = True
                     del plotConfigData["params"]["indep_x"]
-                if "indep_y" in plotConfigData["params"]:
+                if "indep_y" in plotConfigData["params"] and plotConfigData["params"]["indep_y"]:
                     makeIndepY = True
                     del plotConfigData["params"]["indep_y"]
 
             # if we have reversed x and y axis
             reversedX = False
             reversedY = False
-            if "reversed_x" in plotConfigData["params"]:
+            if "reversed_x" in plotConfigData["params"] and plotConfigData["params"]["reversed_x"]:
                 reversedX = True
                 del plotConfigData["params"]["reversed_x"]
-            if "reversed_y" in plotConfigData["params"]:
+            if "reversed_y" in plotConfigData["params"] and plotConfigData["params"]["reversed_y"]:
                 reversedY = True
                 del plotConfigData["params"]["reversed_y"]
 

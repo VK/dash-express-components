@@ -128,9 +128,11 @@ app.layout = html.Div([
 
 @app.callback(
     Output('fig', 'defParams'),
-    Input('plotConfig', 'config')
+    Input('plotConfig', 'config'),
+    Input('dataframe-type', 'value')
 )
-def update_plot_config(newConfig):
+def update_plot_config(newConfig, dataframe_type):
+    newConfig.update({"dataframe_type": dataframe_type})
     return newConfig
 
 
@@ -156,7 +158,11 @@ def update_meta(dataframeType):
 def plotApi():
     config = request.get_json()
     if request.method == 'POST':
-        fig = dxc.get_plot(dataframe["gapminder"], config)
+
+        dataframe_type = "gapminder"
+        if "dataframe_type" in config:
+            dataframe_type = config["dataframe_type"]
+        fig = dxc.get_plot(dataframe[dataframe_type], config)
         return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return {}
 
