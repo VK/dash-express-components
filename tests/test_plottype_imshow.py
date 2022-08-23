@@ -115,7 +115,7 @@ def test_multi_group():
     assert "data" in fig
 
     subplot_names = [el["name"] for el in fig["data"]]
-    expected = ['Br of astronaut', 'Br of cat', 'Br of coffee']
+    expected = ['astronaut', 'cat', 'coffee']
     assert len(subplot_names) == len(expected)
     assert all([a == b for a, b in zip(subplot_names, expected)])
 

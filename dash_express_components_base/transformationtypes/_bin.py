@@ -31,11 +31,11 @@ def compute(cfg, inputDataFrame):
             if isinstance(cfg["cols"], list):
                 for c in cfg["cols"]:
                     inputDataFrame[f'{c}_{cfg["name"]}'] = _pd.cut(
-                        inputDataFrame[c], bins=bins, labels=labels)
+                        inputDataFrame[c], bins=bins, labels=labels).astype(str)
             else:
                 # apply a simple binning
                 inputDataFrame[cfg["name"]] = _pd.cut(
-                    inputDataFrame[cfg["cols"]], bins=bins, labels=labels)
+                    inputDataFrame[cfg["cols"]], bins=bins, labels=labels).astype(str)
 
         else:
             # apply an overlapping binning scheme
@@ -44,11 +44,11 @@ def compute(cfg, inputDataFrame):
                 if isinstance(cfg["cols"], list):
                     for c in cfg["cols"]:
                         inputDataFrame[f'{c}_{cfg["name"]}_{bin["name"]}'] = (
-                            inputDataFrame[c] >= bin["min"]) & (inputDataFrame[c] < bin["max"])
+                            inputDataFrame[c] >= bin["min"]) & (inputDataFrame[c] < bin["max"]).astype(str)
                 else:
                     # apply a simple binning
                     inputDataFrame[f'{cfg["name"]}_{bin["name"]}'] = (
-                        inputDataFrame[cfg["cols"]] >= bin["min"]) & (inputDataFrame[cfg["cols"]] < bin["max"])
+                        inputDataFrame[cfg["cols"]] >= bin["min"]) & (inputDataFrame[cfg["cols"]] < bin["max"]).astype(str)
 
     elif "points" in binning_df.columns:
 
@@ -68,7 +68,7 @@ def compute(cfg, inputDataFrame):
                 return labels[_np.min(idx)] if len(idx) > 0 else _np.nan
 
             inputDataFrame[cfg["name"]] = inputDataFrame[cfg["cols"]].apply(
-                lambda x: get_bin(x), axis=1)
+                lambda x: get_bin(x), axis=1).astype(str)
 
         else:
             # apply a binning on every bin
@@ -78,7 +78,7 @@ def compute(cfg, inputDataFrame):
                 return res
 
             inputDataFrame[[f'{cfg["name"]}_{l}' for l in labels]] = inputDataFrame[cfg["cols"]].apply(
-                lambda x: get_bin(x), axis=1, result_type='expand')
+                lambda x: get_bin(x), axis=1, result_type='expand').astype(str)
 
     return inputDataFrame
 
