@@ -76,17 +76,22 @@ class Graph extends Component {
             internalFigure: { data: [] }
         };
 
-        if ("plotApi" in this.props && "defParams" in this.props) {
-            this.status = {
-                ...this.status,
-                is_loading: true
-            }
-            this.update_figure_from_defParams(props.defParams, true);
-        }
-
         this.clearState = this.clearState.bind(this);
         this.config_in_modal_ref = React.createRef();
         this.config_modal_id = guid();
+    }
+
+    componentDidMount() {
+        if ("plotApi" in this.props && "defParams" in this.props) {
+            this.setState({ is_loading: true });
+
+            let that = this;
+
+            setTimeout(() => {
+                that.update_figure_from_defParams(that.props.defParams, true);
+            }, 200);
+
+        }
     }
 
 
