@@ -133,6 +133,11 @@ app.layout = html.Div([
 )
 def update_plot_config(newConfig, dataframe_type):
     newConfig.update({"dataframe_type": dataframe_type})
+
+    if "transform" not in newConfig:
+        newConfig["transform"] = []
+
+    newConfig["transform"].append({"type": "groupby_sample"})
     return newConfig
 
 
