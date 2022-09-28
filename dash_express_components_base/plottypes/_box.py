@@ -57,6 +57,30 @@ def _get_dict(x, y, text):
                 )
 
 
+def _append_annotations(x, y, values, group_items, figure):
+
+        valx = x
+        if isinstance(x, tuple):
+            valx = x[0]
+
+        if isinstance(x, tuple) and len(x) > 1:
+            start = f"<b>{x[1]}</b> "
+        else:
+            start = ""
+
+        add_str_array = [
+            v["func"](k, values[k])
+            for k, v in group_items
+        ]
+
+        figure.layout.annotations = [
+            *figure.layout.annotations,
+            _get_dict(
+                valx, y, start + "<br>".join(add_str_array))
+        ]    
+
+
+
 def _get(inputDataFrame, plotConfigData):
 
     params = plotConfigData["params"]
@@ -102,48 +126,31 @@ def _get(inputDataFrame, plotConfigData):
     fig = _px.box(inputDataFrame, **
                   {p: v for p, v in params.items() if p != "lines"})
 
-    if "x" in params and "y" in params and not "facet_col" in params and not "facet_row" in params:
-        for idx, val in inputDataFrame.groupby(params["x"])[params["y"]].aggregate(aggr_needed).iterrows():
+    groupbys = []
+    if "x" in params:
+        groupbys.append(params["x"])
+    if "color" in params:
+        if params["color"] not in groupbys:
+            groupbys.append(params["color"])
 
+    if len(groupbys) > 0 and "y" in params and not "facet_col" in params and not "facet_row" in params:
+        for idx, val in inputDataFrame.groupby(groupbys)[params["y"]].aggregate(aggr_needed).iterrows():
             for gr_name, gr in aggr_groups.items():
+                _append_annotations(x=idx, y=val[gr_name], values=val, group_items=gr.items(), figure=fig)
 
-                add_str_array = [
-                    v["func"](k, val[k])
-                    for k, v in gr.items()
-                ]
-                fig.layout.annotations = [
-                    *fig.layout.annotations,
-                    _get_dict(
-                        idx, val[gr_name], "<br>".join(add_str_array))
-                ]
 
-    if not "x" in params and "y" in params and not "facet_col" in params and not "facet_row" in params:
+    if not "x" in params and not "color" in params and "y" in params and not "facet_col" in params and not "facet_row" in params:
         val = inputDataFrame[params["y"]].aggregate(aggr_needed)
         for gr_name, gr in aggr_groups.items():
+            _append_annotations(x=0, y=val[gr_name], values=val, group_items=gr.items(), figure=fig)
 
-            add_str_array = [
-                v["func"](k, val[k])
-                for k, v in gr.items()
-            ]
-            fig.layout.annotations = [
-                *fig.layout.annotations,
-                _get_dict(
-                    0, val[gr_name], "<br>".join(add_str_array))
-            ]
-
-    if "x" in params and not "y" in params and not "facet_col" in params and not "facet_row" in params:
+    if "x" in params and not "y" in params and not "color" in params and not "facet_col" in params and not "facet_row" in params:
         val = inputDataFrame[params["x"]].aggregate(aggr_needed)
         for gr_name, gr in aggr_groups.items():
-            add_str_array = [
-                v["func"](k, val[k])
-                for k, v in gr.items()
-            ]
-            fig.layout.annotations = [
-                *fig.layout.annotations,
-                _get_dict(
-                    val[gr_name], 0, "<br>".join(add_str_array))
-            ]
+            _append_annotations(x=val[gr_name], y=0, values=val, group_items=gr.items(), figure=fig)
 
+
+    # add lines
     if "lines" in params and "x" in params and "y" in params and not "facet_col" in params and not "facet_row" in params:
 
         for l in params["lines"]:

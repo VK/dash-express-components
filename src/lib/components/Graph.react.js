@@ -187,23 +187,27 @@ class Graph extends Component {
         xhr.onreadystatechange = function () {
 
             if (xhr.status == 200) {
-                try {
-                    var data = JSON.parse(xhr.responseText);
+                if (xhr.responseText !== "") {
+                    try {
+                        var data = JSON.parse(xhr.responseText);
 
-                    // since my plotApi uses a timestamp array structure :)
-                    if ("plots" in data) {
-                        data = data.plots;
-                        if (Array.isArray(data)) {
-                            data = data[0];
+                        // since my plotApi uses a timestamp array structure :)
+                        if ("plots" in data) {
+                            data = data.plots;
+                            if (Array.isArray(data)) {
+                                data = data[0];
+                            }
                         }
-                    }
 
-                    that.setState({ internalFigure: data })
-                } catch (e) {
-                    console.log(e);
+                        that.setState({ internalFigure: data })
+                    } catch (e) {
+                        console.log(e);
+                    }
+                    that.setState({ is_loading: false });
                 }
+            } else {
+                that.setState({ is_loading: false });
             }
-            that.setState({ is_loading: false });
         };
 
     }
@@ -481,7 +485,7 @@ Graph.defaultProps = {
         frames: [],
     },
     style: null,
-    className: null
+    className: ""
 };
 
 

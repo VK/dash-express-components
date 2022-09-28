@@ -134,10 +134,6 @@ app.layout = html.Div([
 def update_plot_config(newConfig, dataframe_type):
     newConfig.update({"dataframe_type": dataframe_type})
 
-    if "transform" not in newConfig:
-        newConfig["transform"] = []
-
-    newConfig["transform"].append({"type": "groupby_sample"})
     return newConfig
 
 
@@ -163,6 +159,11 @@ def update_meta(dataframeType):
 def plotApi():
     config = request.get_json()
     if request.method == 'POST':
+
+        if "transform" not in config:
+            config["transform"] = []
+
+        config["transform"].append({"type": "groupby_sample", "n":5})
 
         dataframe_type = "gapminder"
         if "dataframe_type" in config:
