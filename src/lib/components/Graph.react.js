@@ -186,9 +186,9 @@ class Graph extends Component {
 
         xhr.onreadystatechange = function () {
 
-            if (this.status == 200) {
+            if (xhr.status == 200) {
                 try {
-                    var data = JSON.parse(this.responseText);
+                    var data = JSON.parse(xhr.responseText);
 
                     // since my plotApi uses a timestamp array structure :)
                     if ("plots" in data) {
