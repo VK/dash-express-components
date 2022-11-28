@@ -100,3 +100,27 @@ def test_box_line():
     assert "title" in fig["layout"]
     assert "text" in fig["layout"]["title"]
     assert "OK" == fig["layout"]["title"]["text"]
+
+
+def test_facet_col_row():
+
+    cfg = {"plot": {
+        "type": "box",
+        "params": {
+            "y": "pop",
+            "x": "continent",
+            "title": "OK",
+            "facet_col": "continent",
+            "facet_row": "continent"
+        }
+    }}
+
+    fig = dxc.get_plot(df, cfg)
+
+    assert "data" in fig
+    assert "layout" in fig
+    assert "title" in fig["layout"]
+    assert "text" in fig["layout"]["title"]
+    assert "OK" == fig["layout"]["title"]["text"]
+
+

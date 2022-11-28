@@ -172,3 +172,26 @@ def test_not_possible():
     fig = dxc.get_plot(image_df, cfg)
 
     assert "data" in fig
+
+
+def test_colorscale():
+
+    cfg = {
+        "plot": {
+            "type": "imshow",
+            "render": "interactive",
+            "params": {
+                "x": "X",
+                "y": "Y",
+                "dimensions": [
+                    "R", "G"
+                ],
+                "title": "OK",
+                "colorscale": "greens"
+            }
+        }
+    }
+
+    fig = dxc.get_plot(image_df, cfg)
+
+    assert "data" in fig    

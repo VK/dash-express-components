@@ -138,12 +138,6 @@ def _get(inputDataFrame, plotConfigData):
             for gr_name, gr in aggr_groups.items():
                 _append_annotations(x=idx, y=val[gr_name], values=val, group_items=gr.items(), figure=fig)
 
-
-    if not "x" in params and not "color" in params and "y" in params and not "facet_col" in params and not "facet_row" in params:
-        val = inputDataFrame[params["y"]].aggregate(aggr_needed)
-        for gr_name, gr in aggr_groups.items():
-            _append_annotations(x=0, y=val[gr_name], values=val, group_items=gr.items(), figure=fig)
-
     if "x" in params and not "y" in params and not "color" in params and not "facet_col" in params and not "facet_row" in params:
         val = inputDataFrame[params["x"]].aggregate(aggr_needed)
         for gr_name, gr in aggr_groups.items():

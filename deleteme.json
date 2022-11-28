@@ -1,0 +1,85 @@
+{
+    "name": "mergedPlot",
+    "labels": [
+        "Topaz",
+        "Merged"
+    ],
+    "filter": [
+        {
+            "col": "MF_ID",
+            "type": "isin",
+            "value": [
+                "NCM_00208_1",
+                "NCM_00207_2",
+                "NCM_00208_2",
+                "NCM_00205_2"
+            ]
+        }
+    ],
+    "plot": {
+        "type": "imshow",
+        "params": {
+            "x": "X_Don",
+            "y": "Y_Don",
+            "dimensions": [
+                "Combined"
+            ],
+            "facet_col": "MF_ID",
+            "facet_col_wrap": 2,
+            "render_size": [
+                2111,
+                1250
+            ]
+        }
+    },
+    "transform": [
+        {
+            "type": "dropna",
+            "subset": [
+                "AOK_L9»Bin",
+                "Overlay_L2»Bin"
+            ]
+        },
+        {
+            "type": "eval",
+            "col": "BinA",
+            "formula": "AOK_L9»Bin == \"°\""
+        },
+        {
+            "type": "eval",
+            "col": "BinB",
+            "formula": "Overlay_L2»Bin == \"°\""
+        },
+        {
+            "type": "as_type",
+            "incol": [
+                "BinA",
+                "BinB"
+            ],
+            "values": {
+                "BinA": "float",
+                "BinB": "float"
+            }
+        },
+        {
+            "type": "aggr",
+            "groupby": [
+                "MF_ID",
+                "X_Don",
+                "Y_Don"
+            ],
+            "cols": [
+                "BinA",
+                "BinB"
+            ],
+            "types": [
+                "mean"
+            ]
+        },
+        {
+            "type": "eval",
+            "col": "Combined",
+            "formula": "(BinA_mean > 0.99) & (BinB_mean > 0.99)"
+        }
+    ]
+}

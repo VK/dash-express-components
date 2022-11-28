@@ -22,3 +22,23 @@ def test_simple():
 
     for col in cols:
         assert col in fig
+
+
+def test_sort():
+
+    cols =  ["country", "year", "lifeExp"]
+    cfg = {
+        "plot": {
+            "type": "table",
+            "params": {
+                "dimensions": cols,
+                "sort_values": ["year"],
+                "sort_values_ascending": False,
+            }
+        }
+    }
+
+    fig = dxc.get_plot(df, cfg)
+
+    for col in cols:
+        assert col in fig
