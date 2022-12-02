@@ -1,6 +1,9 @@
 from plotly.subplots import make_subplots as _make_subplots
 import plotly.graph_objects as _go
+from plotly.express.colors import qualitative as _qualitative
 import numpy as _np
+import pandas as _pd
+from pandas.api.types import is_numeric_dtype as _is_numeric_dtype
 
 
 def _get(inputDataFrame, plotConfigData):
@@ -39,6 +42,33 @@ def _get(inputDataFrame, plotConfigData):
         params["binary_string"] = True
         params["contrast_rescaling"] = 'infer'
         params["color_continuous_scale"] = 'RdBu_r'
+
+        # create categorical output
+        if all([not _is_numeric_dtype(inputDataFrame[el]) for el in dimensions]):
+            
+            dcolorscale = []
+            values = list(set(_np.concatenate(
+                [inputDataFrame[el] for el in dimensions]
+            ).tolist()))
+            values = [v for v in values if v != "nan"]
+            values.sort()
+            cvals = [ i/(len(values)) for i in range(len(values)+2)]
+            colors = _qualitative.Plotly
+            for idx, bin in enumerate(values):
+                dcolorscale.extend([[cvals[idx], colors[idx%len(colors)]], [cvals[idx+1], colors[idx%len(colors)]]])
+
+            extra_options["colorscale"] = dcolorscale
+            extra_options["colorbar_tickvals"] = list(range(len(values)))
+            extra_options["colorbar_ticktext"] = values
+            extra_options["zmin"] = -0.5
+            extra_options["zmax"] = len(values)-0.5
+
+
+            for el in dimensions:
+                extra_map = (inputDataFrame[el].values == "nan" ) | inputDataFrame[el].isna()
+                
+                inputDataFrame[el] = _pd.Categorical(inputDataFrame[el], categories=values).codes
+                inputDataFrame.loc[extra_map, el] = _np.nan
 
         extraGroupParams = []
         if "facet_col" in plotConfigData["params"]:
@@ -151,6 +181,12 @@ def _get(inputDataFrame, plotConfigData):
                 fig.update_coloraxes(
                     colorscale=extra_options["colorscale"]
                 )
+            if "colorbar_tickvals" in extra_options:
+                fig.update_coloraxes(
+                    colorbar_tickmode="array",
+                    colorbar_tickvals=extra_options["colorbar_tickvals"],
+                    colorbar_ticktext=extra_options["colorbar_ticktext"]
+                )                
 
         else:
             fig.add_heatmap(

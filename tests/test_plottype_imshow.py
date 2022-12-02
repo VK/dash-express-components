@@ -195,3 +195,41 @@ def test_colorscale():
     fig = dxc.get_plot(image_df, cfg)
 
     assert "data" in fig    
+
+
+def test_categorical():
+
+    cfg = {
+        "plot": {
+            "type": "imshow",
+            "render": "interactive",
+            "params": {
+                "x": "X",
+                "y": "Y",
+                "dimensions": [
+                    "test"
+                ],
+                "title": "OK"
+            }
+        },
+        "transform": [
+            {
+            "type": "eval",
+            "col": "test",
+            "formula": "Br > 50"
+            },
+            {
+            "type": "as_type",
+            "incol": [
+                "test"
+            ],
+            "values": {
+                "test": "str"
+            }
+            }
+        ],
+    }
+
+    fig = dxc.get_plot(image_df, cfg)
+
+    assert "data" in fig        

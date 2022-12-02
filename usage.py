@@ -46,46 +46,48 @@ dataframe["image"] = dataframe["image"].append(
     _img_to_df(imgdata.coffee(), "coffee"))
 
 test_cfg = {
-    "transform": [
+  "plot": {
+    "type": "imshow",
+    "params": {
+      "x": "X",
+      "y": "Y",
+      "dimensions": [
+        "test"
+      ],
+      "facet_col": "Name"
+    }
+  },
+  "transform": [
+    {
+      "type": "bin",
+      "cols": [
+        "Br"
+      ],
+      "name": "test",
+      "binning": [
         {
-            "type": "aggr",
-            "groupby": [
-                "country",
-                "continent"
-            ],
-            "cols": ["gdpPercap"],
-            "types": [
-                "median"
-            ]
-        }
-    ],
-    "plot": {
-        "type": "box",
-        "params": {
-            "x": "continent",
-            "y": "gdpPercap_median",
-            "color": "continent",
-            "aggr": ["mean"],
-            "reversed_x": True
-        }
-    },
-    "filter": [
+          "min": 0,
+          "max": 50,
+          "name": "A"
+        },
         {
-            "col": "continent",
-            "type": "isnotin",
-            "value": [
-                "Oceania"
-            ]
+          "min": 50,
+          "max": 250,
+          "name": "B"
         }
-    ]
+      ],
+      "overlapping": False
+    }
+  ],
+  "filter": [],
+
 }
 
 dataframe_meta = {
     k: dxc.get_meta(df) for k, df in dataframe.items()
 }
 dataframe_options = list(dataframe.keys())
-initial_option = "gapminder"
-print(initial_option)
+initial_option = "image"
 
 
 app = dash.Dash(
@@ -163,7 +165,7 @@ def plotApi():
         if "transform" not in config:
             config["transform"] = []
 
-        config["transform"].append({"type": "groupby_sample", "n":5})
+        #config["transform"].append({"type": "groupby_sample", "n":5})
 
         dataframe_type = "gapminder"
         if "dataframe_type" in config:
