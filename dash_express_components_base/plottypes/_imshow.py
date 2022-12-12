@@ -57,7 +57,10 @@ def _get(inputDataFrame, plotConfigData):
             for idx, bin in enumerate(values):
                 dcolorscale.extend([[cvals[idx], colors[idx%len(colors)]], [cvals[idx+1], colors[idx%len(colors)]]])
 
-            extra_options["colorscale"] = dcolorscale
+            if "colorscale" in plotConfigData["params"] and len(dcolorscale) == len(plotConfigData["params"]["colorscale"]):
+                extra_options["colorscale"] = plotConfigData["params"]["colorscale"]
+            else:
+                extra_options["colorscale"] = dcolorscale
             extra_options["colorbar_tickvals"] = list(range(len(values)))
             extra_options["colorbar_ticktext"] = values
             extra_options["zmin"] = -0.5
