@@ -22,7 +22,7 @@
     "chroma-js": "^2.1.2",
     "exceljs": "^4.3.0",
     "plotly.js": "^1.58.4",
-    "plotly.js-dist": "^2.8.3",
+    "plotly.js-dist": "^2.11.1",
     "ramda": "^0.27.2",
     "react-bootstrap": "^2.0.4",
     "react-datetime-picker": "^3.4.3",
