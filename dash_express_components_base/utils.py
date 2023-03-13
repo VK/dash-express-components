@@ -131,6 +131,66 @@ def get_meta_dask(df, large_threshold=1000):
     return res
 
 
+def get_meta_sparkpandas(df, large_threshold=1000):
+    """
+    extract the metadata from a dataframe needed to hand over to the Filter
+    """
+
+    def parse_object_cat(key):
+        cat = df[key].unique()
+        if len(cat) > large_threshold:
+            return {
+                "type": "categorical",
+                "large": True,
+                "cat": []
+            }
+        return {
+            "type": "categorical",
+            "cat": cat.tolist()
+        }
+
+    def parse(key, val):
+        if isinstance(val, _pd.CategoricalDtype):
+            # pandas special cat var
+
+            if len(val.categories) > large_threshold:
+                return {
+                    "type": "categorical",
+                    "large": True,
+                    "cat": []
+                }
+            return {
+                "type": "categorical",
+                "cat": val.categories.tolist()
+            }
+        elif val == dtype('O'):
+            # conventional string mixed object cat var
+            return parse_object_cat(key)
+
+        elif val == dtype('bool'):
+            return {
+                "type": "bool"
+            }
+        elif "time" in str(val):
+            return {"type": "temporal",
+                    "min": df[key].agg("min"),
+                    "max": df[key].agg("max"),
+                    "median": df[key].agg("median")}
+        else:
+            try:
+                return {"type": "numerical",
+                        "min": df[key].agg("min"),
+                        "max": df[key].agg("max"),
+                        "median": df[key].agg("median")}
+            except:
+                return parse_object_cat(key)
+
+    return {
+        k: parse(k, val)
+        for k, val in df.dtypes.to_dict().items()
+    }
+
+
 def get_plot(inputDataFrame, config, apply_parameterization=True):
 
     errorResult = "Empty plot"
@@ -239,12 +299,42 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
 
             # if we don't get a pandas dataframe it might be dask or mongodf
             if not isinstance(inputDataFrame, _pd.DataFrame):
+
+                errorResult = "Error: DataFrame type not known"
+                todo = True
+
+                # try dask
                 try:
-                    inputDataFrame = inputDataFrame[[c for c in usedCols if c in inputDataFrame.columns]].compute(
-                        scheduler='single-threaded'
-                    )
+                    from dask.dataframe.core import DataFrame as DaskDF
+                    if isinstance(inputDataFrame, DaskDF):
+                        inputDataFrame = inputDataFrame[[c for c in usedCols if c in inputDataFrame.columns]].compute(
+                            scheduler='single-threaded'
+                        )
+                        todo = False
                 except Exception as err:
                     errorResult = "Error: " + str(err)
+                
+                # try mongodf
+                if todo:
+                    try:
+                        from mongodf import DataFrame as MongoDF
+                        if isinstance(inputDataFrame, MongoDF):
+                            inputDataFrame = inputDataFrame[[c for c in usedCols if c in inputDataFrame.columns]].compute()
+                            todo = False
+                    except Exception as err:
+                        errorResult = "Error: " + str(err)
+
+                # try spark pandas
+                if todo:
+                    try:
+                        from  pyspark.pandas.frame import DataFrame as SparkDF
+                        if isinstance(inputDataFrame, SparkDF):
+                            inputDataFrame = inputDataFrame[[c for c in usedCols if c in inputDataFrame.columns]]._to_pandas()
+                            todo = False
+                    except Exception as err:
+                        errorResult = "Error: " + str(err)
+                
+                if todo:
                     return _px.scatter(_dummyData, title=errorResult)
             else:
                 inputDataFrame = inputDataFrame[[
