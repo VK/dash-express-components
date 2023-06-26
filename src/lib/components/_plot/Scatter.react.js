@@ -19,7 +19,8 @@ export default class Scatter extends PlotterBase {
                 this.option_dict.facet,
                 this.option_dict.axis_withcolor,
                 this.option_dict.labels,
-                this.option_dict.render
+                this.option_dict.render,
+                this.option_dict.line
             ]
 
         }

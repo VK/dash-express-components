@@ -437,9 +437,6 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
             # inputDataFrame = inputDataFrame.dropna(subset=[c for c in inputDataFrame.columns if c in usedCols])
 
             # return the corresponding plot
-            if plotConfigData["type"] == "scatter":
-                fig = _px.scatter(inputDataFrame, **
-                                  plotConfigData["params"])
             if plotConfigData["type"] == "scatter_matrix":
                 fig = _px.scatter_matrix(
                     inputDataFrame, **plotConfigData["params"])

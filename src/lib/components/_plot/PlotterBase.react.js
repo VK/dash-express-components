@@ -49,22 +49,58 @@ export default class PlotterBase extends Component {
             { label: 'png', value: "png" }
         ];
 
+        this.trendline_options = [
+            { label: 'off', value: undefined },
+            { label: 'Linear', value: "ols" },
+            { label: 'LOWESS', value: "lowess" }
+        ];       
+
+        this.trendline_scope_options = [
+            { label: 'by color', value: undefined },
+            { label: 'overall', value: "overall" }
+        ];              
+
+        this.scatter_mode_options = [
+            { label: 'Points', value: undefined },
+            { label: 'Line', value: "lines" },
+            { label: 'Points & Line', value: "lines+markers" }
+        ];
+
+        this.scatter_line_shape_options = [
+            { label: 'Linear', value: undefined },
+            { label: 'H -> V', value: "hv" },
+            { label: 'V -> H', value: "vh" },
+            { label: 'V -> H -> V', value: "vhv" },
+            { label: 'H -> V -> H', value: "hvh" },
+        ];       
+        
+        
+        this.opacity_options = [
+            { label: '100%', value: undefined },
+            { label: '75%', value: 0.75},
+            { label: '50%', value: 0.5},
+            { label: '25%', value: 0.25},
+            { label: '10%', value: 0.1 },
+            { label: '1%', value: 0.01 },
+            { label: '0.1%', value: 0.001 },
+        ];                
+
 
         this.option_dict = {
             error: {
-                id: "error", label: "Errorbars", visible: false, reset: {
+                id: "error", label: "Error", visible: false, reset: {
                     error_x: [], error_y: [],
                     error_x_minus: [], error_y_minus: []
                 }
             },
-            marginal: { id: "marginal", label: "Sideplots", visible: false, reset: { marginal_x: [], marginal_y: [] } },
+            marginal: { id: "marginal", label: "Side", visible: false, reset: { marginal_x: [], marginal_y: [] } },
             facet: {
-                id: "facet", label: "Subplots", visible: false, reset: {
+                id: "facet", label: "Sub", visible: false, reset: {
                     facet_col: [], facet_row: [], facet_col_wrap: [],
                     indep_x: null, indep_y: null
                 }
             },
-            labels: { id: "labels", label: "Labels", visible: false, reset: { hover_name: [], hover_data: [], title: null } },
+            labels: { id: "labels", label: "Label", visible: false, reset: { hover_name: [], hover_data: [], title: null } },
             axis: {
                 id: "axis", label: "Axis", visible: false, reset: {
                     log_x: null, log_y: null,
@@ -101,6 +137,15 @@ export default class PlotterBase extends Component {
                     __render_size_x: null, __render_size_y: null
                 }
             },
+            line: {
+                id: "line", label: "Line", visible: false, reset: {
+                    scatter_mode: null,
+                    line_shape: null,
+                    opacity: null,
+                    trendline: null,
+                    trendline_scope: []
+                }
+            },            
 
 
         }
@@ -181,8 +226,6 @@ export default class PlotterBase extends Component {
             marginal_y: this.state.marginal_y,
 
 
-            trendline: this.state.trendline,
-
             facet_col: this.state.facet_col,
             facet_row: this.state.facet_row,
             facet_col_wrap: this.state.facet_col_wrap,
@@ -211,11 +254,16 @@ export default class PlotterBase extends Component {
             nbins: this.state.nbins,
 
 
-            trendline: this.state.trendline,
-
 
             render: this.state.render,
-            render_size: this.state.render_size
+            render_size: this.state.render_size,
+
+            trendline: this.state.trendline,
+            trendline_scope: this.state.trendline_scope,
+            
+            opacity: this.state.opacity,
+            scatter_mode: this.state.scatter_mode,
+            line_shape: this.state.line_shape
         }
 
     }
@@ -749,6 +797,23 @@ export default class PlotterBase extends Component {
                             {this.range_ManualInputArray("W x H", "render_size", ["__render_size_x", "__render_size_y"])}
                         </div>
                     }
+
+                    if (el.id === "line") {
+                        return <div>
+                            <h5>{el.label}</h5>
+
+                            {this.singleSelect_ExtraOption("Mode", "scatter_mode", this.scatter_mode_options)}
+                            {this.singleSelect_ExtraOption("Line", "line_shape", this.scatter_line_shape_options)}
+
+                            {this.singleSelect_ExtraOption("Opacity", "opacity", this.opacity_options)}
+
+
+                            {this.singleSelect_ExtraOption("Fit", "trendline", this.trendline_options)}
+                            {this.singleSelect_ExtraOption("Scope", "trendline_scope", this.trendline_scope_options)}
+
+
+                        </div>
+                    }                    
 
                 })
             }
