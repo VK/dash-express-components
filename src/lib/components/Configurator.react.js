@@ -215,12 +215,12 @@ class Configurator extends Component {
         this.setState({ meta: new_meta },
             () => {
 
-                let filter_meta_out = (that.filter_ref) ? that.filter_ref.current.update_config(that.state.config_filter) : new_meta;
+                let filter_meta_out = (that.filter_ref && that.filter_ref.current) ? that.filter_ref.current.update_config(that.state.config_filter) : new_meta;
 
                 this.setState({ filter_meta_out: filter_meta_out },
                     () => {
 
-                        let transform_meta_out = (that.transform_ref) ? that.transform_ref.current.update_config(that.state.config_transform) : filter_meta_out;
+                        let transform_meta_out = (that.transform_ref && that.transform_ref.current) ? that.transform_ref.current.update_config(that.state.config_transform) : filter_meta_out;
                         this.setState({ transform_meta_out: transform_meta_out });
 
                     }
