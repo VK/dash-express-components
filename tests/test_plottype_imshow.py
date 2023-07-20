@@ -18,10 +18,11 @@ def _img_to_df(data, name):
     return sub_df
 
 
-image_df = pd.DataFrame()
-image_df = image_df.append(_img_to_df(imgdata.cat(), "cat"))
-image_df = image_df.append(_img_to_df(imgdata.astronaut(), "astronaut"))
-image_df = image_df.append(_img_to_df(imgdata.coffee(), "coffee"))
+image_df = pd.concat([
+    _img_to_df(imgdata.cat(), "cat"),
+    _img_to_df(imgdata.astronaut(), "astronaut"),
+    _img_to_df(imgdata.coffee(), "coffee")
+])
 
 
 def test_simple():
