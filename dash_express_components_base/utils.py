@@ -191,7 +191,7 @@ def get_meta_sparkpandas(df, large_threshold=1000):
     }
 
 
-def get_plot(inputDataFrame, config, apply_parameterization=True):
+def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=["custom", "dask", "mongodf", "pyspark"]):
 
     errorResult = "Empty plot"
 
@@ -303,19 +303,27 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                 errorResult = "Error: DataFrame type not known"
                 todo = True
 
+                # try custom
+                if todo and "custom" in compute_types:
+                    try:
+                        inputDataFrame = inputDataFrame[[c for c in usedCols if c in inputDataFrame.columns]].compute()
+                    except Exception as err:
+                        errorResult = "Error: " + str(err)
+
                 # try dask
-                try:
-                    from dask.dataframe.core import DataFrame as DaskDF
-                    if isinstance(inputDataFrame, DaskDF):
-                        inputDataFrame = inputDataFrame[[c for c in usedCols if c in inputDataFrame.columns]].compute(
-                            scheduler='single-threaded'
-                        )
-                        todo = False
-                except Exception as err:
-                    errorResult = "Error: " + str(err)
+                if todo and "dask" in compute_types:
+                    try:
+                        from dask.dataframe.core import DataFrame as DaskDF
+                        if isinstance(inputDataFrame, DaskDF):
+                            inputDataFrame = inputDataFrame[[c for c in usedCols if c in inputDataFrame.columns]].compute(
+                                scheduler='single-threaded'
+                            )
+                            todo = False
+                    except Exception as err:
+                        errorResult = "Error: " + str(err)
                 
                 # try mongodf
-                if todo:
+                if todo and "mongodf" in compute_types:
                     try:
                         from mongodf import DataFrame as MongoDF
                         if isinstance(inputDataFrame, MongoDF):
@@ -325,7 +333,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True):
                         errorResult = "Error: " + str(err)
 
                 # try spark pandas
-                if todo:
+                if todo and "pyspark" in compute_types:
                     try:
                         from  pyspark.pandas.frame import DataFrame as SparkDF
                         if isinstance(inputDataFrame, SparkDF):

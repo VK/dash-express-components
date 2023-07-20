@@ -37,13 +37,12 @@ def _img_to_df(data, name):
     return sub_df
 
 
-dataframe["image"] = pd.DataFrame()
-dataframe["image"] = dataframe["image"].append(
-    _img_to_df(imgdata.cat(), "cat"))
-dataframe["image"] = dataframe["image"].append(
-    _img_to_df(imgdata.astronaut(), "astronaut"))
-dataframe["image"] = dataframe["image"].append(
-    _img_to_df(imgdata.coffee(), "coffee"))
+dataframe["image"] = pd.concat([
+    _img_to_df(imgdata.cat(), "cat"),
+    _img_to_df(imgdata.astronaut(), "astronaut"),
+    _img_to_df(imgdata.coffee(), "coffee")
+])
+
 
 test_cfg = {
   "plot": {
