@@ -122,15 +122,28 @@ def _get(inputDataFrame, plotConfigData):
                 for group, allValues in inputDataFrame.groupby(extraGroupParams):
                     for color in dimensions:
                         if len(dimensions) == 1:
-                            data_dict[f"{group}"] = _get_MAP_array(
-                                allValues, color)
+                            if isinstance(group, str):
+                                data_dict[f"{group}"] = _get_MAP_array(
+                                    allValues, color)
+                            else:
+                                data_dict[f"{', '.join(group)}"] = _get_MAP_array(
+                                    allValues, color)       
                         else:
-                            data_dict[f"{color} of {group}"] = _get_MAP_array(
-                                allValues, color)
+                            if isinstance(group, str):
+                                data_dict[f"{color} of {group}"] = _get_MAP_array(
+                                    allValues, color)
+                            else:
+                                data_dict[f"{color} of {', '.join(group)}"] = _get_MAP_array(
+                                    allValues, color)                                
+                           
             else:
                 for color in dimensions:
-                    data_dict[f"{color}"] = _get_MAP_array(
-                        inputDataFrame, color)
+                    if isinstance(color, str):                    
+                        data_dict[f"{color}"] = _get_MAP_array(
+                            inputDataFrame, color)
+                    else:
+                        data_dict[f"{', '.join(color)}"] = _get_MAP_array(
+                            inputDataFrame, color)                        
 
             import math
             col_wrap = 100000

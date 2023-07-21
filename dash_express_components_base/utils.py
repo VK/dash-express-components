@@ -307,6 +307,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
                 if todo and "custom" in compute_types:
                     try:
                         inputDataFrame = inputDataFrame[[c for c in usedCols if c in inputDataFrame.columns]].compute()
+                        todo = False
                     except Exception as err:
                         errorResult = "Error: " + str(err)
 
