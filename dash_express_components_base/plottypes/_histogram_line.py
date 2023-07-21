@@ -40,7 +40,7 @@ def _get(inputDataFrame, plotConfigData):
         if (len(groupParams) > 0):
             for group, allValues in inputDataFrame.groupby(groupParams):
                 
-                if not isinstance(group, list):
+                if isinstance(group, str):
                     group = [group]
 
                 # extract the sampels to compute the histogram
@@ -72,7 +72,7 @@ def _get(inputDataFrame, plotConfigData):
                 for gr_idx, gr_name in enumerate(groupParams):
                       extra[gr_name] = group[gr_idx]
 
-                plotData = plotData.append(extra)
+                plotData = _pd.concat([plotData, extra])
 
         else:
             # extract the sampels to compute the histogram

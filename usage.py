@@ -82,11 +82,30 @@ test_cfg = {
 
 }
 
+test_cfg = {
+  "plot": {
+    "type": "histogram_line",
+    "params": {
+      "x": "year",
+      "color": "continent",
+      "nbins": 50
+    }
+  },
+  "filter": [],
+  "transform": [],
+  "parameterization": {
+    "parameters": [],
+    "computeAll": False,
+    "computeMatrix": []
+  }
+}
+
 dataframe_meta = {
     k: dxc.get_meta(df) for k, df in dataframe.items()
 }
 dataframe_options = list(dataframe.keys())
 initial_option = "image"
+initial_option = "gapminder"
 
 
 app = dash.Dash(
