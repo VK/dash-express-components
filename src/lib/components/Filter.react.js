@@ -469,7 +469,7 @@ class Filter extends Base {
                             >
                                 <option value=""></option>
                                 <option value="istrue">True</option>
-                                <option value="iffalse">False</option>
+                                <option value="isfalse">False</option>
                             </Form.Select>
                         </InputGroup>
 
