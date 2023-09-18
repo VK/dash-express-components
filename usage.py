@@ -53,7 +53,9 @@ test_cfg = {
       "dimensions": [
         "test"
       ],
-      "facet_col": "Name"
+      "facet_col": "Name",
+      "facet_col_wrap": 2,
+      "render": "interactive"
     }
   },
   "transform": [
@@ -76,36 +78,41 @@ test_cfg = {
         }
       ],
       "overlapping": False
+    },
+    {
+      "type": "eval",
+      "col": "X",
+      "formula": "X-100"
     }
   ],
   "filter": [],
 
 }
 
-test_cfg = {
-  "plot": {
-    "type": "histogram_line",
-    "params": {
-      "x": "year",
-      "color": "continent",
-      "nbins": 50
-    }
-  },
-  "filter": [],
-  "transform": [],
-  "parameterization": {
-    "parameters": [],
-    "computeAll": False,
-    "computeMatrix": []
-  }
-}
+# test_cfg = {
+#   "plot": {
+#     "type": "histogram_line",
+#     "params": {
+#       "x": "year",
+#       "color": "continent",
+#       "nbins": 50
+#     }
+#   },
+#   "filter": [],
+#   "transform": [],
+#   "parameterization": {
+#     "parameters": [],
+#     "computeAll": False,
+#     "computeMatrix": []
+#   }
+# }
 
 dataframe_meta = {
     k: dxc.get_meta(df) for k, df in dataframe.items()
 }
 dataframe_options = list(dataframe.keys())
 initial_option = "image"
-initial_option = "gapminder"
+#initial_option = "gapminder"
 
 
 app = dash.Dash(

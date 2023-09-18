@@ -88,8 +88,8 @@ def _get(inputDataFrame, plotConfigData):
             ) - _np.minimum(0, inputDataFrame[x].min()))+1
         )
         all_min = (
-            int(inputDataFrame[x].min()),
-            int(inputDataFrame[y].min())
+            int(inputDataFrame[y].min()),
+            int(inputDataFrame[x].min())
         )
 
         def _get_MAP_array(df, color):
@@ -169,8 +169,8 @@ def _get(inputDataFrame, plotConfigData):
             colid = 1
             for name, z in data_dict.items():
                 fig.add_heatmap(
-                    x0=all_min[0], dx=1,
-                    y0=all_min[1], dy=1,
+                    x0=all_min[1], dx=1,
+                    y0=all_min[0], dy=1,
                     z=z,
                     name=name,
                     hovertemplate=f"{x}: %{{x}}<br>{y}: %{{y}}<br>{name.split(' of ')[0]}: %{{z}}<br>",

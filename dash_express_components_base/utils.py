@@ -16,6 +16,28 @@ from . import transformationtypes
 _dummyData = _pd.DataFrame([None])
 
 
+def get_error_plot(text):
+
+    fig = _go.Figure()
+    fig.add_annotation(
+        text=text,
+        x=0.5,  # X-coordinate of the center
+        y=0.5,  # Y-coordinate of the center
+        xref="paper",
+        yref="paper",
+        showarrow=False,
+        font=dict(size=18, color="red"),
+        align="center",
+        bordercolor="black",
+        borderwidth=0
+    )
+    fig.update_layout(
+        template="plotly_white"
+    )
+
+    return fig
+
+
 def get_meta(df, large_threshold=1000):
     """
     extract the metadata from a dataframe needed to hand over to the Filter
@@ -214,7 +236,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
 
             # don't try to hard if we have no params
             if not "params" in plotConfigData:
-                return _px.scatter(_dummyData, title=errorResult)
+                return get_error_plot(errorResult)
 
             # also json parse the nested params, if needed
             if isinstance(plotConfigData["params"], str):
@@ -223,7 +245,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
 
             # don't try too hard, if there is no plot axis
             if not("x" in plotConfigData["params"] or "y" in plotConfigData["params"] or "dimensions" in plotConfigData["params"]):
-                return _px.scatter(_dummyData, title=errorResult)
+                return get_error_plot(errorResult)
 
             # apply filters if required
             if "filter" in configData:
@@ -344,14 +366,14 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
                         errorResult = "Error: " + str(err)
                 
                 if todo:
-                    return _px.scatter(_dummyData, title=errorResult)
+                    return get_error_plot(errorResult)
             else:
                 inputDataFrame = inputDataFrame[[
                     c for c in usedCols if c in inputDataFrame.columns]].copy()
 
             # check if some data is left
-            if len(inputDataFrame) == 0:
-                return _px.scatter(_dummyData, title="No data available.")
+            if len(inputDataFrame) == 0 or _np.sum(inputDataFrame.isna().all()) > 0:
+                return get_error_plot("No data available.")
 
             # apply data transformaitons if required
             if "transform" in configData:
@@ -573,4 +595,4 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
     except Exception as inst:
         errorResult = "Error: " + str(inst)
 
-    return _px.scatter(_dummyData, title=errorResult)
+    return get_error_plot(errorResult)
