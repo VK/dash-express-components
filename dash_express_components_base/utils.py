@@ -372,7 +372,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
                     c for c in usedCols if c in inputDataFrame.columns]].copy()
 
             # check if some data is left
-            if len(inputDataFrame) == 0 or _np.sum(inputDataFrame.isna().all()) > 0:
+            if "skip_data_check" not in configData and (len(inputDataFrame) == 0 or _np.sum(inputDataFrame.isna().all()) > 0):
                 return get_error_plot("No data available.")
 
             # apply data transformaitons if required
