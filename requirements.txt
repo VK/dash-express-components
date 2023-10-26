@@ -6,3 +6,4 @@ scikit-image
 dash-bootstrap-components
 numexpr
 shapely
+werkzeug>=3.0.1 # not directly required, pinned by Snyk to avoid a vulnerability
