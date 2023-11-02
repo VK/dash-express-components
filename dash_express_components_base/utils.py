@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from dateutil import parser
 
 import plotly.express as _px
 import plotly.graph_objects as _go
@@ -279,11 +278,9 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
                     elif t == "isfalse":
                         inputDataFrame = inputDataFrame[~inputDataFrame[col]]
                     elif t == "after":
-                        #df = df[df[col] > _pd.to_datetime(parser.isoparse(el["value"]))]
                         inputDataFrame = inputDataFrame[inputDataFrame[col] > _pd.Timestamp(
                             el["value"]).to_datetime64()]
                     elif t == "before":
-                        #df = df[df[col] < _pd.to_datetime(parser.isoparse(el["value"]))]
                         inputDataFrame = inputDataFrame[inputDataFrame[col] < _pd.Timestamp(
                             el["value"]).to_datetime64()]
                     elif t == "lastn":
