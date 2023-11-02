@@ -203,7 +203,8 @@ class Graph extends Component {
                         }
 
                         if ("meta" in data) {
-                            that.setState({ internalFigure: data, meta: data.meta });
+                            const { meta, ...figdata } = data;
+                            that.setState({ internalFigure: figdata, meta: data.meta });
                         } else {
                             that.setState({ internalFigure: data });
                         }
@@ -277,6 +278,8 @@ class Graph extends Component {
         }
 
 
+        let config_meta = (this.state.meta) ? this.state.meta : this.props.meta
+        config_meta = (config_meta) ? config_meta : {}
         let configurator_modal = (
             <Modal
                 centered
@@ -291,7 +294,7 @@ class Graph extends Component {
                     <Configurator ref={this.config_in_modal_ref}
                         id={this.config_modal_id}
                         config={this.props.defParams}
-                        meta={(this.state.meta) ? this.state.meta : this.props.meta}
+                        meta={config_meta}
                         showUpdate={false}
                     />
                 </Modal.Body>
