@@ -1,10 +1,9 @@
-import plotly.graph_objects as _go
-import plotly.express as _px
-
 def _get(inputDataFrame, plotConfigData):
     from scipy import stats as _stats
     import pandas as _pd
-    
+    import plotly.graph_objects as _go
+    import plotly.express as _px    
+        
     fig = _go.Figure()
 
     x = plotConfigData["params"]["x"]

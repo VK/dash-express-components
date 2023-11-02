@@ -1,7 +1,7 @@
 
-import plotly.express as _px
-
 def _get(inputDataFrame, plotConfigData):
+
+    import plotly.express as _px
 
     scatter_mode = None
     line_shape = None

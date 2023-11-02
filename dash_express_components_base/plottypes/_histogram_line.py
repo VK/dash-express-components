@@ -1,9 +1,8 @@
-import plotly.graph_objects as _go
-import plotly.express as _px
-
 def _get(inputDataFrame, plotConfigData):
     import numpy as _np
     import pandas as _pd
+    import plotly.graph_objects as _go
+    import plotly.express as _px
 
     fig = _go.Figure()
     if "x" in plotConfigData["params"]:

@@ -1,12 +1,11 @@
-from plotly.subplots import make_subplots as _make_subplots
-import plotly.graph_objects as _go
-from plotly.express.colors import qualitative as _qualitative
-
 
 def _get(inputDataFrame, plotConfigData):
     import numpy as _np
     import pandas as _pd
     from pandas.api.types import is_numeric_dtype as _is_numeric_dtype
+    from plotly.subplots import make_subplots as _make_subplots
+    import plotly.graph_objects as _go
+    from plotly.express.colors import qualitative as _qualitative    
 
 
     fig = _go.Figure()

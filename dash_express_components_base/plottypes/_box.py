@@ -1,5 +1,3 @@
-import plotly.express as _px
-
 def q01(x):
     return x.quantile(0.01)
 
@@ -80,6 +78,7 @@ def _append_annotations(x, y, values, group_items, figure):
 
 
 def _get(inputDataFrame, plotConfigData):
+    import plotly.express as _px
 
     params = plotConfigData["params"]
 

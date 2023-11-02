@@ -1,7 +1,6 @@
-import plotly.express as _px
-
 def _get(inputDataFrame, plotConfigData):
     import pandas as _pd
+    import plotly.express as _px
 
     # daw a count plot
     x = plotConfigData["params"]["x"]
