@@ -1,7 +1,6 @@
-import pandas as _pd
-
-
 def compute(cfg, inputDataFrame):
+    import pandas as _pd
+
     return _pd.melt(inputDataFrame,
                     id_vars=[
                         c for c in inputDataFrame.columns if c not in cfg["cols"]

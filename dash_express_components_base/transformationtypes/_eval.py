@@ -1,7 +1,6 @@
-import numpy as _np
-
-
 def compute(cfg, inputDataFrame):
+
+    import numpy as _np
 
     # rename all columns with »
     trafo_cols = [c for c in inputDataFrame.columns if "»" in c]

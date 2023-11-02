@@ -1,7 +1,6 @@
-import pandas as _pd
-
-
 def compute(cfg, inputDataFrame):
+    import pandas as _pd
+    
     output = _pd.wide_to_long(inputDataFrame,
                             stubnames=cfg["stubnames"],
                             i=cfg["i"],

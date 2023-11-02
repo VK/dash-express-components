@@ -1,8 +1,7 @@
-import pandas as _pd
-import numpy as _np
-
-
 def compute(cfg, inputDataFrame):
+
+    import pandas as _pd
+    import numpy as _np
 
     # parameters in cfg
     # ============================

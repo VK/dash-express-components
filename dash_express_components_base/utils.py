@@ -1,6 +1,3 @@
-from numpy import dtype
-import pandas as _pd
-import numpy as _np
 from datetime import datetime, timedelta
 from dateutil import parser
 
@@ -11,9 +8,6 @@ import json as _json
 
 from . import plottypes
 from . import transformationtypes
-
-
-_dummyData = _pd.DataFrame([None])
 
 
 def get_error_plot(text):
@@ -42,6 +36,8 @@ def get_meta(df, large_threshold=1000):
     """
     extract the metadata from a dataframe needed to hand over to the Filter
     """
+    from numpy import dtype
+    import pandas as _pd
 
     def parse_object_cat(key):
         cat = df[key].unique()
@@ -157,6 +153,7 @@ def get_meta_sparkpandas(df, large_threshold=1000):
     """
     extract the metadata from a dataframe needed to hand over to the Filter
     """
+    from numpy import dtype
 
     def parse_object_cat(key):
         cat = df[key].unique()
@@ -214,8 +211,9 @@ def get_meta_sparkpandas(df, large_threshold=1000):
 
 
 def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=["custom", "dask", "mongodf", "pyspark"]):
-
     errorResult = "Empty plot"
+    import pandas as _pd
+    import numpy as _np
 
     try:
         # check if filter defined

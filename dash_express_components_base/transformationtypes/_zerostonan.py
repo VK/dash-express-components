@@ -1,6 +1,6 @@
-import numpy as np
 
 def compute(cfg, inputDataFrame):
+    import numpy as np
 
     for c in cfg["subset"]:
         inputDataFrame[c].replace(0.0, np.nan, inplace=True)

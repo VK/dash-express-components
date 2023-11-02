@@ -1,6 +1,4 @@
-from statistics import median
 import plotly.express as _px
-
 
 def q01(x):
     return x.quantile(0.01)

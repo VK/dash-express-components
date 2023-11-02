@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: 3.8
       - name: Install Python dependencies
-        run: python -m pip install dash[dev,testing] flit invoke semver termcolor pandas scipy scikit-image dask kaleido
+        run: python -m pip install dash[dev,testing]
       - name: Build the components
         run: |
           npm run build

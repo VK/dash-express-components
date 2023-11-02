@@ -2,11 +2,8 @@ from skimage import data as imgdata
 import pandas as pd
 import numpy as np
 import datetime
-import imp
-from re import T
 import dash
 from dash import html, Input, Output, dcc, State
-from dash.exceptions import PreventUpdate
 import dash_express_components as dxc
 import plotly.express as px
 import plotly

@@ -6,3 +6,4 @@ scikit-image
 dash-bootstrap-components
 numexpr
 shapely
+statsmodels
