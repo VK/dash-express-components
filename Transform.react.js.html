@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="6355546" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="575998" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -134,6 +134,7 @@ import StrSplitTransform from './_sub/StrSplitTransform.react';
 import BinTransform from './_sub/BinTransform.react';
 import FilterIqrTransform from './_sub/FilterIqrTransform.react';
 import AsType from './_sub/AsType.react';
+import GroupedSample from './_sub/GroupedSample.react';
 
 
 import AggrSvg from 'react-svg-loader!./_svg/aggr.svg';
@@ -149,6 +150,8 @@ import StrSplitSvg from 'react-svg-loader!./_svg/str.split.svg';
 import BinSvg from 'react-svg-loader!./_svg/bin.svg';
 import FilterIqrSvg from 'react-svg-loader!./_svg/filteriqr.svg';
 import AsTypeSvg from 'react-svg-loader!./_svg/astype.svg';
+import GroupedSampleSvg from 'react-svg-loader!./_svg/groupedsample.svg';
+
 
 
 /**
@@ -232,7 +235,11 @@ class Transform extends Base {
         {
             group: "missing", type: "filteriqr", class: FilterIqrTransform,
             "label": "Apply a grouped IQR filter", svg: &lt;FilterIqrSvg />
-        },        
+        },      
+        {
+            group: "missing", type: "groupby_sample", class: GroupedSample,
+            "label": "Apply a grouped sampling", svg: &lt;GroupedSampleSvg />
+        },             
         {
             group: "meta", type: "rename", class: RenameTransform,
             "label": "Rename multiple columns", svg: &lt;RenameSvg />
