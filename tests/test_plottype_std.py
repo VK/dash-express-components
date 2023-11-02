@@ -1,8 +1,9 @@
 import dash_express_components as dxc
 import plotly.express as px
 import json
+from .__utils import assert_error_in_annotation
 df = px.data.gapminder()
-
+from .__utils import assert_error_in_annotation
 
 def test_str_config():
 
@@ -53,10 +54,7 @@ def test_str_no_params():
     fig = dxc.get_plot(df, cfg)
 
     assert "data" in fig
-    assert "layout" in fig
-    assert "title" in fig["layout"]
-    assert "text" in fig["layout"]["title"]
-    assert "Empty plot" == fig["layout"]["title"]["text"]
+    assert_error_in_annotation(fig, "Empty plot")
 
 
 def test_str_empty_params():
@@ -66,10 +64,7 @@ def test_str_empty_params():
     fig = dxc.get_plot(df, cfg)
 
     assert "data" in fig
-    assert "layout" in fig
-    assert "title" in fig["layout"]
-    assert "text" in fig["layout"]["title"]
-    assert "Empty plot" == fig["layout"]["title"]["text"]
+    assert_error_in_annotation(fig, "Empty plot")
 
 
 def test_std_dimensions():

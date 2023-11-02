@@ -3,6 +3,8 @@ import plotly.express as px
 import datetime
 import pytest
 
+from .__utils import assert_error_in_annotation
+
 df = px.data.gapminder()
 
 
@@ -175,10 +177,13 @@ def test_time_before():
     fig = dxc.get_plot(test_df, config)
 
     assert "data" in fig
-    assert "layout" in fig
-    assert "title" in fig["layout"]
-    assert "text" in fig["layout"]["title"]
-    assert "No data available." == fig["layout"]["title"]["text"]
+    # assert "layout" in fig
+    # assert "title" in fig["layout"]
+    # assert "text" in fig["layout"]["title"]
+    # assert "No data available." == fig["layout"]["title"]["text"]
+    assert_error_in_annotation(fig, "No data available.")
+
+    
 
 
 
@@ -317,10 +322,11 @@ def test_time_isfalse():
     fig = dxc.get_plot(test_df, config)
 
     assert "data" in fig
-    assert "layout" in fig
-    assert "title" in fig["layout"]
-    assert "text" in fig["layout"]["title"]
-    assert "No data available." == fig["layout"]["title"]["text"]
+    # assert "layout" in fig
+    # assert "title" in fig["layout"]
+    # assert "text" in fig["layout"]["title"]
+    # assert "No data available." == fig["layout"]["title"]["text"]
+    assert_error_in_annotation(fig, "No data available.")
 
 
 
