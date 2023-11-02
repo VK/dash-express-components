@@ -1,13 +1,11 @@
 
 def compute(cfg, inputDataFrame):
 
-    n = 10000
-    if "n" in cfg:
-        n = cfg["n"]
-    
+    n = cfg["n"] if "n" in cfg else 10000
+    cat_cols = cfg["groupby"] if "groupby" in cfg else []
 
-    num_cols = inputDataFrame._get_numeric_data().columns
-    cat_cols = list(set(inputDataFrame.columns) - set(num_cols))
+    #num_cols = inputDataFrame._get_numeric_data().columns
+    #cat_cols = list(set(inputDataFrame.columns) - set(num_cols))
 
     def downsample(x):
         if len(x) <= n:

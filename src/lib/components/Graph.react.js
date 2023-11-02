@@ -174,10 +174,12 @@ class Graph extends Component {
         xhr.setRequestHeader('Content-Type', 'application/json');
 
         let send_data = JSON.parse(JSON.stringify(defParams));
-        if (send_data["plot"]["params"]["render_size"] === undefined) {
-            try {
-                send_data["plot"]["params"]["render_size"] = [this.graphDiv.clientWidth, this.graphDiv.clientHeight]
-            } catch (e) { }
+        if (["auto", "png"].includes(send_data["plot"]["params"]["render"])) {
+            if (send_data["plot"]["params"]["render_size"] === undefined) {
+                try {
+                    send_data["plot"]["params"]["render_size"] = [this.graphDiv.clientWidth, this.graphDiv.clientHeight]
+                } catch (e) { }
+            }
         }
 
         xhr.send(JSON.stringify(send_data));

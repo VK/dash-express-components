@@ -384,7 +384,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
                 render_type = plotConfigData["params"]["render"]
                 del plotConfigData["params"]["render"]
             else:
-                render_type = "auto"
+                render_type = "interactive"
 
             if "render_size" in plotConfigData["params"]:
                 render_size = plotConfigData["params"]["render_size"]

@@ -23,6 +23,7 @@ import StrSplitTransform from './_sub/StrSplitTransform.react';
 import BinTransform from './_sub/BinTransform.react';
 import FilterIqrTransform from './_sub/FilterIqrTransform.react';
 import AsType from './_sub/AsType.react';
+import GroupedSample from './_sub/GroupedSample.react';
 
 
 import AggrSvg from 'react-svg-loader!./_svg/aggr.svg';
@@ -38,6 +39,8 @@ import StrSplitSvg from 'react-svg-loader!./_svg/str.split.svg';
 import BinSvg from 'react-svg-loader!./_svg/bin.svg';
 import FilterIqrSvg from 'react-svg-loader!./_svg/filteriqr.svg';
 import AsTypeSvg from 'react-svg-loader!./_svg/astype.svg';
+import GroupedSampleSvg from 'react-svg-loader!./_svg/groupedsample.svg';
+
 
 
 /**
@@ -121,7 +124,11 @@ class Transform extends Base {
         {
             group: "missing", type: "filteriqr", class: FilterIqrTransform,
             "label": "Apply a grouped IQR filter", svg: <FilterIqrSvg />
-        },        
+        },      
+        {
+            group: "missing", type: "groupby_sample", class: GroupedSample,
+            "label": "Apply a grouped sampling", svg: <GroupedSampleSvg />
+        },             
         {
             group: "meta", type: "rename", class: RenameTransform,
             "label": "Rename multiple columns", svg: <RenameSvg />

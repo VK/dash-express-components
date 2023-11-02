@@ -44,8 +44,8 @@ export default class PlotterBase extends Component {
 
 
         this.render_options = [
-            { label: 'auto', value: undefined },
-            { label: 'interactive', value: "interactive" },
+            { label: 'interactive', value: undefined },
+            { label: 'auto', value: 'auto' },
             { label: 'png', value: "png" }
         ];
 
