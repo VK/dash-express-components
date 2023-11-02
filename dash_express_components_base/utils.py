@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 
-import plotly.express as _px
-import plotly.graph_objects as _go
+
 import base64 as _base64
 import json as _json
 
@@ -10,6 +9,7 @@ from . import transformationtypes
 
 
 def get_error_plot(text):
+    import plotly.graph_objects as _go
 
     fig = _go.Figure()
     fig.add_annotation(
@@ -213,6 +213,8 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
     errorResult = "Empty plot"
     import pandas as _pd
     import numpy as _np
+    import plotly.express as _px
+    import plotly.graph_objects as _go
 
     try:
         # check if filter defined
