@@ -84,7 +84,7 @@ def test_std_dimensions():
         }
     }
 
-    fig = json.loads(dxc.get_plot(df, cfg).to_json())
+    fig = dxc.get_plot(df, cfg)
 
     assert "data" in fig
     assert "layout" in fig
@@ -106,7 +106,7 @@ def test_std_hover_data():
         }
     }
 
-    fig = json.loads(dxc.get_plot(df, cfg).to_json())
+    fig = dxc.get_plot(df, cfg)
 
     assert "data" in fig
     hovertemplate = fig["data"][0]["hovertemplate"]
@@ -126,7 +126,7 @@ def test_std_hover_name():
         }
     }
 
-    fig = json.loads(dxc.get_plot(df, cfg).to_json())
+    fig = dxc.get_plot(df, cfg)
 
     assert "data" in fig
     hovertemplate = fig["data"][0]["hovertemplate"]
@@ -146,7 +146,7 @@ def test_std_cat_x():
         }
     }
 
-    fig = json.loads(dxc.get_plot(df, cfg).to_json())
+    fig = dxc.get_plot(df, cfg)
 
     assert "data" in fig
     assert "layout" in fig
@@ -167,7 +167,7 @@ def test_std_cat_y():
         }
     }
 
-    fig = json.loads(dxc.get_plot(df, cfg).to_json())
+    fig = dxc.get_plot(df, cfg)
 
     assert "data" in fig
     assert "layout" in fig
@@ -189,7 +189,7 @@ def test_std_indep_x():
         }
     }
 
-    fig = json.loads(dxc.get_plot(df, cfg).to_json())
+    fig = dxc.get_plot(df, cfg)
 
     assert "data" in fig
     assert "layout" in fig
@@ -213,7 +213,7 @@ def test_std_indep_y():
         }
     }
 
-    fig = json.loads(dxc.get_plot(df, cfg).to_json())
+    fig = dxc.get_plot(df, cfg)
 
     assert "data" in fig
     assert "layout" in fig
@@ -236,7 +236,7 @@ def test_std_reversed_x():
         }
     }
 
-    fig = json.loads(dxc.get_plot(df, cfg).to_json())
+    fig = dxc.get_plot(df, cfg)
 
     assert "data" in fig
     assert "layout" in fig
@@ -258,7 +258,7 @@ def test_std_reversed_y():
         }
     }
 
-    fig = json.loads(dxc.get_plot(df, cfg).to_json())
+    fig = dxc.get_plot(df, cfg)
 
     assert "data" in fig
     assert "layout" in fig

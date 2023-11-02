@@ -586,8 +586,9 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
                 fig.update_layout(
                     template="plotly_white"
                 )
-
-            output = fig.to_dict()
+                output = fig.to_dict()
+            else:
+                output = fig
             output.update({"meta": get_meta(inputDataFrame)})
 
             return output
