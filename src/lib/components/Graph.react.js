@@ -73,6 +73,7 @@ class Graph extends Component {
             filter_query: "",
             config_modal_open: false,
             defParams: props.defParams,
+            meta: props.meta,
             internalFigure: { data: [] }
         };
 
@@ -201,7 +202,13 @@ class Graph extends Component {
                             }
                         }
 
-                        that.setState({ internalFigure: data })
+                        if ("meta" in data) {
+                            that.setState({ internalFigure: data, meta: data.meta });
+                        } else {
+                            that.setState({ internalFigure: data });
+                        }
+
+
                     } catch (e) {
                         console.log(e);
                     }
@@ -254,14 +261,14 @@ class Graph extends Component {
         /*Start VK addon*/
         let save_button = "";
         let edit_button = "";
-        if (this.props.defParams && this.inIframe()) {
+        if (this.props.defParams && this.inIframe() && this.props.saveClick) {
             save_button = <a className="saveClickButton p-1" onClick={this.saveClick.bind(this)} key={this.props.id + "-save-button"}>
                 <svg viewBox="0 -35 576 512" className="icon" height="1.5em" width="1.5em">
                     <path fill="currentColor" d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z" transform="matrix(-1 0 0 1  576 0 )"></path>
                 </svg>
             </a>
         }
-        if (this.props.defParams && this.props.meta) {
+        if (this.props.defParams && this.state.meta) {
             edit_button = <a className="saveClickButton" onClick={e => this.handleOpen()} key={this.props.id + "-edit-button"}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1.3em" width="1.3em">
                     <path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
@@ -284,7 +291,7 @@ class Graph extends Component {
                     <Configurator ref={this.config_in_modal_ref}
                         id={this.config_modal_id}
                         config={this.props.defParams}
-                        meta={this.props.meta}
+                        meta={(this.state.meta) ? this.state.meta : this.props.meta}
                         showUpdate={false}
                     />
                 </Modal.Body>
@@ -472,6 +479,11 @@ Graph.propTypes = {
     className: PropTypes.string,
 
     /**
+     * enable/disable saveClick button
+     */
+    saveClick: PropTypes.bool,
+
+    /**
      * Function that updates the state tree.
      */
     setProps: PropTypes.func,
@@ -487,6 +499,7 @@ Graph.defaultProps = {
         frames: [],
     },
     style: null,
+    saveClick: false,
     className: ""
 };
 

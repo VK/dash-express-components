@@ -587,7 +587,10 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
                     template="plotly_white"
                 )
 
-            return fig
+            output = fig.to_dict()
+            output.update({"meta": get_meta(inputDataFrame)})
+
+            return output
 
     except Exception as inst:
         errorResult = "Error: " + str(inst)

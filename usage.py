@@ -138,7 +138,7 @@ app.layout = html.Div([
     html.Div(
 
         [dxc.Graph(id="fig",
-                   meta=dataframe_meta[initial_option],
+                   #meta=dataframe_meta[initial_option],
                    plotApi="plotApi",
                    style={"height": "100%", "width": "100%"}
                    )],
@@ -170,14 +170,21 @@ def update_config(_, newConfig):
     return json.dumps(newConfig, indent=2)
 
 
+# @app.callback(
+#     Output('plotConfig', 'meta'),
+#     Output('fig', 'meta'),
+#     Input('dataframe-type', 'value')
+# )
+# def update_meta(dataframeType):
+#     return dataframe_meta[dataframeType], dataframe_meta[dataframeType],
+
+
 @app.callback(
     Output('plotConfig', 'meta'),
-    Output('fig', 'meta'),
     Input('dataframe-type', 'value')
 )
 def update_meta(dataframeType):
-    return dataframe_meta[dataframeType], dataframe_meta[dataframeType],
-
+    return dataframe_meta[dataframeType]
 
 @app.server.route("/plotApi", methods=['POST', 'GET'])
 def plotApi():
