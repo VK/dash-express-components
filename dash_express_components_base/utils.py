@@ -209,12 +209,66 @@ def get_meta_sparkpandas(df, large_threshold=1000):
     }
 
 
-def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=["custom", "dask", "mongodf", "pyspark"]):
+def get_meta_if_possible(df, compute_types=["custom", "dask", "mongodf", "pyspark"], large_threshold=1000):
+    meta = None
+    todo = True
+    try:
+
+        # try custom
+        if todo and "custom" in compute_types:
+            try:
+                meta = get_meta(df, large_threshold=large_threshold)
+                todo = False
+            except:
+                pass
+
+        # try dask
+        if todo and "dask" in compute_types:
+            try:
+                from dask.dataframe.core import DataFrame as DaskDF
+                if isinstance(df, DaskDF):
+                    meta = get_meta_dask(df, large_threshold=large_threshold)
+                    todo = False
+            except:
+                pass
+        
+        # try mongodf
+        if todo and "mongodf" in compute_types:
+            try:
+                from mongodf import DataFrame as MongoDF
+                if isinstance(df, MongoDF):
+                    meta = df.get_meta()
+                    todo = False
+            except:
+                pass
+
+        # try spark pandas
+        if todo and "pyspark" in compute_types:
+            try:
+                from  pyspark.pandas.frame import DataFrame as SparkDF
+                if isinstance(df, SparkDF):
+                    meta = get_meta_sparkpandas(df, large_threshold=large_threshold)   
+                    todo = False
+            except:
+                pass
+
+    except:
+        pass
+
+    return meta
+
+def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=["custom", "dask", "mongodf", "pyspark"], meta="compute"):
     errorResult = "Empty plot"
     import pandas as _pd
     import numpy as _np
     import plotly.express as _px
     import plotly.graph_objects as _go
+
+    if meta == "compute":
+        meta = get_meta_if_possible(inputDataFrame)
+    if meta == False:
+        meta = None
+
 
     try:
         # check if filter defined
@@ -589,7 +643,8 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
                 output = fig.to_dict()
             else:
                 output = fig
-            output.update({"meta": get_meta(inputDataFrame)})
+            if meta:
+                output.update({"meta": meta})
 
             return output
 

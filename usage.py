@@ -140,7 +140,8 @@ app.layout = html.Div([
         [dxc.Graph(id="fig",
                    #meta=dataframe_meta[initial_option],
                    plotApi="plotApi",
-                   style={"height": "100%", "width": "100%"}
+                   style={"height": "100%", "width": "100%"},
+                   editButton=True
                    )],
 
         style={"width": "calc(100% - 500px)", "height": "calc(100vh - 30px)",
