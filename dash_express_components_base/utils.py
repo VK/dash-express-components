@@ -422,6 +422,12 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
                 inputDataFrame = inputDataFrame[[
                     c for c in usedCols if c in inputDataFrame.columns]].copy()
 
+            # create nan cols if desired
+            if "create_missing_cols" in configData and configData["create_missing_cols"]:
+                missing_cols = set(usedCols) - set(inputDataFrame.columns)
+                for col in missing_cols:
+                    inputDataFrame[col] = _np.nan
+            
             # check if some data is left
             if "skip_data_check" not in configData and (len(inputDataFrame) == 0 or _np.sum(inputDataFrame.isna().all()) > 0):
                 return get_error_plot("No data available.")
