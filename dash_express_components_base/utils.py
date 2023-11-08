@@ -425,6 +425,8 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
             # create nan cols if desired
             if "create_missing_cols" in configData and configData["create_missing_cols"]:
                 missing_cols = set(usedCols) - set(inputDataFrame.columns)
+                if isinstance(configData["create_missing_cols"], list):
+                    missing_cols = set(configData["create_missing_cols"]) - set(inputDataFrame.columns)
                 for col in missing_cols:
                     inputDataFrame[col] = _np.nan
             
