@@ -13,19 +13,25 @@ init_line_number = next(
 )
 
 # check if the next line contains the comment plotApiPatch
-if "plotApiPatch" in lines[init_line_number + 1]:
+if "with plotApiPatch" in lines[init_line_number - 2]:
     print("plotApiPatch already applied")
 else:
-    # Insert the patch after the __init__ function
-    lines.insert(
-        init_line_number + 1,"""        # plotApiPatch
-        if plotApi is Component.UNDEFINED or plotApi is None:
-            import os
-            dash_url_base_pathname = os.environ.get("DASH_URL_BASE_PATHNAME", "/")
-            dash_base_plot_api = os.environ.get("DASH_URL_BASE_PATHNAME", "plotApi")
-            plotApi = dash_url_base_pathname + dash_base_plot_api
+
+    # Replace the line containing __init__ with the patched version
+    lines[init_line_number] = lines[init_line_number].replace("plotApi=Component.UNDEFINED", "plotApi=defaultPlotApi")
+
+    # Insert the patch coment before the __init__ function
+    lines.insert(init_line_number - 2,"""        # with plotApiPatch""")
+
+    lines.insert(4,"""
+import os
+dash_url_base_pathname = os.environ.get("DASH_URL_BASE_PATHNAME", "/")
+dash_base_plot_api = os.environ.get("DASH_URL_BASE_PATHNAME", "plotApi")
+defaultPlotApi = dash_url_base_pathname + dash_base_plot_api
 """,
     )
+
+
 
     # Write the new contents to the file
     with open(python_file_path, 'w') as file:
