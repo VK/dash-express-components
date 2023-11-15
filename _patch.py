@@ -17,9 +17,6 @@ if "with plotApiPatch" in lines[init_line_number - 2]:
     print("plotApiPatch already applied")
 else:
 
-    # Replace the line containing __init__ with the patched version
-    lines[init_line_number] = lines[init_line_number].replace("plotApi=Component.UNDEFINED", "plotApi=defaultPlotApi")
-
     # Insert the patch coment before the __init__ function
     lines.insert(init_line_number - 2,"""        # with plotApiPatch
 """)
@@ -31,6 +28,11 @@ dash_base_plot_api = os.environ.get("DASH_URL_BASE_PATHNAME", "plotApi")
 defaultPlotApi = dash_url_base_pathname + dash_base_plot_api
 """,
     )
+
+    lines.append("""
+        if not hasattr(self, "plotApi"):
+            setattr(self, "plotApi", defaultPlotApi)
+                 """)
 
 
 
