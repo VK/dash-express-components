@@ -24,7 +24,7 @@ else:
     lines.insert(4,"""
 import os
 dash_url_base_pathname = os.environ.get("DASH_URL_BASE_PATHNAME", "/")
-dash_base_plot_api = os.environ.get("DASH_URL_BASE_PATHNAME", "plotApi")
+dash_base_plot_api = os.environ.get("DASH_EXPRESS_PLOTAPI", "plotApi")
 defaultPlotApi = dash_url_base_pathname + dash_base_plot_api
 """,
     )
