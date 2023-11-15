@@ -21,7 +21,8 @@ else:
     lines[init_line_number] = lines[init_line_number].replace("plotApi=Component.UNDEFINED", "plotApi=defaultPlotApi")
 
     # Insert the patch coment before the __init__ function
-    lines.insert(init_line_number - 2,"""        # with plotApiPatch""")
+    lines.insert(init_line_number - 2,"""        # with plotApiPatch
+""")
 
     lines.insert(4,"""
 import os
