@@ -508,7 +508,7 @@ Graph.defaultProps = {
     },
     style: null,
     saveClick: false,
-    editButton: false,
+    editButton: true,
     className: ""
 };
 
