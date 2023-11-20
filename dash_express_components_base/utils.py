@@ -8,7 +8,7 @@ from . import plottypes
 from . import transformationtypes
 
 
-def get_error_plot(text):
+def get_error_plot(text, meta):
     import plotly.graph_objects as _go
 
     fig = _go.Figure()
@@ -27,6 +27,9 @@ def get_error_plot(text):
     fig.update_layout(
         template="plotly_white"
     )
+    fig = fig.to_dict()
+    if meta:
+        fig.update({"meta": meta})
 
     return fig
 
@@ -289,7 +292,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
 
             # don't try to hard if we have no params
             if not "params" in plotConfigData:
-                return get_error_plot(errorResult)
+                return get_error_plot(errorResult, meta=meta)
 
             # also json parse the nested params, if needed
             if isinstance(plotConfigData["params"], str):
@@ -298,7 +301,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
 
             # don't try too hard, if there is no plot axis
             if not("x" in plotConfigData["params"] or "y" in plotConfigData["params"] or "dimensions" in plotConfigData["params"]):
-                return get_error_plot(errorResult)
+                return get_error_plot(errorResult, meta=meta)
 
             # apply filters if required
             if "filter" in configData:
@@ -417,7 +420,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
                         errorResult = "Error: " + str(err)
                 
                 if todo:
-                    return get_error_plot(errorResult)
+                    return get_error_plot(errorResult, meta=meta)
             else:
                 inputDataFrame = inputDataFrame[[
                     c for c in usedCols if c in inputDataFrame.columns]].copy()
@@ -432,7 +435,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
             
             # check if some data is left
             if "skip_data_check" not in configData and (len(inputDataFrame) == 0 or _np.sum(inputDataFrame.isna().all()) > 0):
-                return get_error_plot("No data available.")
+                return get_error_plot("No data available.", meta=meta)
 
             # apply data transformaitons if required
             if "transform" in configData:
@@ -659,4 +662,4 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
     except Exception as inst:
         errorResult = "Error: " + str(inst)
 
-    return get_error_plot(errorResult)
+    return get_error_plot(errorResult, meta=meta)
