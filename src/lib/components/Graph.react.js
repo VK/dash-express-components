@@ -161,65 +161,88 @@ class Graph extends Component {
     }
 
     update_figure_from_defParams(input_params, initial = true) {
-
         let defParams = JSON.parse(JSON.stringify(input_params));
-
+    
         if (!initial) {
-            this.setState({ defParams: defParams })
-        };
-
-        this.setState({ is_loading: true });
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", this.props.plotApi, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-
-        let send_data = JSON.parse(JSON.stringify(defParams));
-        if (["auto", "png"].includes(send_data["plot"]["params"]["render"])) {
-            if (send_data["plot"]["params"]["render_size"] === undefined) {
-                try {
-                    send_data["plot"]["params"]["render_size"] = [this.graphDiv.clientWidth, this.graphDiv.clientHeight]
-                } catch (e) { }
-            }
+            this.setState({ defParams: defParams });
         }
-
-        xhr.send(JSON.stringify(send_data));
-
-        let that = this;
-
-        xhr.onreadystatechange = function () {
-
-            if (xhr.status == 200) {
+    
+        this.setState({ is_loading: true });
+    
+        const handleResponse = (xhr) => {
+            if (xhr.status === 200) {
                 if (xhr.responseText !== "") {
                     try {
                         var data = JSON.parse(xhr.responseText);
-
-                        // since my plotApi uses a timestamp array structure :)
+    
+                        // Handling the response data accordingly
                         if ("plots" in data) {
                             data = data.plots;
                             if (Array.isArray(data)) {
                                 data = data[0];
                             }
                         }
-
+    
                         if ("meta" in data) {
                             const { meta, ...figdata } = data;
-                            that.setState({ internalFigure: figdata, meta: data.meta });
+                            this.setState({ internalFigure: figdata, meta: data.meta });
                         } else {
-                            that.setState({ internalFigure: data });
+                            this.setState({ internalFigure: data });
                         }
-
-
                     } catch (e) {
                         console.log(e);
                     }
-                    that.setState({ is_loading: false });
+                    this.setState({ is_loading: false });
                 }
+            } else if (xhr.status === 202) {
+                // Retry the request if status is 202 (Accepted)
+                setTimeout(() => {
+                    sendRequest(defParams);
+                }, 1000); // Adjust the retry interval as needed
             } else {
-                that.setState({ is_loading: false });
+                this.setState({ is_loading: false });
             }
         };
-
+    
+        const handleTimeout = () => {
+            // Handle timeout situations if needed
+            this.setState({ is_loading: false });
+        };
+    
+        const handleLongCallback = (xhr) => {
+            if (this.props.longCallback) {
+                xhr.setRequestHeader('X-Longcallback', 'true');
+            }
+        };
+    
+        const sendRequest = (send_data) => {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", this.props.plotApi, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+    
+            handleLongCallback(xhr);
+    
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    handleResponse(xhr);
+                }
+            };
+    
+            xhr.ontimeout = handleTimeout;
+    
+            xhr.send(JSON.stringify(send_data));
+        };
+    
+        let send_data = JSON.parse(JSON.stringify(defParams));
+        if (["auto", "png"].includes(send_data["plot"]["params"]["render"])) {
+            if (send_data["plot"]["params"]["render_size"] === undefined) {
+                try {
+                    send_data["plot"]["params"]["render_size"] = [this.graphDiv.clientWidth, this.graphDiv.clientHeight];
+                } catch (e) {}
+            }
+        }
+    
+        sendRequest(send_data);
     }
 
     /**
@@ -487,6 +510,11 @@ Graph.propTypes = {
     saveClick: PropTypes.bool,
 
     /**
+     * enable/disable long callbacks
+     */
+        longCallback: PropTypes.bool,
+
+    /**
      * enable/disable edit button
      */
     editButton: PropTypes.bool,    
@@ -509,6 +537,7 @@ Graph.defaultProps = {
     style: null,
     saveClick: false,
     editButton: true,
+    longCallback: false,
     className: ""
 };
 

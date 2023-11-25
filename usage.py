@@ -141,7 +141,8 @@ app.layout = html.Div([
                    #meta=dataframe_meta[initial_option],
                    plotApi="plotApi",
                    style={"height": "100%", "width": "100%"},
-                   editButton=True
+                   editButton=True,
+                   longCallback=True
                    )],
 
         style={"width": "calc(100% - 500px)", "height": "calc(100vh - 30px)",
@@ -189,6 +190,11 @@ def update_meta(dataframeType):
 
 @app.server.route("/plotApi", methods=['POST', 'GET'])
 def plotApi():
+    # for testing only resonse every 5th request
+    if np.random.randint(5) != 0:
+        # return a 202 to simulate a long running task
+        return {}, 202
+    
     config = request.get_json()
     if request.method == 'POST':
 
@@ -202,7 +208,7 @@ def plotApi():
             dataframe_type = config["dataframe_type"]
         fig = dxc.get_plot(dataframe[dataframe_type], config)
         return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return {}
+    return {}, 200
 
 # @app.callback(
 #     Output('fig', 'figure'),   Input('fig', 'defParams'), Input('dataframe-type', 'value')
