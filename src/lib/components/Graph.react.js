@@ -214,6 +214,22 @@ class Graph extends Component {
                 xhr.setRequestHeader('X-Longcallback', 'true');
             }
         };
+
+        const sortedObject = (obj) => {
+            if (typeof obj !== "object" || obj === null) return obj;
+
+            if (Array.isArray(obj)) return obj.map(sortedObject);
+
+            const ordered = {};
+            Object.keys(obj).sort().forEach(function (key) {
+                ordered[key] = sortedObject(obj[key]);
+            });
+            return ordered;
+        }
+
+        const sortedStringify = (obj) => {
+            return JSON.stringify(sortedObject(obj));
+        }
     
         const sendRequest = (send_data) => {
             var xhr = new XMLHttpRequest();
@@ -229,8 +245,8 @@ class Graph extends Component {
             };
     
             xhr.ontimeout = handleTimeout;
-    
-            xhr.send(JSON.stringify(send_data));
+
+            xhr.send(sortedStringify(send_data));
         };
     
         let send_data = JSON.parse(JSON.stringify(defParams));
