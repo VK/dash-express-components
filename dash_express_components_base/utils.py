@@ -98,7 +98,8 @@ def get_meta_dask(df, large_threshold=1000):
     """
 
     def parse(key, val):
-        if val == dtype('O'):
+        
+        if val == dtype('O') or val == 'string':
 
             cat = df[key].unique()
             if len(cat) > large_threshold:
@@ -121,7 +122,7 @@ def get_meta_dask(df, large_threshold=1000):
                 "type": "temporal",
                 "min": df[key].min(),
                 "max": df[key].max(),
-                "median": df[key].mean()
+                "median": df[key].max()
             }
         else:
             return {
@@ -142,9 +143,11 @@ def get_meta_dask(df, large_threshold=1000):
 
     # transform the variables to simple python (json dump needed)
     for k, v in res.items():
-        if "cat" in v:
+        if "cat" in v and not isinstance(v["cat"], list):
             v["cat"] = v["cat"].tolist()
         for ik in ["min", "max", "median"]:
+            if v["type"] == "temporal":
+                continue
             if ik in v:
                 v[ik] = float(v[ik])
 
