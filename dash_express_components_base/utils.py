@@ -269,6 +269,8 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
     import numpy as _np
     import plotly.express as _px
     import plotly.graph_objects as _go
+    from . import plottypes
+    from . import transformationtypes
 
     if meta == "compute":
         meta = get_meta_if_possible(inputDataFrame)

@@ -207,7 +207,11 @@ class Filter extends Base {
 
                                         update_state["selectedCategories"] = config[id].value;
 
-                                        update_state["manualCategories"] = config[id].value.join("\n");
+                                        if (Array.isArray(config[id].value)) {
+                                            update_state["manualCategories"] = config[id].value.join("\n");
+                                        } else if (typeof config[id].value === 'string') {
+                                            update_state["manualCategories"] = config[id].value;
+                                        }
 
                                         if ("large" in meta[config[id].col] && meta[config[id].col].large) {
 
