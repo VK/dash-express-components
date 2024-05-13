@@ -1,6 +1,6 @@
 {
   "name": "dash_express_components",
-  "version": "0.0.94",
+  "version": "0.0.95",
   "description": "Simple widgets to add plotly express style plotting to dash",
   "main": "build/index.js",
   "scripts": {
