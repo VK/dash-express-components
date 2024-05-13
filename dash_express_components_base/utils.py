@@ -4,8 +4,6 @@ from datetime import datetime, timedelta
 import base64 as _base64
 import json as _json
 
-from . import plottypes
-from . import transformationtypes
 
 
 def get_error_plot(text, meta):
