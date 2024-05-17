@@ -7,6 +7,8 @@ import json
 
 import dash as _dash
 from dash import dash_table
+from . import plottypes
+from . import transformationtypes
 
 # noinspection PyUnresolvedReferences
 from ._imports_ import *
