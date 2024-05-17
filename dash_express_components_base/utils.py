@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 import base64 as _base64
 import json as _json
 
+from . import plottypes
+from . import transformationtypes
 
 
 def get_error_plot(text, meta):
@@ -267,8 +269,6 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
     import numpy as _np
     import plotly.express as _px
     import plotly.graph_objects as _go
-    from . import plottypes
-    from . import transformationtypes
 
     if meta == "compute":
         meta = get_meta_if_possible(inputDataFrame)
