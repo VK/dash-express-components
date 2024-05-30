@@ -8,6 +8,7 @@ import Graph from './components/Graph.react';
 import MetaCheck from './components/MetaCheck.react';
 import Localstore from './components/Localstore.react';
 import ConfigReceiver from './components/ConfigReceiver.react';
+import RequestStore from './components/RequestStore.react';
 
 export {
     Configurator,
@@ -18,5 +19,6 @@ export {
     Graph,
     MetaCheck,
     Localstore,
-    ConfigReceiver
+    ConfigReceiver,
+    RequestStore
 };
