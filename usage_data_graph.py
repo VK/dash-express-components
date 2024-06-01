@@ -22,17 +22,21 @@ app.layout = html.Div([
     
     dxc.DataGraph(
         id="graph",
-        data=data,
-        defParams={}
+        data=data
     ),
 
-    
+    html.Pre([html.Code(id='output')]),
 
     
-
 ], className="w-100 h-100")
 
 
+@app.callback(
+    Output('output', 'children'),
+    Input('graph', 'defParams'),
+)
+def update_plot_config(newConfig):
+    return json.dumps(newConfig, indent=2)
 
 
 
