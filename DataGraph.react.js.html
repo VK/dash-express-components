@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="7554742" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="2304084" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -113,7 +113,6 @@
 import PropTypes from 'prop-types';
 import Graph from './Graph.react';
 import { none } from 'ramda';
-
 
 class DataGraph extends Component {
     constructor(props) {
@@ -270,159 +269,212 @@ class DataGraph extends Component {
         if (!defParams || !defParams.plot || !defParams.plot.params) {
             return { data: [], layout: {} };
         }
-    
+
         const { type, params } = defParams.plot;
         const figure = { data: [], layout: {} };
-    
-        if (type === 'scatter') {
-            const {
-                x, y, color, symbol, size, facet_col, facet_row, facet_col_wrap,
-                log_x, log_y, reversed_x, reversed_y, cat_x, cat_y, range_x, range_y,
-                indep_x, indep_y
-            } = params;
-    
-            // Helper function to create scatter traces
-            const createScatterTrace = (group, name, xaxis = 'x', yaxis = 'y') => {
-                const scatterPlot = {
-                    x: group.data[x],
-                    y: group.data[y],
-                    mode: 'markers',
-                    type: 'scatter',
-                    name,
-                    xaxis,
-                    yaxis
-                };
-    
-                if (color) {
-                    if (this.isNumerical(data[color])) {
-                        scatterPlot.marker = { color: group.data[color] };
-                    } else {
-                        scatterPlot.marker = { color: group.name };
-                    }
-                }
-            
-                if (symbol) scatterPlot.marker = { ...scatterPlot.marker, symbol: group.data.symbol };
-                if (size) scatterPlot.marker = { ...scatterPlot.marker, size: group.data.size };
-                if (cat_x) scatterPlot.x = group.data[cat_x];
-                if (cat_y) scatterPlot.y = group.data[cat_y];
-            
-                return scatterPlot;
+
+        const {
+            x, y, color, symbol, facet_col, facet_row, facet_col_wrap,
+            log_x, log_y, reversed_x, reversed_y, range_x, range_y,
+            indep_x, indep_y, cat_x, cat_y, scatter_mode
+        } = params;
+
+        const createTrace = (group, name, xaxis = 'x', yaxis = 'y') => {
+            const trace = {
+                x: group.data[x],
+                y: group.data[y],
+                mode: (scatter_mode) ? scatter_mode : 'markers',
+                type,
+                name,
+                xaxis,
+                yaxis
             };
-    
-            // Handle faceting
-            if (facet_col || facet_row) {
-                const groupedData = this.groupData(data, { color, facet_col, facet_row });
-                const rowValues = facet_row ? [...new Set(data[facet_row])] : [null];
-                const colValues = facet_col ? [...new Set(data[facet_col])] : [null];
-                let num_of_rows = rowValues.length;
-                let num_of_cols = colValues.length;
-    
-                // Handle facet_col_wrap
-                if (facet_col_wrap &amp;&amp; !facet_row) {
-                    num_of_rows = Math.ceil(num_of_cols / facet_col_wrap);
-                    num_of_cols = Math.min(num_of_cols, facet_col_wrap);
+
+            if (color) {
+                if (this.isNumerical(data[color])) {
+                    trace.marker = { color: group.data[color] };
+                } else {
+                    trace.marker = { color: group.colorName };
                 }
-    
-                // Initialize grid layout
-                figure.layout.grid = {
-                    rows: num_of_rows,
-                    columns: num_of_cols,
-                    subplots: [],
-                    roworder: 'bottom to top',
-                    pattern: (indep_x || indep_y) ? 'independent' : none
-                };
-    
-                let traceIndex = 0;
-    
-                rowValues.forEach((rowVal, rowIndex) => {
-                    for (let colIndex = 0; colIndex &lt; colValues.length; colIndex++) {
-                        const currentRowIndex = Math.floor(traceIndex / num_of_cols);
-                        const currentColIndex = traceIndex % num_of_cols;
-                        const colVal = colValues[colIndex];
-    
-                        const group = groupedData.find(g => (
-                            (!rowVal || g.row === rowVal) &amp;&amp;
-                            (!colVal || g.col === colVal)
-                        )) || { data: { [x]: [], [y]: [] }, name: `${rowVal}-${colVal}` };
-    
-                        const trace = createScatterTrace(
-                            group,
-                            group.colorName,  // Use the color group name
-                            `x${currentColIndex + 1 === 1 ? '' : currentColIndex + 1}`,
-                            `y${currentRowIndex + 1 === 1 ? '' : currentRowIndex + 1}`
-                        );
-                        figure.data.push(trace);
-                        if (!figure.layout.grid.subplots[currentRowIndex]) {
-                            figure.layout.grid.subplots[currentRowIndex] = [];
-                        }
-                        figure.layout.grid.subplots[currentRowIndex][currentColIndex] = `${trace.xaxis}${trace.yaxis}`;
-                        traceIndex++;
-                    }
-                });
-            } else {
-                const groupedData = this.groupData(data, { color });
-                groupedData.forEach(group => {
-                    const trace = createScatterTrace(group, group.colorName);  // Use the color group name
-                    figure.data.push(trace);
-                });
             }
-    
-            if (log_x) figure.layout.xaxis = { type: 'log' };
-            if (log_y) figure.layout.yaxis = { type: 'log' };
-            if (reversed_x) figure.layout.xaxis = { ...figure.layout.xaxis, autorange: 'reversed' };
-            if (reversed_y) figure.layout.yaxis = { ...figure.layout.yaxis, autorange: 'reversed' };
-            if (range_x) figure.layout.xaxis = { ...figure.layout.xaxis, range: range_x };
-            if (range_y) figure.layout.yaxis = { ...figure.layout.yaxis, range: range_y };
+
+            if (symbol &amp;&amp; type === 'scatter') trace.marker = { ...trace.marker, symbol: group.data[symbol] };
+            if (cat_x) trace.x = group.data[cat_x];
+            if (cat_y) trace.y = group.data[cat_y];
+
+            return trace;
+        };
+
+        const getCategoryList = (data, category) => {
+            return [...new Set(data[category])].sort();
+        };
+
+        const rowCategories = facet_row ? getCategoryList(data, facet_row) : [null];
+        const colCategories = facet_col ? getCategoryList(data, facet_col) : [null];
+        let num_of_rows = rowCategories.length;
+        let num_of_cols = colCategories.length;
+
+        if (facet_col_wrap &amp;&amp; !facet_row) {
+            num_of_rows = Math.ceil(num_of_cols / facet_col_wrap);
+            num_of_cols = Math.min(num_of_cols, facet_col_wrap);
         }
-    
+
+        const assignIndex = (category, value, categories) => {
+            return categories.indexOf(value) + 1;
+        };
+
+        const groupedData = this.groupData(data, { color, facet_col, facet_row });
+        figure.layout.grid = {
+            rows: num_of_rows,
+            columns: num_of_cols,
+            subplots: [],
+            roworder: 'bottom to top',
+            pattern: (indep_x || indep_y) ? 'independent' : none
+        };
+
+        rowCategories.forEach((rowVal) => {
+            colCategories.forEach((colVal) => {
+                let currentRowIndex = assignIndex(facet_row, rowVal, rowCategories);
+                let currentColIndex = assignIndex(facet_col, colVal, colCategories);
+
+                if (facet_col_wrap &amp;&amp; !facet_row) {
+                    currentRowIndex = Math.floor(currentColIndex / facet_col_wrap);
+                    currentColIndex = currentColIndex % facet_col_wrap;
+                }
+
+                const matchingGroups = groupedData.filter(g => (
+                    (!rowVal || g.row === rowVal) &amp;&amp;
+                    (!colVal || g.col === colVal)
+                ));
+
+                matchingGroups.forEach((gr) => {
+
+                    const trace = createTrace(
+                        gr,
+                        gr.name,
+                        `x${currentColIndex === 1 ? '' : currentColIndex}`,
+                        `y${currentRowIndex === 1 ? '' : currentRowIndex}`
+                    );
+
+                    figure.data.push(trace);
+
+                    if (!figure.layout.grid.subplots[currentRowIndex - 1]) {
+                        figure.layout.grid.subplots[currentRowIndex - 1] = [];
+                    }
+
+                    figure.layout.grid.subplots[currentRowIndex - 1][currentColIndex - 1] = `${trace.xaxis}${trace.yaxis}`;
+                });
+            });
+        });
+
+        if (log_x) figure.layout.xaxis = { type: 'log' };
+        if (log_y) figure.layout.yaxis = { type: 'log' };
+        if (reversed_x) figure.layout.xaxis = { ...figure.layout.xaxis, autorange: 'reversed' };
+        if (reversed_y) figure.layout.yaxis = { ...figure.layout.yaxis, autorange: 'reversed' };
+        if (range_x) figure.layout.xaxis = { ...figure.layout.xaxis, range: range_x };
+        if (range_y) figure.layout.yaxis = { ...figure.layout.yaxis, range: range_y };
+
+        if (type === 'imshow') {
+            const groupedData = this.groupData(data, { facet_col, facet_row });
+            figure.layout.grid = {
+                rows: num_of_rows,
+                columns: num_of_cols,
+                subplots: [],
+                roworder: 'bottom to top',
+                pattern: (indep_x || indep_y) ? 'independent' : none
+            };
+
+            rowCategories.forEach((rowVal) => {
+                colCategories.forEach((colVal) => {
+                    let currentRowIndex = assignIndex(facet_row, rowVal, rowCategories);
+                    let currentColIndex = assignIndex(facet_col, colVal, colCategories);
+
+                    if (facet_col_wrap &amp;&amp; !facet_row) {
+                        currentRowIndex = Math.floor(currentColIndex / facet_col_wrap);
+                        currentColIndex = currentColIndex % facet_col_wrap;
+                    }
+
+                    const matchingGroups = groupedData.filter(g => (
+                        (!rowVal || g.row === rowVal) &amp;&amp;
+                        (!colVal || g.col === colVal)
+                    ));
+
+                    matchingGroups.forEach((gr) => {
+
+                        const trace = {
+                            z: gr.data[params.value],
+                            x: gr.data[x],
+                            y: gr.data[y],
+                            type: 'heatmap',
+                            name: gr.name,
+                            xaxis: `x${currentColIndex === 1 ? '' : currentColIndex}`,
+                            yaxis: `y${currentRowIndex === 1 ? '' : currentRowIndex}`
+                        };
+
+                        figure.data.push(trace);
+
+                        if (!figure.layout.grid.subplots[currentRowIndex - 1]) {
+                            figure.layout.grid.subplots[currentRowIndex - 1] = [];
+                        }
+
+                        figure.layout.grid.subplots[currentRowIndex - 1][currentColIndex - 1] = `${trace.xaxis}${trace.yaxis}`;
+                    });
+                });
+            });
+        }
+
         if (type === 'table') {
             return data;
         }
-        // Add more plot types and logic as needed
-    
+
         return figure;
     }
-    
+
     groupData(data, params) {
-        const { color, facet_col, facet_row } = params;
-        const groupByCols = [color, facet_col, facet_row].filter(Boolean);
-    
+        var { color, symbol, facet_col, facet_row } = params;
+        if (color &amp;&amp; this.isNumerical(data[color])) {
+            color = null;
+        }
+        const groupByCols = [color, symbol, facet_col, facet_row].filter(Boolean);
+
         if (groupByCols.length === 0) {
             return [{ data, name: 'default', colorName: null }];
         }
-    
+
         const groupedData = {};
         const groupKeys = {};
-    
+
         data[Object.keys(data)[0]].forEach((_, idx) => {
             const groupKey = groupByCols.map(col => data[col][idx]).join('-');
-    
+
             if (!groupedData[groupKey]) {
                 groupedData[groupKey] = {};
                 Object.keys(data).forEach(k => groupedData[groupKey][k] = []);
             }
-    
+
             Object.keys(data).forEach(k => groupedData[groupKey][k].push(data[k][idx]));
-    
+
             if (!groupKeys[groupKey]) {
                 groupKeys[groupKey] = {
                     name: groupKey,
                     colorName: color ? data[color][idx] : null,
+                    symbol: symbol ? data[symbol][idx] : null,
                     row: facet_row ? data[facet_row][idx] : null,
                     col: facet_col ? data[facet_col][idx] : null
                 };
             }
         });
-    
+
         return Object.keys(groupedData).map(key => ({
             data: groupedData[key],
             name: groupKeys[key].name,
             colorName: groupKeys[key].colorName,
+            symbol: groupKeys[key].symbol,
             col: groupKeys[key].col,
             row: groupKeys[key].row
         }));
     }
-    
+
     isNumerical(column) {
         return typeof column[0] === 'number';
     }
@@ -435,6 +487,8 @@ class DataGraph extends Component {
                 meta={this.state.meta}
                 figure={this.state.figure}
                 setProps={this.handleGraphSetProps}
+                showFilter={false}
+                showTransform={false}
             />
         );
     }
