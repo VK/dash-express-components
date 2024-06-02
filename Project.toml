@@ -2,7 +2,7 @@
 name = "DashExpressComponents"
 uuid = "1b08a953-4be3-4667-9a23-9144e43d9539"
 authors = ["Viktor Krückl <viktor@krueckl.de>"]
-version = "0.0.98"
+version = "0.0.99"
 
 [deps]
 Dash = "1b08a953-4be3-4667-9a23-3db579824955"

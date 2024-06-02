@@ -335,6 +335,8 @@ class Graph extends Component {
                         config={this.props.defParams}
                         meta={config_meta}
                         showUpdate={false}
+                        showFilter={this.props.showFilter}
+                        showTransform={this.props.showTransform}
                     />
                 </Modal.Body>
                 <Modal.Footer>
@@ -533,7 +535,27 @@ Graph.propTypes = {
     /**
      * enable/disable edit button
      */
-    editButton: PropTypes.bool,    
+    editButton: PropTypes.bool,   
+    
+
+    /**
+     * The current configuration of the plot.
+     * @type {Object}
+     */
+    currentConfig: PropTypes.any,
+
+
+    /**
+     * Prop to define the visibility of the Filter panel
+     * @type {boolean}
+     */
+    showFilter: PropTypes.bool,
+
+    /**
+     * Prop to define the visibility of the Transform panel
+     * @type {boolean}
+     */
+    showTransform: PropTypes.bool,
 
     /**
      * Function that updates the state tree.
@@ -554,6 +576,8 @@ Graph.defaultProps = {
     saveClick: false,
     editButton: true,
     longCallback: false,
+    showFilter: true,
+    showTransform: true,
     className: ""
 };
 
