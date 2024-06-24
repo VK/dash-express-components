@@ -340,10 +340,10 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
                     elif t == "isfalse":
                         inputDataFrame = inputDataFrame[~inputDataFrame[col]]
                     elif t == "after":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] > _pd.Timestamp(
+                        inputDataFrame = inputDataFrame[inputDataFrame[col] >= _pd.Timestamp(
                             el["value"]).to_datetime64()]
                     elif t == "before":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] < _pd.Timestamp(
+                        inputDataFrame = inputDataFrame[inputDataFrame[col] <= _pd.Timestamp(
                             el["value"]).to_datetime64()]
                     elif t == "lastn":
                         starttime = datetime.now() - \
