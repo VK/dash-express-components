@@ -98,7 +98,7 @@ class Graph extends Component {
 
     isGraph() {
         try {
-            if ("plotApi" in this.props) {
+            if ("plotApi" in this.props && this.props.plotApi !== "") {
                 return ("internalFigure" in this.state && "data" in this.state.internalFigure)
             } else {
                 return ("data" in this.props.figure)
@@ -154,7 +154,7 @@ class Graph extends Component {
 
     usePlotApi() {
         try {
-            return "plotApi" in this.props;
+            return "plotApi" in this.props && this.props.plotApi !== "";
         } catch (e) {
             return false;
         }
@@ -162,19 +162,19 @@ class Graph extends Component {
 
     update_figure_from_defParams(input_params, initial = true) {
         let defParams = JSON.parse(JSON.stringify(input_params));
-    
+
         if (!initial) {
             this.setState({ defParams: defParams });
         }
-    
+
         this.setState({ is_loading: true });
-    
+
         const handleResponse = (xhr) => {
             if (xhr.status === 200) {
                 if (xhr.responseText !== "") {
                     try {
                         var data = JSON.parse(xhr.responseText);
-    
+
                         // Handling the response data accordingly
                         if ("plots" in data) {
                             data = data.plots;
@@ -182,7 +182,7 @@ class Graph extends Component {
                                 data = data[0];
                             }
                         }
-    
+
                         if ("meta" in data) {
                             const { meta, ...figdata } = data;
                             this.setState({ internalFigure: figdata, meta: data.meta });
@@ -203,12 +203,12 @@ class Graph extends Component {
                 this.setState({ is_loading: false });
             }
         };
-    
+
         const handleTimeout = () => {
             // Handle timeout situations if needed
             this.setState({ is_loading: false });
         };
-    
+
         const handleLongCallback = (xhr) => {
             if (this.props.longCallback) {
                 xhr.setRequestHeader('X-Longcallback', 'true');
@@ -230,34 +230,34 @@ class Graph extends Component {
         const sortedStringify = (obj) => {
             return JSON.stringify(sortedObject(obj));
         }
-    
+
         const sendRequest = (send_data) => {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", this.props.plotApi, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
-    
+
             handleLongCallback(xhr);
-    
+
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     handleResponse(xhr);
                 }
             };
-    
+
             xhr.ontimeout = handleTimeout;
 
             xhr.send(sortedStringify(send_data));
         };
-    
+
         let send_data = JSON.parse(JSON.stringify(defParams));
         if (["auto", "png"].includes(send_data["plot"]["params"]["render"])) {
             if (send_data["plot"]["params"]["render_size"] === undefined) {
                 try {
                     send_data["plot"]["params"]["render_size"] = [this.graphDiv.clientWidth, this.graphDiv.clientHeight];
-                } catch (e) {}
+                } catch (e) { }
             }
         }
-    
+
         sendRequest(send_data);
     }
 
@@ -276,6 +276,18 @@ class Graph extends Component {
                 }
 
             }
+        }
+
+        if (newProps.figure !== this.state.internalFigure) {
+
+            // remove meta from figure
+            if (newProps.figure && newProps.figure.meta) {
+                let { meta, ...figure } = newProps.figure;
+                this.setState({ figure: figure });
+            } else {
+                this.setState({ figure: newProps.figure });
+            }
+
         }
 
     }
@@ -530,13 +542,13 @@ Graph.propTypes = {
     /**
      * enable/disable long callbacks
      */
-        longCallback: PropTypes.bool,
+    longCallback: PropTypes.bool,
 
     /**
      * enable/disable edit button
      */
-    editButton: PropTypes.bool,   
-    
+    editButton: PropTypes.bool,
+
 
     /**
      * The current configuration of the plot.
@@ -578,7 +590,8 @@ Graph.defaultProps = {
     longCallback: false,
     showFilter: true,
     showTransform: true,
-    className: ""
+    className: "",
+    plotApi: "",
 };
 
 

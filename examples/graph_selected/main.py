@@ -1,9 +1,13 @@
+import os
+os.environ["DASH_EXPRESS_PLOTAPI"] = ""
+
 import dash
 from dash import html, Input, Output
 import dash_express_components as dxc
 import plotly.express as px
 from dash.exceptions import PreventUpdate
 import json
+
 
 df = px.data.gapminder()
 
@@ -108,7 +112,7 @@ for id in ["plot", "table"]:
     )
     def update_fig(config):
         try:
-            fig = dxc.get_plot(df, config)
+            fig = dxc.get_plot(df, config, meta=False)
             if fig:
                 return fig
             raise PreventUpdate
