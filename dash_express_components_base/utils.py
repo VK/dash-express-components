@@ -263,6 +263,87 @@ def get_meta_if_possible(df, compute_types=["custom", "dask", "mongodf", "pyspar
 
     return meta
 
+
+
+def apply_filters(inputDataFrame, config):
+    """
+    apply all filters to a dataframe
+    """
+    import pandas as _pd
+
+    # apply filters if required
+    if isinstance(config, dict) and "filter" in config:
+        filter_config = config["filter"]
+
+    if isinstance(filter_config, list):
+        filter_config = filter_config
+
+    for el in filter_config:
+        col = el["col"]
+        t = el["type"]
+        if t == "isin":
+            inputDataFrame = inputDataFrame[inputDataFrame[col].isin(
+                el["value"])]
+        elif t == "isnotin":
+            inputDataFrame = inputDataFrame[~inputDataFrame[col].isin(
+                el["value"])]
+        elif t == "gt":
+            inputDataFrame = inputDataFrame[inputDataFrame[col]
+                                            > el["value"]]
+        elif t == "gte":
+            inputDataFrame = inputDataFrame[inputDataFrame[col]
+                                            >= el["value"]]
+        elif t == "lt":
+            inputDataFrame = inputDataFrame[inputDataFrame[col]
+                                            < el["value"]]
+        elif t == "lte":
+            inputDataFrame = inputDataFrame[inputDataFrame[col]
+                                            <= el["value"]]
+        elif t == "eq":
+            inputDataFrame = inputDataFrame[inputDataFrame[col]
+                                            == el["value"]]
+        elif t == "neq":
+            inputDataFrame = inputDataFrame[inputDataFrame[col]
+                                            != el["value"]]
+        elif t == "istrue":
+            inputDataFrame = inputDataFrame[inputDataFrame[col]]
+        elif t == "isfalse":
+            inputDataFrame = inputDataFrame[~inputDataFrame[col]]
+        elif t == "after":
+            inputDataFrame = inputDataFrame[inputDataFrame[col] >= _pd.Timestamp(
+                el["value"]).to_datetime64()]
+        elif t == "before":
+            inputDataFrame = inputDataFrame[inputDataFrame[col] <= _pd.Timestamp(
+                el["value"]).to_datetime64()]
+        elif t == "lastn":
+            starttime = datetime.now() - \
+                timedelta(days=abs(el["value"]))
+            inputDataFrame = inputDataFrame[inputDataFrame[col] > starttime] 
+
+
+    return inputDataFrame
+
+
+
+def apply_transforms(inputDataFrame, config):
+    """
+    apply all transformations to a dataframe
+    """
+
+    if isinstance(config, dict) and "transform" in config:
+        transform_config = config["transform"]
+
+    if isinstance(transform_config, list):
+        transform_config = transform_config
+
+    for el in transform_config:
+        inputDataFrame = getattr(
+            transformationtypes, el["type"]).compute(el, inputDataFrame)
+        
+    return inputDataFrame
+
+
+
 def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=["custom", "dask", "mongodf", "pyspark"], meta="compute"):
     errorResult = "Empty plot"
     import pandas as _pd
@@ -308,47 +389,8 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
 
             # apply filters if required
             if "filter" in configData:
-                for el in configData["filter"]:
-                    col = el["col"]
-                    t = el["type"]
-                    if t == "isin":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col].isin(
-                            el["value"])]
-                    elif t == "isnotin":
-                        inputDataFrame = inputDataFrame[~inputDataFrame[col].isin(
-                            el["value"])]
-                    elif t == "gt":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col]
-                                                        > el["value"]]
-                    elif t == "gte":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col]
-                                                        >= el["value"]]
-                    elif t == "lt":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col]
-                                                        < el["value"]]
-                    elif t == "lte":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col]
-                                                        <= el["value"]]
-                    elif t == "eq":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col]
-                                                        == el["value"]]
-                    elif t == "neq":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col]
-                                                        != el["value"]]
-                    elif t == "istrue":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col]]
-                    elif t == "isfalse":
-                        inputDataFrame = inputDataFrame[~inputDataFrame[col]]
-                    elif t == "after":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] >= _pd.Timestamp(
-                            el["value"]).to_datetime64()]
-                    elif t == "before":
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] <= _pd.Timestamp(
-                            el["value"]).to_datetime64()]
-                    elif t == "lastn":
-                        starttime = datetime.now() - \
-                            timedelta(days=abs(el["value"]))
-                        inputDataFrame = inputDataFrame[inputDataFrame[col] > starttime]
+                inputDataFrame = apply_filters(inputDataFrame, configData)
+                
 
             # if dask mongodf or pandas:
 
@@ -442,9 +484,7 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
 
             # apply data transformaitons if required
             if "transform" in configData:
-                for el in configData["transform"]:
-                    inputDataFrame = getattr(
-                        transformationtypes, el["type"]).compute(el, inputDataFrame)
+                inputDataFrame = apply_transforms(inputDataFrame, configData)
 
             # extract the render info from the params
             if "render" in plotConfigData["params"]:
