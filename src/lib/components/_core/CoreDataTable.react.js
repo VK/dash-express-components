@@ -30,6 +30,11 @@ export default class CoreDataTable extends Component {
 
     loadData(indata, inindex = undefined) {
 
+        // if indata is completely empty return emtpy data
+        if (Object.keys(indata).length === 0) {
+            return { data: [{"dummy": 1}], index: "dummy" };
+        }
+
         const keys = Object.keys(indata);
         let index = keys[0];
 
@@ -44,7 +49,6 @@ export default class CoreDataTable extends Component {
 
             return res;
         })
-
 
         return { data: data, index: index };
     }

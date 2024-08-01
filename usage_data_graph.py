@@ -13,32 +13,39 @@ from flask import request
 
 app = dash.Dash(
     external_stylesheets=[
-        "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"]
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    ]
 )
 
-data = px.data.gapminder().to_dict("list")
+data = px.data.gapminder()
 
-app.layout = html.Div([
-    
-    dxc.DataGraph(
-        id="graph",
-        data=data
-    ),
-
-    html.Pre([html.Code(id='output')]),
-
-    
-], className="w-100 h-100")
+app.layout = html.Div(
+    [
+        dxc.DataGraph(
+            id="graph",
+            data={}
+        ),
+        html.Pre([html.Code(id="output")]),
+    ],
+    className="w-100 h-100",
+    id="mainContainer",
+)
 
 
 @app.callback(
-    Output('output', 'children'),
-    Input('graph', 'defParams'),
+    Output("graph", "data"), Input("mainContainer", "style"), prevent_initial_call=False
+)
+def update_data(style):
+    return data.to_dict("list")
+
+
+@app.callback(
+    Output("output", "children"),
+    Input("graph", "defParams"),
 )
 def update_plot_config(newConfig):
     return json.dumps(newConfig, indent=2)
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run_server(debug=True, port=9999)

@@ -7,30 +7,45 @@ class DataGraph extends Component {
     constructor(props) {
         super(props);
 
-        const defParams = props.defParams || this.getDefaultDefParams(props.data);
+        const data = this.checkData(props.data);
+        const defParams = props.defParams || this.getDefaultDefParams(data);
+        
+
         this.state = {
-            data: props.data,
+            data: data,
             defParams,
-            meta: this.getMeta(props.data),
-            figure: this.getFigure(defParams, props.data),
+            meta: this.getMeta(data),
+            figure: this.getFigure(defParams, data),
         };
 
         this.handleGraphSetProps = this.handleGraphSetProps.bind(this);
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.defParams !== this.props.defParams || prevProps.data !== this.props.data) {
-            const defParams = this.props.defParams || this.getDefaultDefParams(this.props.data);
-            const meta = this.getMeta(this.props.data);
-            const figure = this.getFigure(defParams, this.props.data);
+    checkData(data) {
+        // if data is none ore empty create a dummy data element
+        if (!data || Object.keys(data).length === 0) {
+            return { no_data: [1, 2, 3] };
+        }
+        return data;
+    }
 
-            this.setState({ defParams, data: this.props.data, meta, figure });
+    UNSAFE_componentWillReceiveProps(newProps) {
+        if (newProps.defParams !== this.props.defParams || newProps.data !== this.props.data) {
+
+            const defParams = newProps.defParams || this.getDefaultDefParams(newProps.data);
+            const data = this.checkData(newProps.data);
+
+            const meta = this.getMeta(data);
+            const figure = this.getFigure(defParams, data);
+
+            this.setState({ defParams, data: data, meta: meta, figure: figure });
 
             if (this.props.setProps) {
-                this.props.setProps({ defParams, data: this.props.data, meta, figure });
+                this.props.setProps({ defParams, data: data, meta: meta, figure: figure });
             }
         }
     }
+
 
     handleGraphSetProps(updatedProps) {
         const defParams = updatedProps.defParams || this.state.defParams;
@@ -154,7 +169,6 @@ class DataGraph extends Component {
     }
 
     getFigure(defParams, data) {
-        console.log(defParams);
         if (!defParams || !defParams.plot || !defParams.plot.params) {
             return { data: [], layout: {} };
         }
@@ -370,6 +384,7 @@ class DataGraph extends Component {
 
     render() {
         return (
+
             <Graph
                 id={this.props.id}
                 defParams={this.state.defParams}
@@ -379,6 +394,7 @@ class DataGraph extends Component {
                 showFilter={false}
                 showTransform={false}
             />
+
         );
     }
 }
@@ -396,7 +412,7 @@ DataGraph.propTypes = {
 };
 
 DataGraph.defaultProps = {
-    data: {}
+    data: { "no_data": [1, 2, 3] },
 };
 
 /**

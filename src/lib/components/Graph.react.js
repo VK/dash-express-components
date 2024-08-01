@@ -290,6 +290,10 @@ class Graph extends Component {
 
         }
 
+        if (newProps.meta !== this.state.meta) {
+            this.setState({ meta: newProps.meta });
+        }
+
     }
 
     clearState(dataKey) {
