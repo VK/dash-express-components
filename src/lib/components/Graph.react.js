@@ -73,13 +73,29 @@ class Graph extends Component {
             filter_query: "",
             config_modal_open: false,
             defParams: props.defParams,
-            meta: props.meta,
+            hiddenColumns: props.hiddenColumns,
+            meta: this.filterMeta(props.meta),
             internalFigure: { data: [] }
         };
 
         this.clearState = this.clearState.bind(this);
         this.config_in_modal_ref = React.createRef();
         this.config_modal_id = guid();
+    }
+
+    filterMeta(meta) { 
+    // remove the hiddenColums from the meta
+        const hiddenColumns = (this.state && this.state.hiddenColumns) ? this.state.hiddenColumns : this.props.hiddenColumns;
+        
+        if (typeof meta === "object") {
+            for (let key in meta) {
+                if (hiddenColumns.includes(key)) {
+                    delete meta[key];
+                }
+            }
+        }
+        
+        return meta;
     }
 
     componentDidMount() {
@@ -185,7 +201,7 @@ class Graph extends Component {
 
                         if ("meta" in data) {
                             const { meta, ...figdata } = data;
-                            this.setState({ internalFigure: figdata, meta: data.meta });
+                            this.setState({ internalFigure: figdata, meta: this.filterMeta(data.meta) });
                         } else {
                             this.setState({ internalFigure: data });
                         }
@@ -291,7 +307,7 @@ class Graph extends Component {
         }
 
         if (newProps.meta !== this.state.meta) {
-            this.setState({ meta: newProps.meta });
+            this.setState({ meta: this.filterMeta(newProps.meta) });
         }
 
     }
@@ -418,16 +434,18 @@ class Graph extends Component {
             let columns = [];
 
             if (this.usePlotApi()) {
-                columns = Object.keys(this.state.internalFigure).map(k => { return { name: k, id: k } });
+                columns = Object.keys(this.state.internalFigure).map(k => { return { name: k, id: k, hideable:false } });
             } else {
-                columns = Object.keys(this.props.figure).map(k => { return { name: k, id: k } });
+                columns = Object.keys(this.props.figure).map(k => { return { name: k, id: k, hideable:false } });
             }
             if ("defParams" in this.props) {
                 try {
-                    columns = this.props.defParams.plot.params.dimensions.map(k => { return { name: k, id: k } })
+                    columns = this.props.defParams.plot.params.dimensions.map(k => { return { name: k, id: k, hideable:false } })
                 } catch { }
             }
 
+
+            const hiddenColumns = (this.state && this.state.hiddenColumns) ? this.state.hiddenColumns : this.props.hiddenColumns;
             let props = {
                 id: this.props.id,
                 className: this.props.className,
@@ -440,7 +458,8 @@ class Graph extends Component {
                 page_action: 'none',
                 fixed_rows: { headers: true, data: 0 },
                 style_table: { height: '300px', overflowY: 'auto' },
-                style_cell: { 'minWidth': '50px', fontSize: "14px" }
+                style_cell: { 'minWidth': '50px', fontSize: "14px" },
+                hidden_columns: hiddenColumns,
             }
 
             if (this.usePlotApi()) {
@@ -578,6 +597,12 @@ Graph.propTypes = {
      */
     setProps: PropTypes.func,
 
+
+    /**
+     * hidden column names (array of strings)
+     */
+    hiddenColumns: PropTypes.array,
+
 };
 
 
@@ -596,6 +621,7 @@ Graph.defaultProps = {
     showTransform: true,
     className: "",
     plotApi: "",
+    hiddenColumns: ["_id", "index"],
 };
 
 

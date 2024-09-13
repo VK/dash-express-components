@@ -1832,7 +1832,8 @@ const propTypes = {
      * local: window.localStorage, data is kept after the browser quit.
      * session: window.sessionStorage, data is cleared once the browser quit.
      */
-    persistence_type: PropTypes.oneOf(['local', 'session', 'memory'])
+    persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
+
 };
 
 CoreDataTable.persistenceTransforms = {

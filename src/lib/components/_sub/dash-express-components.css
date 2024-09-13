@@ -215,3 +215,8 @@ div[role="dialog"][aria-modal="true"]:nth-of-type(6) {
 .btn-edit:hover {
 	opacity: .75;
 }
+
+
+.dash-spreadsheet-menu {
+	height: 0;
+}
