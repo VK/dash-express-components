@@ -296,7 +296,7 @@ export default class CoreDataTable extends Component {
                     handleWidth={true}
                     refreshMode="debounce"
                     refreshOptions={{ trailing: true }}
-                    refreshRate={50}
+                    refreshRate={150}
                     onResize={(w, h) => this.tableResize(w, h)}
                 />
 
