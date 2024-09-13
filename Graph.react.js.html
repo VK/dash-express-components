@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="9100232" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="721341" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -184,13 +184,29 @@ class Graph extends Component {
             filter_query: "",
             config_modal_open: false,
             defParams: props.defParams,
-            meta: props.meta,
+            hiddenColumns: props.hiddenColumns,
+            meta: this.filterMeta(props.meta),
             internalFigure: { data: [] }
         };
 
         this.clearState = this.clearState.bind(this);
         this.config_in_modal_ref = React.createRef();
         this.config_modal_id = guid();
+    }
+
+    filterMeta(meta) { 
+    // remove the hiddenColums from the meta
+        const hiddenColumns = (this.state &amp;&amp; this.state.hiddenColumns) ? this.state.hiddenColumns : this.props.hiddenColumns;
+        
+        if (typeof meta === "object") {
+            for (let key in meta) {
+                if (hiddenColumns.includes(key)) {
+                    delete meta[key];
+                }
+            }
+        }
+        
+        return meta;
     }
 
     componentDidMount() {
@@ -296,7 +312,7 @@ class Graph extends Component {
 
                         if ("meta" in data) {
                             const { meta, ...figdata } = data;
-                            this.setState({ internalFigure: figdata, meta: data.meta });
+                            this.setState({ internalFigure: figdata, meta: this.filterMeta(data.meta) });
                         } else {
                             this.setState({ internalFigure: data });
                         }
@@ -402,7 +418,7 @@ class Graph extends Component {
         }
 
         if (newProps.meta !== this.state.meta) {
-            this.setState({ meta: newProps.meta });
+            this.setState({ meta: this.filterMeta(newProps.meta) });
         }
 
     }
@@ -529,16 +545,18 @@ class Graph extends Component {
             let columns = [];
 
             if (this.usePlotApi()) {
-                columns = Object.keys(this.state.internalFigure).map(k => { return { name: k, id: k } });
+                columns = Object.keys(this.state.internalFigure).map(k => { return { name: k, id: k, hideable:false } });
             } else {
-                columns = Object.keys(this.props.figure).map(k => { return { name: k, id: k } });
+                columns = Object.keys(this.props.figure).map(k => { return { name: k, id: k, hideable:false } });
             }
             if ("defParams" in this.props) {
                 try {
-                    columns = this.props.defParams.plot.params.dimensions.map(k => { return { name: k, id: k } })
+                    columns = this.props.defParams.plot.params.dimensions.map(k => { return { name: k, id: k, hideable:false } })
                 } catch { }
             }
 
+
+            const hiddenColumns = (this.state &amp;&amp; this.state.hiddenColumns) ? this.state.hiddenColumns : this.props.hiddenColumns;
             let props = {
                 id: this.props.id,
                 className: this.props.className,
@@ -551,7 +569,8 @@ class Graph extends Component {
                 page_action: 'none',
                 fixed_rows: { headers: true, data: 0 },
                 style_table: { height: '300px', overflowY: 'auto' },
-                style_cell: { 'minWidth': '50px', fontSize: "14px" }
+                style_cell: { 'minWidth': '50px', fontSize: "14px" },
+                hidden_columns: hiddenColumns,
             }
 
             if (this.usePlotApi()) {
@@ -689,6 +708,12 @@ Graph.propTypes = {
      */
     setProps: PropTypes.func,
 
+
+    /**
+     * hidden column names (array of strings)
+     */
+    hiddenColumns: PropTypes.array,
+
 };
 
 
@@ -707,6 +732,7 @@ Graph.defaultProps = {
     showTransform: true,
     className: "",
     plotApi: "",
+    hiddenColumns: ["_id", "index"],
 };
 
 
