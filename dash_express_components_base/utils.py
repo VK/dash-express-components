@@ -706,3 +706,78 @@ def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=
         errorResult = "Error: " + str(inst)
 
     return get_error_plot(errorResult, meta=meta)
+
+
+
+
+
+
+def make_response(fig, zipped = "auto", expires = 900, delay = 0.0005, chunk_size = 1024*16):
+    """ Create a response for a large plotly figure that can be streamed in chunks
+
+    Parameters
+    ----------
+
+    fig: dict or plotly figure
+        Plot to be streamed as a JSON response
+    
+    zipped: bool or str (default: "auto")
+        Whether to compress the response with gzip. If "auto", the decision is based on the client's Accept-Encoding header
+
+    expires: int or None (default: 900)
+        Number of seconds until the response expires. If None, the response will not expire
+
+    delay: float or None (default: 0.0001)
+        Number of seconds to wait between sending chunks. If None, no delay is applied
+
+    chunk_size: int (default: 1024*16)
+        Size of each chunk in bytes
+
+    Returns
+    -------
+    response: flask.Response
+        Flask response object that can be returned from a route
+    
+    """
+    import time
+    import gzip
+    import datetime
+    import io
+    from plotly.utils import PlotlyJSONEncoder
+    import json
+    from flask import request, make_response
+
+
+    if zipped == "auto":
+        zipped = "gzip" in request.headers.get('Accept-Encoding', '')
+
+    # Create a generator to stream the JSON response in chunks
+    def generate():
+        json_data = json.dumps(fig, cls=PlotlyJSONEncoder)
+        if zipped:
+            gzip_buffer = io.BytesIO()
+            with gzip.GzipFile(mode='w', fileobj=gzip_buffer) as gzip_file:
+                gzip_file.write(json_data.encode('utf-8'))
+            gzip_buffer.seek(0)
+            while True:
+                chunk = gzip_buffer.read(chunk_size)
+                if not chunk:
+                    break
+                if delay is not None:   
+                    time.sleep(delay)
+                yield chunk
+        else:
+            for i in range(0, len(json_data), chunk_size):
+                if delay is not None:
+                    time.sleep(delay)
+                yield json_data[i:i + chunk_size].encode('utf-8')
+
+    response = make_response(generate(), 200)
+    if expires is not None:
+        response.headers['Expires'] = (datetime.datetime.now() + datetime.timedelta(seconds=expires)).strftime('%a, %d %b %Y %H:%M:%S GMT')
+
+    response.headers['Content-Type'] = "application/json; charset=utf-8"
+    if zipped:
+        response.headers['Content-Encoding'] = 'gzip'
+
+    return response
