@@ -191,9 +191,9 @@ def update_meta(dataframeType):
 @app.server.route("/plotApi", methods=['POST', 'GET'])
 def plotApi():
     # for testing only resonse every 5th request
-    if np.random.randint(5) != 0:
-        # return a 202 to simulate a long running task
-        return {}, 202
+    # if np.random.randint(5) != 0:
+    #     # return a 202 to simulate a long running task
+    #     return {}, 202
     
     config = request.get_json()
     if request.method == 'POST':

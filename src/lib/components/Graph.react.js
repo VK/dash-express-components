@@ -471,7 +471,7 @@ class Graph extends Component {
                     {this.state.is_loading && <div className="dxc-spinner-container"><div className="dxc-spinner-border" role="status"><span className="sr-only"></span></div>
                     </div>}
 
-                    <CoreDataTable {...props} setProps={
+                    {(!this.state.is_loading) && <CoreDataTable {...props} setProps={
                         el => {
 
                             if (("selectedData" in el) || ("prependData" in el) || ("extendData" in el)) {
@@ -489,7 +489,7 @@ class Graph extends Component {
                             }
                         }
                     }
-                    />
+                    />}
 
                     <div className="saveClickContainer" style={{ position: "relative", left: "-20px", bottom: "0px" }}>{save_button}{edit_button}</div>
                     {configurator_modal}
