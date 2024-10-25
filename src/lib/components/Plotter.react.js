@@ -123,13 +123,13 @@ class Plotter extends Base {
             <Modal.Header closeButton>
                 <Modal.Title>Plot Types</Modal.Title>
             </Modal.Header>
-            <Modal.Body><div className="mt-2 container row" style={{ padding: 0 }}>
+            <Modal.Body><div className="mt-2 dxc-container dxc-row" style={{ padding: 0 }}>
 
                 {known_plots.map(pt => {
 
 
                     return (
-                        <div className="col-6 mb-2"><Button
+                        <div className="dxc-col-6 dxc-mb-2"><Button
                             key={"set-plot-" + pt.type}
                             variant="outline-secondary"
                             className="d-flex align-items-center w-100"
@@ -144,7 +144,7 @@ class Plotter extends Base {
 
                         >
                             <div style={{ width: "75px", height: "75px" }}>{(pt && "icon" in pt) ? pt.icon : ""}</div>
-                            <div className="flex-grow-1 mt-2 h3">
+                            <div className="flex-grow-1 dxc-mt-2 h3">
                                 {(pt && "label" in pt) ? pt.label : ""}
                             </div>
                         </Button></div>

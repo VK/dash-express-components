@@ -468,11 +468,11 @@ class Transform extends Base {
             <Modal.Header closeButton>
                 <Modal.Title>Transformation Types</Modal.Title>
             </Modal.Header>
-            <Modal.Body><div className="mt-2 container row" style={{ padding: 0 }}>
+            <Modal.Body><div className="mt-2 dxc-container dxc-row" style={{ padding: 0 }}>
 
                 {Transform.trafo_groups.map(gr => {
 
-                    return <div className='p-1 col-6'><h4>{gr.label}</h4> {
+                    return <div className='dxc-p-1 dxc-col-6'><h4>{gr.label}</h4> {
 
 
                         Transform.known_trafos.filter(pt => pt.group == gr.value).map(pt => {

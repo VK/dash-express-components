@@ -177,7 +177,7 @@ export default class Parameterize extends Base {
                 new_path_options = Object.keys(cfg_node).map(el =>
                     <Button key={"to-" + el}
                         variant="secondary"
-                        className="m-1"
+                        className="dxc-m-1"
                         onClick={() => {
                             let dummy = [...newPath, el];
                             this.setState({ newPath: dummy });
@@ -205,7 +205,7 @@ export default class Parameterize extends Base {
                     Select a configuration element: <br />
                     <Button
                         variant="primary"
-                        className="m-1"
+                        className="dxc-m-1"
                         onClick={() => {
                             this.setState({ newPath: [] });
                         }}>.</Button>
@@ -214,7 +214,7 @@ export default class Parameterize extends Base {
                         newPath.map((el, idx) =>
                             <Button
                                 variant="primary"
-                                className="m-1"
+                                className="dxc-m-1"
                                 key={"backto-" + el}
                                 onClick={() => {
                                     let dummy = newPath.slice(0, idx + 1);
