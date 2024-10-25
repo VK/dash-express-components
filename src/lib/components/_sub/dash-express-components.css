@@ -224,7 +224,7 @@ div[role="dialog"][aria-modal="true"]:nth-of-type(6) {
 }
 
 .dxc-spinner-container {
-	position: relative;
+	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -232,9 +232,20 @@ div[role="dialog"][aria-modal="true"]:nth-of-type(6) {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: rgba(255, 255, 255, 0.2);
+	background-color: rgba(255, 255, 255, 0.8);
 	z-index: 9998;
+	pointer-events: unset;
 }
+
+.dxc-spinner-hidden {
+	opacity: 0;
+	background-color: transparent;
+	pointer-events: none;
+}
+
+
+
+
 
 .dxc-spinner-border {
 	position: relative;

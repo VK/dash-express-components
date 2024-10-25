@@ -330,6 +330,9 @@ class Graph extends Component {
 
     render() {
 
+
+        const spinnerClass = this.state.is_loading ? "dxc-spinner-container" : "dxc-spinner-container dxc-spinner-hidden";
+
         /*Start VK addon*/
         let save_button = "";
         let edit_button = "";
@@ -403,8 +406,8 @@ class Graph extends Component {
 
                 return (
                     <div className='pxc-graph-container' ref={(divElement) => { this.graphDiv = divElement }}>
-                        {this.state.is_loading && <div className="dxc-spinner-container"><div className="dxc-spinner-border" role="status"><span className="sr-only"></span></div>
-                        </div>}
+                        <div className={spinnerClass}><div className="dxc-spinner-border" role="status"><span className="sr-only"></span></div>
+                        </div>
                         <CoreGraph
                             {...inner_props}
                             clearState={this.clearState}
@@ -417,8 +420,8 @@ class Graph extends Component {
             } else {
                 return (
                     <div className='pxc-graph-container' ref={(divElement) => { this.graphDiv = divElement }}>
-                        {this.state.is_loading && <div className="dxc-spinner-container"><div className="dxc-spinner-border" role="status"><span className="sr-only"></span></div>
-                        </div>}
+                        <div className={spinnerClass}><div className="dxc-spinner-border" role="status"><span className="sr-only"></span></div>
+                        </div>
                         <CoreGraph
                             {...this.props}
                             clearState={this.clearState}
@@ -466,10 +469,12 @@ class Graph extends Component {
                 props.data = this.state.internalFigure;
             }
 
+
+
             return (
                 <div className='pxc-graph-container' style={{ padding: "5px" }}>
-                    {this.state.is_loading && <div className="dxc-spinner-container"><div className="dxc-spinner-border" role="status"><span className="sr-only"></span></div>
-                    </div>}
+                    <div className={spinnerClass}><div className="dxc-spinner-border" role="status"><span className="sr-only"></span></div>
+                    </div>
 
                     {(!this.state.is_loading) && <CoreDataTable {...props} setProps={
                         el => {
