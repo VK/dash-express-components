@@ -123,7 +123,7 @@ class Plotter extends Base {
             <Modal.Header closeButton>
                 <Modal.Title>Plot Types</Modal.Title>
             </Modal.Header>
-            <Modal.Body><div className="mt-2 container row" style={{ paddingRight: 0 }}>
+            <Modal.Body><div className="mt-2 container row" style={{ padding: 0 }}>
 
                 {known_plots.map(pt => {
 

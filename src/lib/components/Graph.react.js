@@ -306,7 +306,7 @@ class Graph extends Component {
 
         }
 
-        if (newProps.meta !== this.state.meta) {
+        if (newProps.meta !== this.state.meta && newProps.meta) {
             this.setState({ meta: this.filterMeta(newProps.meta) });
         }
 
