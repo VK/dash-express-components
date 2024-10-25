@@ -207,7 +207,7 @@ def plotApi():
         if "dataframe_type" in config:
             dataframe_type = config["dataframe_type"]
         fig = dxc.get_plot(dataframe[dataframe_type], config)
-        return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+        return dxc.make_response(fig)
     return {}, 200
 
 # @app.callback(
