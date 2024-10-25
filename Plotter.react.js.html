@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="5683112" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="3897473" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -234,13 +234,13 @@ class Plotter extends Base {
             &lt;Modal.Header closeButton>
                 &lt;Modal.Title>Plot Types&lt;/Modal.Title>
             &lt;/Modal.Header>
-            &lt;Modal.Body>&lt;div className="mt-2 container row" style={{ padding: 0 }}>
+            &lt;Modal.Body>&lt;div className="mt-2 dxc-container dxc-row" style={{ padding: 0 }}>
 
                 {known_plots.map(pt => {
 
 
                     return (
-                        &lt;div className="col-6 mb-2">&lt;Button
+                        &lt;div className="dxc-col-6 dxc-mb-2">&lt;Button
                             key={"set-plot-" + pt.type}
                             variant="outline-secondary"
                             className="d-flex align-items-center w-100"
@@ -255,7 +255,7 @@ class Plotter extends Base {
 
                         >
                             &lt;div style={{ width: "75px", height: "75px" }}>{(pt &amp;&amp; "icon" in pt) ? pt.icon : ""}&lt;/div>
-                            &lt;div className="flex-grow-1 mt-2 h3">
+                            &lt;div className="flex-grow-1 dxc-mt-2 h3">
                                 {(pt &amp;&amp; "label" in pt) ? pt.label : ""}
                             &lt;/div>
                         &lt;/Button>&lt;/div>
