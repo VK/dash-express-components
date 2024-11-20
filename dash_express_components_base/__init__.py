@@ -9,6 +9,7 @@ import dash as _dash
 from dash import dash_table
 from . import plottypes
 from . import transformationtypes
+from .transformationtypes import BaseTransform
 
 # noinspection PyUnresolvedReferences
 from ._imports_ import *

@@ -124,11 +124,11 @@ class Transform extends Base {
         {
             group: "missing", type: "filteriqr", class: FilterIqrTransform,
             "label": "Apply a grouped IQR filter", svg: <FilterIqrSvg />
-        },      
+        },
         {
             group: "missing", type: "groupby_sample", class: GroupedSample,
             "label": "Apply a grouped sampling", svg: <GroupedSampleSvg />
-        },             
+        },
         {
             group: "meta", type: "rename", class: RenameTransform,
             "label": "Rename multiple columns", svg: <RenameSvg />
@@ -136,11 +136,11 @@ class Transform extends Base {
         {
             group: "meta", type: "as_type", class: AsType,
             "label": "Recast multiple columns", svg: <AsTypeSvg />
-        },        
+        },
         {
             group: "col", type: "bin", class: BinTransform,
             "label": "Compute a binned variable", svg: <BinSvg />
-        },        
+        },
     ]
 
 
@@ -204,20 +204,29 @@ class Transform extends Base {
         if (new_config)
             new_config.forEach(el => {
 
-                let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
-                let res = transform_class.eval(
-                    {
-                        ...el,
-                        meta: new_meta
+                // if the transform is not known, skip it
+                if (Transform.known_trafos.filter(t => t["type"] === el["type"]).length !== 0) {
+
+                    let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
+                    let res = transform_class.eval(
+                        {
+                            ...el,
+                            meta: new_meta
+                        }
+                    );
+                    if (res["new_meta"] != undefined) {
+                        new_meta = res["new_meta"];
+                        meta_stages.push(new_meta);
+                    } else {
+                        meta_stages.push({});
                     }
-                );
-                if (res["new_meta"] != undefined) {
-                    new_meta = res["new_meta"];
-                    meta_stages.push(new_meta);
+                    stage_results.push(res);
+
                 } else {
+                    // TODO add a server callback to get the result of the transform
+                    stage_results.push({ error: false, message: "Unknown transform type: " + el["type"] });
                     meta_stages.push({});
                 }
-                stage_results.push(res);
 
 
             });
@@ -250,6 +259,14 @@ class Transform extends Base {
             return <div>
                 {
                     config.map((el, id) => {
+
+
+                        // if the transform is not known, we use a generic block
+                        if (Transform.known_trafos.filter(t => t["type"] === el["type"]).length === 0) {
+                            return <Alert variant='warning' key={id}>
+                                <pre className='mb-0'>{JSON.stringify(el, null, 2)}</pre>
+                            </Alert>
+                        }
 
                         let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
 

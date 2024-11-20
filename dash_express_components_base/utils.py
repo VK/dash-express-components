@@ -333,8 +333,8 @@ def apply_transforms(inputDataFrame, config):
     if isinstance(config, dict) and "transform" in config:
         transform_config = config["transform"]
 
-    if isinstance(transform_config, list):
-        transform_config = transform_config
+    if not isinstance(transform_config, list):
+        transform_config = [transform_config]
 
     for el in transform_config:
         inputDataFrame = getattr(
@@ -344,13 +344,31 @@ def apply_transforms(inputDataFrame, config):
 
 
 
-def get_plot(inputDataFrame, config, apply_parameterization=True, compute_types=["custom", "dask", "mongodf", "pyspark"], meta="compute"):
+def register_transform(trafoclass: transformationtypes.BaseTransform):
+    """
+    register a transformation class
+    """
+    name = trafoclass.name
+    # check if name is already in the transformationtypes
+    if hasattr(transformationtypes, name):
+        raise ValueError(
+            f"Transformation type {name} already exists. Please use a different name.")
+    setattr(transformationtypes, name, trafoclass)
+
+def get_plot(
+        inputDataFrame,
+        config,
+        apply_parameterization=True,
+        compute_types=["custom", "dask", "mongodf", "pyspark"],
+        meta="compute"
+    ):
     errorResult = "Empty plot"
     import pandas as _pd
     import numpy as _np
     import plotly.express as _px
     import plotly.graph_objects as _go
 
+    # check if we have to compute the meta
     if meta == "compute":
         meta = get_meta_if_possible(inputDataFrame)
     if meta == False:

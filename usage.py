@@ -57,6 +57,9 @@ test_cfg = {
   },
   "transform": [
     {
+      "type": "add_noise"
+    },
+    {
       "type": "bin",
       "cols": [
         "Br"
@@ -220,6 +223,24 @@ def plotApi():
 #         raise PreventUpdate
 #     except:
 #         raise PreventUpdate
+
+
+
+
+
+class NoiseTransform(dxc.BaseTransform):
+    def compute(self, cfg, inputDataFrame):
+
+        import numpy as np
+
+        data_legth = inputDataFrame["Br"].values.shape[0]
+        inputDataFrame["Br"] = inputDataFrame["Br"] + np.random.normal(0, 20, data_legth)
+
+        return inputDataFrame
+
+dxc.register_transform(NoiseTransform("add_noise"))
+
+
 
 
 if __name__ == '__main__':
