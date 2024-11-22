@@ -83,7 +83,7 @@
   <body>
 
     <nav class="navbar" id="navbar">
-      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="4503855" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://github.com/VK/dash-express-components' class=' menu-link' id='' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="7989795" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="ConfigReceiver.html">ConfigReceiver</a></li><li class="accordion-list" id=""><a href="Configurator.html">Configurator</a></li><li class="accordion-list" id=""><a href="Filter.html">Filter</a></li><li class="accordion-list" id=""><a href="Graph.html">Graph</a></li><li class="accordion-list" id=""><a href="MetaCheck.html">MetaCheck</a></li><li class="accordion-list" id=""><a href="Plotter.html">Plotter</a></li><li class="accordion-list" id=""><a href="Transform.html">Transform</a></li></ul> </div>
       
 
     </nav>
@@ -235,11 +235,11 @@ class Transform extends Base {
         {
             group: "missing", type: "filteriqr", class: FilterIqrTransform,
             "label": "Apply a grouped IQR filter", svg: &lt;FilterIqrSvg />
-        },      
+        },
         {
             group: "missing", type: "groupby_sample", class: GroupedSample,
             "label": "Apply a grouped sampling", svg: &lt;GroupedSampleSvg />
-        },             
+        },
         {
             group: "meta", type: "rename", class: RenameTransform,
             "label": "Rename multiple columns", svg: &lt;RenameSvg />
@@ -247,11 +247,11 @@ class Transform extends Base {
         {
             group: "meta", type: "as_type", class: AsType,
             "label": "Recast multiple columns", svg: &lt;AsTypeSvg />
-        },        
+        },
         {
             group: "col", type: "bin", class: BinTransform,
             "label": "Compute a binned variable", svg: &lt;BinSvg />
-        },        
+        },
     ]
 
 
@@ -315,20 +315,29 @@ class Transform extends Base {
         if (new_config)
             new_config.forEach(el => {
 
-                let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
-                let res = transform_class.eval(
-                    {
-                        ...el,
-                        meta: new_meta
+                // if the transform is not known, skip it
+                if (Transform.known_trafos.filter(t => t["type"] === el["type"]).length !== 0) {
+
+                    let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
+                    let res = transform_class.eval(
+                        {
+                            ...el,
+                            meta: new_meta
+                        }
+                    );
+                    if (res["new_meta"] != undefined) {
+                        new_meta = res["new_meta"];
+                        meta_stages.push(new_meta);
+                    } else {
+                        meta_stages.push({});
                     }
-                );
-                if (res["new_meta"] != undefined) {
-                    new_meta = res["new_meta"];
-                    meta_stages.push(new_meta);
+                    stage_results.push(res);
+
                 } else {
+                    // TODO add a server callback to get the result of the transform
+                    stage_results.push({ error: false, message: "Unknown transform type: " + el["type"] });
                     meta_stages.push({});
                 }
-                stage_results.push(res);
 
 
             });
@@ -361,6 +370,14 @@ class Transform extends Base {
             return &lt;div>
                 {
                     config.map((el, id) => {
+
+
+                        // if the transform is not known, we use a generic block
+                        if (Transform.known_trafos.filter(t => t["type"] === el["type"]).length === 0) {
+                            return &lt;Alert variant='warning' key={id}>
+                                &lt;pre className='mb-0'>{JSON.stringify(el, null, 2)}&lt;/pre>
+                            &lt;/Alert>
+                        }
 
                         let transform_class = Transform.known_trafos.filter(t => t["type"] === el["type"])[0]["class"];
 
