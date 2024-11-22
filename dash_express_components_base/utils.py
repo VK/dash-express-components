@@ -13,7 +13,7 @@ def get_error_plot(text, meta):
 
     fig = _go.Figure()
     fig.add_annotation(
-        text=text,
+        text="<br>".join(text.split("\n")),
         x=0.5,  # X-coordinate of the center
         y=0.5,  # Y-coordinate of the center
         xref="paper",

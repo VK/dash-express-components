@@ -5,6 +5,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Select from 'react-select';
 import { singleColorStyle, multiColorStyle, hideGroupComponents, multiCallbacks } from '../_sub/Base.react';
+import { groupBy } from 'ramda';
 
 
 export default class PlotterBase extends Component {
@@ -208,10 +209,13 @@ export default class PlotterBase extends Component {
 
             x: this.state.x,
             y: this.state.y,
+            idx: this.state.idx,
+            groupby: this.state.groupby,
             dimensions: this.state.dimensions,
             color: this.state.color,
             symbol: this.state.symbol,
             size: this.state.size,
+
 
             boxmode: this.state.boxmode,
             aggr: this.state.aggr,

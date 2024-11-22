@@ -16,6 +16,12 @@ dataframe = {}
 dataframe["gapminder"] = px.data.gapminder()
 dataframe["gapminder"]["time"] = datetime.datetime.now()
 
+dataframe["world"] = pd.read_csv("./world.csv")
+dataframe["world"]["color"] = "#ff0000"
+country_names = dataframe["world"]["Country"].unique().tolist()
+dataframe["world"]["Country_IDX"] = dataframe["world"].apply(
+    lambda x: country_names.index(x["Country"]), axis=1)
+
 
 # image testcase
 
@@ -193,9 +199,9 @@ def update_meta(dataframeType):
 @app.server.route("/plotApi", methods=['POST', 'GET'])
 def plotApi():
     # for testing only resonse every 5th request
-    if np.random.randint(5) != 0:
+    #if np.random.randint(5) != 0:
         # return a 202 to simulate a long running task
-        return {}, 202
+    #    return {}, 202
     
     config = request.get_json()
     if request.method == 'POST':
@@ -233,8 +239,9 @@ class NoiseTransform(dxc.BaseTransform):
 
         import numpy as np
 
-        data_legth = inputDataFrame["Br"].values.shape[0]
-        inputDataFrame["Br"] = inputDataFrame["Br"] + np.random.normal(0, 20, data_legth)
+        if "BR" in inputDataFrame.columns:
+          data_legth = inputDataFrame["Br"].values.shape[0]
+          inputDataFrame["Br"] = inputDataFrame["Br"] + np.random.normal(0, 20, data_legth)
 
         return inputDataFrame
 

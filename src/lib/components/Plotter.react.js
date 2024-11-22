@@ -19,8 +19,10 @@ import ScatterMatrix from './_plot/ScatterMatrix.react';
 import HistogramLine from './_plot/HistogramLine.react';
 import Probability from './_plot/Probability.react';
 
+import Polygon from './_plot/Polygon.react';
+
 import Table from './_plot/Table.react';
-let known_plots = [Scatter, Box, Violin, Imshow, Bar, BarCount, ScatterMatrix, HistogramLine, Probability, Table].map(el => {
+let known_plots = [Scatter, Box, Violin, Imshow, Bar, BarCount, ScatterMatrix, HistogramLine, Probability, Polygon, Table].map(el => {
     return { type: el.type, class: el, label: el.label, icon: el.icon }
 });
 let plots_dict = Object.assign({}, ...known_plots.map((x) => ({ [x.type]: x })));

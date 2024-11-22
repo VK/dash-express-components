@@ -5,4 +5,5 @@ from ._imshow import _get as imshow
 from ._probability import _get as probability
 from ._table import _get as table
 from ._scatter import _get as scatter
+from ._polygon import _get as polygon
 

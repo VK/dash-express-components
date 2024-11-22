@@ -129,8 +129,9 @@
 
 
 
-
-
+.modal {
+	z-index: 100100;
+}
 .modal-backdrop.show:nth-of-type(1) {
 	z-index: 100005;
 }
@@ -173,6 +174,36 @@ div[role="dialog"][aria-modal="true"]:nth-of-type(6) {
 	z-index: 100032;
 	backdrop-filter: blur(1px);
 }
+.modal-backdrop.show:nth-of-type(7) {
+	z-index: 100035;
+}
+div[role="dialog"][aria-modal="true"]:nth-of-type(7) {
+	z-index: 100037;
+	backdrop-filter: blur(1px);
+}
+.modal-backdrop.show:nth-of-type(8) {
+	z-index: 100040;
+}
+div[role="dialog"][aria-modal="true"]:nth-of-type(8) {
+	z-index: 100042;
+	backdrop-filter: blur(1px);
+}
+.modal-backdrop.show:nth-of-type(9) {
+	z-index: 100045;
+}
+div[role="dialog"][aria-modal="true"]:nth-of-type(9) {
+	z-index: 100047;
+	backdrop-filter: blur(1px);
+}
+.modal-backdrop.show:nth-of-type(10) {
+	z-index: 100050;
+}
+div[role="dialog"][aria-modal="true"]:nth-of-type(10) {
+	z-index: 100052;
+	backdrop-filter: blur(1px);
+}
+
+
 .modal-content {
 	box-shadow: 2px 2px 15px 10px rgb(0 0 0 / 40%);
 }
