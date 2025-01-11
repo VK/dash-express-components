@@ -12,6 +12,6 @@ from . import _bin as bin
 from . import _iqrfilter as filteriqr
 from . import _asType as as_type
 from . import _groupby_sample as groupby_sample
-
+from . import _pivot_table as pivot_table
 
 from ._base import BaseTransform

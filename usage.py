@@ -95,6 +95,69 @@ test_cfg = {
 
 }
 
+test_cfg = {
+  "plot": {
+    "type": "table",
+    "params": {
+      "dimensions": [
+        "Name",
+        "Br_A",
+        "Br_B"
+      ]
+    }
+  },
+  "transform": [
+    {
+      "type": "add_noise"
+    },
+    {
+      "type": "bin",
+      "cols": [
+        "Br"
+      ],
+      "name": "test",
+      "binning": [
+        {
+          "min": 0,
+          "max": 50,
+          "name": "A"
+        },
+        {
+          "min": 50,
+          "max": 250,
+          "name": "B"
+        }
+      ],
+      "overlapping": False
+    },
+    {
+      "type": "eval",
+      "col": "X",
+      "formula": "X-100"
+    },
+    {
+      "type": "pivot_table",
+      "index": [
+        "Name"
+      ],
+      "columns": [
+        "test"
+      ],
+      "values": [
+        "Br"
+      ],
+      "aggfunc": []
+    }
+  ],
+  "filter": [],
+  "parameterization": {
+    "parameters": [],
+    "computeAll": False,
+    "computeMatrix": []
+  }
+}
+
+
 # test_cfg = {
 #   "plot": {
 #     "type": "histogram_line",

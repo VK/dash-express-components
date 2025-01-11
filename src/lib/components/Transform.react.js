@@ -24,6 +24,7 @@ import BinTransform from './_sub/BinTransform.react';
 import FilterIqrTransform from './_sub/FilterIqrTransform.react';
 import AsType from './_sub/AsType.react';
 import GroupedSample from './_sub/GroupedSample.react';
+import PivotTableTransform from './_sub/PivotTableTransform.react';
 
 
 import AggrSvg from 'react-svg-loader!./_svg/aggr.svg';
@@ -40,6 +41,7 @@ import BinSvg from 'react-svg-loader!./_svg/bin.svg';
 import FilterIqrSvg from 'react-svg-loader!./_svg/filteriqr.svg';
 import AsTypeSvg from 'react-svg-loader!./_svg/astype.svg';
 import GroupedSampleSvg from 'react-svg-loader!./_svg/groupedsample.svg';
+import PivotTableTransformSvg from 'react-svg-loader!./_svg/pivottable.svg';
 
 
 
@@ -109,6 +111,10 @@ class Transform extends Base {
             group: "reshape", type: "wide_to_long", class: WideToLong,
             "label": "Rearrange columns based on naming", svg: <WideToLongSvg />
         },
+        {
+            group: "reshape", type: "pivot_table", class: PivotTableTransform,
+            "label": "Create a pivot table", svg: <PivotTableTransformSvg />
+        },        
         {
             group: "col", type: "catlookup", class: CategoryLookup,
             "label": "Apply a lookup on a categorical column", svg: <CatlookupSvg />
