@@ -16,10 +16,10 @@ jobs:
           node-version: 18.x
       - name: Install dependencies
         run: npm install
-      - name: Set up Python 3.8
+      - name: Set up Python 3.11
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: 3.11
       - name: Install software
         run: sudo apt-get install -y chromium-browser          
       - name: Install Python dependencies
