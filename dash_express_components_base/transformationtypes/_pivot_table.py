@@ -1,5 +1,5 @@
 
-import pandas as pd
+
 
 def compute(cfg, inputDataFrame):
     """
@@ -16,6 +16,8 @@ def compute(cfg, inputDataFrame):
     Returns:
     - outputDataFrame: pd.DataFrame, the pivot table with flattened columns
     """
+    import pandas as pd
+
     values = cfg["values"]
     index = cfg["index"]
     columns = cfg["columns"]
