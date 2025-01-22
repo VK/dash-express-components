@@ -102,6 +102,7 @@ export default class PlotterBase extends Component {
                 }
             },
             labels: { id: "labels", label: "Label", visible: false, reset: { hover_name: [], hover_data: [], title: null } },
+            labels_only_title: { id: "labelsOT", label: "Label", visible: false, reset: { title: null } },
             axis: {
                 id: "axis", label: "Axis", visible: false, reset: {
                     log_x: null, log_y: null,
@@ -793,6 +794,13 @@ export default class PlotterBase extends Component {
                             {this.multiSelect("Data", "hover_data", allColOptions)}
                         </div>
                     }
+
+                    if (el.id === "labelsOT") {
+                        return <div>
+                            <h5>{el.label}</h5>
+                            {this.range_ManualString("Title", "title")}
+                        </div>
+                    }                    
 
                     if (el.id === "render") {
                         return <div>

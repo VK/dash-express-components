@@ -28,6 +28,9 @@ def _get(inputDataFrame, plotConfigData):
 
     def getProbPlot(groupData, grouped=True):
         res = _stats.probplot(groupData[x])
+        # TODO
+        # add a point reduction sheme
+        
         if grouped:
             return _pd.Series({"Theoretical quantiles": res[0][0], "Percent": _stats.norm.cdf(res[0][0])*100.0, x: res[0][1], "Fit": res[0][0]*res[1][0] + res[1][1]})
         else:
@@ -59,5 +62,8 @@ def _get(inputDataFrame, plotConfigData):
             ticktext=["0.1%", "1%", "10%", "20%", "30%", "40%", "50%",
                         "60%", "70%", "80%", "90%", "95%", "99%", "99.9%"]
     )
+
+    if "params" in plotConfigData and "title" in plotConfigData["params"]  and  plotConfigData["params"]["title"] not in ["", None]:
+        fig = fig.update_layout(title = plotConfigData["params"]["title"])
 
     return fig

@@ -213,4 +213,7 @@ def _get(inputDataFrame, plotConfigData):
                 **extra_options
             )
 
+        if "params" in plotConfigData and "title" in plotConfigData["params"]  and  plotConfigData["params"]["title"] not in ["", None]:
+            fig = fig.update_layout(title = plotConfigData["params"]["title"])
+
     return fig
