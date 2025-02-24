@@ -24,14 +24,16 @@ def compute(cfg, inputDataFrame):
         "hbar_c": 197.326979
     }
 
-    inputDataFrame[cfg["col"]] = inputDataFrame.eval(
-        formula, local_dict=var_dict, engine=None)
-    # try:
-    #     inputDataFrame[cfg["col"]] = inputDataFrame.eval(
-    #         formula, local_dict=var_dict, engine='numexpr')
-    # except:
-    #     inputDataFrame[cfg["col"]] = inputDataFrame.eval(
-    #         formula, local_dict=var_dict, engine='python')
+    transformation_ok = False        
+    try:
+        inputDataFrame[cfg["col"]] = inputDataFrame.eval(
+            formula, local_dict=var_dict, engine='numexpr')
+        transformation_ok = True
+    except Exception as e:
+        print(f"Warning in eval transformation {cfg}: {e}")
+
+    if not transformation_ok:
+        inputDataFrame[cfg["col"]] = inputDataFrame.eval(formula, local_dict=var_dict, engine='python')
 
     # make the back transformation
     inputDataFrame.rename(
