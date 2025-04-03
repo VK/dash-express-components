@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "@nx-js/compiler-util": "^2.0.0",
-    "chroma-js": "^2.1.2",
+    "chroma-js": "^2.2.0",
     "exceljs": "^4.3.0",
     "plotly.js": "^1.58.4",
     "plotly.js-dist": "^2.8.3",
