@@ -47,7 +47,6 @@ aggr_func = {
     "range": range
 }
 
-
 def compute(cfg, inputDataFrame):
 
     types = [aggr_func[t] if t in aggr_func else t for t in cfg["types"]]
