@@ -47,8 +47,10 @@ export default class AggrTransform extends SubComponentBase {
 
         { value: 'q01', label: '1th percentile' },
         { value: 'q05', label: '5th percentile' },
+        { value: 'q10', label: '10th percentile' },
         { value: 'q25', label: '25th percentile' },
         { value: 'q75', label: '75th percentile' },
+        { value: 'q90', label: '90th percentile' },    
         { value: 'q95', label: '95th percentile' },
         { value: 'q99', label: '99th percentile' }
     ]
