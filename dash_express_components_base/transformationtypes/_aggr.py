@@ -5,6 +5,8 @@ def q01(x):
 def q05(x):
     return x.quantile(0.05)
 
+def q10(x):
+    return x.quantile(0.10)
 
 def q25(x):
     return x.quantile(0.25)
@@ -13,6 +15,8 @@ def q25(x):
 def q75(x):
     return x.quantile(0.75)
 
+def q90(x):
+    return x.quantile(0.90)
 
 def q95(x):
     return x.quantile(0.95)
@@ -33,8 +37,10 @@ def range(x):
 aggr_func = {
     "q01": q01,
     "q05": q05,
+    "q10": q10,
     "q25": q25,
     "q75": q75,
+    "q90": q90,
     "q95": q95,
     "q99": q99,
     "iqr": iqr,
